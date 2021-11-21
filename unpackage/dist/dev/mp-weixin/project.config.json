@@ -30,44 +30,19 @@
       "current": 0,
       "list": [
         {
-          "name": "Demo",
+          "name": "Create",
           "id": 0,
+          "pathName": "page/Creation/creation"
+        },
+        {
+          "name": "Demo",
+          "id": 1,
           "pathName": "page/demo"
         },
         {
           "name": "HandAccount",
-          "id": 1,
-          "pathName": "page/HandAccount/handAccount"
-        },
-        {
-          "name": "createRecord",
           "id": 2,
-          "pathName": "page/Memorandum/createRecord"
-        },
-        {
-          "name": "record",
-          "id": 3,
-          "pathName": "page/Memorandum/record"
-        },
-        {
-          "name": "creataPlan",
-          "id": 4,
-          "pathName": "page/Memorandum/createPlan"
-        },
-        {
-          "name": "classTable",
-          "id": 5,
-          "pathName": "page/Memorandum/classTable"
-        },
-        {
-          "name": "work",
-          "id": 6,
-          "pathName": "page/Memorandum/work"
-        },
-        {
-          "name": "plan",
-          "id": 7,
-          "pathName": "page/Memorandum/plan"
+          "pathName": "page/HandAccount/handAccount"
         }
       ]
     }

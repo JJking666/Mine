@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #A0CFFF;
+  padding: 0;
+}
+.create image {
+  width: 15vw;
+  height: 15vw;
+  size: 100%;
+}
+.creation {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 5vh 5vw;
+  background-color: #BBBCBE;
+}
+.creation .creation-bk {
+  width: 90vw;
+  height: 70vh;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+  margin-top: 5vh;
+}
+.creation .creation-bk .creation-content {
+  width: inherit;
+  height: inherit;
+  background-color: rgba(255, 192, 203, 0.8);
+  z-index: 99;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+}
+.creation .creation-bk .creation-content image {
+  width: inherit;
+  height: inherit;
+  size: 100%;
+  object-fit: cover;
+  position: fixed;
+  top: 5vh;
+  left: 5vw;
+  z-index: -1;
+}
+.creation .creation-bk .creation-content .content-nav {
+  width: 90vw;
+  height: 6vh;
+  background-color: #e0f8f7;
+  padding: 0.5vh 5vw;
+  box-sizing: border-box;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.creation .creation-bk .creation-content .content-nav .date {
+  width: 25vw;
+  height: 5vh;
+  display: inline-block;
+}
+.creation .creation-bk .creation-content .content-nav .date view {
+  width: 25vw;
+  height: 5vh;
+  background-color: ragb(221, 160, 221, 0.5);
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 5vh;
+}
+.creation .creation-bk .creation-content .content-nav .weather {
+  width: 25vw;
+  height: 5vh;
+  display: inline-block;
+}
+.creation .creation-bk .creation-content .content-nav .weather view {
+  width: 25vw;
+  height: 5vh;
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 5vh;
+}
+.creation .creation-bk .creation-content .content-nav .feel {
+  width: 25vw;
+  height: 5vh;
+  display: inline-block;
+}
+.creation .creation-bk .creation-content .content-nav .feel view {
+  width: 25vw;
+  height: 5vh;
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 5vh;
+}
+

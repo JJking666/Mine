@@ -11,7 +11,8 @@
     "page/Memorandum/createPlan",
     "page/Memorandum/record",
     "page/Memorandum/createRecord",
-    "page/demo"
+    "page/demo",
+    "page/Creation/creation"
   ],
   "subPackages": [],
   "window": {

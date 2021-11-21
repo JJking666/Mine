@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "创作",
+  "usingComponents": {
+    "jin-edit": "/components/jin-edit/jin-edit"
+  }
+}

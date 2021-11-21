@@ -16,7 +16,7 @@
 			ref="editot"
 		></editor>   
 		<!-- 操作工具 -->
-		<view class="tool-view" > 
+		<view class="tool-view" :style="{bottom:jpheight+'px'}"> 
 			<view class="tool">
 				<jinIcon class="single" type="&#xe6f3;" font-size="44rpx" title="插入图片" @click="insertImage"></jinIcon>
 				<jinIcon class="single" type="&#xe6f9;" font-size="44rpx" title="修改文字样式" @click="showMore" :color="showMoreTool ? activeColor : '#666666'"></jinIcon>
@@ -53,6 +53,10 @@
 import jinIcon from './jin-icons.vue';
 export default {
 	props: {
+		jpheight:{
+			type: Number,
+			default:0
+		},
 		// 点击图片时显示图片大小控件
 		showImgSize: {
 			type: Boolean,
@@ -105,14 +109,11 @@ export default {
 			showCenter: false,
 			showRight: false,
 			showSettingLayer: false,
-			activeColor: '#F56C6C'
+			activeColor: '#F56C6C',
 		};
 	},
 	components: {
 		jinIcon
-	},
-	created() {
-		
 	},
 	methods: {
 		onEditorReady(e) {
@@ -265,7 +266,7 @@ export default {
 	line-height: 160%;
 	font-size: 34rpx;
 	width: calc(100% - 60rpx); 
-	height: 70vh;
+	height: 50vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
 	background-color: #A0CFFF;

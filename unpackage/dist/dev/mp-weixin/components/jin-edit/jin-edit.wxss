@@ -10,7 +10,7 @@
 	line-height: 160%;
 	font-size: 34rpx;
 	width: calc(100% - 60rpx); 
-	height: 70vh;
+	height: 50vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
 	background-color: #A0CFFF;
