@@ -1,0 +1,1 @@
+<view class="container"><button type="primary" data-event-opts="{{[['tap',[['testDB']]]]}}" bindtap="__e">testDB</button><button type="primary" data-event-opts="{{[['tap',[['emailSignUp']]]]}}" bindtap="__e">email</button></view>

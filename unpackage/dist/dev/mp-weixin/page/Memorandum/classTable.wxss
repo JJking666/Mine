@@ -1,0 +1,65 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #A0CFFF;
+  padding: 0;
+}
+.create image {
+  width: 15vw;
+  height: 15vw;
+  size: 100%;
+}
+.classTable {
+  width: 100vw;
+  height: 100vh;
+  background-color: #A0CFFF;
+  padding: 5vw 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.classTable .swiper {
+  margin-top: 3vh;
+  width: 100vw;
+  height: 47vh;
+}
+.classTable .swiper textarea {
+  font-size: 36rpx;
+  display: inline-block;
+  width: 50vw;
+  height: 5vh;
+}
+.classTable image {
+  margin-top: 2vh;
+  width: 100vw;
+  height: 40vh;
+  size: 100%;
+}
+.classTable button:nth-of-type(1) {
+  width: 70vw;
+  line-height: 8vh;
+  margin-top: 13vh;
+  height: 8vh;
+}
+.classTable button:nth-of-type(2) {
+  width: 70vw;
+  margin-top: 3vh;
+  height: 8vh;
+  line-height: 8vh;
+}
+

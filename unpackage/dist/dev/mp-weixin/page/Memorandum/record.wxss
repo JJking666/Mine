@@ -1,0 +1,86 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #A0CFFF;
+  padding: 0;
+}
+.create image {
+  width: 15vw;
+  height: 15vw;
+  size: 100%;
+}
+.record {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.record #record-input {
+  margin: 2vh auto;
+  width: 70vw;
+  height: 6vh;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+  font-size: 36rpx;
+  background-color: #f6fff9;
+  line-height: 6vh;
+  padding: 0 5vw;
+}
+.record #record-bk {
+  position: fixed;
+  top: 0;
+  left: -30vw;
+  width: 160vw;
+  height: inherit;
+  size: 100%;
+  z-index: -1;
+}
+.record .recordItem {
+  width: 46vw;
+  height: calc(fit-content+2vh);
+  margin: 1vw;
+  padding: 5vw;
+  vertical-align: top;
+  border: 1rpx solid transparent;
+  border-radius: 20rpx;
+  background-color: #edfffb;
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.record .recordItem #text {
+  width: 80%;
+  height: -webkit-fit-content;
+  height: fit-content;
+  display: -webkit-box;
+  font-size: 32rpx;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  line-height: 150%;
+}
+.record .recordItem text:nth-of-type(1) {
+  display: inline-block;
+  margin-top: 2vh;
+  width: 80%;
+  height: 2vh;
+  font-size: 28rpx;
+  color: #606266;
+  line-height: 150%;
+}
+

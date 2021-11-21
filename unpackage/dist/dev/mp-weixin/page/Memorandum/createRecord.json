@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "写点记录",
+  "usingComponents": {
+    "jin-edit": "/components/jin-edit/jin-edit"
+  }
+}

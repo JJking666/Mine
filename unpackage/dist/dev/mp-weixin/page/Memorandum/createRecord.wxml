@@ -1,0 +1,1 @@
+<view class="container"><jin-edit vue-id="26fbea9a-1" placeholder="请输入内容" uploadFileUrl="/#" data-event-opts="{{[['^editOk',[['editOk']]]]}}" bind:editOk="__e" bind:__l="__l"></jin-edit></view>

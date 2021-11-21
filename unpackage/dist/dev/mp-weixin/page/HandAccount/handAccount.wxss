@@ -1,0 +1,176 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #A0CFFF;
+  padding: 0;
+}
+.create image {
+  width: 15vw;
+  height: 15vw;
+  size: 100%;
+}
+.handAccount {
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-color: #A0CFFF;
+}
+.handAccount .swiper-hor {
+  height: 100vh;
+  width: 100vw;
+}
+.handAccount .swiper-hor #s1 {
+  background-color: #6A6A6A;
+  height: 100vh;
+  width: 100vw;
+}
+.handAccount .swiper-hor #s1 .swiper-ver {
+  height: 100vh;
+  width: 100vw;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 {
+  background-color: rgba(129, 129, 129, 0.5);
+  height: 100vh;
+  width: 100vw;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav {
+  width: 100vw;
+  height: 8vh;
+  background-image: linear-gradient(rgba(129, 129, 129, 0.5), rgba(255, 234, 255, 0.2));
+  position: fixed;
+  top: 0vh;
+  left: 0;
+  padding: 1vh 10vw;
+  box-sizing: border-box;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav image {
+  position: center;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav text {
+  display: inline-block;
+  height: 8vh;
+  margin-left: 5vw;
+  font-size: 32rpx;
+  font-weight: 500;
+  vertical-align: middle;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav #selectUser {
+  float: right;
+  margin-top: 0.5vh;
+  position: center;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head {
+  width: 100vw;
+  height: 6vh;
+  background-color: #e0f8f7;
+  margin-top: 8vh;
+  padding: 0.5vh 5vw;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .date {
+  width: 30vw;
+  height: 5vh;
+  display: inline-block;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .date view {
+  width: 30vw;
+  height: 5vh;
+  background-color: ragb(221, 160, 221, 0.5);
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 5vh;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .weather {
+  width: 30vw;
+  height: 5vh;
+  display: inline-block;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .weather view {
+  width: 30vw;
+  height: 5vh;
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 5vh;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .feel {
+  width: 30vw;
+  height: 5vh;
+  display: inline-block;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .feel view {
+  width: 30vw;
+  height: 5vh;
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 5vh;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain {
+  width: 100vw;
+  height: 75vh;
+  padding: 10vw;
+  background-color: #71D5A1;
+  box-sizing: border-box;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion {
+  width: 80vw;
+  margin: 3vh auto;
+  height: 8vh;
+  background-color: #A0CFFF;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .moveArea {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 90vw;
+  height: 80vw;
+  margin: 0 auto;
+  background-color: #F0AD4E;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .moveArea .moveView {
+  width: 20vw;
+  height: 15vh;
+  background-color: #A0CFFF;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s21 {
+  height: 50vh;
+  width: 100vw;
+  background-color: #c2a7c0;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s31 {
+  height: 50vh;
+  width: 100vw;
+  background-color: #c9ea97;
+}
+.handAccount .swiper-hor #s2 {
+  height: 100vh;
+  width: 100vw;
+  background-color: #c2a7c0;
+}
+.handAccount .swiper-hor #s3 {
+  height: 100vh;
+  width: 100vw;
+  background-color: #c9ea97;
+}
+

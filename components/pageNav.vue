@@ -1,0 +1,66 @@
+<template>
+	<view class="pageNav">
+		<view class="status_bar">
+			<!-- 这里是状态栏 -->
+		</view>
+		<view class="page-nav">
+			<image src="../static/img/memorandum/toLeft.png" @tap="goback"></image><text @tap="goback">返回</text>
+			<slot></slot>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		name: "pageNav",
+		data() {
+			return {
+
+			};
+		},
+		methods:{
+			goback(){
+				uni.navigateBack({
+				    delta: 1
+				});
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+	$navHeight:var(--status-bar-height);
+	$imgSize:4vh;
+	.pageNav {
+		width: 100vw;
+		height: calc(3vh+$navHeight);
+		padding: 1vh 0;border-bottom: 1rpx solid #C8C9CC;
+		.status_bar {
+			height: var(--status-bar-height);
+			width: 100%;
+		}
+
+		.page-nav {
+			width: 100vw;
+			height: $imgSize;
+			position: relative;
+			box-sizing: border-box;
+			
+			& image:nth-child(1) {
+				position: absolute;
+				display: inline-block;
+				width: $imgSize;
+				height: $imgSize;
+				left: 2vw;
+				top: 0;
+			}
+			text{
+				position: absolute;
+				left: 10vw;
+				font-size: 32rpx;
+				line-height: $imgSize;
+				top: 0;
+			}
+		}
+	}
+</style>

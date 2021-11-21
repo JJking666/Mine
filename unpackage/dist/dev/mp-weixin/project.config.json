@@ -1,0 +1,75 @@
+{
+  "description": "项目配置文件。",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": false,
+    "minified": false,
+    "postcss": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "",
+  "appid": "touristappid",
+  "projectname": "Mine",
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 0,
+      "list": [
+        {
+          "name": "Demo",
+          "id": 0,
+          "pathName": "page/demo"
+        },
+        {
+          "name": "HandAccount",
+          "id": 1,
+          "pathName": "page/HandAccount/handAccount"
+        },
+        {
+          "name": "createRecord",
+          "id": 2,
+          "pathName": "page/Memorandum/createRecord"
+        },
+        {
+          "name": "record",
+          "id": 3,
+          "pathName": "page/Memorandum/record"
+        },
+        {
+          "name": "creataPlan",
+          "id": 4,
+          "pathName": "page/Memorandum/createPlan"
+        },
+        {
+          "name": "classTable",
+          "id": 5,
+          "pathName": "page/Memorandum/classTable"
+        },
+        {
+          "name": "work",
+          "id": 6,
+          "pathName": "page/Memorandum/work"
+        },
+        {
+          "name": "plan",
+          "id": 7,
+          "pathName": "page/Memorandum/plan"
+        }
+      ]
+    }
+  }
+}

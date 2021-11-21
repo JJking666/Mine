@@ -1,0 +1,62 @@
+{
+  "pages": [
+    "page/Memorandum/memorandum",
+    "page/HandAccount/handAccount",
+    "page/Community/community",
+    "page/MySetting/mySetting",
+    "page/Memorandum/work",
+    "page/Memorandum/writeWork",
+    "page/Memorandum/classTable",
+    "page/Memorandum/plan",
+    "page/Memorandum/createPlan",
+    "page/Memorandum/record",
+    "page/Memorandum/createRecord",
+    "page/demo"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uView",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "page/HandAccount/handAccount",
+        "iconPath": "./static/uview/common/logo.png",
+        "selectedIconPath": "./static/uview/common/logo.png",
+        "text": "手账"
+      },
+      {
+        "pagePath": "page/Memorandum/memorandum",
+        "iconPath": "./static/uview/common/logo.png",
+        "selectedIconPath": "./static/uview/common/logo.png",
+        "text": "备忘录"
+      },
+      {
+        "pagePath": "page/Community/community",
+        "iconPath": "./static/uview/common/logo.png",
+        "selectedIconPath": "./static/uview/common/logo.png",
+        "text": "社区"
+      },
+      {
+        "pagePath": "page/MySetting/mySetting",
+        "iconPath": "./static/uview/common/logo.png",
+        "selectedIconPath": "./static/uview/common/logo.png",
+        "text": "设置"
+      }
+    ],
+    "midButton": {
+      "width": "80px",
+      "height": "65px",
+      "iconPath": "static/img/memorandum/min_button.png",
+      "iconWidth": "60px"
+    }
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,92 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #A0CFFF;
+  padding: 0;
+}
+.create image {
+  width: 15vw;
+  height: 15vw;
+  size: 100%;
+}
+.plan {
+  width: 100vw;
+  height: 100vh;
+}
+.plan .plan-item {
+  width: 90vw;
+  height: -webkit-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: #A0CFFF;
+  border: 1rpx solid transparent;
+  border-radius: 3vw;
+  margin: 2vh auto;
+  position: relative;
+}
+.plan .plan-item #deleteimg {
+  width: 2vh;
+  height: 2vh;
+  size: 100%;
+  position: absolute;
+  top: 1vh;
+  right: 3vw;
+}
+.plan .plan-item .planHidden {
+  transition: all 0.5s  ease;
+}
+.plan .plan-item #date {
+  margin: 0 auto;
+  display: inline-block;
+  width: 90%;
+  height: 8vh;
+  font-size: 42rpx;
+  font-weight: 600;
+  text-align: center;
+  line-height: 8vh;
+  border-bottom: 1rpx double #3d3e41;
+}
+.plan .plan-item #date1 {
+  margin: 0 auto;
+  display: inline-block;
+  width: 90%;
+  height: 4vh;
+  font-size: 32rpx;
+  color: #828282;
+  text-align: center;
+  line-height: 4vh;
+  border-bottom: 1rpx double #606266;
+}
+.plan .plan-item .label {
+  margin-left: 5vw;
+  width: inherit;
+  height: 4vh;
+  display: block;
+  overflow: hidden;
+  transition: all 0.5s  ease;
+  margin: 1vh 0;
+  margin-left: 3vw;
+}
+.plan .plan-item .label:nth-child(1) {
+  margin-top: 1vh;
+}
+.plan .plan-item .label:last-child {
+  margin-bottom: 1vh;
+}
+

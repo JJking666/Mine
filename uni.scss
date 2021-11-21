@@ -1,0 +1,33 @@
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+@import '@/uni_modules/uview-ui/theme.scss';
+$fontSize-sm:28rpx;
+	$fontSize-md:32rpx;
+	$fontSize-lg:36rpx;
+	.radius-button{
+		border: 1px solid transparent;
+		border-radius: 2vh;
+	}
+$imgSize:4vh;
+$navHeight:var(--status-bar-height);
+$padding-tb:5vw;
+$padding-lr:2vh;
+.create{
+	border: 1px solid transparent;
+	border-radius: 50%;
+			position: fixed;
+			right: 4vw;
+			bottom:20vh;
+			width: 15vw;
+			height: 15vw;
+			background-color: #A0CFFF;
+			padding: 0;
+			image{
+				width: 15vw;
+				height: 15vw;
+				size: 100%;
+			}
+		}
