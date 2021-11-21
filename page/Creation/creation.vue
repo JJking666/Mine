@@ -17,15 +17,13 @@
 				</view>
 				<view class="content-main">
 					<jin-edit :jpheight="jpheight"></jin-edit>
-					<view class="moveArea">
-						<movable-area>
-							<movable-view :x="x" :y="y" direction="all" @change="onChange">{{jpheight}}</movable-view>
-						</movable-area>
-					</view>
+					
 				</view>
+				<movable-area class="moveArea">
+					<movable-view class="moveView" :x="x" :y="y" direction="all" @change="onChange">{{jpheight}}</movable-view>
+				</movable-area>
 			</view>
 		</view>
-		
 	</view>
 </template>
 
@@ -98,7 +96,7 @@
 </script>
 
 <style lang="scss">
-	$content-h:70vh;
+	$content-h:75vh;
 	$content-w:90vw;
 	.creation {
 		width: 100vw;
@@ -120,25 +118,39 @@
 				z-index: 99;
 				border: 1rpx solid transparent;
 				border-radius: 30rpx;
+				.moveArea{
+					position: fixed;
+					top: 10vh;
+					height: $content-h;
+					width: $content-w;
+					left: 5vw;
+					.moveView{
+						width: 20vw;
+						height: 15vh;
+						background-color: #ffbed8;
+					}
+				}
 				image {
 					width: inherit;
 					height: inherit;
 					size: 100%;
 					object-fit: cover;
 					position: fixed;
-					top: 5vh;
+					top: 10vh;
 					left: 5vw;
-					z-index: -1;
+					opacity: 0.5;
 				}
 
 				.content-nav {
 					width: $content-w;
 					height: 6vh;
-					background-color: #e0f8f7;
 					padding: 0.5vh 5vw;
 					box-sizing: border-box;
 					border: 1rpx solid transparent;
 					border-radius: 30rpx;
+					position: fixed;
+					top: 2vh;
+					left: 5vw;
 					display: flex;
 					flex-direction: row;
 					align-items: center;
@@ -147,11 +159,9 @@
 						width: 25vw;
 						height: 5vh;
 						display: inline-block;
-
 						view {
 							width: 25vw;
 							height: 5vh;
-							background-color: ragb(221, 160, 221, 0.5);
 							text-align: center;
 							font-size: $fontSize-sm;
 							line-height: 5vh;
@@ -162,7 +172,6 @@
 						width: 25vw;
 						height: 5vh;
 						display: inline-block;
-
 						view {
 							width: 25vw;
 							height: 5vh;
@@ -176,7 +185,6 @@
 						width: 25vw;
 						height: 5vh;
 						display: inline-block;
-
 						view {
 							width: 25vw;
 							height: 5vh;

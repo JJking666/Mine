@@ -33,7 +33,7 @@
 }
 .creation .creation-bk {
   width: 90vw;
-  height: 70vh;
+  height: 75vh;
   border: 1rpx solid transparent;
   border-radius: 30rpx;
   margin-top: 5vh;
@@ -46,24 +46,38 @@
   border: 1rpx solid transparent;
   border-radius: 30rpx;
 }
+.creation .creation-bk .creation-content .moveArea {
+  position: fixed;
+  top: 10vh;
+  height: 75vh;
+  width: 90vw;
+  left: 5vw;
+}
+.creation .creation-bk .creation-content .moveArea .moveView {
+  width: 20vw;
+  height: 15vh;
+  background-color: #ffbed8;
+}
 .creation .creation-bk .creation-content image {
   width: inherit;
   height: inherit;
   size: 100%;
   object-fit: cover;
   position: fixed;
-  top: 5vh;
+  top: 10vh;
   left: 5vw;
-  z-index: -1;
+  opacity: 0.5;
 }
 .creation .creation-bk .creation-content .content-nav {
   width: 90vw;
   height: 6vh;
-  background-color: #e0f8f7;
   padding: 0.5vh 5vw;
   box-sizing: border-box;
   border: 1rpx solid transparent;
   border-radius: 30rpx;
+  position: fixed;
+  top: 2vh;
+  left: 5vw;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -77,7 +91,6 @@
 .creation .creation-bk .creation-content .content-nav .date view {
   width: 25vw;
   height: 5vh;
-  background-color: ragb(221, 160, 221, 0.5);
   text-align: center;
   font-size: 28rpx;
   line-height: 5vh;

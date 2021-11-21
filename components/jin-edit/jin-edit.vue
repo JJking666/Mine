@@ -15,8 +15,8 @@
 			@blur="editBlur"
 			ref="editot"
 		></editor>   
-		<!-- 操作工具 -->
-		<view class="tool-view" :style="{bottom:jpheight+'px'}"> 
+		<!-- 操作工具 --><!-- //修改 -->
+		<view class="tool-view" v-show="jpheight>0?true:false" :style="{bottom:jpheight+'px'}" > 
 			<view class="tool">
 				<jinIcon class="single" type="&#xe6f3;" font-size="44rpx" title="插入图片" @click="insertImage"></jinIcon>
 				<jinIcon class="single" type="&#xe6f9;" font-size="44rpx" title="修改文字样式" @click="showMore" :color="showMoreTool ? activeColor : '#666666'"></jinIcon>
@@ -25,8 +25,8 @@
 				<jinIcon class="single" type="&#xe705;" font-size="44rpx" title="重做" @click="redo"></jinIcon>
 				<jinIcon class="single" type="&#xeb8a;" font-size="44rpx" title="设置" @click="showSetting"></jinIcon>
 			</view>
-			<!-- 文字相关操作 -->
-			<view class="font-more" :style="{ height: showMoreTool ? '100rpx' : 0 }">
+			<!-- 文字相关操作 --><!-- //修改 -->
+			<view class="font-more" :style="{ height: true ? '100rpx' : 0 }">
 				<jinIcon class="single" type="&#xe6e7;" font-size="44rpx" title="加粗" @click="setBold" :color="showBold ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6fe;" font-size="44rpx" title="斜体" @click="setItalic" :color="showItalic ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6f8;" font-size="44rpx" title="分割线" @click="setIns" :color="showIns ? activeColor : '#666666'"></jinIcon>

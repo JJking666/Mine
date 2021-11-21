@@ -4374,6 +4374,14 @@ var render = function() {
       _c(
         "v-uni-view",
         {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm._$g(2, "v-show"),
+              expression: "_$g(2,'v-show')"
+            }
+          ],
           staticClass: _vm._$g(2, "sc"),
           style: _vm._$g(2, "s"),
           attrs: { _i: 2 }
