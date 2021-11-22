@@ -2,7 +2,9 @@
 	<view class="container" :style="{
 		paddingBottom: showMoreTool ? '220rpx' : '120rpx'
 	}"> 
+		<!-- //修改 -->
 		<editor
+			:style="{zIndex:index}"
 			class="ql-container"
 			:placeholder="placeholder"
 			:show-img-size="true"
@@ -26,7 +28,7 @@
 				<jinIcon class="single" type="&#xeb8a;" font-size="44rpx" title="设置" @click="showSetting"></jinIcon>
 			</view>
 			<!-- 文字相关操作 --><!-- //修改 -->
-			<view class="font-more" :style="{ height: true ? '100rpx' : 0 }">
+			<view class="font-more"> :style="{ height: true ? '100rpx' : 0 }"
 				<jinIcon class="single" type="&#xe6e7;" font-size="44rpx" title="加粗" @click="setBold" :color="showBold ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6fe;" font-size="44rpx" title="斜体" @click="setItalic" :color="showItalic ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6f8;" font-size="44rpx" title="分割线" @click="setIns" :color="showIns ? activeColor : '#666666'"></jinIcon>
@@ -53,6 +55,10 @@
 import jinIcon from './jin-icons.vue';
 export default {
 	props: {
+		index:{
+			type: Number,
+			default:0
+		},
 		jpheight:{
 			type: Number,
 			default:0
@@ -134,36 +140,46 @@ export default {
 		undo() {
 			this.editorCtx.undo();
 		},
-		// 插入图片
+		// 插入图片修改
 		insertImage() {
 			uni.chooseImage({
 				count: 9, //默认9
-				sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+				sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
 				sourceType: ['album', 'camera'], //从相册选择
 				success: async(res) => {
 					var tempFilePaths = res.tempFilePaths;
 					uni.showLoading({
 						title: '正在上传中...'
 					})
-					for (let temp of tempFilePaths) {
-						// 图片上传服务器
-						await uni.uploadFile({
-							url: this.uploadFileUrl,
-							filePath: temp,
-							name: this.fileKeyName,
-							header: this.header,
-							success: res => {
-								// 上传完成后处理
-								this.editorCtx.insertImage({
-									src: temp,  // 此处需要将图片地址切换成服务器返回的真实图片地址
-									alt: '图片',
-									success: function(e) {}
-								});
+					res.tempFilePaths.forEach((item)=>{
+						this.editorCtx.insertImage({
+							src: item,  // 此处需要将图片地址切换成服务器返回的真实图片地址
+							alt: '图片',
+							success: function(e) {
 								uni.hideLoading()
-							},
-							
+							}
 						});
-					}
+					})
+					
+					// for (let temp of tempFilePaths) {
+					// 	// 图片上传服务器
+					// 	await uni.uploadFile({
+					// 		url: this.uploadFileUrl,
+					// 		filePath: temp,
+					// 		name: this.fileKeyName,
+					// 		header: this.header,
+					// 		success: res => {
+					// 			// 上传完成后处理
+					// 			this.editorCtx.insertImage({
+					// 				src: temp,  // 此处需要将图片地址切换成服务器返回的真实图片地址
+					// 				alt: '图片',
+					// 				success: function(e) {}
+					// 			});
+					// 			uni.hideLoading()
+					// 		},
+							
+					// 	});
+					// }
 				}
 			});
 		},
@@ -232,12 +248,10 @@ export default {
 		},
 		showSetting() {
 			this.showSettingLayer = !this.showSettingLayer;
-		},
-		async editFocus() {
-			
-		},
+		},//修改
+		editFocus() {
+		},//修改
 		editBlur() {
-			
 		},
 		release(isPublic) {
 			this.showSettingLayer = false;
@@ -261,22 +275,23 @@ export default {
 	padding-bottom: 120rpx;
 	height: fit-content;
 }
-
+//修改
 .ql-container {
 	line-height: 160%;
 	font-size: 34rpx;
 	width: calc(100% - 60rpx); 
-	height: 50vh;
+	height: 75vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
-	background-color: #A0CFFF;
+	background-color: rgba(242,222,189,0.8);
+	z-index: 999;			
 } 
 .tool-view{
 	width: 100vw;
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	
+	z-index: 99999;
 }
 .tool {
 	height: 100rpx;
@@ -288,6 +303,7 @@ export default {
 }
 
 .font-more {
+	z-index: 99999;
 	position: absolute;
 	left: 0;
 	bottom: 100rpx;
@@ -308,6 +324,7 @@ export default {
 	right: 20rpx;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	border-radius: 8rpx;
+	z-index: 999999;
 }
 .setting-layer .single {
 	height: 80rpx;

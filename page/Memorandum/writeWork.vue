@@ -1,8 +1,8 @@
 <template>
 	<view class="writeWork">
-		<pageNav>
+		<myNav>
 			<image src="../../static/img/memorandum/complete.png" id="img1" @tap="createOk"></image>
-		</pageNav>
+		</myNav>
 		<view class="main">
 			<textarea v-model="this.textTitle"  cols="1" maxlength="12" placeholder="标题" placeholder-style="font-size:32rpx;">
 				</textarea>
@@ -13,10 +13,10 @@
 </template>
 
 <script>
-	import pageNav from "../../components/pageNav.vue"
+	import myNav from "../../components/myNav.vue"
 	export default {
 		components: {
-			pageNav
+			myNav
 		},
 		data() {
 			return {

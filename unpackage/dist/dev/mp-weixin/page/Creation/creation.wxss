@@ -24,19 +24,38 @@
   height: 15vw;
   size: 100%;
 }
+button {
+  height: 6vh;
+  font-size: 28rpx !important;
+  border: 1rpx solid transparent;
+  border-radius: 10rpx;
+  padding: 0.2vh 3vw;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0;
+  white-space: nowrap;
+  background-color: #f1ccb8;
+}
+#img1 {
+  position: absolute;
+  width: 4vh;
+  height: 4vh;
+  right: 3vw;
+  top: 0;
+}
 .creation {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
   padding: 5vh 5vw;
-  background-color: #BBBCBE;
+  background-color: rgba(241, 204, 184, 0.8);
 }
 .creation .creation-bk {
   width: 90vw;
-  height: 75vh;
+  height: 79vh;
   border: 1rpx solid transparent;
   border-radius: 30rpx;
-  margin-top: 5vh;
+  margin-top: 7vh;
 }
 .creation .creation-bk .creation-content {
   width: inherit;
@@ -45,28 +64,28 @@
   z-index: 99;
   border: 1rpx solid transparent;
   border-radius: 30rpx;
+  position: relative;
 }
 .creation .creation-bk .creation-content .moveArea {
   position: fixed;
-  top: 10vh;
-  height: 75vh;
+  top: 12vh;
+  height: 79vh;
   width: 90vw;
   left: 5vw;
 }
 .creation .creation-bk .creation-content .moveArea .moveView {
-  width: 20vw;
-  height: 15vh;
-  background-color: #ffbed8;
+  width: 10vh;
+  height: 10vh;
+  z-index: 9999;
 }
 .creation .creation-bk .creation-content image {
   width: inherit;
   height: inherit;
   size: 100%;
   object-fit: cover;
-  position: fixed;
-  top: 10vh;
-  left: 5vw;
-  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .creation .creation-bk .creation-content .content-nav {
   width: 90vw;
@@ -76,7 +95,7 @@
   border: 1rpx solid transparent;
   border-radius: 30rpx;
   position: fixed;
-  top: 2vh;
+  top: 5vh;
   left: 5vw;
   display: flex;
   flex-direction: row;
@@ -118,5 +137,83 @@
   text-align: center;
   font-size: 28rpx;
   line-height: 5vh;
+}
+.creation .footer {
+  width: 100vw;
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: auto 10vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  font-size: 28rpx !important;
+}
+.creation .footer .addBk {
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: 6vh;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.creation .footer .addBk button:nth-of-type(1) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.creation .footer .addBk #p1 {
+  width: 4vw;
+  height: 6vh;
+  font-size: 40rpx;
+  line-height: 6vh;
+  border: 1rpx solid transparent;
+  border-radius: 10rpx;
+  padding: 0.2vh auto;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0;
+  white-space: nowrap;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: rgba(241, 204, 184, 0.8);
+  box-sizing: border-box;
+}
+.creation .footer .addTz {
+  display: inline-block;
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: 6vh;
+  box-sizing: border-box;
+}
+.creation .footer .addTz button:nth-of-type(1) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.creation .footer .addTz #p1 {
+  height: 6vh;
+  width: 4vw;
+  font-size: 40rpx;
+  line-height: 6vh;
+  border: 1rpx solid transparent;
+  border-radius: 10rpx;
+  padding: 0.2vh auto;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0;
+  white-space: nowrap;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: rgba(241, 204, 184, 0.8);
+  box-sizing: border-box;
+}
+.creation .footer .moveTz {
+  display: inline-block;
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: fit-content;
+  box-sizing: border-box;
 }
 

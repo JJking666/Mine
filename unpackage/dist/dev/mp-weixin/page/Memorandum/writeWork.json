@@ -1,6 +1,6 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "page-nav": "/components/pageNav"
+    "my-nav": "/components/myNav"
   }
 }

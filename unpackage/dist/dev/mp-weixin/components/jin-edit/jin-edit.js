@@ -114,7 +114,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var jinIcon = function jinIcon() {__webpack_require__.e(/*! require.ensure | components/jin-edit/jin-icons */ "components/jin-edit/jin-icons").then((function () {return resolve(__webpack_require__(/*! ./jin-icons.vue */ 272));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var jinIcon = function jinIcon() {__webpack_require__.e(/*! require.ensure | components/jin-edit/jin-icons */ "components/jin-edit/jin-icons").then((function () {return resolve(__webpack_require__(/*! ./jin-icons.vue */ 272));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
 
 
 
@@ -169,6 +171,10 @@ __webpack_require__.r(__webpack_exports__);
 
 {
   props: {
+    index: {
+      type: Number,
+      default: 0 },
+
     jpheight: {
       type: Number,
       default: 0 },
@@ -250,37 +256,47 @@ __webpack_require__.r(__webpack_exports__);
     undo: function undo() {
       this.editorCtx.undo();
     },
-    // 插入图片
+    // 插入图片修改
     insertImage: function insertImage() {var _this2 = this;
       uni.chooseImage({
         count: 9, //默认9
-        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], //从相册选择
-        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {var tempFilePaths, _iterator, _step, _loop;return _regenerator.default.wrap(function _callee$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {var tempFilePaths;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                     tempFilePaths = res.tempFilePaths;
                     uni.showLoading({
-                      title: '正在上传中...' });_iterator = _createForOfIteratorHelper(
+                      title: '正在上传中...' });
 
-                    tempFilePaths);_context2.prev = 3;_loop = /*#__PURE__*/_regenerator.default.mark(function _loop() {var temp;return _regenerator.default.wrap(function _loop$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:temp = _step.value;_context.next = 3;return (
+                    res.tempFilePaths.forEach(function (item) {
+                      _this2.editorCtx.insertImage({
+                        src: item, // 此处需要将图片地址切换成服务器返回的真实图片地址
+                        alt: '图片',
+                        success: function success(e) {
+                          uni.hideLoading();
+                        } });
 
-                                uni.uploadFile({
-                                  url: _this2.uploadFileUrl,
-                                  filePath: temp,
-                                  name: _this2.fileKeyName,
-                                  header: _this2.header,
-                                  success: function success(res) {
-                                    // 上传完成后处理
-                                    _this2.editorCtx.insertImage({
-                                      src: temp, // 此处需要将图片地址切换成服务器返回的真实图片地址
-                                      alt: '图片',
-                                      success: function success(e) {} });
+                    });
 
-                                    uni.hideLoading();
-                                  } }));case 3:case "end":return _context.stop();}}}, _loop);});_iterator.s();case 6:if ((_step = _iterator.n()).done) {_context2.next = 10;break;}return _context2.delegateYield(_loop(), "t0", 8);case 8:_context2.next = 6;break;case 10:_context2.next = 15;break;case 12:_context2.prev = 12;_context2.t1 = _context2["catch"](3);_iterator.e(_context2.t1);case 15:_context2.prev = 15;_iterator.f();return _context2.finish(15);case 18:case "end":return _context2.stop();}}}, _callee, null, [[3, 12, 15, 18]]);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
+                    // for (let temp of tempFilePaths) {
+                    // 	// 图片上传服务器
+                    // 	await uni.uploadFile({
+                    // 		url: this.uploadFileUrl,
+                    // 		filePath: temp,
+                    // 		name: this.fileKeyName,
+                    // 		header: this.header,
+                    // 		success: res => {
+                    // 			// 上传完成后处理
+                    // 			this.editorCtx.insertImage({
+                    // 				src: temp,  // 此处需要将图片地址切换成服务器返回的真实图片地址
+                    // 				alt: '图片',
+                    // 				success: function(e) {}
+                    // 			});
+                    // 			uni.hideLoading()
+                    // 		},
 
-
-
-
+                    // 	});
+                    // }
+                  case 3:case "end":return _context.stop();}}}, _callee);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
 
     },
     insertDivider: function insertDivider() {
@@ -348,12 +364,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSetting: function showSetting() {
       this.showSettingLayer = !this.showSettingLayer;
-    },
-    editFocus: function editFocus() {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:case "end":return _context3.stop();}}}, _callee2);}))();
-
-    },
+    }, //修改
+    editFocus: function editFocus() {
+    }, //修改
     editBlur: function editBlur() {
-
     },
     release: function release(isPublic) {var _this3 = this;
       this.showSettingLayer = false;

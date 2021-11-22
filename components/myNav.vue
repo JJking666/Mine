@@ -1,9 +1,9 @@
 <template>
-	<view class="pageNav">
-		<view class="status_bar">
+	<view class="myNav">
+		<view class="status_bar" :style="{height:statush+'px'} " >
 			<!-- 这里是状态栏 -->
 		</view>
-		<view class="page-nav">
+		<view class="my-nav">
 			<image src="../static/img/memorandum/toLeft.png" @tap="goback"></image><text @tap="goback">返回</text>
 			<slot></slot>
 		</view>
@@ -12,7 +12,8 @@
 
 <script>
 	export default {
-		name: "pageNav",
+		props:['statush'],
+		name: "myNav",
 		data() {
 			return {
 
@@ -31,16 +32,20 @@
 <style lang="scss">
 	$navHeight:var(--status-bar-height);
 	$imgSize:4vh;
-	.pageNav {
+	.myNav {
 		width: 100vw;
 		height: calc(3vh+$navHeight);
 		padding: 1vh 0;border-bottom: 1rpx solid #C8C9CC;
+		position: fixed;
+		top: 0;
+		left: 0;
+		box-sizing: border-box;
 		.status_bar {
 			height: var(--status-bar-height);
 			width: 100%;
 		}
 
-		.page-nav {
+		.my-nav {
 			width: 100vw;
 			height: $imgSize;
 			position: relative;

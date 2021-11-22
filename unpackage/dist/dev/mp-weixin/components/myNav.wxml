@@ -1,0 +1,1 @@
+<view class="myNav"><view class="status_bar" style="{{'height:'+(statush+'px')+';'}}"></view><view class="my-nav"><image src="../static/img/memorandum/toLeft.png" data-event-opts="{{[['tap',[['goback',['$event']]]]]}}" bindtap="__e"></image><text data-event-opts="{{[['tap',[['goback',['$event']]]]]}}" bindtap="__e">返回</text><slot></slot></view></view>

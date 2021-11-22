@@ -6,20 +6,24 @@
 	height: -webkit-fit-content;
 	height: fit-content;
 }
+/*修改
+ */
 .ql-container.data-v-52149304 {
 	line-height: 160%;
 	font-size: 34rpx;
 	width: calc(100% - 60rpx); 
-	height: 50vh;
+	height: 75vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
-	background-color: #A0CFFF;
+	background-color: rgba(242,222,189,0.8);
+	z-index: 999;
 }
 .tool-view.data-v-52149304{
 	width: 100vw;
 	position: fixed;
 	bottom: 0;
 	left: 0;
+	z-index: 99999;
 }
 .tool.data-v-52149304 {
 	height: 100rpx;
@@ -30,6 +34,7 @@
 	background: #eee;
 }
 .font-more.data-v-52149304 {
+	z-index: 99999;
 	position: absolute;
 	left: 0;
 	bottom: 100rpx;
@@ -49,6 +54,7 @@
 	right: 20rpx;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	border-radius: 8rpx;
+	z-index: 999999;
 }
 .setting-layer .single.data-v-52149304 {
 	height: 80rpx;

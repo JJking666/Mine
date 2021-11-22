@@ -153,45 +153,87 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var myNav = function myNav() {__webpack_require__.e(/*! require.ensure | components/myNav */ "components/myNav").then((function () {return resolve(__webpack_require__(/*! ../../components/myNav.vue */ 258));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    myNav: myNav },
+
   data: function data() {
     var currentDate = this.getDate({
       format: true });
 
     return {
+      creationData: {
+        date: '',
+        weather: '',
+        feel: '',
+        imgX: 0,
+        imgY: 0,
+        bkPath: '',
+        imgPath: '',
+        public: '' },
+
+      bkindex: 0,
+      bkPath: ['快乐背景', '开心背景', '美丽背景', '王牌背景', '菜老头背景', '自定义背景'],
+      tzindex: 0,
+      tzPath: ['快乐开心', '开心美丽', '美丽美丽', '王牌美丽', '美丽菜老', '自定美丽'],
+      index: 0,
       jpheight: 0,
       array: ['中国', '美国', '巴西', '日本'],
-      index: 0,
+      index1: 0,
       date: currentDate,
       x: 0,
       y: 0,
@@ -210,6 +252,15 @@ var _default =
     } },
 
   methods: {
+    tzChange: function tzChange(e) {
+      this.tzindex = e.target.value;
+    },
+    bkChange: function bkChange(e) {
+      this.bkindex = e.target.value;
+    },
+    moveTz: function moveTz() {
+      this.index = this.index == 0 ? 999 : 0;
+    },
     getHeight: function getHeight(e) {
       this.jpheight = e.detail.height;
       console.log(e.detail);
@@ -239,6 +290,9 @@ var _default =
       month = month > 9 ? month : '0' + month;
       day = day > 9 ? day : '0' + day;
       return "".concat(year, "-").concat(month, "-").concat(day);
+    },
+    getRes: function getRes(res) {
+      console.log(res);
     } },
 
   onReady: function onReady() {
@@ -246,6 +300,7 @@ var _default =
     uni.onKeyboardHeightChange(function (res) {
       that.jpheight = res.height;
     });
+    uni.$on('editOk', that.getRes);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
