@@ -27,11 +27,41 @@
 .mysetting {
   height: 100vh;
   width: 100vw;
-  background-color: #606266;
+  background-color: #e6ebf4;
+  position: relative;
+}
+.mysetting .nav-vip {
+  position: absolute;
+  right: 0;
+  top: 5vh;
+  height: 5vh;
+  width: -webkit-fit-content;
+  width: fit-content;
+  padding: 0.5vh 2vw;
+  box-sizing: border-box;
+  background-color: rgba(36, 36, 36, 0.7);
+  z-index: 2;
+}
+.mysetting .nav-vip > image {
+  vertical-align: middle;
+  display: inline-block;
+  width: 4vh;
+  height: 4vh;
+  size: 100%;
+  object-fit: cover;
+}
+.mysetting .nav-vip > text {
+  vertical-align: middle;
+  margin-left: 2vw;
+  display: inline-block;
+  height: 4vh;
+  line-height: 4vh;
+  font-size: 32rpx;
+  font-weight: 500;
 }
 .mysetting .setting-nav {
   width: 100vw;
-  height: 45vh;
+  height: 35vh;
   padding: 2vh 5vw;
   box-sizing: border-box;
   display: flex;
@@ -57,7 +87,6 @@
   size: 100%;
   object-fit: cover;
   z-index: 10;
-  margin-top: 8vh;
 }
 .mysetting .setting-nav .qianm {
   width: -webkit-fit-content;
@@ -65,7 +94,7 @@
   max-width: 75vw;
   height: 6vh;
   z-index: 10;
-  margin-top: 2vh;
+  margin-top: 1vh;
 }
 .mysetting .setting-nav .qianm image {
   height: 4vh;
@@ -87,10 +116,9 @@
   font-size: 36rpx;
   font-weight: 600;
   z-index: 10;
-  margin-top: 2vh;
+  margin-top: 0;
   display: block;
   width: 18vh;
-  text-align: center;
 }
 .mysetting .setting-nav .nav-something {
   z-index: 10;
@@ -106,6 +134,7 @@
 .mysetting .setting-nav .nav-something > text:nth-of-type(1)::after {
   content: '获赞';
   margin-left: 2vw;
+  font-size: 28rpx;
 }
 .mysetting .setting-nav .nav-something > text:nth-of-type(2) {
   margin-left: 7vw;
@@ -115,6 +144,7 @@
 .mysetting .setting-nav .nav-something > text:nth-of-type(2)::after {
   content: '关注';
   margin-left: 2vw;
+  font-size: 28rpx;
 }
 .mysetting .setting-nav .nav-something text:nth-of-type(3) {
   margin-left: 7vw;
@@ -124,5 +154,122 @@
 .mysetting .setting-nav .nav-something text:nth-of-type(3)::after {
   content: '粉丝';
   margin-left: 2vw;
+  font-size: 28rpx;
+}
+.mysetting .setting-main1 {
+  height: 26vh;
+  width: 100vw;
+  padding: 4vh 5vw;
+  padding-bottom: 1vh;
+  box-sizing: border-box;
+}
+.mysetting .setting-main1 .main1-card {
+  width: 90vw;
+  height: -webkit-fit-content;
+  height: fit-content;
+  background-color: #9deaa6;
+  padding: 1vh 5vw;
+  padding-top: 8vh;
+  padding-bottom: 1vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  border-radius: 25rpx;
+}
+.mysetting .setting-main1 .main1-card .main1-title {
+  height: 6vh;
+  width: 80vw;
+  position: absolute;
+  left: 5vw;
+  top: 0;
+  border-bottom: 1px solid #939395;
+}
+.mysetting .setting-main1 .main1-card .main1-title text {
+  line-height: 6vh;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.mysetting .setting-main1 .main1-card .main1-card-item {
+  width: 15vw;
+  height: 11vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1vh 0;
+}
+.mysetting .setting-main1 .main1-card .main1-card-item > image {
+  width: 8vh;
+  size: 100%;
+  object-fit: cover;
+  height: 8vh;
+}
+.mysetting .setting-main1 .main1-card .main1-card-item > text {
+  font-size: 25rpx;
+  display: block;
+  margin-top: 1vh;
+}
+.mysetting .setting-main2 {
+  margin-top: 2vh;
+  height: -webkit-fit-content;
+  height: fit-content;
+  width: 100vw;
+  padding: 4vh 5vw;
+  padding-top: 0;
+  box-sizing: border-box;
+  padding-bottom: 1vh;
+}
+.mysetting .setting-main2 .main2-card {
+  border-radius: 25rpx;
+  width: 90vw;
+  height: -webkit-fit-content;
+  height: fit-content;
+  background-color: #a6e4f1;
+  padding: 1vh 5vw;
+  padding-top: 8vh;
+  padding-bottom: 1vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+.mysetting .setting-main2 .main2-card .main2-title {
+  height: 6vh;
+  width: 80vw;
+  position: absolute;
+  left: 5vw;
+  top: 0;
+  border-bottom: 1px solid #939395;
+}
+.mysetting .setting-main2 .main2-card .main2-title text {
+  line-height: 6vh;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.mysetting .setting-main2 .main2-card .main2-card-item {
+  width: 18vw;
+  height: 11vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1vh 0;
+}
+.mysetting .setting-main2 .main2-card .main2-card-item > image {
+  width: 8vh;
+  size: 100%;
+  object-fit: cover;
+  height: 8vh;
+}
+.mysetting .setting-main2 .main2-card .main2-card-item > text {
+  font-size: 25rpx;
+  display: block;
+  margin-top: 1vh;
 }
 
