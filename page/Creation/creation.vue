@@ -1,7 +1,7 @@
 <template>
 	<view class="creation">
 		<myNav statush="0">
-			<image src="../../static/img/memorandum/complete.png" id="img1" @tap="createOk"></image>
+			<image src="../../static/img/memorandum/complete.png" id="img1" @tap="getRes"></image>
 		</myNav>
 		<view class="creation-bk">
 			<view class="creation-content">
@@ -11,17 +11,15 @@
 						@change="bindDateChange">
 						<view class="uni-input">{{date}}</view>
 					</picker>
-					<picker class="weather" @change="bindPickerChange" :value="index1" :range="array">
-						<view class="uni-input">{{array[index]}}</view>
+					<picker class="weather" @change="wtChange" :value="wtindex" :range="array">
+						<view class="uni-input">{{array[wtindex]}}</view>
 					</picker>
-					<picker class="feel" @change="bindPickerChange" :value="index1" :range="array">
-						<view class="uni-input">{{array[index]}}</view>
+					<picker class="feel" @change="feelChange" :value="feelindex" :range="array">
+						<view class="uni-input">{{array[feelindex]}}</view>
 					</picker>
 				</view>
-				<view class="content-main">
-					<jin-edit :jpheight="jpheight" :index="index"></jin-edit>
-					
-				</view>
+				<jin-edit :jpheight="jpheight" :index="index"></jin-edit>
+				<view class="jin" style="margin-top: -120rpx;"></view>
 				<movable-area class="moveArea">
 					<movable-view class="moveView" :x="x" :y="y" 
 					direction="all" @change="onChange"
@@ -71,6 +69,8 @@
 					imgPath:'',
 					public:''
 				},
+				feelindex:0,
+				wtindex:0,
 				bkindex:0,
 				bkPath:['快乐背景','开心背景','美丽背景','王牌背景','菜老头背景','自定义背景'],
 				tzindex:0,
@@ -78,7 +78,7 @@
 				index:0,
 				jpheight:0,
 				array: ['中国', '美国', '巴西', '日本'],
-				index1: 0,
+				index1:0,
 				date: currentDate,
 				x: 0,
 				y: 0,
@@ -106,17 +106,15 @@
 			moveTz(){
 				this.index=this.index==0?999:0;
 			},
-			getHeight(e){
-				this.jpheight = e.detail.height
-				console.log(e.detail)
-			},
 			onChange: function(e) {
 				this.old.x = e.detail.x
 				this.old.y = e.detail.y
 			},
-			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.target.value
+			wtChange(e){
+				this.wtindex = e.target.value
+			},
+			feelChange(e){
+				this.feelindex = e.target.value
 			},
 			bindDateChange: function(e) {
 				this.date = e.target.value
@@ -137,21 +135,34 @@
 				return `${year}-${month}-${day}`;
 			},
 			getRes(res){
-				console.log(res)
+				if(res.type!="tap"){
+					this.creationData.date=this.date
+					this.creationData.feel=this.feelindex
+					this.creationData.weather=this.wtindex
+					this.creationData.bkPath=this.bkindex;
+					this.creationData.imgPath=this.tzindex;
+					this.creationData.public=res.isPublic
+					this.creationData.imgX=this.old.x;
+					this.creationData.imgY=this.old.y
+					uni.$emit('getUser',this.creationData)
+					return ;
+				}
+				//获取富文本中内容
+				uni.$emit('getres','a');
 			}
 		},
 		onReady(){
 			let that = this
 			uni.onKeyboardHeightChange(res => {
-			  that.jpheight=res.height
-			})
+				that.jpheight=res.height
+		    })		
 			uni.$on('editOk',that.getRes)
 		}
 	}
 </script>
 
 <style lang="scss">
-	$content-h:79vh;
+	$content-h:75vh;
 	$content-w:90vw;
 	$imgSize:4vh;
 	button{
@@ -194,16 +205,26 @@
 				border: 1rpx solid transparent;
 				border-radius: 30rpx;
 				position: relative;
+				.jin{
+					height: 20vh;
+					width: calc(100%-60rpx);
+					background-color: rgba(242,222,189,0.8);
+					z-index: 999;
+					margin: 0 30rpx;
+				}
 				.moveArea{
 					position: fixed;
 					top: 12vh;
-					height: $content-h;
-					width: $content-w;
+					height: inherit;
+					width: inherit;
 					left: 5vw;
+					border: 1rpx solid transparent;
 					.moveView{
 						width: 10vh;
 						height: 10vh;
-						z-index: 9999;
+						z-index: 99;
+						size: 100%;
+						box-sizing: border-box;
 					}
 				}
 				image {
@@ -214,6 +235,7 @@
 					position: absolute;
 					top: 0;
 					left: 0;
+					z-index: -1;
 				}
 
 				.content-nav {

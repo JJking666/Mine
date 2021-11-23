@@ -205,8 +205,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 {
   components: {
     myNav: myNav },
@@ -226,6 +224,8 @@ __webpack_require__.r(__webpack_exports__);
         imgPath: '',
         public: '' },
 
+      feelindex: 0,
+      wtindex: 0,
       bkindex: 0,
       bkPath: ['快乐背景', '开心背景', '美丽背景', '王牌背景', '菜老头背景', '自定义背景'],
       tzindex: 0,
@@ -261,17 +261,15 @@ __webpack_require__.r(__webpack_exports__);
     moveTz: function moveTz() {
       this.index = this.index == 0 ? 999 : 0;
     },
-    getHeight: function getHeight(e) {
-      this.jpheight = e.detail.height;
-      console.log(e.detail);
-    },
     onChange: function onChange(e) {
       this.old.x = e.detail.x;
       this.old.y = e.detail.y;
     },
-    bindPickerChange: function bindPickerChange(e) {
-      console.log('picker发送选择改变，携带值为', e.target.value);
-      this.index = e.target.value;
+    wtChange: function wtChange(e) {
+      this.wtindex = e.target.value;
+    },
+    feelChange: function feelChange(e) {
+      this.feelindex = e.target.value;
     },
     bindDateChange: function bindDateChange(e) {
       this.date = e.target.value;
@@ -292,7 +290,20 @@ __webpack_require__.r(__webpack_exports__);
       return "".concat(year, "-").concat(month, "-").concat(day);
     },
     getRes: function getRes(res) {
-      console.log(res);
+      if (res.type != "tap") {
+        this.creationData.date = this.date;
+        this.creationData.feel = this.feelindex;
+        this.creationData.weather = this.wtindex;
+        this.creationData.bkPath = this.bkindex;
+        this.creationData.imgPath = this.tzindex;
+        this.creationData.public = res.isPublic;
+        this.creationData.imgX = this.old.x;
+        this.creationData.imgY = this.old.y;
+        uni.$emit('getUser', this.creationData);
+        return;
+      }
+      //获取富文本中内容
+      uni.$emit('getres', 'a');
     } },
 
   onReady: function onReady() {

@@ -114,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var jinIcon = function jinIcon() {__webpack_require__.e(/*! require.ensure | components/jin-edit/jin-icons */ "components/jin-edit/jin-icons").then((function () {return resolve(__webpack_require__(/*! ./jin-icons.vue */ 272));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var jinIcon = function jinIcon() {__webpack_require__.e(/*! require.ensure | components/jin-edit/jin-icons */ "components/jin-edit/jin-icons").then((function () {return resolve(__webpack_require__(/*! ./jin-icons.vue */ 279));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -365,21 +365,32 @@ __webpack_require__.r(__webpack_exports__);
     showSetting: function showSetting() {
       this.showSettingLayer = !this.showSettingLayer;
     }, //修改
-    editFocus: function editFocus() {
+    editFocus: function editFocus(e) {
+
     }, //修改
     editBlur: function editBlur() {
     },
-    release: function release(isPublic) {var _this3 = this;
+    release: function release(isPublic) {
       this.showSettingLayer = false;
       this.editorCtx.getContents({
         success: function success(res) {
           Object.assign(res, {
             isPublic: isPublic });
 
-          _this3.$emit('editOk', res);
+          uni.$emit('editOk', res);
         } });
 
-    } } };exports.default = _default;
+    },
+    getres: function getres(res) {
+      if (this.editorCtx.getContents()) {
+        this.release(true);
+      }
+    } },
+
+  onReady: function onReady() {
+    var that = this;
+    uni.$on('getres', that.getres);
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

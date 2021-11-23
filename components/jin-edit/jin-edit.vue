@@ -28,7 +28,7 @@
 				<jinIcon class="single" type="&#xeb8a;" font-size="44rpx" title="设置" @click="showSetting"></jinIcon>
 			</view>
 			<!-- 文字相关操作 --><!-- //修改 -->
-			<view class="font-more"> :style="{ height: true ? '100rpx' : 0 }"
+			<view class="font-more" :style="{ height: true ? '100rpx' : 0 }"> 
 				<jinIcon class="single" type="&#xe6e7;" font-size="44rpx" title="加粗" @click="setBold" :color="showBold ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6fe;" font-size="44rpx" title="斜体" @click="setItalic" :color="showItalic ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6f8;" font-size="44rpx" title="分割线" @click="setIns" :color="showIns ? activeColor : '#666666'"></jinIcon>
@@ -249,7 +249,8 @@ export default {
 		showSetting() {
 			this.showSettingLayer = !this.showSettingLayer;
 		},//修改
-		editFocus() {
+		editFocus(e) {
+
 		},//修改
 		editBlur() {
 		},
@@ -260,10 +261,19 @@ export default {
 					Object.assign(res, {
 						isPublic: isPublic
 					})
-					this.$emit('editOk', res);
+					uni.$emit('editOk', res);
 				} 
 			})
 		},
+		getres(res){
+			if(this.editorCtx.getContents()){
+				this.release(true);
+			}
+		}
+	},
+	onReady(){
+		let that = this
+		uni.$on('getres',that.getres)
 	}
 };
 </script>
@@ -280,11 +290,11 @@ export default {
 	line-height: 160%;
 	font-size: 34rpx;
 	width: calc(100% - 60rpx); 
-	height: 75vh;
+	height: 50vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
 	background-color: rgba(242,222,189,0.8);
-	z-index: 999;			
+	z-index: 99999;			
 } 
 .tool-view{
 	width: 100vw;

@@ -7,9 +7,9 @@
 					:interval="interval" :duration="duration">
 					<swiper-item id="s11">
 						<view class="swiper-ver-nav">
-							<image src="../../static/img/memorandum/min_button.png" mode="center"></image>
+							<image src="../../static/img/icon.jpg" mode="center"></image>
 							<text>大帅哥</text>
-							<image id="selectUser" src="../../static/uview/example/js_select_bak.png"></image>
+							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
 						</view>
 						<view class="swiper-ver-head">
 							<picker class="date" mode="date" :value="date" :start="startDate" :end="endDate"
@@ -24,14 +24,35 @@
 							</picker>
 						</view>
 						<view class="textmain">
-							sssa
+							content
 						</view>
 						<view class="opioion">
-							评论
+							<view class="opioion-nav">
+								<image src="../../static/img/icon.jpg"></image><text >2</text>
+								<image src="../../static/img/memorandum/dm1.jpg"></image><text>2</text>
+							</view>
+							<view class="opioion-main">
+								<view class="main-nav">
+									<image src="../../static/img/memorandum/bk2.jpg"></image>
+									<text>大白菜</text>
+								</view>
+								<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
+							</view>
+							<view class="opioion-main">
+								<view class="main-nav">
+									<image src="../../static/img/memorandum/bk2.jpg"></image>
+									<text>大白菜</text>
+								</view>
+								<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
+							</view>
+							<view class="opioion-main">
+								<view class="main-nav">
+									<image src="../../static/img/memorandum/bk2.jpg"></image>
+									<text>大白菜</text>
+								</view>
+								<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
+							</view>
 						</view>
-						<movable-area class="moveArea">
-							<movable-view class="moveView" :x="x" :y="y" direction="all" @change="onChange">text</movable-view>
-						</movable-area>
 					</swiper-item>
 					<swiper-item id="s21">
 						<view class="swiper-item uni-bg-green">B</view>
@@ -83,10 +104,6 @@
 			}
 		},
 		methods: {
-			onChange: function(e) {
-				this.old.x = e.detail.x
-				this.old.y = e.detail.y
-			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
@@ -108,8 +125,16 @@
 				month = month > 9 ? month : '0' + month;
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
+			},
+			//获取到手账数据
+			getUser(res){
+				console.log(res)
 			}
 		},
+		onReady(){
+			let that =this
+			uni.$on('getUser',that.getUser)
+		}
 	}
 </script>
 
@@ -132,7 +157,7 @@
 				.swiper-ver {
 					height: 100vh;
 					width: 100vw;
-
+					position: relative;
 					#s11 {
 						background-color: rgba(129, 129, 129, 0.5);
 						height: 100vh;
@@ -159,10 +184,11 @@
 							text {
 								display: inline-block;
 								height: 8vh;
-								margin-left: 5vw;
+								margin-left: 10vw;
 								font-size: $fontSize-md;
 								font-weight: 500;
 								vertical-align: middle;
+								margin-left: 5vw;
 							}
 
 							#selectUser {
@@ -236,10 +262,94 @@
 						}
 
 						.opioion {
+							overflow: auto;
+							position: absolute;
 							width: 80vw;
 							margin: 3vh auto;
-							height: 8vh;
+							height: 40vh;
 							background-color: #A0CFFF;
+							bottom: 0vh;
+							left: 10vw;
+							.opioion-nav{
+								width: inherit;
+								height: 8vh;
+								background-color: #2979FF;
+								display: flex;
+								flex-direction: row;
+								align-items: center;
+								position: relative;
+								& image:nth-of-type(1){
+									position: absolute;
+									left: 5vw;
+									top: auto;
+									width: $imgSize-md;
+									height: $imgSize-md;
+									display: inline-block;
+									vertical-align: middle;
+								}
+								& text:nth-of-type(1){
+									position: absolute;
+									left: calc(6vh + 7vw);
+									top: auto;
+									line-height: $imgSize-md;
+									display: inline-block;
+									vertical-align: middle;
+								}
+								& image:nth-of-type(2){
+									position: absolute;
+									right: 7vw;
+									top: auto;
+									width: $imgSize-md;
+									height: $imgSize-md;
+									display: inline-block;
+								}
+								& text:nth-of-type(2){
+									position: absolute;
+									right: 2vw;
+									top: auto;
+									line-height: $imgSize-md;
+									display: inline-block;
+									vertical-align: middle;
+
+								}
+							}
+							.opioion-main{
+								width: 80vw;
+								height: fit-content;
+								display: flex;
+								flex-direction: column;
+								justify-content: center;
+								display: inline-block;
+								background-color: #8F939C;
+								padding: 1.5vh 5vw;
+								box-sizing: border-box;
+								.main-nav{
+									& image{
+									width: $imgSize-md;
+									height: $imgSize-md;
+									border-radius: 100%;
+									vertical-align: middle;
+									}
+									& text{
+										margin: 0;
+										width: fit-content;
+										height: $imgSize-md;
+										line-height: $imgSize-md;
+										display: inline-block;
+										vertical-align: middle;
+										font-size: $fontSize-md;
+										font-weight: 600;
+										margin-left: 2vw;
+									}
+								}
+								
+								& text{
+									font-size: $fontSize-sm;
+									margin-top: 1.3vh;
+									display: inline-block;
+									font-weight: 500;
+								}
+							}
 						}
 						
 						.moveArea{

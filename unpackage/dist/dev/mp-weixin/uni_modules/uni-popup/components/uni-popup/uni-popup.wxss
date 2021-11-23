@@ -1,0 +1,49 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button.data-v-7c43d41b {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create.data-v-7c43d41b {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #A0CFFF;
+  padding: 0;
+}
+.create image.data-v-7c43d41b {
+  width: 15vw;
+  height: 15vw;
+  size: 100%;
+}
+.uni-popup.data-v-7c43d41b {
+  position: fixed;
+  z-index: 99;
+}
+.uni-popup.top.data-v-7c43d41b, .uni-popup.left.data-v-7c43d41b, .uni-popup.right.data-v-7c43d41b {
+  top: 0;
+}
+.uni-popup .uni-popup__wrapper.data-v-7c43d41b {
+  display: block;
+  position: relative;
+  /* iphonex 等安全区设置，底部安全区适配 */
+}
+.uni-popup .uni-popup__wrapper.left.data-v-7c43d41b, .uni-popup .uni-popup__wrapper.right.data-v-7c43d41b {
+  padding-top: 0;
+  flex: 1;
+}
+.fixforpc-z-index.data-v-7c43d41b {
+  z-index: 999;
+}
+.fixforpc-top.data-v-7c43d41b {
+  top: 0;
+}
+

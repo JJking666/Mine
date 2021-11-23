@@ -52,7 +52,7 @@ button {
 }
 .creation .creation-bk {
   width: 90vw;
-  height: 79vh;
+  height: 75vh;
   border: 1rpx solid transparent;
   border-radius: 30rpx;
   margin-top: 7vh;
@@ -66,17 +66,27 @@ button {
   border-radius: 30rpx;
   position: relative;
 }
+.creation .creation-bk .creation-content .jin {
+  height: 20vh;
+  width: calc(100%-60rpx);
+  background-color: rgba(242, 222, 189, 0.8);
+  z-index: 999;
+  margin: 0 30rpx;
+}
 .creation .creation-bk .creation-content .moveArea {
   position: fixed;
   top: 12vh;
-  height: 79vh;
-  width: 90vw;
+  height: inherit;
+  width: inherit;
   left: 5vw;
+  border: 1rpx solid transparent;
 }
 .creation .creation-bk .creation-content .moveArea .moveView {
   width: 10vh;
   height: 10vh;
-  z-index: 9999;
+  z-index: 99;
+  size: 100%;
+  box-sizing: border-box;
 }
 .creation .creation-bk .creation-content image {
   width: inherit;
@@ -86,6 +96,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: -1;
 }
 .creation .creation-bk .creation-content .content-nav {
   width: 90vw;

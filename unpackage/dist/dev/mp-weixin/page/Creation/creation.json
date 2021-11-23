@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "创作",
+  "softinputMode": "adjustPan",
   "usingComponents": {
     "jin-edit": "/components/jin-edit/jin-edit",
     "my-nav": "/components/myNav"

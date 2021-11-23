@@ -12,11 +12,11 @@
 	line-height: 160%;
 	font-size: 34rpx;
 	width: calc(100% - 60rpx); 
-	height: 75vh;
+	height: 50vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
 	background-color: rgba(242,222,189,0.8);
-	z-index: 999;
+	z-index: 99999;
 }
 .tool-view.data-v-52149304{
 	width: 100vw;

@@ -69,9 +69,10 @@
 				"navigationBarTitleText": "Demo"
 				}
 			},{
-				"path": "page/Creation/creation",
-				"style": {
-				"navigationBarTitleText": "创作"
+			"path": "page/Creation/creation",
+			"style": {
+				"navigationBarTitleText": "创作",
+				"softinputMode":"adjustPan"
 				}
 			}
 	],

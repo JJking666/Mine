@@ -130,7 +130,28 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -215,10 +236,6 @@ var _default =
     } },
 
   methods: {
-    onChange: function onChange(e) {
-      this.old.x = e.detail.x;
-      this.old.y = e.detail.y;
-    },
     bindPickerChange: function bindPickerChange(e) {
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.index = e.target.value;
@@ -240,7 +257,17 @@ var _default =
       month = month > 9 ? month : '0' + month;
       day = day > 9 ? day : '0' + day;
       return "".concat(year, "-").concat(month, "-").concat(day);
-    } } };exports.default = _default;
+    },
+    //获取到手账数据
+    getUser: function getUser(res) {
+      console.log(res);
+    } },
+
+  onReady: function onReady() {
+    var that = this;
+    uni.$on('getUser', that.getUser);
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

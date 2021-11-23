@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "Demo",
-  "usingComponents": {}
+  "usingComponents": {
+    "robin-editor": "/uni_modules/robin-editor/components/robin-editor/robin-editor"
+  }
 }
