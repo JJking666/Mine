@@ -30,18 +30,23 @@
       "current": 0,
       "list": [
         {
-          "name": "Create",
+          "name": "setting",
           "id": 0,
+          "pathName": "page/MySetting/mySetting"
+        },
+        {
+          "name": "Create",
+          "id": 1,
           "pathName": "page/Creation/creation"
         },
         {
           "name": "Demo",
-          "id": 1,
+          "id": 2,
           "pathName": "page/demo"
         },
         {
           "name": "HandAccount",
-          "id": 2,
+          "id": 3,
           "pathName": "page/HandAccount/handAccount"
         }
       ]

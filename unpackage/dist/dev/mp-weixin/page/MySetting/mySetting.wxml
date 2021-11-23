@@ -1,1 +1,1 @@
-<view class="_div"><view class="_h2">mysetting</view></view>
+<view class="mysetting"><view class="setting-nav"><image src="../../static/img/memorandum/dm7.jpg" mode></image><image src="../../static/img/memorandum/bk2.jpg" mode></image><text>name</text><view class="qianm"><text>你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好</text></view><view class="nav-something"><text>20000</text><text>200</text><text>200</text></view></view><view class="setting-main1"></view><view class="setting-main2"></view><view class="setting-footer"></view></view>

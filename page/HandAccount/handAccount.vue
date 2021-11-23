@@ -6,7 +6,7 @@
 				<swiper class="swiper-ver" easing-function="easeOutCubic" circular vertical=true :autoplay="autoplay"
 					:interval="interval" :duration="duration">
 					<swiper-item id="s11">
-						<view class="swiper-ver-nav">
+						<view class="swiper-ver-nav" @tap="showOpioion" >
 							<image src="../../static/img/icon.jpg" mode="center"></image>
 							<text>大帅哥</text>
 							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
@@ -26,12 +26,12 @@
 						<view class="textmain">
 							content
 						</view>
-						<view class="opioion">
-							<view class="opioion-nav">
+						<view class="opioion" :animation = "opAnimation">
+							<view class="opioion-nav" @tap="showOpioion">
 								<image src="../../static/img/icon.jpg"></image><text >2</text>
 								<image src="../../static/img/memorandum/dm1.jpg"></image><text>2</text>
 							</view>
-							<view class="opioion-main">
+							<view class="opioion-main" @click="say">
 								<view class="main-nav">
 									<image src="../../static/img/memorandum/bk2.jpg"></image>
 									<text>大白菜</text>
@@ -79,6 +79,8 @@
 				format: true
 			})
 			return {
+				opAnimation: {},
+				showOp:false,
 				background: ['color1', 'color2', 'color3'],
 				autoplay: false,
 				interval: 2000,
@@ -104,6 +106,9 @@
 			}
 		},
 		methods: {
+			say(){
+				console.log(11)
+			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
@@ -129,11 +134,26 @@
 			//获取到手账数据
 			getUser(res){
 				console.log(res)
+			},
+			showOpioion(){
+				if(!this.showOp){
+					this.opanimation.height(50+'vh').step()
+					this.showOp=!this.showOp
+				}else{
+					this.opanimation.height(8+'vh').step()
+					this.showOp=!this.showOp
+				}
+				this.opAnimation = this.opanimation.export()
 			}
 		},
 		onReady(){
 			let that =this
 			uni.$on('getUser',that.getUser)
+			let opanimation = uni.createAnimation({
+			      duration: 1000,
+			        timingFunction: 'ease',
+			    })
+			this.opanimation = opanimation
 		}
 	}
 </script>
@@ -262,11 +282,11 @@
 						}
 
 						.opioion {
-							overflow: auto;
-							position: absolute;
+							overflow: scroll;
+							position: fixed;
 							width: 80vw;
-							margin: 3vh auto;
-							height: 40vh;
+							margin: 0 auto;
+							height: 8vh;
 							background-color: #A0CFFF;
 							bottom: 0vh;
 							left: 10vw;

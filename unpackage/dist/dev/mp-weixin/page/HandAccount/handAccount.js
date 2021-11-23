@@ -211,6 +211,8 @@ var _default =
       format: true });
 
     return {
+      opAnimation: {},
+      showOp: false,
       background: ['color1', 'color2', 'color3'],
       autoplay: false,
       interval: 2000,
@@ -236,6 +238,9 @@ var _default =
     } },
 
   methods: {
+    say: function say() {
+      console.log(11);
+    },
     bindPickerChange: function bindPickerChange(e) {
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.index = e.target.value;
@@ -261,11 +266,26 @@ var _default =
     //获取到手账数据
     getUser: function getUser(res) {
       console.log(res);
+    },
+    showOpioion: function showOpioion() {
+      if (!this.showOp) {
+        this.opanimation.height(50 + 'vh').step();
+        this.showOp = !this.showOp;
+      } else {
+        this.opanimation.height(8 + 'vh').step();
+        this.showOp = !this.showOp;
+      }
+      this.opAnimation = this.opanimation.export();
     } },
 
   onReady: function onReady() {
     var that = this;
     uni.$on('getUser', that.getUser);
+    var opanimation = uni.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease' });
+
+    this.opanimation = opanimation;
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -1,3 +1,4 @@
+
 <template>
 	<view class="creation">
 		<myNav statush="0">
