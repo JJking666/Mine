@@ -34,8 +34,9 @@
 	$imgSize:4vh;
 	.myNav {
 		width: 100vw;
-		height: calc(3vh+$navHeight);
-		padding: 1vh 0;border-bottom: 1rpx solid #C8C9CC;
+		height: fit-content;
+		padding: 1vh 0;
+		border-bottom: 1rpx solid #C8C9CC;
 		position: fixed;
 		top: 0;
 		left: 0;

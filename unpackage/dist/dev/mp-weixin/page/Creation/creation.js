@@ -96,7 +96,7 @@ var components
 try {
   components = {
     jinEdit: function() {
-      return Promise.all(/*! import() | components/jin-edit/jin-edit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/jin-edit/jin-edit")]).then(__webpack_require__.bind(null, /*! @/components/jin-edit/jin-edit.vue */ 267))
+      return Promise.all(/*! import() | components/jin-edit/jin-edit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/jin-edit/jin-edit")]).then(__webpack_require__.bind(null, /*! @/components/jin-edit/jin-edit.vue */ 295))
     }
   }
 } catch (e) {
@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var myNav = function myNav() {__webpack_require__.e(/*! require.ensure | components/myNav */ "components/myNav").then((function () {return resolve(__webpack_require__(/*! ../../components/myNav.vue */ 260));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var myNav = function myNav() {__webpack_require__.e(/*! require.ensure | components/myNav */ "components/myNav").then((function () {return resolve(__webpack_require__(/*! ../../components/myNav.vue */ 288));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

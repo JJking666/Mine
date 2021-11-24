@@ -74,6 +74,26 @@
 				"navigationBarTitleText": "创作",
 				"softinputMode":"adjustPan"
 				}
+			},{
+			"path": "page/MySetting/account",
+			"style": {
+				"navigationBarTitleText": "账号"
+				}
+			},{
+			"path": "page/MySetting/person",
+			"style": {
+				"navigationBarTitleText": "个人"
+				}
+			},{
+			"path": "page/MySetting/privacy",
+			"style": {
+				"navigationBarTitleText": "隐私"
+				}
+			},{
+			"path": "page/MySetting/medal",
+			"style": {
+				"navigationBarTitleText": "勋章"
+				}
 			}
 	],
 	"globalStyle": {
@@ -132,6 +152,22 @@
 		    },{
 		        "name": "HandAccount", //模式名称
 		        "path": "page/HandAccount/handAccount" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "account", //模式名称
+		        "path": "page/MySetting/account" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "medal", //模式名称
+		        "path": "page/MySetting/medal" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "person", //模式名称
+		        "path": "page/MySetting/person" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "privacy", //模式名称
+		        "path": "page/MySetting/privacy" //启动页面，必选
 		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
 		    }
 		]

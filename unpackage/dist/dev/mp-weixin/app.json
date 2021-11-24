@@ -12,7 +12,11 @@
     "page/Memorandum/record",
     "page/Memorandum/createRecord",
     "page/demo",
-    "page/Creation/creation"
+    "page/Creation/creation",
+    "page/MySetting/account",
+    "page/MySetting/person",
+    "page/MySetting/privacy",
+    "page/MySetting/medal"
   ],
   "subPackages": [],
   "window": {

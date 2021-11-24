@@ -50,13 +50,12 @@
 		background-color: #DBF1E1;
 		box-sizing: border-box;
 		overflow: auto;
-
 		.main {
 			width: 100vw;
 			height: fit-content;
 			background-color: #DBF1E1;
 			padding: 1vh 3vw;
-
+			margin-top: calc(5vh + var(--status-bar-height));
 			& textarea:nth-of-type(1) {
 				width: 100%;
 				height: 3vh;

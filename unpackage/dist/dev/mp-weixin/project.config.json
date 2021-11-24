@@ -48,6 +48,26 @@
           "name": "HandAccount",
           "id": 3,
           "pathName": "page/HandAccount/handAccount"
+        },
+        {
+          "name": "account",
+          "id": 4,
+          "pathName": "page/MySetting/account"
+        },
+        {
+          "name": "medal",
+          "id": 5,
+          "pathName": "page/MySetting/medal"
+        },
+        {
+          "name": "person",
+          "id": 6,
+          "pathName": "page/MySetting/person"
+        },
+        {
+          "name": "privacy",
+          "id": 7,
+          "pathName": "page/MySetting/privacy"
         }
       ]
     }

@@ -22,19 +22,19 @@
 				<view class="main1-title">
 					<text>个人</text>
 				</view>
-				<view class="main1-card-item">
+				<view class="main1-card-item" @tap="gotoPerson">
 					<image src="../../static/img/icon.jpg"></image>
 					<text>个人</text>
 				</view>
-				<view class="main1-card-item">
+				<view class="main1-card-item" @tap="gotoAccount">
 					<image src="../../static/img/icon.jpg"></image>
 					<text>账户</text>
 				</view>
-				<view class="main1-card-item">
+				<view class="main1-card-item" @tap="gotoPrivacy">
 					<image src="../../static/img/icon.jpg"></image>
 					<text>隐私</text>
 				</view>
-				<view class="main1-card-item">
+				<view class="main1-card-item" @tap="gotoMedal">
 					<image src="../../static/img/icon.jpg"></image>
 					<text>勋章</text>
 				</view>
@@ -45,11 +45,11 @@
 				<view class="main2-title">
 					<text>更多服务</text>
 				</view>
-				<view class="main2-card-item">
+				<view class="main2-card-item" @tap="gotoPerson">
 					<image src="../../static/img/icon.jpg"></image>
 					<text>夜间</text>
 				</view>
-				<view class="main2-card-item">
+				<view class="main2-card-item" @tap="gotoPerson">
 					<image src="../../static/img/icon.jpg"></image>
 					<text>创作</text>
 				</view>
@@ -83,6 +83,33 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {}
+		},
+		methods: {
+			gotoPerson() {
+				uni.navigateTo({
+					url: 'person'
+				})
+			},
+			gotoAccount() {
+				uni.navigateTo({
+					url: 'account'
+				})
+			},
+			gotoPrivacy() {
+				uni.navigateTo({
+					url: 'privacy'
+				})
+			},
+			gotoMedal() {
+				uni.navigateTo({
+					url: 'medal'
+				})
+			},
+		}
+	}
 </script>
 
 <style lang="scss">
@@ -91,7 +118,8 @@
 		width: 100vw;
 		background-color: #e6ebf4;
 		position: relative;
-		.nav-vip{
+
+		.nav-vip {
 			position: absolute;
 			right: 0;
 			top: 5vh;
@@ -101,7 +129,8 @@
 			box-sizing: border-box;
 			background-color: rgba($color: #242424, $alpha: 0.7);
 			z-index: 2;
-			&>image{
+
+			&>image {
 				vertical-align: middle;
 				display: inline-block;
 				width: 4vh;
@@ -109,7 +138,8 @@
 				size: 100%;
 				object-fit: cover;
 			}
-			&>text{
+
+			&>text {
 				vertical-align: middle;
 				margin-left: 2vw;
 				display: inline-block;
@@ -119,6 +149,7 @@
 				font-weight: 500;
 			}
 		}
+
 		.setting-nav {
 			width: 100vw;
 			height: 35vh;
@@ -129,6 +160,7 @@
 			align-items: flex-start;
 			position: relative;
 			color: white;
+
 			&>image:nth-of-type(1) {
 				position: absolute;
 				height: inherit;
@@ -148,13 +180,15 @@
 				object-fit: cover;
 				z-index: 10;
 			}
-			.qianm{
+
+			.qianm {
 				width: fit-content;
 				max-width: 75vw;
 				height: 6vh;
 				z-index: 10;
 				margin-top: 1vh;
-				image{
+
+				image {
 					height: 4vh;
 					width: 2vh;
 					size: 100%;
@@ -162,7 +196,8 @@
 					z-index: 10;
 					display: inline-block;
 				}
-				text{
+
+				text {
 					font-size: $fontSize-sm;
 					display: -webkit-box;
 					overflow: hidden;
@@ -182,7 +217,7 @@
 
 			}
 
-			
+
 
 			.nav-something {
 				z-index: 10;
@@ -190,6 +225,7 @@
 				flex-direction: row;
 				margin-top: 1.5vh;
 				color: white;
+
 				&>text:nth-of-type(1) {
 					font-size: $fontSize-md;
 					font-weight: 500;
@@ -227,13 +263,15 @@
 			}
 
 		}
-		.setting-main1{
+
+		.setting-main1 {
 			height: 26vh;
 			width: 100vw;
 			padding: 4vh 5vw;
 			padding-bottom: 1vh;
 			box-sizing: border-box;
-			.main1-card{
+
+			.main1-card {
 				width: 90vw;
 				height: fit-content;
 				background-color: #9deaa6;
@@ -247,20 +285,23 @@
 				justify-content: space-around;
 				position: relative;
 				border-radius: 25rpx;
-				.main1-title{
+
+				.main1-title {
 					height: 6vh;
 					width: 80vw;
 					position: absolute;
 					left: 5vw;
 					top: 0;
-					border-bottom:1px solid #939395 ;
-					text{
+					border-bottom: 1px solid #939395;
+
+					text {
 						line-height: 6vh;
 						font-size: $fontSize-md;
 						font-weight: 500;
 					}
 				}
-				.main1-card-item{
+
+				.main1-card-item {
 					width: 15vw;
 					height: 11vh;
 					display: flex;
@@ -268,13 +309,15 @@
 					align-items: center;
 					justify-content: center;
 					padding: 1vh 0;
-					&>image{
+
+					&>image {
 						width: 8vh;
 						size: 100%;
 						object-fit: cover;
 						height: 8vh;
 					}
-					&>text{
+
+					&>text {
 						font-size: 25rpx;
 						display: block;
 						margin-top: 1vh;
@@ -282,7 +325,8 @@
 				}
 			}
 		}
-		.setting-main2{
+
+		.setting-main2 {
 			margin-top: 2vh;
 			height: fit-content;
 			width: 100vw;
@@ -290,7 +334,8 @@
 			padding-top: 0;
 			box-sizing: border-box;
 			padding-bottom: 1vh;
-			.main2-card{ 
+
+			.main2-card {
 				border-radius: 25rpx;
 				width: 90vw;
 				height: fit-content;
@@ -305,20 +350,23 @@
 				align-items: center;
 				justify-content: space-around;
 				position: relative;
-				.main2-title{
+
+				.main2-title {
 					height: 6vh;
 					width: 80vw;
 					position: absolute;
 					left: 5vw;
 					top: 0;
-					border-bottom:1px solid #939395 ;
-					text{
+					border-bottom: 1px solid #939395;
+
+					text {
 						line-height: 6vh;
 						font-size: $fontSize-md;
 						font-weight: 500;
 					}
 				}
-				.main2-card-item{
+
+				.main2-card-item {
 					width: 18vw;
 					height: 11vh;
 					display: flex;
@@ -326,16 +374,18 @@
 					align-items: center;
 					justify-content: center;
 					padding: 1vh 0;
-					&>image{
+
+					&>image {
 						width: 8vh;
 						size: 100%;
 						object-fit: cover;
 						height: 8vh;
 					}
-					&>text{
+
+					&>text {
 						font-size: 25rpx;
-						    display: block;
-						    margin-top: 1vh;
+						display: block;
+						margin-top: 1vh;
 					}
 				}
 			}

@@ -1,0 +1,80 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #A0CFFF;
+  padding: 0;
+}
+.create image {
+  width: 15vw;
+  height: 15vw;
+  size: 100%;
+}
+.person {
+  width: 100vw;
+  height: 100vh;
+  padding: 2vh 5vw;
+  box-sizing: border-box;
+}
+.person .content {
+  width: 90vw;
+  height: 96vh;
+  border: 1rpx solid transparent;
+  border-radius: 20rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.person .content > view {
+  height: 4vh;
+  width: 90vw;
+  padding: 2vh 0;
+  border-bottom: 1rpx solid #dedede;
+}
+.person .content > view text {
+  line-height: 4vh;
+  display: inline-block;
+  font-size: 28rpx;
+}
+.person .content > view image {
+  margin-top: 0.5vh;
+  float: right;
+  line-height: 4vh;
+  display: inline-block;
+}
+.person .content image {
+  width: 3vh;
+  height: 3vh;
+  size: 100%;
+}
+.person .content #img {
+  display: block;
+  width: 10vh;
+  height: 10vh;
+  position: absolute;
+  left: calc(45vw - 5vh);
+  top: 5vh;
+}
+.person .content #dq {
+  display: block;
+  margin-top: 20vh;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #8F939C;
+}
+

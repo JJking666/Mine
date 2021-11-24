@@ -44,6 +44,7 @@
   height: fit-content;
   background-color: #DBF1E1;
   padding: 1vh 3vw;
+  margin-top: calc(5vh + 25px);
 }
 .writeWork .main textarea:nth-of-type(1) {
   width: 100%;
