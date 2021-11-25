@@ -1,1 +1,1 @@
-<view>account</view>
+<view class="account"><view class="content"><text>账号管理</text><block wx:for="{{itemData}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="content-item"><text>{{item.content}}</text><block wx:if="{{item.src}}"><image src="{{item.src}}"></image></block><view class="_p">{{item.right}}</view></view></block></view></view>

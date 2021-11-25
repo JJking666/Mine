@@ -24,6 +24,21 @@
   height: 15vw;
   size: 100%;
 }
+#BigRecord {
+  position: fixed;
+  top: 20vh;
+  left: 20vw;
+  height: 50vh;
+  overflow: scroll;
+  width: 60vw;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  background-color: #dee8cc;
+  border-radius: 10rpx;
+  box-shadow: 2rpx 2rpx 30rpx #323233;
+  padding: 2vh 5vw;
+  box-sizing: border-box;
+}
 .record {
   width: 100vw;
   height: 100vh;

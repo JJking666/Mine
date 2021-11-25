@@ -3,9 +3,9 @@
 	<view class="record">
 		<image id="record-bk" src="../../static/img/memorandum/bk2.jpg" mode=""></image>
 		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
-		<view @tap="gotoRecord"
+		<view 
 			style="width: 98vw;height: fit-content; column-count: 2;column-gap: 1vw; margin: 1vw auto; box-sizing: border-box;">
-			<view class="recordItem" v-for="(item,index) in textList" :key="index">
+			<view class="recordItem" v-for="(item,index) in textList" :key="index" @tap="showRecord(index)" >
 				<view id="text" v-html="item.textvalue"></view>
 				<text>11月19号</text>
 			</view>
@@ -15,6 +15,9 @@
 			<!--  -->
 			<image src="../../static/img/memorandum/min_button.png"></image>
 		</button>
+		<view id="BigRecord" :animation="recordAnimation">
+			{{bigrecord}}
+		</view>
 	</view>
 </template>
 
@@ -22,10 +25,13 @@
 	export default {
 		data() {
 			return {
+				bigrecord:"",
+				recordAnimation:'',
 				inputValue: "",
 				selecting: 0,
 				t1: null,
 				maxid: 10,
+				show:0,
 				textList: [{
 						id: 1,
 						textvalue: "vue项目实现 搜索功能",
@@ -76,6 +82,25 @@
 			}
 		},
 		methods: {
+			showRecord(index){
+				if(this.show==0){
+					this.bigrecord=this.textList[index].textvalue;
+					this.animation1.scale(1.3).step({ duration: 700 })
+					this.show=1
+					console.log(1)
+				}else{
+					this.animation1.scale(0).step({ duration: 400 })
+				
+					this.bigrecord=this.textList[index].textvalue;
+					console.log(2)	
+					this.animation1.scale(1.3).step({ duration: 500 })
+				}
+				this.recordAnimation=this.animation1.export()
+				setTimeout(() => {
+					this.recordAnimation=null
+				}, 100);
+				
+			},
 			select() {
 				if (this.t1) {
 					clearInterval(this.t1)
@@ -115,11 +140,30 @@
 		onReady() {
 			let that = this
 			uni.$on('contentemit', this.addRecord)
+			let animation1 = uni.createAnimation({
+			    duration: 1000,
+			    timingFunction: 'ease',
+			})
+			this.animation1 = animation1
 		}
 	}
 </script>
 
 <style lang="scss">
+	#BigRecord{
+		position: fixed;
+		top: 20vh;
+		left: 20vw;
+		height: 50vh;
+		overflow: scroll;
+		width: 60vw;
+		transform: scale(0);
+		background-color: #dee8cc;
+		border-radius: 10rpx;
+		box-shadow: 2rpx 2rpx 30rpx #323233;
+		padding: 2vh 5vw;
+		box-sizing: border-box;
+	}
 	.record {
 		width: 100vw;
 		height: 100vh;

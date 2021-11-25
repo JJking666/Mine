@@ -94,7 +94,7 @@ var components
 try {
   components = {
     robinEditor: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/robin-editor/components/robin-editor/robin-editor */ "uni_modules/robin-editor/components/robin-editor/robin-editor").then(__webpack_require__.bind(null, /*! @/uni_modules/robin-editor/components/robin-editor/robin-editor.vue */ 302))
+      return __webpack_require__.e(/*! import() | uni_modules/robin-editor/components/robin-editor/robin-editor */ "uni_modules/robin-editor/components/robin-editor/robin-editor").then(__webpack_require__.bind(null, /*! @/uni_modules/robin-editor/components/robin-editor/robin-editor.vue */ 306))
     }
   }
 } catch (e) {

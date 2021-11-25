@@ -11,20 +11,12 @@
 				<text >大帅哥</text>
 				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
-			<view id="phone">
-				<text>13676103055</text>
-				<image src="../../static/uview/example/js.png" mode=""></image>
-			</view>
-			<view id="email">
-				<text id="id">1337802617@qq.com</text>
-				<image src="../../static/uview/example/js.png" mode=""></image>
-			</view>
 			<view id="password">
-				<text id="id">密码管理</text>
+				<text>男</text>
 				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
 			<view id="account">
-				<text id="id">注销账号</text>
+				<text>你爱过大海我爱过你爱过大海我爱过你你爱过大海我爱过你你</text>
 				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
 		</view>
@@ -64,6 +56,18 @@
 					float: right;
 					line-height: 4vh;
 					display: inline-block;
+				}
+			}
+			#account{
+				text{
+					overflow: hidden;
+					text-overflow: ellipsis;
+					line-height: 4vh;
+					height: 4vh;
+					display: inline-block;
+					width: 60vw;
+					white-space: nowrap;
+					font-size: $fontSize-sm;
 				}
 			}
 			image{

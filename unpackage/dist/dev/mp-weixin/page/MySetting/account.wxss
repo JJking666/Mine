@@ -24,67 +24,58 @@
   height: 15vw;
   size: 100%;
 }
-.person {
+.account {
   width: 100vw;
   height: 100vh;
   padding: 2vh 5vw;
   box-sizing: border-box;
 }
-.person .content {
+.account .content {
   width: 90vw;
   height: 96vh;
-  border: 1rpx solid transparent;
-  border-radius: 20rpx;
-  position: relative;
+  background-color: #BEF5C8;
+  border-radius: 10rpx;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
 }
-.person .content > view {
-  height: 4vh;
+.account .content > view:nth-of-type(1) {
+  margin-top: 3vh;
+}
+.account .content > text {
+  display: block;
+  margin-top: 1vh;
+  margin-left: 5vw;
+  font-size: 36rpx;
+  font-weight: 600;
+}
+.account .content .content-item {
+  height: 6vh;
   width: 90vw;
-  padding: 2vh 0;
+  padding: 1vh 5vw;
+  box-sizing: border-box;
   border-bottom: 1rpx solid #dedede;
 }
-.person .content > view text {
+.account .content .content-item text {
   line-height: 4vh;
   display: inline-block;
   font-size: 28rpx;
 }
-.person .content > view image {
-  margin-top: 0.5vh;
+.account .content .content-item image {
+  width: 4vh;
+  height: 4vh;
+  size: 100%;
   float: right;
   line-height: 4vh;
   display: inline-block;
 }
-.person .content #account text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 4vh;
-  height: 4vh;
-  display: inline-block;
-  width: 60vw;
-  white-space: nowrap;
+.account .content .content-item ._p {
   font-size: 28rpx;
-}
-.person .content image {
-  width: 3vh;
-  height: 3vh;
-  size: 100%;
-}
-.person .content #img {
-  display: block;
-  width: 10vh;
-  height: 10vh;
-  position: absolute;
-  left: calc(45vw - 5vh);
-  top: 5vh;
-}
-.person .content #dq {
-  display: block;
-  margin-top: 20vh;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: #8F939C;
+  color: #B9B9B9;
+  height: 4vh;
+  float: right;
+  line-height: 4vh;
+  display: inline-block;
 }
 

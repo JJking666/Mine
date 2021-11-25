@@ -150,14 +150,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      bigrecord: "",
+      recordAnimation: '',
       inputValue: "",
       selecting: 0,
       t1: null,
       maxid: 10,
+      show: 0,
       textList: [{
         id: 1,
         textvalue: "vue项目实现 搜索功能",
@@ -208,15 +214,34 @@ var _default =
 
   },
   methods: {
-    select: function select() {var _this = this;
+    showRecord: function showRecord(index) {var _this = this;
+      if (this.show == 0) {
+        this.bigrecord = this.textList[index].textvalue;
+        this.animation1.scale(1.3).step({ duration: 700 });
+        this.show = 1;
+        console.log(1);
+      } else {
+        this.animation1.scale(0).step({ duration: 400 });
+
+        this.bigrecord = this.textList[index].textvalue;
+        console.log(2);
+        this.animation1.scale(1.3).step({ duration: 500 });
+      }
+      this.recordAnimation = this.animation1.export();
+      setTimeout(function () {
+        _this.recordAnimation = null;
+      }, 100);
+
+    },
+    select: function select() {var _this2 = this;
       if (this.t1) {
         clearInterval(this.t1);
       }
       this.t1 = setTimeout(function () {
-        _this.textList.forEach(function (item) {
-          var str = new RegExp(_this.inputValue);
-          item.textvalue = item.textvalue.replace(_this.inputValue, "<span style=\"color: red\">".concat(
-          _this.inputValue, "</span>"));
+        _this2.textList.forEach(function (item) {
+          var str = new RegExp(_this2.inputValue);
+          item.textvalue = item.textvalue.replace(_this2.inputValue, "<span style=\"color: red\">".concat(
+          _this2.inputValue, "</span>"));
         });
       }, 500);
       // this.textList.forEach((item)=>{
@@ -247,6 +272,11 @@ var _default =
   onReady: function onReady() {
     var that = this;
     uni.$on('contentemit', this.addRecord);
+    var animation1 = uni.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease' });
+
+    this.animation1 = animation1;
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

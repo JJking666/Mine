@@ -3,7 +3,7 @@
 		<!-- <uni-file-picker></uni-file-picker> -->
 		<swiper class="swiper" :indicator-dots="indicatorDots">
 			<swiper-item v-for="(item,index) in imagePath" :key="index"><!--   -->
-				<textarea v-model="valueData[index]" placeholder="姓名" maxlength="6" placeholder-style="line-height: 5vh;"></textarea>
+				<textarea id="xm" v-model="valueData[index]" placeholder="姓名" maxlength="6" placeholder-style=""></textarea>
 				<textarea v-model="titleData[index]" placeholder="学号" maxlength="12" placeholder-style="line-height: 5vh;"></textarea>
 				<image  v-if="item" :src="item" ></image><!-- ||'../../static/img/icon.jpg' -->
 			</swiper-item>
@@ -58,6 +58,11 @@
 </script>
 
 <style lang="scss">
+	#xm{
+		display:inline-block;
+		width:45vw;
+		margin-left:5vw;
+	}
 	.classTable {
 		width: 100vw;
 		height: 100vh;
@@ -66,6 +71,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		box-sizing: border-box;
 		.swiper{
 			margin-top: 3vh;
 			width: 100vw;

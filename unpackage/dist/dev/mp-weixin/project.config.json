@@ -30,43 +30,48 @@
       "current": 0,
       "list": [
         {
-          "name": "setting",
+          "name": "record",
           "id": 0,
+          "pathName": "page/Memorandum/record"
+        },
+        {
+          "name": "setting",
+          "id": 1,
           "pathName": "page/MySetting/mySetting"
         },
         {
           "name": "Create",
-          "id": 1,
+          "id": 2,
           "pathName": "page/Creation/creation"
         },
         {
           "name": "Demo",
-          "id": 2,
+          "id": 3,
           "pathName": "page/demo"
         },
         {
           "name": "HandAccount",
-          "id": 3,
+          "id": 4,
           "pathName": "page/HandAccount/handAccount"
         },
         {
           "name": "account",
-          "id": 4,
+          "id": 5,
           "pathName": "page/MySetting/account"
         },
         {
           "name": "medal",
-          "id": 5,
+          "id": 6,
           "pathName": "page/MySetting/medal"
         },
         {
           "name": "person",
-          "id": 6,
+          "id": 7,
           "pathName": "page/MySetting/person"
         },
         {
           "name": "privacy",
-          "id": 7,
+          "id": 8,
           "pathName": "page/MySetting/privacy"
         }
       ]
