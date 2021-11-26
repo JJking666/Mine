@@ -2,8 +2,8 @@
 <template>
 	<view class="work">
 		<u-subsection :list="list" mode="subsection"
-					:current="current1"
-					activeColor="#f56c6c"
+					:current="current1" fontSize="16px" 
+					activeColor="#a0d1b1"
 					@change="changeCurrent1">
 		</u-subsection>
 		<swiper class="swiper work-swiper" :current="current2" @change="changeCurrent">
@@ -11,7 +11,7 @@
 				<!-- 待办 -->
 				<view class="swiper-item work-itemA">			
 					<!-- <view style="margin-top: 10vh;background-color: red;height: 1px;"></view> -->
-					<uni-card :title="item.title"  
+					<uni-card :title="item.title" 
 						:extra="item.date" 
 						v-for="(item,index) in noteData1" 
 						:key="item.id"
@@ -47,7 +47,7 @@
 			</swiper-item>
 		</swiper>
 		<button type="default" v-show="!current" class="radius-button create" @tap="gotoWriteWork"><!--  -->
-			<image src="../../static/img/memorandum/min_button.png"></image>
+			<image src="../../static/more/add.png"></image>
 		</button>
 	</view>
 </template>
@@ -195,7 +195,7 @@
 			.work-itemA {
 				width: 100vw;
 				height: 100%;
-				background-color: #f1c6b1;
+				background-color: #ffffff;
 				margin-top: -2vh;
 				padding:3vh 0;
 				.options{
@@ -235,11 +235,13 @@
 			bottom:20vh;
 			width: 15vw;
 			height: 15vw;
-			background-color: #A0CFFF;
-			padding: 0;
+			background-color: #91bea1;
+			padding: 2vw 2vw;
+			    box-sizing: border-box;
+				border: 1rpx solid #A5A5A5;
 			image{
-				width: inherit;
-				height: inherit;
+				width: 11vw;
+				height: 11vw;
 				size: 100%;
 			}
 		}

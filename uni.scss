@@ -24,11 +24,13 @@ $padding-lr:2vh;
 			bottom:20vh;
 			width: 15vw;
 			height: 15vw;
-			background-color: #A0CFFF;
-			padding: 0;
+			background-color: #a7dab9;
+			padding: 2vw 2vw;
+			box-sizing: border-box;
+			border: 1rpx solid #A5A5A5;
 			image{
-				width: 15vw;
-				height: 15vw;
+				width: 11vw;
+				height: 11vw;
 				size: 100%;
 			}
 		}

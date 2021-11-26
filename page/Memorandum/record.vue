@@ -5,17 +5,17 @@
 		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
 		<view 
 			style="width: 98vw;height: fit-content; column-count: 2;column-gap: 1vw; margin: 1vw auto; box-sizing: border-box;">
-			<view class="recordItem" v-for="(item,index) in textList" :key="index" @tap="showRecord(index)" >
+			<view class="recordItem" v-for="(item,index) in textList" :key="index" @tap="showRecord(index)"  >
 				<view id="text" v-html="item.textvalue"></view>
 				<text>11月19号</text>
 			</view>
 		</view>
 
-		<button type="default" v-show="!current" class="create" @tap="gotoWriteRecord">
+		<button v-show="!current" class="create" @tap="gotoWriteRecord">
 			<!--  -->
-			<image src="../../static/img/memorandum/min_button.png"></image>
+			<image src="../../static/more/add.png"></image>
 		</button>
-		<view id="BigRecord" :animation="recordAnimation">
+		<view id="BigRecord" :animation="recordAnimation" @tap="hideRecord()">
 			{{bigrecord}}
 		</view>
 	</view>
@@ -82,17 +82,22 @@
 			}
 		},
 		methods: {
+			hideRecord(){
+				this.animation1.scale(0).step({ duration: 700 })
+				this.recordAnimation=this.animation1.export()
+				setTimeout(() => {
+					this.recordAnimation=null
+				}, 100);
+				this.show=0;
+			},
 			showRecord(index){
 				if(this.show==0){
 					this.bigrecord=this.textList[index].textvalue;
 					this.animation1.scale(1.3).step({ duration: 700 })
 					this.show=1
-					console.log(1)
 				}else{
 					this.animation1.scale(0).step({ duration: 400 })
-				
 					this.bigrecord=this.textList[index].textvalue;
-					console.log(2)	
 					this.animation1.scale(1.3).step({ duration: 500 })
 				}
 				this.recordAnimation=this.animation1.export()
@@ -200,7 +205,7 @@
 			vertical-align: top;
 			border: 1rpx solid transparent;
 			border-radius: 20rpx;
-			background-color: #edfffb;
+			background-color: #b8f1cc;
 			display: block;
 			overflow: hidden;
 			box-sizing: border-box;

@@ -141,7 +141,7 @@
 		font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
 		background-color: #fff;
 		flex: 1;
-
+		background-color: #b8f1cc;
 		.uni-card__cover {
 			position: relative;
 			margin-top: $uni-card-spacing;

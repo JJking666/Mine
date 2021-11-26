@@ -214,34 +214,39 @@ var _default =
 
   },
   methods: {
-    showRecord: function showRecord(index) {var _this = this;
-      if (this.show == 0) {
-        this.bigrecord = this.textList[index].textvalue;
-        this.animation1.scale(1.3).step({ duration: 700 });
-        this.show = 1;
-        console.log(1);
-      } else {
-        this.animation1.scale(0).step({ duration: 400 });
-
-        this.bigrecord = this.textList[index].textvalue;
-        console.log(2);
-        this.animation1.scale(1.3).step({ duration: 500 });
-      }
+    hideRecord: function hideRecord() {var _this = this;
+      this.animation1.scale(0).step({ duration: 700 });
       this.recordAnimation = this.animation1.export();
       setTimeout(function () {
         _this.recordAnimation = null;
       }, 100);
+      this.show = 0;
+    },
+    showRecord: function showRecord(index) {var _this2 = this;
+      if (this.show == 0) {
+        this.bigrecord = this.textList[index].textvalue;
+        this.animation1.scale(1.3).step({ duration: 700 });
+        this.show = 1;
+      } else {
+        this.animation1.scale(0).step({ duration: 400 });
+        this.bigrecord = this.textList[index].textvalue;
+        this.animation1.scale(1.3).step({ duration: 500 });
+      }
+      this.recordAnimation = this.animation1.export();
+      setTimeout(function () {
+        _this2.recordAnimation = null;
+      }, 100);
 
     },
-    select: function select() {var _this2 = this;
+    select: function select() {var _this3 = this;
       if (this.t1) {
         clearInterval(this.t1);
       }
       this.t1 = setTimeout(function () {
-        _this2.textList.forEach(function (item) {
-          var str = new RegExp(_this2.inputValue);
-          item.textvalue = item.textvalue.replace(_this2.inputValue, "<span style=\"color: red\">".concat(
-          _this2.inputValue, "</span>"));
+        _this3.textList.forEach(function (item) {
+          var str = new RegExp(_this3.inputValue);
+          item.textvalue = item.textvalue.replace(_this3.inputValue, "<span style=\"color: red\">".concat(
+          _this3.inputValue, "</span>"));
         });
       }, 500);
       // this.textList.forEach((item)=>{

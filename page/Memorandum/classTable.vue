@@ -66,7 +66,7 @@
 	.classTable {
 		width: 100vw;
 		height: 100vh;
-		background-color: #A0CFFF;
+		background-color: #b8f1cc;
 		padding: $padding-tb $padding-lr;
 		display: flex;
 		flex-direction: column;

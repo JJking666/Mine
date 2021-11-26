@@ -130,7 +130,7 @@
 			textStyle(index) {
 				return index => {
 					const style = {}
-					style.fontWeight = this.bold && this.current === index ? 'bold' : 'normal'
+					style.fontWeight = this.bold && this.current === index ? '600' : 'bold'
 					style.fontSize = uni.$u.addUnit(this.fontSize)
 					// subsection模式下，激活时默认为白色的文字
 					if (this.mode === 'subsection') {

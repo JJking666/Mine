@@ -16,12 +16,14 @@
   bottom: 20vh;
   width: 15vw;
   height: 15vw;
-  background-color: #A0CFFF;
-  padding: 0;
+  background-color: #a7dab9;
+  padding: 2vw 2vw;
+  box-sizing: border-box;
+  border: 1rpx solid #A5A5A5;
 }
 .create image {
-  width: 15vw;
-  height: 15vw;
+  width: 11vw;
+  height: 11vw;
   size: 100%;
 }
 .uni-card {
@@ -32,6 +34,7 @@
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
   background-color: #fff;
   flex: 1;
+  background-color: #b8f1cc;
 }
 .uni-card .uni-card__cover {
   position: relative;

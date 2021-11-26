@@ -274,7 +274,7 @@ var _props = _interopRequireDefault(__webpack_require__(/*! ./props.js */ 282));
     textStyle: function textStyle(index) {var _this2 = this;
       return function (index) {
         var style = {};
-        style.fontWeight = _this2.bold && _this2.current === index ? 'bold' : 'normal';
+        style.fontWeight = _this2.bold && _this2.current === index ? '600' : 'bold';
         style.fontSize = uni.$u.addUnit(_this2.fontSize);
         // subsection模式下，激活时默认为白色的文字
         if (_this2.mode === 'subsection') {

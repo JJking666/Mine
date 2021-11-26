@@ -10,9 +10,9 @@
 				</label>
 			</view>
 		</view>
-		<button type="default" class="create" @tap="createPlan">
+		<button  class="create" @tap="createPlan">
 			<!--  -->
-			<image src="../../static/img/memorandum/min_button.png"></image>
+			<image src="../../static/more/add.png"></image>
 		</button>
 	</view>
 </template>
@@ -170,7 +170,7 @@
 			height: fit-content;
 			display: flex;
 			flex-direction: column;
-			background-color: #A0CFFF;
+			background-color:#b8f1cc ;
 			border: 1rpx solid transparent;
 			border-radius: 3vw;
 			margin: 2vh auto;
