@@ -1,8 +1,9 @@
 <template>
 	<view class="memorandum">
-		<image src="../../static/img/memorandum/dm7.jpg"></image>
+		<image src="../../static/more/阳光发芽背景_预览图.jpg"></image>
 
 		<view class="main">
+			<button class="record" @tap="gotoHandAccount">手账</button>
 			<button class="work" @tap="gotoWork">事务</button>
 
 			<button class="table" @tap="gotoClass">课表</button>
@@ -20,6 +21,11 @@
 			return{}
 		},
 		methods:{
+			gotoHandAccount(){
+				uni.navigateTo({
+					url:'../Creation/creation'
+				})
+			},
 			gotoWork(){
 				uni.navigateTo({
 					url:'./work'
@@ -48,11 +54,12 @@
 <style lang="scss" scoped>
 	button {
 		width: 60vw;
-		height: 13vh;
-		background-color: #DD524D;
-		border: 1px solid #DD524D;
+		height: 10vh;
+		background-color: #b8f1cc;
+		border: 1px solid transparent;
 		border-radius: 5px;
 		margin-top: 4vh;
+		line-height: 10vh;
 	}
 
 	.memorandum {

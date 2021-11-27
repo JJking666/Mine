@@ -35,11 +35,14 @@
   width: 60vw;
   -webkit-transform: scale(0);
           transform: scale(0);
-  background-color: #dee8cc;
+  background-color: #3CB371;
   border-radius: 10rpx;
   box-shadow: 2rpx 2rpx 30rpx #323233;
   padding: 2vh 5vw;
   box-sizing: border-box;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: aliceblue;
 }
 .record {
   width: 100vw;

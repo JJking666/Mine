@@ -1,9 +1,9 @@
 <template>
 	<view class="handAccount">
-		<swiper class="swiper-hor" easing-function="easeOutCubic" circular :interval="interval" :autoplay="autoplay"
+		<swiper class="swiper-hor" easing-function="easeOutCubic" circular :interval="interval" 
 			:duration="duration">
 			<swiper-item id="s1">
-				<swiper class="swiper-ver" easing-function="easeOutCubic" circular vertical=true :autoplay="autoplay"
+				<swiper class="swiper-ver" easing-function="easeOutCubic" circular vertical=true 
 					:interval="interval" :duration="duration">
 					<swiper-item id="s11">
 						<view class="swiper-ver-nav" @tap="showOpioion" >
@@ -12,19 +12,23 @@
 							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
 						</view>
 						<view class="swiper-ver-head">
-							<picker class="date" mode="date" :value="date" :start="startDate" :end="endDate"
+							<picker class="date" mode="date" :value="workData.date" :start="startDate" :end="endDate"
 								@change="bindDateChange">
-								<view class="uni-input">{{date}}</view>
+								<view class="uni-input">{{workData.date}}</view>
 							</picker>
-							<picker class="weather" @change="bindPickerChange" :value="index" :range="array">
-								<view class="uni-input">{{array[index]}}</view>
+							<picker class="weather" @change="bindPickerChange" :value="workData.weather" :range="array">
+								<view class="uni-input">{{array[workData.weather]}}</view>
 							</picker>
-							<picker class="feel" @change="bindPickerChange" :value="index" :range="array">
-								<view class="uni-input">{{array[index]}}</view>
+							<picker class="feel" @change="bindPickerChange" :value="workData.feel" :range="array">
+								<view class="uni-input">{{array[workData.feel]}}</view>
 							</picker>
 						</view>
 						<view class="textmain">
-							content
+							<image id="bk" src="../../static/more/微信图片_20211126111417.jpg"></image>
+							<editor  id="editor" @statuschange="onStatusChange"
+								read-only="true" @ready="onEditorReady"></editor>
+							<image id="tz" src="../../static/img/icon.jpg"
+							:style="{left:workData.imgX,top:workData.imgY,transform:workData.imgScale}"></image>
 						</view>
 						<view class="opioion" :animation = "opAnimation">
 							<view class="opioion-nav" @tap="showOpioion">
@@ -33,7 +37,7 @@
 							</view>
 							<view class="opioion-main" @click="say">
 								<view class="main-nav">
-									<image src="../../static/img/memorandum/bk2.jpg"></image>
+									<image src="../../static/img/memorandum/bk2.jpg" ></image>
 									<text>大白菜</text>
 								</view>
 								<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
@@ -69,6 +73,7 @@
 				<view class="swiper-item uni-bg-blue">C</view>
 			</swiper-item>
 		</swiper>
+		
 	</view>
 </template>
 
@@ -79,6 +84,18 @@
 				format: true
 			})
 			return {
+				workData:{
+					date:currentDate,
+					weather:0,
+					feel:0,
+					imgX:0,
+					imgY:0,
+					bkPath:'../../static/more/微信图片_20211126111417.jpg',
+					imgPath:'../../static/img/icon.jpg',
+					public:true,
+					imgScale:1,
+					content:"<p>ma</p><h2>喝喝酒</h2>"
+				},
 				opAnimation: {},
 				showOp:false,
 				background: ['color1', 'color2', 'color3'],
@@ -133,7 +150,20 @@
 			},
 			//获取到手账数据
 			getUser(res){
-				console.log(res)
+				this.workData.date=res.date
+				this.workData.feel=res.feel
+				this.workData.weather=res.weather
+				this.workData.bkPath=res.bkPath
+				this.workData.imgPath=res.imgPath
+				this.workData.public=res.public
+				this.workData.imgX=res.imgX
+				this.workData.imgY=res.imgY
+				this.workData.content=res.content
+				this.workData.imgScale=`scale(${res.imgScale})`
+				console.log(this.workData.imgScale)
+				this.editorCtx.setContents({
+					html:this.workData.content,
+				})
 			},
 			showOpioion(){
 				if(!this.showOp){
@@ -144,7 +174,13 @@
 					this.showOp=!this.showOp
 				}
 				this.opAnimation = this.opanimation.export()
-			}
+			},
+			onEditorReady() {
+				let that = this;
+				uni.createSelectorQuery().select('#editor').context((res) => {
+					that.editorCtx = res.context
+				}).exec()
+			},
 		},
 		onReady(){
 			let that =this
@@ -159,6 +195,9 @@
 </script>
 
 <style lang="scss">
+	$content-h:75vh;
+	$content-w:90vw;
+	$imgSize:4vh;
 	.handAccount {
 		height: 100vh;
 		width: 100vw;
@@ -201,7 +240,7 @@
 								object-fit: cover;
 							}
 
-							text {
+							#editor{
 								display: inline-block;
 								height: 8vh;
 								margin-left: 10vw;
@@ -274,11 +313,43 @@
 						}
 
 						.textmain {
-							width: 100vw;
-							height: 75vh;
-							padding: 10vw;
+							width: $content-w;
+							height: $content-h;
+							margin: 5vh auto;
 							background-color: #71D5A1;
 							box-sizing: border-box;
+							position: relative;
+							padding: 2vh 5vw;
+							#bk{
+								width: $content-w;
+								height: $content-h;
+								position: absolute;
+								left: 0;
+								top: 0;
+								size: 100%;
+								display: block;
+								
+							}
+								
+							#content{
+								width: calc(90vw - 60rpx);
+								height: 70vh;
+								margin: auto;
+								display: block;
+								font-size: $fontSize-md;
+								 overflow: auto;
+								 z-index: 1;	
+							}
+							#tz{
+								display: block;
+								position: absolute;
+								left: 0;
+								top: 0;
+								width: 10vh;
+								height: 10vh;
+								size: 100%;
+								z-index: 2;
+							}
 						}
 
 						.opioion {
@@ -290,6 +361,7 @@
 							background-color: #A0CFFF;
 							bottom: 0vh;
 							left: 10vw;
+							z-index: 9;
 							.opioion-nav{
 								width: inherit;
 								height: 8vh;

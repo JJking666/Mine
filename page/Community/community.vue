@@ -2,6 +2,7 @@
 	<view class="container">
 		<button type="primary" @tap="testDB()">testDB</button>
 		<button type="primary" @tap="emailSignUp()">email</button>
+		
 	</view>
 </template>
 

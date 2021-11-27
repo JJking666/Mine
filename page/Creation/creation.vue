@@ -1,12 +1,10 @@
 
 <template>
 	<view class="creation">
-		<myNav statush="0">
-			<image src="../../static/img/memorandum/complete.png" id="img1" @tap="getRes"></image>
-		</myNav>
+		<image id="submit" src="../../static/more/rili.png" mode="" @tap="getRes"></image>
 		<view class="creation-bk">
 			<view class="creation-content">
-				<image src="../../static/img/memorandum/dm6.jpg"></image>
+				<image src="../../static/more/微信图片_20211126111417.jpg"></image>
 				<view class="content-nav">
 					<picker class="date" mode="date" :value="date" :start="startDate" :end="endDate"
 						@change="bindDateChange">
@@ -23,8 +21,8 @@
 				<view class="jin" style="margin-top: -120rpx;"></view>
 				<movable-area class="moveArea">
 					<movable-view class="moveView" :x="x" :y="y" 
-					direction="all" @change="onChange"
-					inertia="true" scale="true" scale-max=5>
+					direction="all" @change="onChange1" @scale="onChange2"
+					inertia="true" scale="true" scale-max=2>
 						<image src="../../static/img/icon.jpg" mode="" style="width: inherit;height: inherit;size: 100%;object-fit: cover;"></image>
 					</movable-view>
 				</movable-area>
@@ -46,6 +44,7 @@
 				
 			</view>
 		</view>
+		
 	</view>
 </template>
 
@@ -68,13 +67,17 @@
 					imgY:0,
 					bkPath:'',
 					imgPath:'',
-					public:''
+					public:'',
+					imgScale:'',
+					content:''
 				},
 				feelindex:0,
 				wtindex:0,
 				bkindex:0,
+				bkPath1:'../../static/more/微信图片_20211126111417.jpg',
 				bkPath:['快乐背景','开心背景','美丽背景','王牌背景','菜老头背景','自定义背景'],
 				tzindex:0,
+				tzPath1:'../../static/img/icon.jpg',
 				tzPath:['快乐开心','开心美丽','美丽美丽','王牌美丽','美丽菜老','自定美丽'],
 				index:0,
 				jpheight:0,
@@ -83,6 +86,7 @@
 				date: currentDate,
 				x: 0,
 				y: 0,
+				tzscale:1,
 				old: {
 					x: 0,
 					y: 0
@@ -107,9 +111,14 @@
 			moveTz(){
 				this.index=this.index==0?999:0;
 			},
-			onChange: function(e) {
+			onChange1: function(e) {
 				this.old.x = e.detail.x
 				this.old.y = e.detail.y
+			},
+			onChange2(e){
+				this.old.x = e.detail.x
+				this.old.y = e.detail.y
+				this.scale = e.detail.scale
 			},
 			wtChange(e){
 				this.wtindex = e.target.value
@@ -136,20 +145,30 @@
 				return `${year}-${month}-${day}`;
 			},
 			getRes(res){
-				if(res.type!="tap"){
+				
+				if(res.type!="tap"&&res.type!="click"){
 					this.creationData.date=this.date
 					this.creationData.feel=this.feelindex
 					this.creationData.weather=this.wtindex
 					this.creationData.bkPath=this.bkindex;
 					this.creationData.imgPath=this.tzindex;
 					this.creationData.public=res.isPublic
-					this.creationData.imgX=this.old.x;
-					this.creationData.imgY=this.old.y
-					uni.$emit('getUser',this.creationData)
-					return ;
+					this.creationData.imgX=this.old.x+'px';
+					this.creationData.imgY=this.old.y+'px'
+					this.creationData.content=res.html
+					this.creationData.imgScale=this.tzscale
+					setTimeout(()=>{uni.$emit('getUser',this.creationData)},500)
+					// console.log(1,this.creationData)
+					// console.log(2,res)
+					
+					uni.switchTab({
+						url:'../HandAccount/handAccount'
+					})
+				}else{
+					//获取富文本中内容
+					uni.$emit('getres','a');
 				}
-				//获取富文本中内容
-				uni.$emit('getres','a');
+				
 			}
 		},
 		onReady(){
@@ -185,13 +204,21 @@
 		right: 3vw;
 		top: 0;
 	}
+	#submit{
+		width: 5vh;
+		height: 5vh;
+		display: block;
+		position: absolute;
+		right: 5vw;
+		top: 1vh;
+		size: 100%;
+	}
 	.creation {
 		width: 100vw;
 		height: 100vh;
 		box-sizing: border-box;
 		padding: 5vh 5vw;
-		background-color: rgba(241,204,184,0.8);
-
+		background-color: #b8f1cc;
 		.creation-bk {
 			width: $content-w;
 			height: $content-h;
@@ -201,7 +228,7 @@
 			.creation-content {
 				width: inherit;
 				height: inherit;
-				background-color: rgba(255, 192, 203, 0.8);
+				background-color: rgba(255, 192, 203, 0.2);
 				z-index: 99;
 				border: 1rpx solid transparent;
 				border-radius: 30rpx;
@@ -209,7 +236,7 @@
 				.jin{
 					height: 20vh;
 					width: calc(100%-60rpx);
-					background-color: rgba(242,222,189,0.8);
+					background-color: rgba( 240,230,140,0.2);
 					z-index: 999;
 					margin: 0 30rpx;
 				}

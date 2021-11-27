@@ -214,12 +214,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {};
   },
   methods: {
+    gotoFriends: function gotoFriends() {
+      uni.navigateTo({
+        url: "../Friends/friends" });
+
+    },
+    gotoFuns: function gotoFuns() {
+      uni.navigateTo({
+        url: '../Friends/funs' });
+
+    },
     gotoPerson: function gotoPerson() {
       uni.navigateTo({
         url: 'person' });

@@ -61,7 +61,7 @@ component.options.__file = "page/HandAccount/handAccount.vue"
 /*!**********************************************************************************************!*\
   !*** D:/HBuilderX/code/Mine/page/HandAccount/handAccount.vue?vue&type=template&id=61fe654a& ***!
   \**********************************************************************************************/
-/*! exports provided: render, staticRenderFns, recyclableRender, components */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -204,6 +204,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -211,6 +216,18 @@ var _default =
       format: true });
 
     return {
+      workData: {
+        date: currentDate,
+        weather: 0,
+        feel: 0,
+        imgX: 0,
+        imgY: 0,
+        bkPath: '../../static/more/微信图片_20211126111417.jpg',
+        imgPath: '../../static/img/icon.jpg',
+        public: true,
+        imgScale: 1,
+        content: "<p>ma</p><h2>喝喝酒</h2>" },
+
       opAnimation: {},
       showOp: false,
       background: ['color1', 'color2', 'color3'],
@@ -265,7 +282,20 @@ var _default =
     },
     //获取到手账数据
     getUser: function getUser(res) {
-      console.log(res);
+      this.workData.date = res.date;
+      this.workData.feel = res.feel;
+      this.workData.weather = res.weather;
+      this.workData.bkPath = res.bkPath;
+      this.workData.imgPath = res.imgPath;
+      this.workData.public = res.public;
+      this.workData.imgX = res.imgX;
+      this.workData.imgY = res.imgY;
+      this.workData.content = res.content;
+      this.workData.imgScale = "scale(".concat(res.imgScale, ")");
+      console.log(this.workData.imgScale);
+      this.editorCtx.setContents({
+        html: this.workData.content });
+
     },
     showOpioion: function showOpioion() {
       if (!this.showOp) {
@@ -276,6 +306,12 @@ var _default =
         this.showOp = !this.showOp;
       }
       this.opAnimation = this.opanimation.export();
+    },
+    onEditorReady: function onEditorReady() {
+      var that = this;
+      uni.createSelectorQuery().select('#editor').context(function (res) {
+        that.editorCtx = res.context;
+      }).exec();
     } },
 
   onReady: function onReady() {

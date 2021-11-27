@@ -30,49 +30,44 @@
       "current": 0,
       "list": [
         {
-          "name": "record",
+          "name": "main",
           "id": 0,
+          "pathName": "page/HandAccount/handAccount"
+        },
+        {
+          "name": "friends",
+          "id": 1,
+          "pathName": "page/Friends/friends"
+        },
+        {
+          "name": "funs",
+          "id": 2,
+          "pathName": "page/Friends/funs"
+        },
+        {
+          "name": "record",
+          "id": 3,
           "pathName": "page/Memorandum/record"
         },
         {
           "name": "setting",
-          "id": 1,
+          "id": 4,
           "pathName": "page/MySetting/mySetting"
         },
         {
           "name": "Create",
-          "id": 2,
+          "id": 5,
           "pathName": "page/Creation/creation"
         },
         {
           "name": "Demo",
-          "id": 3,
+          "id": 6,
           "pathName": "page/demo"
         },
         {
-          "name": "HandAccount",
-          "id": 4,
-          "pathName": "page/HandAccount/handAccount"
-        },
-        {
-          "name": "account",
-          "id": 5,
-          "pathName": "page/MySetting/account"
-        },
-        {
-          "name": "medal",
-          "id": 6,
-          "pathName": "page/MySetting/medal"
-        },
-        {
-          "name": "person",
+          "name": "GO",
           "id": 7,
-          "pathName": "page/MySetting/person"
-        },
-        {
-          "name": "privacy",
-          "id": 8,
-          "pathName": "page/MySetting/privacy"
+          "pathName": "page/Memorandum/memorandum"
         }
       ]
     }

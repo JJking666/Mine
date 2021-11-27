@@ -1,0 +1,102 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #a7dab9;
+  padding: 2vw 2vw;
+  box-sizing: border-box;
+  border: 1rpx solid #A5A5A5;
+}
+.create image {
+  width: 11vw;
+  height: 11vw;
+  size: 100%;
+}
+.friends {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.friends #record-input {
+  margin: 2vh auto;
+  width: 70vw;
+  height: 6vh;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+  font-size: 36rpx;
+  background-color: #f6fff9;
+  line-height: 6vh;
+  padding: 0 5vw;
+}
+.friends #record-bk {
+  position: fixed;
+  top: 0;
+  left: -30vw;
+  width: 160vw;
+  height: inherit;
+  size: 100%;
+  z-index: -1;
+}
+.friends .content {
+  width: 100vw;
+  height: 90vh;
+  margin: auto;
+  overflow: auto;
+}
+.friends .content .friend-item {
+  width: inherit;
+  height: 9vh;
+  padding: 1.5vh 10vw;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right, rgba(238, 238, 238, 0.6) 10%, rgba(1, 1, 1, 0.2) 100%);
+  border-bottom: 1rpx solid #999992;
+}
+.friends .content .friend-item image:nth-of-type(1) {
+  width: 6vh;
+  height: 6vh;
+  display: inline-block;
+  size: 100%;
+  vertical-align: middle;
+}
+.friends .content .friend-item text {
+  font-size: 32rpx;
+  display: inline-block;
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: 6vh;
+  font-weight: 500;
+  margin-left: 3vw;
+  vertical-align: middle;
+  line-height: 6vh;
+}
+.friends .content .friend-item image:nth-of-type(2) {
+  width: 3vh;
+  height: 3vh;
+  display: inline-block;
+  size: 100%;
+  vertical-align: middle;
+}
+.friends .content .friend-item button {
+  width: 14vw;
+  height: 3vh;
+  float: right;
+  line-height: 3vh;
+  font-size: 25rpx;
+  padding: 0 2vw;
+}
+

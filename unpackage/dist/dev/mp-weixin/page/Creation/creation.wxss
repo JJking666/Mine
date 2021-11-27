@@ -45,12 +45,21 @@ button {
   right: 3vw;
   top: 0;
 }
+#submit {
+  width: 5vh;
+  height: 5vh;
+  display: block;
+  position: absolute;
+  right: 5vw;
+  top: 1vh;
+  size: 100%;
+}
 .creation {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
   padding: 5vh 5vw;
-  background-color: rgba(241, 204, 184, 0.8);
+  background-color: #b8f1cc;
 }
 .creation .creation-bk {
   width: 90vw;
@@ -62,7 +71,7 @@ button {
 .creation .creation-bk .creation-content {
   width: inherit;
   height: inherit;
-  background-color: rgba(255, 192, 203, 0.8);
+  background-color: rgba(255, 192, 203, 0.2);
   z-index: 99;
   border: 1rpx solid transparent;
   border-radius: 30rpx;
@@ -71,7 +80,7 @@ button {
 .creation .creation-bk .creation-content .jin {
   height: 20vh;
   width: calc(100%-60rpx);
-  background-color: rgba(242, 222, 189, 0.8);
+  background-color: rgba(240, 230, 140, 0.2);
   z-index: 999;
   margin: 0 30rpx;
 }

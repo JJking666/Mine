@@ -16,7 +16,9 @@
         "page/MySetting/account",
         "page/MySetting/person",
         "page/MySetting/privacy",
-        "page/MySetting/medal"
+        "page/MySetting/medal",
+        "page/Friends/friends",
+        "page/Friends/funs"
     ],
     "subPackages": [],
     "window": {
@@ -41,13 +43,7 @@
                 "pagePath": "page/Memorandum/memorandum",
                 "iconPath": "./static/uview/common/logo.png",
                 "selectedIconPath": "./static/uview/common/logo.png",
-                "text": "备忘录"
-            },
-            {
-                "pagePath": "page/Community/community",
-                "iconPath": "./static/uview/common/logo.png",
-                "selectedIconPath": "./static/uview/common/logo.png",
-                "text": "社区"
+                "text": "创作"
             },
             {
                 "pagePath": "page/MySetting/mySetting",
@@ -55,13 +51,7 @@
                 "selectedIconPath": "./static/uview/common/logo.png",
                 "text": "设置"
             }
-        ],
-        "midButton": {
-            "width": "80px",
-            "height": "65px",
-            "iconPath": "static/img/memorandum/min_button.png",
-            "iconWidth": "60px"
-        }
+        ]
     },
     "usingComponents": {},
     "sitemapLocation": "sitemap.json"

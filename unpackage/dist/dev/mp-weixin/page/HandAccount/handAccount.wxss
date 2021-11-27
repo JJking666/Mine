@@ -68,7 +68,7 @@
   border-radius: 100%;
   object-fit: cover;
 }
-.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav text {
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav #editor {
   display: inline-block;
   height: 8vh;
   margin-left: 10vw;
@@ -131,11 +131,41 @@
   line-height: 5vh;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain {
-  width: 100vw;
+  width: 90vw;
   height: 75vh;
-  padding: 10vw;
+  margin: 5vh auto;
   background-color: #71D5A1;
   box-sizing: border-box;
+  position: relative;
+  padding: 2vh 5vw;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain #bk {
+  width: 90vw;
+  height: 75vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  size: 100%;
+  display: block;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain #content {
+  width: calc(90vw - 60rpx);
+  height: 70vh;
+  margin: auto;
+  display: block;
+  font-size: 32rpx;
+  overflow: auto;
+  z-index: 1;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain #tz {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10vh;
+  height: 10vh;
+  size: 100%;
+  z-index: 2;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion {
   overflow: scroll;
@@ -146,6 +176,7 @@
   background-color: #A0CFFF;
   bottom: 0vh;
   left: 10vw;
+  z-index: 9;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion .opioion-nav {
   width: inherit;

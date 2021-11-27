@@ -1,1 +1,1 @@
-<view style="display:flex;flex-direction:row;flex-wrap:wrap;"><robin-editor vue-id="2b5f813e-1" bind:__l="__l"></robin-editor></view>
+<view class="demo" style="display:flex;flex-direction:row;flex-wrap:wrap;"><editor class="ql-container" id="editor" showImgToolbar="{{true}}" data-event-opts="{{[['input',[['getText',['$event']]]],['statuschange',[['onStatusChange',['$event']]]],['ready',[['onEditorReady',['$event']]]]]}}" bindinput="__e" bindstatuschange="__e" bindready="__e"></editor><button data-event-opts="{{[['tap',[['demo',['$event']]]]]}}" bindtap="__e"></button></view>

@@ -146,12 +146,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {};
   },
   methods: {
+    gotoHandAccount: function gotoHandAccount() {
+      uni.navigateTo({
+        url: '../Creation/creation' });
+
+    },
     gotoWork: function gotoWork() {
       uni.navigateTo({
         url: './work' });

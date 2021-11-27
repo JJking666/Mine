@@ -1,7 +1,7 @@
 //修改页面
 <template>
 	<view class="record">
-		<image id="record-bk" src="../../static/img/memorandum/bk2.jpg" mode=""></image>
+		<image id="record-bk" src="../../static/more/微信图片_20211126111415.jpg" mode=""></image>
 		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
 		<view 
 			style="width: 98vw;height: fit-content; column-count: 2;column-gap: 1vw; margin: 1vw auto; box-sizing: border-box;">
@@ -163,11 +163,14 @@
 		overflow: scroll;
 		width: 60vw;
 		transform: scale(0);
-		background-color: #dee8cc;
+		background-color: #3CB371;
 		border-radius: 10rpx;
 		box-shadow: 2rpx 2rpx 30rpx #323233;
 		padding: 2vh 5vw;
 		box-sizing: border-box;
+		font-size: $fontSize-sm;
+		font-weight: 500;
+		color:aliceblue;
 	}
 	.record {
 		width: 100vw;

@@ -13,8 +13,8 @@
 			</view>
 			<view class="nav-something">
 				<text>20000</text>
-				<text>200</text>
-				<text>200</text>
+				<text @tap="gotoFriends">200</text>
+				<text @tap="gotoFuns">200</text>
 			</view>
 		</view>
 		<view class="setting-main1">
@@ -79,6 +79,7 @@
 				</view>
 			</view>
 		</view>
+		
 	</view>
 </template>
 
@@ -88,6 +89,16 @@
 			return {}
 		},
 		methods: {
+			gotoFriends(){
+				uni.navigateTo({
+					url:"../Friends/friends"
+				})
+			},
+			gotoFuns(){
+				uni.navigateTo({
+					url:'../Friends/funs'
+				})
+			},
 			gotoPerson() {
 				uni.navigateTo({
 					url: 'person'

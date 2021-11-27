@@ -261,18 +261,20 @@ export default {
 					Object.assign(res, {
 						isPublic: isPublic
 					})
+					// console.log(res)
 					uni.$emit('editOk', res);
 				} 
 			})
 		},
 		getres(res){
-			if(this.editorCtx.getContents()){
+			if(this.editorCtx){
 				this.release(true);
 			}
 		}
 	},
-	onReady(){
+	mounted(){
 		let that = this
+		that.onEditorReady();
 		uni.$on('getres',that.getres)
 	}
 };
@@ -293,7 +295,7 @@ export default {
 	height: 50vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
-	background-color: rgba(242,222,189,0.8);
+	background-color: rgba( 240,230,140,0.2);
 	z-index: 99999;			
 } 
 .tool-view{
