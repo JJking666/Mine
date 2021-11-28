@@ -7,7 +7,7 @@
 					:interval="interval" :duration="duration">
 					<swiper-item id="s11">
 						<view class="swiper-ver-nav" @tap="showOpioion" >
-							<image src="../../static/img/icon.jpg" mode="center"></image>
+							<image src="../../static/img/icon.jpg" mode=""></image>
 							<text>大帅哥</text>
 							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
 						</view>
@@ -240,7 +240,7 @@
 								object-fit: cover;
 							}
 
-							#editor{
+							text{
 								display: inline-block;
 								height: 8vh;
 								margin-left: 10vw;

@@ -61,7 +61,7 @@ component.options.__file = "page/HandAccount/handAccount.vue"
 /*!**********************************************************************************************!*\
   !*** D:/HBuilderX/code/Mine/page/HandAccount/handAccount.vue?vue&type=template&id=61fe654a& ***!
   \**********************************************************************************************/
-/*! no static exports found */
+/*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

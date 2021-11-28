@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"uni_modules/uview-ui/components/u-subsection/u-subsection":1,"uni_modules/uni-card/components/uni-card/uni-card":1,"components/myNav":1,"components/jin-edit/jin-edit":1,"components/jin-edit/jin-icons":1};
+/******/ 		var cssChunks = {"components/sunui-mverify/sunui-mverify":1,"uni_modules/uview-ui/components/u-subsection/u-subsection":1,"uni_modules/uni-card/components/uni-card/uni-card":1,"components/myNav":1,"components/jin-edit/jin-edit":1,"components/jin-edit/jin-icons":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"uni_modules/uview-ui/components/u-subsection/u-subsection":"uni_modules/uview-ui/components/u-subsection/u-subsection","uni_modules/uni-card/components/uni-card/uni-card":"uni_modules/uni-card/components/uni-card/uni-card","components/myNav":"components/myNav","components/jin-edit/jin-edit":"components/jin-edit/jin-edit","components/jin-edit/jin-icons":"components/jin-edit/jin-icons"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/sunui-mverify/sunui-mverify":"components/sunui-mverify/sunui-mverify","uni_modules/uview-ui/components/u-subsection/u-subsection":"uni_modules/uview-ui/components/u-subsection/u-subsection","uni_modules/uni-card/components/uni-card/uni-card":"uni_modules/uni-card/components/uni-card/uni-card","components/myNav":"components/myNav","components/jin-edit/jin-edit":"components/jin-edit/jin-edit","components/jin-edit/jin-icons":"components/jin-edit/jin-icons"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

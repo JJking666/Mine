@@ -1,0 +1,145 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #a7dab9;
+  padding: 2vw 2vw;
+  box-sizing: border-box;
+  border: 1rpx solid #A5A5A5;
+}
+.create image {
+  width: 11vw;
+  height: 11vw;
+  size: 100%;
+}
+#pd {
+  position: absolute;
+  left: 50rpx;
+  top: 105rpx;
+  font-size: 24rpx;
+  color: red;
+}
+.img-a {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.login-bg {
+  height: 100vh;
+  padding: 20vh 0;
+  box-sizing: border-box;
+  background-image: linear-gradient(to bottom right, rgba(249, 136, 162, 0.6), rgba(203, 89, 213, 0.6));
+}
+.t-login {
+  width: 90vw;
+  padding: 3vh 5vw;
+  margin: 0 auto;
+  font-size: 28rpx;
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.15);
+  z-index: 9;
+  height: -webkit-fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+}
+.t-login button {
+  font-size: 28rpx;
+  background: linear-gradient(to right, #ff8f77, #fe519f);
+  color: #fff;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 50rpx;
+  margin-top: 100rpx;
+}
+.t-login input {
+  padding: 0 20rpx 0 120rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin-bottom: 70rpx;
+  background: #f6f6f6;
+  border: 1px solid #f6f6f6;
+  font-size: 28rpx;
+  border-radius: 50rpx;
+}
+.t-login .t-a {
+  position: relative;
+}
+.t-login .t-a image {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  left: 40rpx;
+  top: 28rpx;
+  padding-right: 20rpx;
+}
+.t-login .t-b {
+  text-align: left;
+  font-size: 46rpx;
+  color: #000;
+  padding: 300rpx 0 120rpx 0;
+  font-weight: bold;
+}
+.t-login .t-d {
+  text-align: center;
+  color: #999;
+  margin: 80rpx 0;
+}
+.t-login .t-c {
+  text-align: right;
+  color: #666666;
+  margin: 30rpx 30rpx 40rpx 0;
+}
+.t-login .t-c .t-c-txt {
+  margin-right: 300rpx;
+}
+.t-login .t-e {
+  text-align: center;
+  width: 600rpx;
+  margin: 40rpx auto 0;
+}
+.t-login .t-g {
+  float: left;
+  width: 33.33%;
+}
+.t-login .t-e image {
+  width: 70rpx;
+  height: 70rpx;
+}
+.t-login .t-f {
+  text-align: center;
+  color: #999;
+}
+.t-login .t-f text {
+  margin-left: 20rpx;
+  color: #b9b9b9;
+  font-size: 27rpx;
+}
+.t-login .uni-input-placeholder {
+  color: #aeaeae;
+}
+.cl {
+  zoom: 1;
+}
+.cl:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  height: 0;
+  content: '\20';
+}
+

@@ -9,6 +9,16 @@
 	// },
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 			{
+			"path": "page/Login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+				}
+			},{
+			"path": "page/Login/enroll",
+			"style": {
+				"navigationBarTitleText": "注册"
+				}
+			},{
 			"path": "page/Memorandum/memorandum",
 			"style": {
 				"navigationBarTitleText": "备忘录"
