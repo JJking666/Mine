@@ -6,13 +6,13 @@
 				<view class="t-a" style="margin-top: 4vh;">
 					<image src="../../static/img/login/user.png"></image>
 					<input type="" name="account" placeholder="请输入手机号码" maxlength="11" 
-					v-model="account" @input="pdAccount"/>
+					v-model="account" />
 					<text id="pd" v-show="pdAccount">请输入正确的账号或邮箱</text>
 				</view>
 				<view class="t-a">
 					<image src="../../static/img/login/pwd.png"></image>
 					<input type="password" name="code" maxlength="6" placeholder="请输入密码" 
-					v-model="pwd" @input="pdPassword"/>
+					v-model="pwd" />
 					<text id="pd" v-show="pdPassword">密码错误!</text>
 				</view>
 				
@@ -45,9 +45,6 @@ export default {
 	onLoad() {},
 	methods: {
 		//当前登录按钮操作
-		pdAccount(){
-			
-		},
 		login() {
 			var that = this;
 			if (!that.phone) {

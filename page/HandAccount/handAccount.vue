@@ -35,27 +35,30 @@
 								<image src="../../static/img/icon.jpg"></image><text >2</text>
 								<image src="../../static/img/memorandum/dm1.jpg"></image><text>2</text>
 							</view>
-							<view class="opioion-main" @click="say">
-								<view class="main-nav">
-									<image src="../../static/img/memorandum/bk2.jpg" ></image>
-									<text>大白菜</text>
+							<scroll-view class="opioion-scroll" scroll-y="true" @scroll="scroll">
+								<view class="opioion-main" @click="say">
+									<view class="main-nav">
+										<image src="../../static/img/memorandum/bk2.jpg" ></image>
+										<text>大白菜</text>
+									</view>
+									<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
 								</view>
-								<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
-							</view>
-							<view class="opioion-main">
-								<view class="main-nav">
-									<image src="../../static/img/memorandum/bk2.jpg"></image>
-									<text>大白菜</text>
+								<view class="opioion-main">
+									<view class="main-nav">
+										<image src="../../static/img/memorandum/bk2.jpg"></image>
+										<text>大白菜</text>
+									</view>
+									<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
 								</view>
-								<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
-							</view>
-							<view class="opioion-main">
-								<view class="main-nav">
-									<image src="../../static/img/memorandum/bk2.jpg"></image>
-									<text>大白菜</text>
+								
+								<view class="opioion-main">
+									<view class="main-nav">
+										<image src="../../static/img/memorandum/bk2.jpg"></image>
+										<text>大白菜</text>
+									</view>
+									<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
 								</view>
-								<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
-							</view>
+							</scroll-view>
 						</view>
 					</swiper-item>
 					<swiper-item id="s21">
@@ -84,6 +87,10 @@
 				format: true
 			})
 			return {
+				scrollTop: 0,
+				            old: {
+				                scrollTop: 0
+				            },
 				workData:{
 					date:currentDate,
 					weather:0,
@@ -123,6 +130,10 @@
 			}
 		},
 		methods: {
+			scroll: function(e) {
+			            console.log(e)
+			            this.old.scrollTop = e.detail.scrollTop
+			        },
 			say(){
 				console.log(11)
 			},
@@ -353,7 +364,7 @@
 						}
 
 						.opioion {
-							overflow: scroll;
+							// overflow: scroll;
 							position: fixed;
 							width: 80vw;
 							margin: 0 auto;
@@ -362,6 +373,10 @@
 							bottom: 0vh;
 							left: 10vw;
 							z-index: 9;
+							.opioion-scroll{
+								height: 42vh;
+								width: 80vw;
+							}
 							.opioion-nav{
 								width: inherit;
 								height: 8vh;
@@ -407,7 +422,7 @@
 							}
 							.opioion-main{
 								width: 80vw;
-								height: fit-content;
+								height: 17vh;
 								display: flex;
 								flex-direction: column;
 								justify-content: center;

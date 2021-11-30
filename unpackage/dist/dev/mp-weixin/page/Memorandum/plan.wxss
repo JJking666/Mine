@@ -51,7 +51,7 @@
   right: 3vw;
 }
 .plan .plan-item .planHidden {
-  transition: all 0.5s  ease;
+  transition: all 0.5s ease;
 }
 .plan .plan-item #date {
   margin: 0 auto;
@@ -81,7 +81,7 @@
   height: 4vh;
   display: block;
   overflow: hidden;
-  transition: all 0.5s  ease;
+  transition: all 0.5s ease;
   margin: 1vh 0;
   margin-left: 3vw;
 }

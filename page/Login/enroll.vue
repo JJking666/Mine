@@ -5,23 +5,23 @@
 			<form class="cl">
 				<view class="t-a" style="margin-top: 4vh;">
 					<image src="../../static/img/login/user.png"></image>
-					<input type="" name="account" placeholder="请输入手机号或邮箱" maxlength="15" 
-					v-model="account" @input="pdAccount"/>
-					<text id="pd" v-show="pdAccount">请输入正确的账号或邮箱</text>
+					<input type="" name="account" placeholder="请输入手机号或邮箱" maxlength="25" 
+					v-model="account" />
+					<text id="pd" v-show="pdAccount">请输入正确的手机号或邮箱</text>
 				</view>
 				<view class="t-a">
 					<image src="../../static/img/login/pwd.png"></image>
-					<input type="password" name="code" minlength="6" placeholder="请输入密码" 
-					v-model="pwd" @input="pdPassword"/>
+					<input type="password" name="code" minlength="6" maxlength="18" placeholder="请输入密码6-18位" 
+					v-model="pwd1" />
 					<text id="pd" v-show="pdPassword">密码错误!</text>
 				</view>
 				<view class="t-a">
 					<image src="../../static/img/login/pwd.png"></image>
-					<input type="password" name="code" maxlength="6" placeholder="请输入密码" 
-					v-model="pwd" @input="pdPassword"/>
+					<input type="password" name="code" minlength="6" maxlength="18" placeholder="请重新输入密码" 
+					v-model="pwd2"/>
 					<text id="pd" v-show="pdPassword">密码错误!</text>
 				</view>
-				<sunui-mverify></sunui-mverify>
+				<sunui-mverify :Account="account" :Password="pwd1" :rePassword="pwd2"></sunui-mverify>
 			</form>
 		</view>
 		<image class="img-a" src="../../static/img/login/bg1.png"></image>
@@ -32,40 +32,32 @@ export default {
 	data() {
 		return {
 			account: '', //手机号码
-			pwd: '' ,//密码
+			pwd1: '' ,//密码
+			pwd2:'',
 			pdAccount:false,
 			pdPassword:false
 		};
 	},
-	onLoad() {},
+	onLoad() {
+		let that =this
+		uni.$on('enrollPd',this.showError)
+	},
 	methods: {
-		//当前登录按钮操作
-		pdAccount(){
-			
-		},
-		login() {
-			var that = this;
-			if (!that.phone) {
-				uni.showToast({ title: '请输入手机号', icon: 'none' });
-				return;
+		showError(res){
+			console.log(res)
+			this.pdAccount=res.pdAccount
+			this.pdPassword=res.pdPassword
+			if(res.pdAccount){
+				uni.showToast({
+					title: '请检查账号',
+					duration: 2000
+				})
+			}else if(res.pdPassword){
+				uni.showToast({
+					title: '请检查密码',
+					duration: 2000
+				})
 			}
-			if (!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(that.phone)) {
-				uni.showToast({ title: '请输入正确手机号', icon: 'none' });
-				return;
-			}
-			if (!that.pwd) {
-				uni.showToast({ title: '请输入密码', icon: 'none' });
-				return;
-			}
-			uni.showToast({ title: '登录成功！', icon: 'none' });
-		},
-		//忘记密码
-		forgotPwd() {
-			uni.showToast({ title: '忘记密码', icon: 'none' });
-		},
-		//立刻注册
-		reg() {
-			uni.showToast({ title: '注册账号', icon: 'none' });
 		}
 	}
 };

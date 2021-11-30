@@ -1,7 +1,7 @@
 <template name='sunui-mverify'>
 	<view class="sunui-slider">
 		<text style="color: #666;">{{ hint }}</text>
-		<view class='sunui-slider-bg' :style="{left:-(w + 2)+'px',transform:cssAnimation}">
+		<view class='sunui-slider-bg' @blur="blur" :style="{left:-(w + 2)+'px',transform:cssAnimation}">
 			<text>{{ succeedMsg }}</text>
 			<view class='sunui-slider-box' @touchmove='moveStart' @touchend='moveEnd'>
 				<text class="iconfont" :class="[isVerify?'icon-wancheng':'icon-youjiantou']"></text>
@@ -12,6 +12,20 @@
 
 <script>
 	export default {
+		props: {
+			Account: {
+				type: String,
+				default: '0'
+			},
+			Password: {
+				type: String,
+				default: '0'
+			},
+			rePassword: {
+				type: String,
+				default: '0'
+			},
+		},
 		data() {
 			return {
 				hint: '右滑注册',
@@ -27,7 +41,31 @@
 		},
 		name: 'sunui-mverify',
 		methods: {
+			blur(){
+				this.cssAnimation = 'translate3d(' + 0 + 'px, 0, 0)';
+			},
+			addUserData(){
+				let data
+				if(/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.Account)){
+					data='{"Account":"'+this.Account+'","Password":"'+this.Password+'","Phone":"'+this.Account+'"}'
+				}else{
+					data='{"Account":"'+this.Account+'","Password":"'+this.Password+'","Email":"'+this.Account+'"}'
+				}
+				uni.request({
+				        url: 'http://127.0.0.1:3000/enroll/test?data='+data
+				    })
+				    .then(data => {
+				        var [err, res]  = data;
+				})
+			},
 			moveStart(e) {
+				if(this.Password!=this.rePassword){
+					uni.showToast({
+						title:'两次密码不同',
+						duration:1000,
+					})
+					return
+				}
 				if (this.pullStatus) {
 					this.x = e.changedTouches[0].clientX - ((this.sysW * 0.1) + 25);
 					this.x >= this.w ? this.xAxial = this.w : this.xAxial = this.x;
@@ -39,6 +77,25 @@
 			},
 			moveEnd() {
 				let tag;
+				let error={};
+				error.pdAccount = false
+				error.pdPassword = false
+				if ((!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.Account) &&
+					!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(this.Account))||
+					(this.Password.length < 6 || this.Password.length > 18)) {
+					if((!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.Account) &&
+					!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(this.Account))){
+						error.pdAccount = true
+					}
+					
+					if (this.Password.length < 6 || this.Password.length > 18) {
+						error.pdPassword = true;
+					}
+					uni.$emit('enrollPd', error)
+					this.xAxial = 0
+					this.cssAnimation = 'translate3d(' + this.xAxial + 'px, 0, 0)';
+					return;
+				}
 				if (this.x >= this.w) {
 					this.xAxial = this.w;
 					this.succeedMsg = '注册成功';
@@ -57,9 +114,16 @@
 				this.cssAnimation = 'translate3d(' + this.xAxial + 'px, 0, 0)';
 				this.succeedMsg = this.succeedMsg;
 				this.cssAnimation = this.cssAnimation;
-				uni.redirectTo({
-					url:'../../page/Login/login'
+				uni.showToast({
+					title: '注册成功...',
+					duration: 1000
 				})
+				this.addUserData()
+				setTimeout(() => {
+					uni.redirectTo({
+						url: '../../page/Login/login'
+					})
+				}, 1300)
 			}
 		}
 	}

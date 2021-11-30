@@ -15,7 +15,7 @@
 						:extra="item.date" 
 						v-for="(item,index) in noteData1" 
 						:key="item.id"
-						v-on:longpress="workOption(1,index)"><!-- workOption(index) -->
+						@tap="workOption(1,index)"><!-- workOption(index) -->
 					    {{item.content}}
 						<view v-if="item.option"  class="options">
 							<button class="" @tap="deleteWork(1,index)">
@@ -75,21 +75,21 @@
 					{
 						id:3,
 						title:"上课",
-						content:"今天的课我一直睡觉觉哈哈哈",
+						content:"今天的课我一直睡觉觉",
 						date:"11/15",
 						option:false
 					},
 					{
 						id:4,
 						title:"睡觉",
-						content:"今天和蔡艺睡觉觉",
+						content:"今天睡觉觉",
 						date:"11/14",
 						option:false
 					},
 					{
 						id:5,
 						title:"打豆豆",
-						content:"今天打了肥仔大白菜",
+						content:"今天打了大白菜",
 						date:"11/14",
 						option:false
 					}
@@ -118,14 +118,14 @@
 					{
 						id:4,
 						title:"睡觉",
-						content:"今天和蔡艺睡觉觉",
+						content:"今天和",
 						date:"11/14",
 						option:false
 					},
 					{
 						id:5,
 						title:"打豆豆",
-						content:"今天打了肥仔大白菜",
+						content:"今天仔大白菜",
 						date:"11/14",
 						option:false
 					}

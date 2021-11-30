@@ -168,7 +168,6 @@
   z-index: 2;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion {
-  overflow: scroll;
   position: fixed;
   width: 80vw;
   margin: 0 auto;
@@ -177,6 +176,10 @@
   bottom: 0vh;
   left: 10vw;
   z-index: 9;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion .opioion-scroll {
+  height: 42vh;
+  width: 80vw;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion .opioion-nav {
   width: inherit;
@@ -222,8 +225,7 @@
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion .opioion-main {
   width: 80vw;
-  height: -webkit-fit-content;
-  height: fit-content;
+  height: 17vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
