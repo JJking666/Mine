@@ -119,6 +119,9 @@
 					url: 'medal'
 				})
 			},
+		},
+		onLoad(){
+			
 		}
 	}
 </script>
