@@ -10,8 +10,8 @@
 				auto-blur="true"></textarea>
 		</view>
 	</view>
+<!-- 	<image src="../../static/img/medals/jiangpaixunzhang.png"> -->
 </template>
-
 <script>
 	import myNav from "../../components/myNav.vue"
 	export default {

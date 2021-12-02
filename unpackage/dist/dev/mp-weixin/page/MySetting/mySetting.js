@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;} //
 //
 //
 //
@@ -218,7 +218,20 @@ __webpack_require__.r(__webpack_exports__);
 var _default =
 {
   data: function data() {
-    return {};
+    return {
+      UserAccount: '',
+      homePageData: {
+        UserID: '',
+        Name: '',
+        HeadImg: '',
+        motto: '',
+        FriendsCount: 0,
+        FanCount: 0,
+        workCount: 0,
+        medals: [],
+        goods: 0 } };
+
+
   },
   methods: {
     gotoFriends: function gotoFriends() {
@@ -252,7 +265,44 @@ var _default =
 
     } },
 
-  onLoad: function onLoad() {
+  onReady: function onReady() {
+    var that = this;
+    uni.getStorage({
+      key: "UserAccount",
+      success: function success(res) {
+        uni.request({
+          url: 'http://127.0.0.1:3000/user/queryUser?data=' + res.data }).
+
+        then(function (data) {var _data = _slicedToArray(
+          data, 2),err = _data[0],res = _data[1];
+          that.homePageData.Name = res.data.data[0].Name;
+          console.log(1, res.data.data[0]._id);
+          uni.request({
+            url: 'http://127.0.0.1:3000/homePage/getHomePages?data=' + res.data.data[0]["_id"] }).
+
+          then(function (data) {var _data2 = _slicedToArray(
+            data, 2),err = _data2[0],res = _data2[1];
+            that.homePageData.UserID = res.data.data[0].UserID,
+            that.homePageData.HeadImg = res.data.data[0].HeadImg,
+            that.homePageData.motto = res.data.data[0].motto,
+            that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
+            that.homePageData.FanCount = res.data.data[0].FanCount,
+            that.homePageData.workCount = res.data.data[0].workCount,
+            that.homePageData.medals = res.data.data[0].medals;
+            that.homePageData.goods = res.data.data[0].goods;
+            console.log(that.homePageData);
+          });
+          uni.request({
+            url: 'http://127.0.0.1:3000/relation/get' }).
+
+          then(function (data) {var _data3 = _slicedToArray(
+            data, 2),err = _data3[0],res = _data3[1];
+            console.log(data);
+          });
+        });
+
+      } });
+
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

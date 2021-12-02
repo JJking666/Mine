@@ -2,19 +2,19 @@
 	<view class="mysetting">
 		<view class="setting-nav">
 			<view class="nav-vip">
-				<image src="../../static/uview/common/logo.png" mode=""></image>
+				<image :src="homePageData.HeadImg" mode=""></image>
 				<text>Mine会员</text>
 			</view>
 			<image src="../../static/img/memorandum/dm7.jpg" mode=""></image>
 			<image src="../../static/img/memorandum/bk2.jpg" mode=""></image>
-			<text>name</text>
+			<text>{{homePageData.Name}}</text>
 			<view class="qianm">
-				<text>&nbsp;你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好好你好</text>
+				<text>{{homePageData.motto}}</text>
 			</view>
 			<view class="nav-something">
-				<text>20000</text>
-				<text @tap="gotoFriends">200</text>
-				<text @tap="gotoFuns">200</text>
+				<text>{{homePageData.goods}}</text>
+				<text @tap="gotoFriends">{{homePageData.FriendsCount}}</text>
+				<text @tap="gotoFuns">{{homePageData.FanCount}}</text>
 			</view>
 		</view>
 		<view class="setting-main1">
@@ -79,24 +79,37 @@
 				</view>
 			</view>
 		</view>
-		
+
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-			return {}
+			return {
+				UserAccount: '',
+				homePageData:{
+					UserID:'',
+					Name:'',
+					HeadImg:'',
+					motto:'',
+					FriendsCount:0,
+					FanCount:0,
+					workCount:0,
+					medals:[],
+					goods:0
+				}
+			}
 		},
 		methods: {
-			gotoFriends(){
+			gotoFriends() {
 				uni.navigateTo({
-					url:"../Friends/friends"
+					url: "../Friends/friends"
 				})
 			},
-			gotoFuns(){
+			gotoFuns() {
 				uni.navigateTo({
-					url:'../Friends/funs'
+					url: '../Friends/funs'
 				})
 			},
 			gotoPerson() {
@@ -120,8 +133,45 @@
 				})
 			},
 		},
-		onLoad(){
-			
+		onReady() {
+			let that = this
+			uni.getStorage({
+				key: "UserAccount",
+				success(res) {
+					uni.request({
+						url: 'http://127.0.0.1:3000/user/queryUser?data=' + res.data
+					})
+					.then(data=>{
+						let [err, res] = data
+						that.homePageData.Name=res.data.data[0].Name
+						console.log(1,res.data.data[0]._id)
+						uni.request({
+							url: 'http://127.0.0.1:3000/homePage/getHomePages?data=' + res.data.data[0]["_id"]
+						})
+						.then((data) => {
+							let [err, res] = data
+							that.homePageData.UserID=res.data.data[0].UserID,
+							that.homePageData.HeadImg=res.data.data[0].HeadImg,
+							that.homePageData.motto=res.data.data[0].motto,
+							that.homePageData.FriendsCount=res.data.data[0].FriendsCount,
+							that.homePageData.FanCount=res.data.data[0].FanCount,
+							that.homePageData.workCount=res.data.data[0].workCount,
+							that.homePageData.medals=res.data.data[0].medals
+							that.homePageData.goods =res.data.data[0].goods
+							console.log(that.homePageData)
+						})
+						uni.request({
+							url:'http://127.0.0.1:3000/relation/get',
+						})
+						.then(data=>{
+							let [err,res]=data
+							console.log(data)
+						})
+					})
+					
+				}
+			})
+
 		}
 	}
 </script>

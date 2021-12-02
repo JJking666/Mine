@@ -78,8 +78,12 @@
 								return;
 							}
 							uni.setStorage({
-							    key: 'UserAccount',
-							    data: that.account,
+								key: 'UserAccount',
+								data: that.account,
+							});
+							uni.setStorage({
+								key: 'UserPassword',
+								data: that.password,
 							});
 							setTimeout(() => {
 								uni.hideLoading()
@@ -108,6 +112,26 @@
 					url: 'enroll'
 				})
 			}
+		},
+		onLoad() {
+			uni.getStorage({
+				key: "UserAccount",
+				success(res) {
+					uni.showLoading({
+						title: '登录中'
+					})
+					setTimeout(() => {
+						uni.hideLoading()
+						uni.showToast({
+							title: '登录成功！',
+							icon: 'none'
+						});
+						uni.switchTab({
+							url: '../HandAccount/handAccount'
+						})
+					}, 1200)
+				}
+			})
 		}
 	};
 </script>
