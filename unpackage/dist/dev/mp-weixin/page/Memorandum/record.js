@@ -97,6 +97,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.recordData1, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.time.slice(0, 10)
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
+  var l1 = _vm.__map(_vm.recordData2, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g1 = item.time.slice(0, 10)
+    return {
+      $orig: $orig,
+      g1: g1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+        l1: l1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -130,7 +159,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;} //
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -155,62 +191,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
+  computed: {
+    recordData1: function recordData1() {
+      return this.recordData.filter(function (item, index) {
+        return index % 2 == 0;
+      });
+    },
+    recordData2: function recordData2() {
+      return this.recordData.filter(function (item, index) {
+        return index % 2 != 0;
+      });
+    } },
+
   data: function data() {
     return {
+      recordData: [],
       bigrecord: "",
       recordAnimation: '',
       inputValue: "",
       selecting: 0,
       t1: null,
       maxid: 10,
-      show: 0,
-      textList: [{
-        id: 1,
-        textvalue: "vue项目实现 搜索功能",
-        date: "11月19号" },
-
-      {
-        id: 2,
-        textvalue: "在uniApp开发中遇到 的问题及解决的在uniApp开发 中遇到的问题及解决的办",
-        date: "11月19号" },
-
-      {
-        id: 3,
-        textvalue: "和v-text 相似 但是它可在uniApp开发中 遇到的问题及解决的以将HT ML片段",
-        date: "11月19号" },
-
-      {
-        id: 4,
-        textvalue: "浏览器不 会对其再进行t",
-        date: "11月19号" },
-
-      {
-        id: 5,
-        textvalue: "标签在渲染的时候 被",
-        date: "11月19号" },
-
-      {
-        id: 6,
-        textvalue: "于将数据填充 到标在uniApp开发中遇到的问题及 解决的签中",
-        date: "11月19号" },
-
-      {
-        id: 7,
-        textvalue: "动问题 （如果数据中有HTML标签会",
-        date: "11月19号" },
-
-      {
-        id: 8,
-        textvalue: "于将数据填充 到标在uniApp开发中遇到的问题及 解决的签中",
-        date: "11月19号" },
-
-      {
-        id: 9,
-        textvalue: "动问题 （如果数据中有HTML标签会",
-        date: "11月19号" }] };
-
-
-
+      show: 0 };
 
   },
   methods: {
@@ -222,14 +224,22 @@ var _default =
       }, 100);
       this.show = 0;
     },
-    showRecord: function showRecord(index) {var _this2 = this;
+    showRecord: function showRecord(num, index) {var _this2 = this;
       if (this.show == 0) {
-        this.bigrecord = this.textList[index].textvalue;
+        if (num == 1) {
+          this.bigrecord = this.recordData1[index].content;
+        } else {
+          this.bigrecord = this.recordData2[index].content;
+        }
         this.animation1.scale(1.3).step({ duration: 700 });
         this.show = 1;
       } else {
         this.animation1.scale(0).step({ duration: 400 });
-        this.bigrecord = this.textList[index].textvalue;
+        if (num == 1) {
+          this.bigrecord = this.recordData1[index].content;
+        } else {
+          this.bigrecord = this.recordData2[index].content;
+        }
         this.animation1.scale(1.3).step({ duration: 500 });
       }
       this.recordAnimation = this.animation1.export();
@@ -282,6 +292,24 @@ var _default =
       timingFunction: 'ease' });
 
     this.animation1 = animation1;
+  },
+  onLoad: function onLoad() {
+    var that = this;
+    var id;
+    uni.getStorage({
+      key: "UserID",
+      success: function success(res) {
+        id = res.data;
+        console.log(id);
+        uni.request({
+          url: 'http://127.0.0.1:3000/record/queryRecords?data=' + id }).
+
+        then(function (data) {var _data = _slicedToArray(
+          data, 2),err1 = _data[0],res1 = _data[1];
+          that.recordData = res1.data.data;
+        });
+      } });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

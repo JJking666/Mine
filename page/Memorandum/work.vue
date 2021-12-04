@@ -13,11 +13,11 @@
 					<!-- <view style="margin-top: 10vh;background-color: red;height: 1px;"></view> -->
 					<uni-card :title="item.title" 
 						:extra="item.date" 
-						v-for="(item,index) in noteData1" 
+						v-for="(item,index) in workData1" 
 						:key="item.id"
 						@tap="workOption(1,index)"><!-- workOption(index) -->
 					    {{item.content}}
-						<view v-if="item.option"  class="options">
+						<view v-if="option1[index]"  class="options">
 							<button class="" @tap="deleteWork(1,index)">
 								<image src="../../static/img/memorandum/templateHL.png" ></image>
 							</button>
@@ -33,11 +33,11 @@
 				<view class="swiper-item work-itemA">
 					<uni-card :title="item.title"
 						:extra="item.date" 
-						v-for="(item,index) in noteData2" 
+						v-for="(item,index) in workData2" 
 						:key="item.id"
-						@longpress="workOption(2,index)"><!-- workOption(index) -->
+						@tap="workOption(2,index)"><!-- workOption(index) -->
 					    {{item.content}}
-						<view v-if="item.option"  class="options">
+						<view v-if="option2[index]"  class="options">
 							<button class="" @tap="deleteWork(2,index)">
 								<image src="../../static/uview/common/logo.png" ></image>
 							</button>
@@ -57,79 +57,10 @@
 		data() {
 			return {
 				firstCard:'2vh',
-				noteData1:[
-					{
-						id:1,
-						title:"吃饭",
-						content:"今天吃了大米饭",
-						date:"11/16",
-						option:true
-					},
-					{
-						id:2,
-						title:"看电影",
-						content:"今天看了国产007今天看了国产007今天看了国产007今天看了国产007",
-						date:"11/15",
-						option:false
-					},
-					{
-						id:3,
-						title:"上课",
-						content:"今天的课我一直睡觉觉",
-						date:"11/15",
-						option:false
-					},
-					{
-						id:4,
-						title:"睡觉",
-						content:"今天睡觉觉",
-						date:"11/14",
-						option:false
-					},
-					{
-						id:5,
-						title:"打豆豆",
-						content:"今天打了大白菜",
-						date:"11/14",
-						option:false
-					}
-				],noteData2:[
-					{
-						id:1,
-						title:"吃饭",
-						content:"今天吃了大米饭",
-						date:"11/16",
-						option:true
-					},
-					{
-						id:2,
-						title:"看电影",
-						content:"今天看了国产007今天看了国产007今天看了国产007今天看了国产007",
-						date:"11/15",
-						option:false
-					},
-					{
-						id:3,
-						title:"上课",
-						content:"今天的课我一直睡觉觉哈哈哈",
-						date:"11/15",
-						option:false
-					},
-					{
-						id:4,
-						title:"睡觉",
-						content:"今天和",
-						date:"11/14",
-						option:false
-					},
-					{
-						id:5,
-						title:"打豆豆",
-						content:"今天仔大白菜",
-						date:"11/14",
-						option:false
-					}
-				],
+				workData1:[],
+				workData2:[],
+				option1:[],
+				option2:[],
 				maxid:6,
 				background: ['color1', 'color2', 'color3'],
 				indicatorDots: true,
@@ -165,21 +96,52 @@
 				this.noteData1.unshift(work);
 			},
 			workOption(num,index){
-				if(num==1){this.noteData1[index].option=!this.noteData1[index].option;}
-				else{this.noteData2[index].option=!this.noteData2[index].option;}
+				console.log(2)
+				let optionA=!this.option1[index]
+				let optionB=!this.option2[index]
+				if(num==1){this.option1.splice(index,1,optionA)}
+				else{this.option2.splice(index,1,optionB)}
 			},
 			deleteWork(num,index){
-				if(num==1){this.noteData1.splice(index,1);}
-				else{this.noteData2.splice(index,1);}
+				if(num==1){this.workData1.splice(index,1);}
+				else{this.workData2.splice(index,1);}
 			},
 			addFinishWork(index){
-				let work = this.noteData1[index]
-				this.noteData2.unshift(work)
-				this.noteData1.splice(index,1);
+				let work = this.workData1[index]
+				this.workData2.unshift(work)
+				this.workData1.splice(index,1);
 			}
 		},
-		onReady() {
+		onShow() {
 			uni.$on('addWork',this.addWork)
+			let that =this
+			uni.getStorage({
+				key:"UserID",
+				success(res) {
+					let id =res.data
+					uni.request({
+						url:'http://127.0.0.1:3000/work/getWorks?data='+id
+					})
+					.then(data1=>{
+						let [err1,res1]=data1
+						that.option1=[]
+						that.workData1=[]
+						that.option2=[]
+						that.workData2=[]
+						res1.data.data.forEach((item,index)=>{
+							if(item.status==0){
+								let work = item;
+								that.option1.push(false)
+								that.workData1.push(work)
+							}else{
+								let work = item;
+								that.option2.push(false)
+								that.workData2.push(work)
+							}
+						})
+					})
+				}
+			})
 		}
 	}
 </script>
@@ -191,7 +153,7 @@
 		box-sizing: border-box;
 		
 		.work-swiper {
-			height: 90vh;
+			height:100vh;
 			.work-itemA {
 				width: 100vw;
 				height: 100%;

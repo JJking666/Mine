@@ -2,27 +2,29 @@
 	<view class="classTable">
 		<!-- <uni-file-picker></uni-file-picker> -->
 		<swiper class="swiper" :indicator-dots="indicatorDots">
-			<swiper-item v-for="(item,index) in imagePath" :key="index"><!--   -->
-				<textarea id="xm" v-model="valueData[index]" placeholder="姓名" maxlength="6" placeholder-style=""></textarea>
-				<textarea v-model="titleData[index]" placeholder="学号" maxlength="12" placeholder-style="line-height: 5vh;"></textarea>
+			<swiper-item v-for="(item,index) in classTableData.classPath" :key="index"><!--   -->
+				<textarea id="xm" v-model="classTableData.className[index]" placeholder="姓名" 
+				maxlength="6" placeholder-style=""></textarea>
+				<textarea v-model="classTableData.classNumber[index]" placeholder="学号" maxlength="12"
+				 placeholder-style="line-height: 5vh;"></textarea>
 				<image  v-if="item" :src="item" ></image><!-- ||'../../static/img/icon.jpg' -->
 			</swiper-item>
 		</swiper>
 		<button type="primary" @tap="openImg1()">从相册选取</button>
 		<button type="primary" @tap="openImg2()">从相机获取</button>
+<!-- 		<image src="../../static/more/微信图片_20211126111429.jpg" mode=""></image> -->
 	</view>
 </template>
 
 <script>
-	Page:({})
 	export default {
 		data() {
 			return {
+				classTableData:[],
 				titleData:[''],
 				valueData:[''],
 				name: "file.txt",
 				extname: "txt",
-				url: "https://xxxx",
 				imagePath: ['http://tmp/VLdOvIq3KLCSee414af7c3dab6e7b062ee781d0c54d1.jpg'],
 				indicatorDots: true,
 				autoplay: true,
@@ -53,6 +55,23 @@
 					}
 				});
 			},
+		},
+		onLoad() {
+			let that =this
+			uni.getStorage({
+				key:"UserID",
+				success(res) {
+					let id =res.data
+					uni.request({
+						url:'http://127.0.0.1:3000/classTable/getClassTables?data='+id
+					})
+					.then(data1=>{
+						let [err1,res1]=data1
+						that.classTableData = res1.data.data[0]
+						console.log(res1)
+					})
+				}
+			})
 		}
 	}
 </script>

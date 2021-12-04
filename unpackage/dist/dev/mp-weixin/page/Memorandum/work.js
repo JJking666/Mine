@@ -156,7 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;} //
 //
 //
 //
@@ -215,79 +215,10 @@ var _default =
   data: function data() {
     return {
       firstCard: '2vh',
-      noteData1: [
-      {
-        id: 1,
-        title: "吃饭",
-        content: "今天吃了大米饭",
-        date: "11/16",
-        option: true },
-
-      {
-        id: 2,
-        title: "看电影",
-        content: "今天看了国产007今天看了国产007今天看了国产007今天看了国产007",
-        date: "11/15",
-        option: false },
-
-      {
-        id: 3,
-        title: "上课",
-        content: "今天的课我一直睡觉觉",
-        date: "11/15",
-        option: false },
-
-      {
-        id: 4,
-        title: "睡觉",
-        content: "今天睡觉觉",
-        date: "11/14",
-        option: false },
-
-      {
-        id: 5,
-        title: "打豆豆",
-        content: "今天打了大白菜",
-        date: "11/14",
-        option: false }],
-
-      noteData2: [
-      {
-        id: 1,
-        title: "吃饭",
-        content: "今天吃了大米饭",
-        date: "11/16",
-        option: true },
-
-      {
-        id: 2,
-        title: "看电影",
-        content: "今天看了国产007今天看了国产007今天看了国产007今天看了国产007",
-        date: "11/15",
-        option: false },
-
-      {
-        id: 3,
-        title: "上课",
-        content: "今天的课我一直睡觉觉哈哈哈",
-        date: "11/15",
-        option: false },
-
-      {
-        id: 4,
-        title: "睡觉",
-        content: "今天和",
-        date: "11/14",
-        option: false },
-
-      {
-        id: 5,
-        title: "打豆豆",
-        content: "今天仔大白菜",
-        date: "11/14",
-        option: false }],
-
-
+      workData1: [],
+      workData2: [],
+      option1: [],
+      option2: [],
       maxid: 6,
       background: ['color1', 'color2', 'color3'],
       indicatorDots: true,
@@ -323,21 +254,52 @@ var _default =
       this.noteData1.unshift(work);
     },
     workOption: function workOption(num, index) {
-      if (num == 1) {this.noteData1[index].option = !this.noteData1[index].option;} else
-      {this.noteData2[index].option = !this.noteData2[index].option;}
+      console.log(2);
+      var optionA = !this.option1[index];
+      var optionB = !this.option2[index];
+      if (num == 1) {this.option1.splice(index, 1, optionA);} else
+      {this.option2.splice(index, 1, optionB);}
     },
     deleteWork: function deleteWork(num, index) {
-      if (num == 1) {this.noteData1.splice(index, 1);} else
-      {this.noteData2.splice(index, 1);}
+      if (num == 1) {this.workData1.splice(index, 1);} else
+      {this.workData2.splice(index, 1);}
     },
     addFinishWork: function addFinishWork(index) {
-      var work = this.noteData1[index];
-      this.noteData2.unshift(work);
-      this.noteData1.splice(index, 1);
+      var work = this.workData1[index];
+      this.workData2.unshift(work);
+      this.workData1.splice(index, 1);
     } },
 
-  onReady: function onReady() {
+  onShow: function onShow() {
     uni.$on('addWork', this.addWork);
+    var that = this;
+    uni.getStorage({
+      key: "UserID",
+      success: function success(res) {
+        var id = res.data;
+        uni.request({
+          url: 'http://127.0.0.1:3000/work/getWorks?data=' + id }).
+
+        then(function (data1) {var _data = _slicedToArray(
+          data1, 2),err1 = _data[0],res1 = _data[1];
+          that.option1 = [];
+          that.workData1 = [];
+          that.option2 = [];
+          that.workData2 = [];
+          res1.data.data.forEach(function (item, index) {
+            if (item.status == 0) {
+              var work = item;
+              that.option1.push(false);
+              that.workData1.push(work);
+            } else {
+              var _work = item;
+              that.option2.push(false);
+              that.workData2.push(_work);
+            }
+          });
+        });
+      } });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -1,22 +1,22 @@
 <template>
 	<view class="person">
 		<view class="content">
-			<image id="img" src="../../static/img/icon.jpg" mode=""></image>
+			<image id="img" :src="person.headImg" mode=""></image>
 			<text id="dq">个人信息</text>
 			<view id="id">
-				<text id="id">ID:453453</text>
+				<text id="id">ID:{{person.ID}}</text>
 				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
 			<view id="name">
-				<text >大帅哥</text>
+				<text >{{person.name}}</text>
 				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
 			<view id="password">
-				<text>男</text>
+				<text>{{person.sex}}</text>
 				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
 			<view id="account">
-				<text>你爱过大海我爱过你爱过大海我爱过你你爱过大海我爱过你你</text>
+				<text>{{person.motto}}</text>
 				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
 		</view>
@@ -24,6 +24,35 @@
 </template>
 
 <script>
+	export default{
+		data(){
+			return {
+				person:{
+					headImg:'',
+					ID:'',
+					name:'',
+					sex:'',
+					motto:''
+				}
+			}
+		},
+		onLoad(option) {
+			let that =this
+			uni.request({
+				url:'http://127.0.0.1:3000/user/queryUserById?data='+option.ID
+			})
+			.then(data=>{
+				let [err,res]=data
+				console.log(res)
+				that.person.headImg=res.data.data[0].HeadImg
+				that.person.ID = option.ID.slice(-6)
+				if(res.data.data[0].Sex == 'man')that.person.sex='男'
+				else that.person.sex='女'
+				that.person.motto = res.data.data[0].motto
+				that.person.name = res.data.data[0].Name
+			})
+		}
+	}
 </script>
 
 <style lang="scss">

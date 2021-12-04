@@ -235,33 +235,39 @@ var _default =
   },
   methods: {
     gotoFriends: function gotoFriends() {
+      var that = this;
       uni.navigateTo({
-        url: "../Friends/friends" });
+        url: "../Friends/friends?ID=" + that.homePageData.UserID });
 
     },
     gotoFuns: function gotoFuns() {
+      var that = this;
       uni.navigateTo({
-        url: '../Friends/funs' });
+        url: "../Friends/funs?ID=" + that.homePageData.UserID });
 
     },
     gotoPerson: function gotoPerson() {
+      var that = this;
       uni.navigateTo({
-        url: 'person' });
+        url: "person?ID=" + that.homePageData.UserID });
 
     },
     gotoAccount: function gotoAccount() {
+      var that = this;
       uni.navigateTo({
-        url: 'account' });
+        url: "account?ID=" + that.homePageData.UserID });
 
     },
     gotoPrivacy: function gotoPrivacy() {
+      var that = this;
       uni.navigateTo({
-        url: 'privacy' });
+        url: "privacy?ID=" + that.homePageData.UserID });
 
     },
     gotoMedal: function gotoMedal() {
+      var that = this;
       uni.navigateTo({
-        url: 'medal' });
+        url: "medal?ID=" + that.homePageData.UserID });
 
     } },
 
@@ -276,13 +282,16 @@ var _default =
         then(function (data) {var _data = _slicedToArray(
           data, 2),err = _data[0],res = _data[1];
           that.homePageData.Name = res.data.data[0].Name;
-          console.log(1, res.data.data[0]._id);
+          that.homePageData.UserID = res.data.data[0]._id;
+          uni.setStorage({
+            key: "UserID",
+            data: res.data.data[0]._id });
+
           uni.request({
-            url: 'http://127.0.0.1:3000/homePage/getHomePages?data=' + res.data.data[0]["_id"] }).
+            url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"] }).
 
           then(function (data) {var _data2 = _slicedToArray(
             data, 2),err = _data2[0],res = _data2[1];
-            that.homePageData.UserID = res.data.data[0].UserID,
             that.homePageData.HeadImg = res.data.data[0].HeadImg,
             that.homePageData.motto = res.data.data[0].motto,
             that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
@@ -293,11 +302,20 @@ var _default =
             console.log(that.homePageData);
           });
           uni.request({
-            url: 'http://127.0.0.1:3000/relation/get' }).
+            url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
+            '{"UserID":"' + that.homePageData.UserID + '","status":[0,1,2]}' }).
 
           then(function (data) {var _data3 = _slicedToArray(
             data, 2),err = _data3[0],res = _data3[1];
-            console.log(data);
+            var fun = 0;
+            var friend = 0;
+            res.data.data.forEach(function (item) {
+              console.log(item.status);
+              if (item.status == 0 || item.status == 2) fun++;
+              if (item.status == 1 || item.status == 2) friend++;
+            });
+            that.homePageData.FanCount = fun;
+            that.homePageData.FriendsCount = friend;
           });
         });
 

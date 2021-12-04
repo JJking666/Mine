@@ -26,7 +26,23 @@
 		},
 		methods:{
 			createOk(){
-				uni.$emit('addWork',{value:this.textValue,title:this.textTitle})
+				let that =this
+				let id
+				uni.getStorage({
+					key:"UserID",
+					success:(res)=>{
+						id = res.data
+						console.log(id)
+						uni.request({
+							url:'http://127.0.0.1:3000/work/addWorks?data='+
+							'{"UserID":"'+id+'","title":"'+that.textTitle+'","content":"'+that.textValue+'"}'
+						})
+						.then(data=>{
+							let [err1,res1]=data1
+							console.log(res1)
+						})
+					}
+				})
 				uni.navigateBack({
 					delta:1
 				})

@@ -103,33 +103,39 @@
 		},
 		methods: {
 			gotoFriends() {
+				let that =this
 				uni.navigateTo({
-					url: "../Friends/friends"
+					url: "../Friends/friends?ID="+that.homePageData.UserID
 				})
 			},
 			gotoFuns() {
+				let that =this
 				uni.navigateTo({
-					url: '../Friends/funs'
+					url: "../Friends/funs?ID="+that.homePageData.UserID
 				})
 			},
 			gotoPerson() {
+				let that =this
 				uni.navigateTo({
-					url: 'person'
+					url: "person?ID="+that.homePageData.UserID
 				})
 			},
 			gotoAccount() {
+				let that =this
 				uni.navigateTo({
-					url: 'account'
+					url: "account?ID="+that.homePageData.UserID
 				})
 			},
 			gotoPrivacy() {
+				let that =this
 				uni.navigateTo({
-					url: 'privacy'
+					url: "privacy?ID="+that.homePageData.UserID
 				})
 			},
 			gotoMedal() {
+				let that =this
 				uni.navigateTo({
-					url: 'medal'
+					url: "medal?ID="+that.homePageData.UserID
 				})
 			},
 		},
@@ -144,13 +150,16 @@
 					.then(data=>{
 						let [err, res] = data
 						that.homePageData.Name=res.data.data[0].Name
-						console.log(1,res.data.data[0]._id)
+						that.homePageData.UserID=res.data.data[0]._id
+						uni.setStorage({
+							key:"UserID",
+							data:res.data.data[0]._id
+						})
 						uni.request({
-							url: 'http://127.0.0.1:3000/homePage/getHomePages?data=' + res.data.data[0]["_id"]
+							url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
 						})
 						.then((data) => {
 							let [err, res] = data
-							that.homePageData.UserID=res.data.data[0].UserID,
 							that.homePageData.HeadImg=res.data.data[0].HeadImg,
 							that.homePageData.motto=res.data.data[0].motto,
 							that.homePageData.FriendsCount=res.data.data[0].FriendsCount,
@@ -161,11 +170,20 @@
 							console.log(that.homePageData)
 						})
 						uni.request({
-							url:'http://127.0.0.1:3000/relation/get',
+							url:'http://127.0.0.1:3000/relationship/queryRelationship?data='+
+							'{"UserID":"'+that.homePageData.UserID+'","status":[0,1,2]}'
 						})
 						.then(data=>{
 							let [err,res]=data
-							console.log(data)
+							let fun=0
+							let friend=0
+							res.data.data.forEach((item)=>{
+								console.log(item.status)
+								if(item.status==0||item.status==2) fun++;
+								if(item.status==1||item.status==2) friend++
+							})
+							that.homePageData.FanCount=fun
+							that.homePageData.FriendsCount=friend
 						})
 					})
 					

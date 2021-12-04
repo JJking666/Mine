@@ -147,8 +147,8 @@
   align-items: center;
 }
 .medal .content2 .medals2 > view image {
-  width: 25vw;
-  height: 13vh;
+  width: 8vh;
+  height: 8vh;
   size: 100%;
 }
 .medal .content2 .medals2 > view text {

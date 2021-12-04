@@ -35,6 +35,19 @@
 					src:'../../static/img/icon.jpg'
 				}]
 			}
+		},
+		onLoad(option) {
+			let that =this
+			uni.request({
+				url:'http://127.0.0.1:3000/user/queryUserById?data='+option.ID
+			})
+			.then(data=>{
+				let [err,res]=data
+				console.log(res)
+				that.itemData[0].right = option.ID.slice(-6)
+				that.itemData[1].right =res.data.data[0].Phone
+				that.itemData[2].right = res.data.data[0].Email
+			})
 		}
 	}
 </script>

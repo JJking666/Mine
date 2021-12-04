@@ -97,6 +97,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.planData, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.startTime.slice(5, 10)
+    var g1 = item.endTime.slice(5, 10)
+    return {
+      $orig: $orig,
+      g0: g0,
+      g1: g1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -130,7 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;} //
 //
 //
 //
@@ -152,48 +172,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
-
   data: function data() {
     return {
-      // planitem: [{
-      // 		id: 1,
-      // 		date: "11/18",
-      // 		planitem: ["学习", "吃饭", "睡觉", "跑步", "上分"],
-      // 		visibity: "0vh"
-      // 	},
-      // 	{
-      // 		id: 2,
-      // 		date: "11/18",
-      // 		planitem: ["学习", "吃饭", "睡觉", "跑步", "上分", "跑步", "上分"],
-      // 		visibity: "0vh"
-      // 	},
-      // 	{
-      // 		id: 3,
-      // 		date: "11/18",
-      // 		planitem: ["学习", "跑步", "上分", "吃饭", "睡觉", "跑步", "上分"],
-      // 		visibity: "0vh"
-      // 	},
-      // 	{
-      // 		id: 4,
-      // 		date: "11/18",
-      // 		planitem: ["学习", "吃饭", "跑步", "上分", "睡觉", "跑步", "上分"],
-      // 		visibity: "0vh"
-      // 	},
-      // 	{
-      // 		id: 5,
-      // 		date: "11/18",
-      // 		planitem: ["吃饭", "睡觉", "跑步", "上分",
-      // 			"学习", "吃饭", "睡觉", "跑步", "上分"
-      // 		],
-      // 		visibity: "0vh"
-      // 	},
-      // 	{
-      // 		id: 6,
-      // 		date: "11/18",
-      // 		planitem: ["学习", "吃饭", "睡觉", "跑步", "上分"],
-      // 		visibity: "0vh"
-      // 	},
-      // ],
+      id: '',
+      demoData: [1, 2, 3, 4, 5, 6],
+      planData: [],
       planitem: [{
         id: 1,
         title: "啦啦啦",
@@ -248,11 +231,20 @@ var _default =
   },
   methods: {
     changeShow: function changeShow(index) {
-      this.planitem[index].visibity = this.planitem[index].visibity == "3vh" ? "0vh" : "3vh";
+      this.planData[index].visibity = this.planData[index].visibity == "3vh" ? "0vh" : "3vh";
+      this.$set(this.planData, index, {
+        startTime: this.planData[index].startTime,
+        endTime: this.planData[index].endTime,
+        title: this.planData[index].title,
+        content: this.planData[index].content,
+        visibity: this.planData[index].visibity });
+
+      //深层对象无法响应
     },
     createPlan: function createPlan() {
+      var that = this;
       uni.navigateTo({
-        url: 'createPlan' });
+        url: 'createPlan?ID' + that.id });
 
     },
     getPlan: function getPlan(value) {
@@ -302,7 +294,29 @@ var _default =
     } },
 
   onReady: function onReady() {
+    var that = this;
+    var id;
     uni.$on('planemit', this.getPlan);
+    uni.getStorage({
+      key: "UserID",
+      success: function success(res) {
+        id = res.data;
+        that.id = res.data;
+        console.log(id);
+        uni.request({
+          url: 'http://127.0.0.1:3000/plan/queryPlans?data=' + id }).
+
+        then(function (data) {var _data = _slicedToArray(
+          data, 2),err1 = _data[0],res1 = _data[1];
+          that.planData = res1.data.data;
+          that.planData.forEach(function (item) {
+            item.visibity = '0vh';
+            item.content = item.content.split("\n");
+          });
+
+        });
+      } });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

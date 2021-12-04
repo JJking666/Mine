@@ -3,11 +3,11 @@
 		<image id="record-bk" src="../../static/more/微信图片_20211126111415.jpg" mode=""></image>
 		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
 		<view class="content">
-			<view class="friend-item" v-for="(item,index) in friendsData" :key="item.id">
-				<image :src="item.head">
+			<view class="friend-item" v-for="(item,index) in friends" :key="index">
+				<image :src="item.headImg">
 				<text>{{item.name}}</text>
-				<image src="../../static/more/faxian-36.png" mode=""></image>
-				<button>已关注</button>
+				<image :src="item.sex=='man'?'../../static/more/faxian-36.png':'../../static/more/微信图片_20211126111415.jpg'" mode=""></image>
+				<button @tap="cancelFriend(item.id)">已关注</button>
 			</view>
 		</view>
 	</view>
@@ -17,6 +17,7 @@
 	export default{
 		data(){
 			return{
+				friends:[],
 				friendsData:[{
 					id:1,
 					name:'大白菜',
@@ -69,7 +70,39 @@
 					head:"../../static/img/memorandum/dm1.jpg"
 				}]
 			}
-		}
+		},
+		methods:{
+			cancelFriend(id){
+				console.log(id)
+			}
+		},
+		onLoad(option) {
+			let that =this
+			uni.request({
+				url:'http://127.0.0.1:3000/relationship/queryRelationship?data='
+				+'{"UserID":"'+option.ID+'","status":[1,2]}'
+			})
+			.then(data=>{
+				let [err,res]=data
+				// console.log(1,err,res)
+				res.data.data.forEach((item)=>{
+					let friend={}
+					friend.status=item.status
+					uni.request({
+						url:'http://127.0.0.1:3000/user/queryUserById?data='+item.PeopleID
+					})
+					.then(data=>{
+						let [err1,res1]=data
+						// console.log(2,err1,res1)
+						friend.id=res1.data.data[0]._id
+						friend.headImg=res1.data.data[0].HeadImg
+						friend.name=res1.data.data[0].Name
+						friend.sex=res1.data.data[0].Sex
+						that.friends.push(friend)
+					})
+				})
+			})
+		},
 	}
 </script>
 

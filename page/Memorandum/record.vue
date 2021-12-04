@@ -4,13 +4,20 @@
 		<image id="record-bk" src="../../static/more/微信图片_20211126111415.jpg" mode=""></image>
 		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
 		<view 
-			style="width: 98vw;height: fit-content; column-count: 2;column-gap: 1vw; margin: 1vw auto; box-sizing: border-box;">
-			<view class="recordItem" v-for="(item,index) in textList" :key="index" @tap="showRecord(index)"  >
-				<view id="text" v-html="item.textvalue"></view>
-				<text>11月19号</text>
+			style="width: 45vw;height: fit-content; margin: 1vw 0; box-sizing: border-box;margin-left: 3vw;display: inline-block;">
+			<view class="recordItem" v-for="(item,index) in recordData1"  :key="index" @tap="showRecord(1,index)"  >
+				<view id="text" v-html="item.content"></view>
+				<text>{{item.time.slice(0,10)}}</text>
 			</view>
 		</view>
-
+		<view
+			style="width: 45vw;height: fit-content; margin: 1vw 0; box-sizing: border-box;margin-left: 2vw;
+			display: inline-block;vertical-align: top;">
+			<view class="recordItem" v-for="(item,index) in recordData2"  :key="index" @tap="showRecord(2,index)"  >
+				<view id="text" v-html="item.content"></view>
+				<text>{{item.time.slice(0,10)}}</text>
+			</view>
+		</view>
 		<button v-show="!current" class="create" @tap="gotoWriteRecord">
 			<!--  -->
 			<image src="../../static/more/add.png"></image>
@@ -23,8 +30,21 @@
 
 <script>
 	export default {
+		computed:{
+			recordData1(){
+				return this.recordData.filter((item,index)=>{
+					return index%2==0
+				})
+			},
+			recordData2(){
+				return this.recordData.filter((item,index)=>{
+					return index%2!=0
+				})
+			}
+		},	
 		data() {
 			return {
+				recordData:[],				
 				bigrecord:"",
 				recordAnimation:'',
 				inputValue: "",
@@ -32,53 +52,6 @@
 				t1: null,
 				maxid: 10,
 				show:0,
-				textList: [{
-						id: 1,
-						textvalue: "vue项目实现 搜索功能",
-						date: "11月19号"
-					},
-					{
-						id: 2,
-						textvalue: "在uniApp开发中遇到 的问题及解决的在uniApp开发 中遇到的问题及解决的办",
-						date: "11月19号"
-					},
-					{
-						id: 3,
-						textvalue: "和v-text 相似 但是它可在uniApp开发中 遇到的问题及解决的以将HT ML片段",
-						date: "11月19号"
-					},
-					{
-						id: 4,
-						textvalue: "浏览器不 会对其再进行t",
-						date: "11月19号"
-					},
-					{
-						id: 5,
-						textvalue: "标签在渲染的时候 被",
-						date: "11月19号"
-					},
-					{
-						id: 6,
-						textvalue: "于将数据填充 到标在uniApp开发中遇到的问题及 解决的签中",
-						date: "11月19号"
-					},
-					{
-						id: 7,
-						textvalue: "动问题 （如果数据中有HTML标签会",
-						date: "11月19号"
-					},
-					{
-						id: 8,
-						textvalue: "于将数据填充 到标在uniApp开发中遇到的问题及 解决的签中",
-						date: "11月19号"
-					},
-					{
-						id: 9,
-						textvalue: "动问题 （如果数据中有HTML标签会",
-						date: "11月19号"
-					},
-
-				]
 			}
 		},
 		methods: {
@@ -90,14 +63,22 @@
 				}, 100);
 				this.show=0;
 			},
-			showRecord(index){
+			showRecord(num,index){
 				if(this.show==0){
-					this.bigrecord=this.textList[index].textvalue;
+					if(num==1){
+						this.bigrecord=this.recordData1[index].content;
+					}else{
+						this.bigrecord=this.recordData2[index].content;
+					}
 					this.animation1.scale(1.3).step({ duration: 700 })
 					this.show=1
 				}else{
 					this.animation1.scale(0).step({ duration: 400 })
-					this.bigrecord=this.textList[index].textvalue;
+					if(num==1){
+						this.bigrecord=this.recordData1[index].content;
+					}else{
+						this.bigrecord=this.recordData2[index].content;
+					}
 					this.animation1.scale(1.3).step({ duration: 500 })
 				}
 				this.recordAnimation=this.animation1.export()
@@ -150,6 +131,24 @@
 			    timingFunction: 'ease',
 			})
 			this.animation1 = animation1
+		},
+		onLoad() {
+			let that =this
+			let id
+			uni.getStorage({
+				key:"UserID",
+				success:(res)=>{
+					id = res.data
+					console.log(id)
+					uni.request({
+						url:'http://127.0.0.1:3000/record/queryRecords?data='+id
+					})
+					.then(data=>{
+						let [err1,res1]=data
+						that.recordData=res1.data.data
+					})
+				}
+			})
 		}
 	}
 </script>
@@ -201,7 +200,7 @@
 		}
 
 		& .recordItem {
-			width: 46vw;
+			width: 45vw;
 			height: calc(fit-content+2vh); //
 			margin: 1vw;
 			padding: 5vw;

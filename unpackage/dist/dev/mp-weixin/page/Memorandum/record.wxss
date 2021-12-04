@@ -71,7 +71,7 @@
   z-index: -1;
 }
 .record .recordItem {
-  width: 46vw;
+  width: 45vw;
   height: calc(fit-content+2vh);
   margin: 1vw;
   padding: 5vw;

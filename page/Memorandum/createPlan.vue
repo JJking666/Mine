@@ -24,8 +24,9 @@
 				format: true
 			})
 			return {
+				id:'',
 				date: currentDate,
-				datetimerange: ["2021-03-20", "2023-05-10"],
+				datetimerange: ["2021-12-20", "2023-05-10"],
 				textData: "",
 				title: "",
 				lineCount: 1
@@ -52,28 +53,34 @@
 
 			},
 			gobackPlan() {
+				let that =this
 				if (this.textData.length <= 2) return
-				this.textData = this.textData.split("\n");
-				uni.$emit('planemit', [this.title, this.textData, this.datetimerange])
+				uni.request({//时间
+					url: 'http://127.0.0.1:3000/plan/addPlan?data=' +
+						'{"UserID":"'+id+',"content:"'+that.textData+',"title:"'+that.title+'}'
+				})
 				uni.navigateBack({
 					delta: 1
 				})
 			},
 			getDate(type) {
-			            const date = new Date();
-			            let year = date.getFullYear();
-			            let month = date.getMonth() + 1;
-			            let day = date.getDate();
-			
-			            if (type === 'start') {
-			                year = year - 60;
-			            } else if (type === 'end') {
-			                year = year + 2;
-			            }
-			            month = month > 9 ? month : '0' + month;
-			            day = day > 9 ? day : '0' + day;
-			            return `${year}-${month}-${day}`;
-			        }
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type === 'start') {
+					year = year - 60;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
+			}
+		},
+		onLoad(option) {
+			this.id=option.id
 		}
 	}
 </script>

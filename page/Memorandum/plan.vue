@@ -1,12 +1,12 @@
 <template>
 	<view class="plan">
-		<view class="plan-item" v-for="(item,index) in planitem" :key="item.id" @tap="changeShow(index)">
+		<view class="plan-item" v-for="(item,index) in planData" :key="index" @tap="changeShow(index)">
 			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap="deletePlan(index)"></image>
 			<text id="date">{{item.title}}</text>
-			<text id="date1">{{item.date}}</text>
-			<view class="planHidden" :style="{height:item.visibity=='3vh'?4*item.content.length+1+'vh':'0vh'}">
-				<label v-for="(item_1,index_1) in item.content" :key="index_1" class="label"
-					:style="{height:item.visibity}">
+			<text id="date1">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
+			<view class="planHidden" :style="{height:planData[index].visibity=='3vh'?4*item.content.length + 1 + 'vh':'0vh'}">
+				<label v-for="(item_1,index_1) in planData[index].content" :key="index_1" class="label"
+					:style="{height:planData[index].visibity}">
 					<checkbox value="cb" checked="true" color="#FFCC33" style="margin-left: 1vw;" />{{item_1}}
 				</label>
 			</view>
@@ -20,48 +20,11 @@
 
 <script>
 	export default {
-
 		data() {
 			return {
-				// planitem: [{
-				// 		id: 1,
-				// 		date: "11/18",
-				// 		planitem: ["学习", "吃饭", "睡觉", "跑步", "上分"],
-				// 		visibity: "0vh"
-				// 	},
-				// 	{
-				// 		id: 2,
-				// 		date: "11/18",
-				// 		planitem: ["学习", "吃饭", "睡觉", "跑步", "上分", "跑步", "上分"],
-				// 		visibity: "0vh"
-				// 	},
-				// 	{
-				// 		id: 3,
-				// 		date: "11/18",
-				// 		planitem: ["学习", "跑步", "上分", "吃饭", "睡觉", "跑步", "上分"],
-				// 		visibity: "0vh"
-				// 	},
-				// 	{
-				// 		id: 4,
-				// 		date: "11/18",
-				// 		planitem: ["学习", "吃饭", "跑步", "上分", "睡觉", "跑步", "上分"],
-				// 		visibity: "0vh"
-				// 	},
-				// 	{
-				// 		id: 5,
-				// 		date: "11/18",
-				// 		planitem: ["吃饭", "睡觉", "跑步", "上分",
-				// 			"学习", "吃饭", "睡觉", "跑步", "上分"
-				// 		],
-				// 		visibity: "0vh"
-				// 	},
-				// 	{
-				// 		id: 6,
-				// 		date: "11/18",
-				// 		planitem: ["学习", "吃饭", "睡觉", "跑步", "上分"],
-				// 		visibity: "0vh"
-				// 	},
-				// ],
+				id:'',
+				demoData:[1,2,3,4,5,6],
+				planData:[],
 				planitem: [{
 					id: 1,
 					title: "啦啦啦",
@@ -116,11 +79,20 @@
 		},
 		methods: {
 			changeShow(index) {
-				this.planitem[index].visibity = this.planitem[index].visibity == "3vh" ? "0vh" : "3vh";
+				this.planData[index].visibity = this.planData[index].visibity == "3vh" ? "0vh" : "3vh";
+				this.$set(this.planData,index,{
+					startTime:this.planData[index].startTime,
+					endTime:this.planData[index].endTime,
+					title:this.planData[index].title,
+					content:this.planData[index].content,
+					visibity:this.planData[index].visibity
+				})
+				//深层对象无法响应
 			},
 			createPlan() {
+				let that =this
 				uni.navigateTo({
-					url: 'createPlan'
+					url: 'createPlan?ID'+that.id
 				})
 			},
 			getPlan(value) {
@@ -170,7 +142,29 @@
 			        }
 		},
 		onReady() {
+			let that =this
+			let id
 			uni.$on('planemit', this.getPlan);
+			uni.getStorage({
+				key:"UserID",
+				success:(res)=>{
+					id = res.data
+					that.id=res.data
+					console.log(id)
+					uni.request({
+						url:'http://127.0.0.1:3000/plan/queryPlans?data='+id
+					})
+					.then(data=>{
+						let [err1,res1]=data
+						that.planData=res1.data.data
+						that.planData.forEach((item)=>{
+							item.visibity='0vh'
+							item.content = item.content.split("\n")
+						})
+						
+					})
+				}
+			})
 		}
 	}
 </script>

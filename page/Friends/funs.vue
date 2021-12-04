@@ -3,11 +3,11 @@
 		<image id="record-bk" src="../../static/more/微信图片_20211126111415.jpg" mode=""></image>
 		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
 		<view class="content">
-			<view class="fun-item" v-for="(item,index) in funsData" :key="item.id">
-				<image :src="item.head">
+			<view class="fun-item" v-for="(item,index) in funs" :key="index">
+				<image :src="item.headImg">
 				<text>{{item.name}}</text>
-				<image src="../../static/more/faxian-36.png" mode=""></image>
-				<image src="../../static/img/memorandum/close-bold.png"></image>
+				<image :src="item.sex=='man'?'../../static/more/faxian-36.png':'../../static/more/微信图片_20211126111415.jpg'" mode=""></image>
+				<button @tap="cancelFun(item.id)">已关注</button>
 			</view>
 		</view>
 	</view>
@@ -15,8 +15,36 @@
 
 <script>
 	export default{
+		onLoad(option) {
+			let that =this
+			uni.request({
+				url:'http://127.0.0.1:3000/relationship/queryRelationship?data='
+				+'{"UserID":"'+option.ID+'","status":[0,2]}'
+			})
+			.then(data=>{
+				let [err,res]=data
+				// console.log(1,err,res)
+				res.data.data.forEach((item)=>{
+					let fun={}
+					fun.status=item.status
+					uni.request({
+						url:'http://127.0.0.1:3000/user/queryUserById?data='+item.PeopleID
+					})
+					.then(data=>{
+						let [err1,res1]=data
+						// console.log(2,err1,res1)
+						fun.id=res1.data.data[0]._id
+						fun.headImg=res1.data.data[0].HeadImg
+						fun.name=res1.data.data[0].Name
+						fun.sex=res1.data.data[0].Sex
+						that.funs.push(fun)
+					})
+				})
+			})
+		},
 		data(){
 			return{
+				funs:[],
 				funsData:[{
 					id:1,
 					name:'大白菜',
@@ -138,13 +166,13 @@
 					size: 100%;
 					vertical-align: middle;
 				}
-				image:nth-of-type(3){
-					    width: 3vh;
+				button{
+					width: 14vw;
 					    height: 3vh;
 					    float: right;
-					    size: 100%;
-					    padding: 1.5vh 2vw;
-					
+					    line-height: 3vh;
+					    font-size: 25rpx;
+					    padding: 0 2vw;
 				}
 			}
 		}

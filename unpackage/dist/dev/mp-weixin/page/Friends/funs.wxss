@@ -91,11 +91,12 @@
   size: 100%;
   vertical-align: middle;
 }
-.funs .content .fun-item image:nth-of-type(3) {
-  width: 3vh;
+.funs .content .fun-item button {
+  width: 14vw;
   height: 3vh;
   float: right;
-  size: 100%;
-  padding: 1.5vh 2vw;
+  line-height: 3vh;
+  font-size: 25rpx;
+  padding: 0 2vw;
 }
 

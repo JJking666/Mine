@@ -156,8 +156,9 @@ var _default =
       format: true });
 
     return {
+      id: '',
       date: currentDate,
-      datetimerange: ["2021-03-20", "2023-05-10"],
+      datetimerange: ["2021-12-20", "2023-05-10"],
       textData: "",
       title: "",
       lineCount: 1 };
@@ -184,9 +185,12 @@ var _default =
 
     },
     gobackPlan: function gobackPlan() {
+      var that = this;
       if (this.textData.length <= 2) return;
-      this.textData = this.textData.split("\n");
-      uni.$emit('planemit', [this.title, this.textData, this.datetimerange]);
+      uni.request({ //时间
+        url: 'http://127.0.0.1:3000/plan/addPlan?data=' +
+        '{"UserID":"' + id + ',"content:"' + that.textData + ',"title:"' + that.title + '}' });
+
       uni.navigateBack({
         delta: 1 });
 
@@ -205,7 +209,11 @@ var _default =
       month = month > 9 ? month : '0' + month;
       day = day > 9 ? day : '0' + day;
       return "".concat(year, "-").concat(month, "-").concat(day);
-    } } };exports.default = _default;
+    } },
+
+  onLoad: function onLoad(option) {
+    this.id = option.id;
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

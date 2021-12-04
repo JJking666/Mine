@@ -32,7 +32,7 @@
   box-sizing: border-box;
 }
 .work .work-swiper {
-  height: 90vh;
+  height: 100vh;
 }
 .work .work-swiper .work-itemA {
   width: 100vw;
