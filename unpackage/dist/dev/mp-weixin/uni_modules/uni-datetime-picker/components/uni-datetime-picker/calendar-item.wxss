@@ -1,0 +1,121 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button.data-v-39ec3f8e {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create.data-v-39ec3f8e {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #a7dab9;
+  padding: 2vw 2vw;
+  box-sizing: border-box;
+  border: 1rpx solid #A5A5A5;
+}
+.create image.data-v-39ec3f8e {
+  width: 11vw;
+  height: 11vw;
+  size: 100%;
+}
+.uni-calendar-item__weeks-box.data-v-39ec3f8e {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1px 0;
+  position: relative;
+}
+.uni-calendar-item__weeks-box-text.data-v-39ec3f8e {
+  font-size: 14px;
+  font-weight: bold;
+  color: #455997;
+}
+.uni-calendar-item__weeks-lunar-text.data-v-39ec3f8e {
+  font-size: 12px;
+  color: #333;
+}
+.uni-calendar-item__weeks-box-item.data-v-39ec3f8e {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+.uni-calendar-item__weeks-box-circle.data-v-39ec3f8e {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background-color: #dd524d;
+}
+.uni-calendar-item__weeks-box .uni-calendar-item--disable.data-v-39ec3f8e {
+  cursor: default;
+}
+.uni-calendar-item--disable .uni-calendar-item__weeks-box-text-disable.data-v-39ec3f8e {
+  color: #D1D1D1;
+}
+.uni-calendar-item--isDay.data-v-39ec3f8e {
+  position: absolute;
+  top: 10px;
+  right: 17%;
+  background-color: #dd524d;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.uni-calendar-item--extra.data-v-39ec3f8e {
+  color: #dd524d;
+  opacity: 0.8;
+}
+.uni-calendar-item__weeks-box .uni-calendar-item--checked.data-v-39ec3f8e {
+  background-color: #007aff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 3px solid #fff;
+}
+.uni-calendar-item--checked .uni-calendar-item--checked-text.data-v-39ec3f8e {
+  color: #fff;
+}
+.uni-calendar-item--multiple .uni-calendar-item--checked-range-text.data-v-39ec3f8e {
+  color: #333;
+}
+.uni-calendar-item--multiple.data-v-39ec3f8e {
+  background-color: #F6F7FC;
+}
+.uni-calendar-item--multiple .uni-calendar-item--before-checked.data-v-39ec3f8e,
+.uni-calendar-item--multiple .uni-calendar-item--after-checked.data-v-39ec3f8e {
+  background-color: #409eff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 3px solid #F6F7FC;
+}
+.uni-calendar-item--before-checked .uni-calendar-item--checked-text.data-v-39ec3f8e,
+.uni-calendar-item--after-checked .uni-calendar-item--checked-text.data-v-39ec3f8e {
+  color: #fff;
+}
+.uni-calendar-item--before-checked-x.data-v-39ec3f8e {
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  box-sizing: border-box;
+  background-color: #F6F7FC;
+}
+.uni-calendar-item--after-checked-x.data-v-39ec3f8e {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background-color: #F6F7FC;
+}
+

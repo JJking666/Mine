@@ -97,6 +97,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      this.update = 1
+    }
+
+    _vm.e1 = function($event) {
+      this.update = 1
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -148,59 +157,88 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {
+      nowIndex: 0,
       classTableData: [],
-      titleData: [''],
-      valueData: [''],
-      name: "file.txt",
-      extname: "txt",
-      imagePath: ['http://tmp/VLdOvIq3KLCSee414af7c3dab6e7b062ee781d0c54d1.jpg'],
       indicatorDots: true,
-      autoplay: true,
-      interval: 2000,
-      duration: 500 };
+      update: 0,
+      id: '' };
 
   },
   methods: {
-    openImg1: function openImg1() {
+    openImg1: function openImg1(index) {var _this = this;
       var that = this;
       uni.chooseImage({
-        count: 6, //默认9
+        count: 1, //默认9
         sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album'], //从相册选择
         success: function success(res) {
-          that.imagePath = res.tempFilePaths;
+          that.update = 1;
+          _this.$data.classTableData.classPath.splice(_this.$data.nowIndex, 1, res.tempFilePaths[
+          0]);
         } });
 
     },
-    openImg2: function openImg2() {
+    openImg2: function openImg2(index) {var _this2 = this;
       var that = this;
       uni.chooseImage({
-        count: 6, //默认9
+        count: 1, //默认9
         sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['camera'], //从相册选择
         success: function success(res) {
-          that.imagePath = res.tempFilePaths;
+          that.update = 1;
+          _this2.$data.classTableData.classPath.splice(_this2.$data.nowIndex, 1, res.tempFilePaths[
+          0]);
         } });
 
+    },
+    changeIndex: function changeIndex(e) {
+      this.nowIndex = e.detail.current;
     } },
 
-  onLoad: function onLoad() {
+  onUnload: function onUnload() {
+    var that = this;
+    console.log(4, this.id);
+    if (this.update == 1) {
+      uni.request({
+        url: 'http://127.0.0.1:3000/classTable/updateClassTable',
+        data: {
+          "data1": {
+            "UserID": that.id },
+
+          "data2": {
+            "className": that.classTableData.className,
+            "classNumber": that.classTableData.classNumber,
+            "classPath": that.classTableData.classPath } } }).
+
+
+
+      then(function (data) {var _data = _slicedToArray(
+        data, 2),err = _data[0],res = _data[1];
+        console.log(2, err, res);
+        that.update = 0;
+      });
+    }
+  },
+
+  onLoad: function onLoad() {var _this3 = this;
+    this.update = 1;
     var that = this;
     uni.getStorage({
       key: "UserID",
       success: function success(res) {
-        var id = res.data;
+        _this3.$data.id = res.data;
+        console.log(4, _this3.$data.id, res.data);
         uni.request({
-          url: 'http://127.0.0.1:3000/classTable/getClassTables?data=' + id }).
+          url: 'http://127.0.0.1:3000/classTable/getClassTables?data=' + _this3.$data.id }).
 
-        then(function (data1) {var _data = _slicedToArray(
-          data1, 2),err1 = _data[0],res1 = _data[1];
+        then(function (data1) {var _data2 = _slicedToArray(
+          data1, 2),err1 = _data2[0],res1 = _data2[1];
           that.classTableData = res1.data.data[0];
-          console.log(res1);
         });
       } });
 

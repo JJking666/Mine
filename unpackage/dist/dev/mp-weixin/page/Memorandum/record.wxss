@@ -82,6 +82,16 @@
   display: block;
   overflow: hidden;
   box-sizing: border-box;
+  position: relative;
+}
+.record .recordItem #deleteImg {
+  position: absolute;
+  right: 1vw;
+  top: 1vh;
+  display: inline-block;
+  width: 1.5vh;
+  height: 1.5vh;
+  size: 100%;
 }
 .record .recordItem #text {
   width: 80%;

@@ -299,7 +299,6 @@ var _default =
             that.homePageData.workCount = res.data.data[0].workCount,
             that.homePageData.medals = res.data.data[0].medals;
             that.homePageData.goods = res.data.data[0].goods;
-            console.log(that.homePageData);
           });
           uni.request({
             url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
@@ -310,7 +309,6 @@ var _default =
             var fun = 0;
             var friend = 0;
             res.data.data.forEach(function (item) {
-              console.log(item.status);
               if (item.status == 0 || item.status == 2) fun++;
               if (item.status == 1 || item.status == 2) friend++;
             });

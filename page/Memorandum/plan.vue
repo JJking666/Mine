@@ -25,56 +25,8 @@
 				id:'',
 				demoData:[1,2,3,4,5,6],
 				planData:[],
-				planitem: [{
-					id: 1,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}, {
-					id: 2,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}, {
-					id: 3,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}, {
-					id: 4,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}, {
-					id: 5,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}, {
-					id: 6,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}, {
-					id: 7,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}, {
-					id: 8,
-					title: "啦啦啦",
-					content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-					date: ["2021-03-20", "2023-05-10"],
-					visibity: "0vh"
-				}],
-				maxid: 9
+				maxid: 9,
+				deleteID:''
 			}
 		},
 		methods: {
@@ -92,7 +44,7 @@
 			createPlan() {
 				let that =this
 				uni.navigateTo({
-					url: 'createPlan?ID'+that.id
+					url: 'createPlan?id='+that.id
 				})
 			},
 			getPlan(value) {
@@ -112,18 +64,29 @@
 				this.planitem.unshift(plan)
 			},
 			deletePlan(index) {
-				let that = this
+				this.deleteID=this.planData[index]._id
 				uni.showModal({
 					title: '提示',
 					content: '您确定要删除该计划吗？',
-					success: function(res) {
+					success: (res)=>{
+						console.log(this.$data)
 						if (res.confirm) {
-							that.planitem.splice(index, 1);
+							
+							let that =this
+							uni.request({
+								url:'http://127.0.0.1:3000/plan/deletePlan?data='+ that.deleteID
+							})
+							.then(data1=>{
+								let [err1,res1]=data1
+								console.log(res1)
+								that.planData.splice(index, 1);
+							})
+							
 						} else if (res.cancel) {
 							return
 						}
 					}
-				});
+				})
 			},
 			getDate(type) {
 			            const date = new Date();
@@ -141,7 +104,7 @@
 			            return `${year}-${month}-${day}`;
 			        }
 		},
-		onReady() {
+		onShow() {
 			let that =this
 			let id
 			uni.$on('planemit', this.getPlan);
@@ -150,7 +113,6 @@
 				success:(res)=>{
 					id = res.data
 					that.id=res.data
-					console.log(id)
 					uni.request({
 						url:'http://127.0.0.1:3000/plan/queryPlans?data='+id
 					})
@@ -161,7 +123,6 @@
 							item.visibity='0vh'
 							item.content = item.content.split("\n")
 						})
-						
 					})
 				}
 			})

@@ -177,56 +177,8 @@ var _default =
       id: '',
       demoData: [1, 2, 3, 4, 5, 6],
       planData: [],
-      planitem: [{
-        id: 1,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" },
-      {
-        id: 2,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" },
-      {
-        id: 3,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" },
-      {
-        id: 4,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" },
-      {
-        id: 5,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" },
-      {
-        id: 6,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" },
-      {
-        id: 7,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" },
-      {
-        id: 8,
-        title: "啦啦啦",
-        content: ["1.123123142", "1.123123142", "1.123123142", "1.123123142", "1.123123142"],
-        date: ["2021-03-20", "2023-05-10"],
-        visibity: "0vh" }],
-
-      maxid: 9 };
+      maxid: 9,
+      deleteID: '' };
 
   },
   methods: {
@@ -244,7 +196,7 @@ var _default =
     createPlan: function createPlan() {
       var that = this;
       uni.navigateTo({
-        url: 'createPlan?ID' + that.id });
+        url: 'createPlan?id=' + that.id });
 
     },
     getPlan: function getPlan(value) {
@@ -263,14 +215,25 @@ var _default =
       plan.visibity = '0vh';
       this.planitem.unshift(plan);
     },
-    deletePlan: function deletePlan(index) {
-      var that = this;
+    deletePlan: function deletePlan(index) {var _this = this;
+      this.deleteID = this.planData[index]._id;
       uni.showModal({
         title: '提示',
         content: '您确定要删除该计划吗？',
         success: function success(res) {
+          console.log(_this.$data);
           if (res.confirm) {
-            that.planitem.splice(index, 1);
+
+            var that = _this;
+            uni.request({
+              url: 'http://127.0.0.1:3000/plan/deletePlan?data=' + that.deleteID }).
+
+            then(function (data1) {var _data = _slicedToArray(
+              data1, 2),err1 = _data[0],res1 = _data[1];
+              console.log(res1);
+              that.planData.splice(index, 1);
+            });
+
           } else if (res.cancel) {
             return;
           }
@@ -293,7 +256,7 @@ var _default =
       return "".concat(year, "-").concat(month, "-").concat(day);
     } },
 
-  onReady: function onReady() {
+  onShow: function onShow() {
     var that = this;
     var id;
     uni.$on('planemit', this.getPlan);
@@ -302,18 +265,16 @@ var _default =
       success: function success(res) {
         id = res.data;
         that.id = res.data;
-        console.log(id);
         uni.request({
           url: 'http://127.0.0.1:3000/plan/queryPlans?data=' + id }).
 
-        then(function (data) {var _data = _slicedToArray(
-          data, 2),err1 = _data[0],res1 = _data[1];
+        then(function (data) {var _data2 = _slicedToArray(
+          data, 2),err1 = _data2[0],res1 = _data2[1];
           that.planData = res1.data.data;
           that.planData.forEach(function (item) {
             item.visibity = '0vh';
             item.content = item.content.split("\n");
           });
-
         });
       } });
 

@@ -8,6 +8,7 @@
 			<view class="recordItem" v-for="(item,index) in recordData1"  :key="index" @tap="showRecord(1,index)"  >
 				<view id="text" v-html="item.content"></view>
 				<text>{{item.time.slice(0,10)}}</text>
+				<image id="deleteImg" @tap=deleteRecord(1,index) src="../../static/img/memorandum/close-bold.png" mode=""></image>
 			</view>
 		</view>
 		<view
@@ -16,6 +17,7 @@
 			<view class="recordItem" v-for="(item,index) in recordData2"  :key="index" @tap="showRecord(2,index)"  >
 				<view id="text" v-html="item.content"></view>
 				<text>{{item.time.slice(0,10)}}</text>
+				<image id="deleteImg" @tap=deleteRecord(2,index) src="../../static/img/memorandum/close-bold.png" mode=""></image>
 			</view>
 		</view>
 		<button v-show="!current" class="create" @tap="gotoWriteRecord">
@@ -52,9 +54,38 @@
 				t1: null,
 				maxid: 10,
 				show:0,
+				deleteID:''
 			}
-		},
-		methods: {
+		},			 
+		methods: {   
+			deleteRecord(num,index) {
+				this.deleteID=num==1?this.recordData[index*2]._id:this.recordData[index*2+1]._id
+				console.log(this.deleteID)
+				uni.showModal({
+					title: '提示',
+					content: '您确定要删除该计划吗？',
+					success: (res)=>{
+						if (res.confirm) {
+							let that =this
+							uni.request({
+								url:'http://127.0.0.1:3000/record/deleteRecord?data='+ that.deleteID
+							})
+							.then(data1=>{
+								let [err1,res1]=data1
+								if(num==1){
+									that.recordData.splice(index*2, 1);
+								}else{
+									that.recordData.splice(index*2+1, 1);
+								}
+							})
+							this.hideRecord()
+						} else if (res.cancel) {
+							this.hideRecord()
+							return
+						}
+					}
+				})
+			},
 			hideRecord(){
 				this.animation1.scale(0).step({ duration: 700 })
 				this.recordAnimation=this.animation1.export()
@@ -211,7 +242,17 @@
 			display: block;
 			overflow: hidden;
 			box-sizing: border-box;
-
+			position: relative;
+			#deleteImg{
+				position: absolute;
+				right:1vw ;
+				top: 1vh;
+				display: inline-block;
+				width: 1.5vh;
+				height: 1.5vh;
+				size: 100%;
+			}
+			
 			#text {
 				width: 80%;
 				height: fit-content;

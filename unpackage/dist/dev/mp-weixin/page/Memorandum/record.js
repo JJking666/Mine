@@ -189,6 +189,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
   computed: {
@@ -212,19 +214,48 @@ var _default =
       selecting: 0,
       t1: null,
       maxid: 10,
-      show: 0 };
+      show: 0,
+      deleteID: '' };
 
   },
   methods: {
-    hideRecord: function hideRecord() {var _this = this;
+    deleteRecord: function deleteRecord(num, index) {var _this = this;
+      this.deleteID = num == 1 ? this.recordData[index * 2]._id : this.recordData[index * 2 + 1]._id;
+      console.log(this.deleteID);
+      uni.showModal({
+        title: '提示',
+        content: '您确定要删除该计划吗？',
+        success: function success(res) {
+          if (res.confirm) {
+            var that = _this;
+            uni.request({
+              url: 'http://127.0.0.1:3000/record/deleteRecord?data=' + that.deleteID }).
+
+            then(function (data1) {var _data = _slicedToArray(
+              data1, 2),err1 = _data[0],res1 = _data[1];
+              if (num == 1) {
+                that.recordData.splice(index * 2, 1);
+              } else {
+                that.recordData.splice(index * 2 + 1, 1);
+              }
+            });
+            _this.hideRecord();
+          } else if (res.cancel) {
+            _this.hideRecord();
+            return;
+          }
+        } });
+
+    },
+    hideRecord: function hideRecord() {var _this2 = this;
       this.animation1.scale(0).step({ duration: 700 });
       this.recordAnimation = this.animation1.export();
       setTimeout(function () {
-        _this.recordAnimation = null;
+        _this2.recordAnimation = null;
       }, 100);
       this.show = 0;
     },
-    showRecord: function showRecord(num, index) {var _this2 = this;
+    showRecord: function showRecord(num, index) {var _this3 = this;
       if (this.show == 0) {
         if (num == 1) {
           this.bigrecord = this.recordData1[index].content;
@@ -244,19 +275,19 @@ var _default =
       }
       this.recordAnimation = this.animation1.export();
       setTimeout(function () {
-        _this2.recordAnimation = null;
+        _this3.recordAnimation = null;
       }, 100);
 
     },
-    select: function select() {var _this3 = this;
+    select: function select() {var _this4 = this;
       if (this.t1) {
         clearInterval(this.t1);
       }
       this.t1 = setTimeout(function () {
-        _this3.textList.forEach(function (item) {
-          var str = new RegExp(_this3.inputValue);
-          item.textvalue = item.textvalue.replace(_this3.inputValue, "<span style=\"color: red\">".concat(
-          _this3.inputValue, "</span>"));
+        _this4.textList.forEach(function (item) {
+          var str = new RegExp(_this4.inputValue);
+          item.textvalue = item.textvalue.replace(_this4.inputValue, "<span style=\"color: red\">".concat(
+          _this4.inputValue, "</span>"));
         });
       }, 500);
       // this.textList.forEach((item)=>{
@@ -304,8 +335,8 @@ var _default =
         uni.request({
           url: 'http://127.0.0.1:3000/record/queryRecords?data=' + id }).
 
-        then(function (data) {var _data = _slicedToArray(
-          data, 2),err1 = _data[0],res1 = _data[1];
+        then(function (data) {var _data2 = _slicedToArray(
+          data, 2),err1 = _data2[0],res1 = _data2[1];
           that.recordData = res1.data.data;
         });
       } });
