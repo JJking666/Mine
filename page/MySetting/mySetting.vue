@@ -139,6 +139,56 @@
 				})
 			},
 		},
+		onShow(){
+			let that =this
+			uni.getStorage({
+				key: "UserAccount",
+				success(res) {
+					uni.request({
+						url: 'http://127.0.0.1:3000/user/queryUser?data=' + res.data
+					})
+					.then(data=>{
+						let [err, res] = data
+						that.homePageData.Name=res.data.data[0].Name
+						that.homePageData.UserID=res.data.data[0]._id
+						uni.setStorage({
+							key:"UserID",
+							data:res.data.data[0]._id
+						})
+						uni.request({
+							url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
+						})
+						.then((data) => {
+							let [err, res] = data
+							that.homePageData.HeadImg=res.data.data[0].HeadImg,
+							that.homePageData.motto=res.data.data[0].motto,
+							that.homePageData.FriendsCount=res.data.data[0].FriendsCount,
+							that.homePageData.FanCount=res.data.data[0].FanCount,
+							that.homePageData.workCount=res.data.data[0].workCount,
+							that.homePageData.medals=res.data.data[0].medals
+							that.homePageData.goods =res.data.data[0].goods
+						})
+						uni.request({
+							url:'http://127.0.0.1:3000/relationship/queryRelationship?data='+
+							'{"UserID":"'+that.homePageData.UserID+'","status":[0,1,2]}'
+						})
+						.then(data=>{
+							let [err,res]=data
+							let fun=0
+							let friend=0
+							res.data.data.forEach((item)=>{
+								if(item.status==0||item.status==2) fun++;
+								if(item.status==1||item.status==2) friend++
+							})
+							that.homePageData.FanCount=fun
+							that.homePageData.FriendsCount=friend
+						})
+					})
+					
+				}
+			})
+			
+		},
 		onReady() {
 			let that = this
 			uni.getStorage({

@@ -119,6 +119,7 @@
 				
 			},
 			select() {
+				console.log('s')
 				if (this.t1) {
 					clearInterval(this.t1)
 				}

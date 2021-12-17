@@ -36,12 +36,68 @@
   margin: 2vh auto;
   width: 70vw;
   height: 6vh;
-  border: 1rpx solid transparent;
   border-radius: 30rpx;
   font-size: 36rpx;
   background-color: #f6fff9;
   line-height: 6vh;
   padding: 0 5vw;
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.friends .selectPeople {
+  position: absolute;
+  top: 8vh;
+  width: 80vw;
+  height: -webkit-fit-content;
+  height: fit-content;
+  background-color: blue;
+  left: 10vw;
+  z-index: 9;
+  max-height: 50vh;
+  overflow: auto;
+}
+.friends .selectPeople .select-item {
+  width: inherit;
+  height: 7vh;
+  padding: 1vh 3vw;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right, rgba(238, 238, 238, 0.6) 10%, rgba(1, 1, 1, 0.2) 100%);
+  border-bottom: 1rpx solid #999992;
+}
+.friends .selectPeople .select-item image:nth-of-type(1) {
+  width: 5vh;
+  height: 5vh;
+  display: inline-block;
+  size: 100%;
+  vertical-align: middle;
+}
+.friends .selectPeople .select-item view {
+  font-size: 28rpx;
+  display: inline-block;
+  width: -webkit-fit-content;
+  width: fit-content;
+  font-weight: 500;
+  margin-left: 3vw;
+  vertical-align: middle;
+  line-height: 5vh;
+}
+.friends .selectPeople .select-item image:nth-of-type(2) {
+  width: 2vh;
+  height: 2vh;
+  display: inline-block;
+  size: 100%;
+  vertical-align: middle;
+  margin-left: 1vw;
+}
+.friends .selectPeople .select-item button {
+  width: 14vw;
+  height: 3vh;
+  float: right;
+  line-height: 3vh;
+  font-size: 25rpx;
+  padding: 0 2vw;
+  margin-top: 1vh;
 }
 .friends #record-bk {
   position: fixed;
@@ -57,6 +113,7 @@
   height: 90vh;
   margin: auto;
   overflow: auto;
+  margin-top: 2vh;
 }
 .friends .content .friend-item {
   width: inherit;
@@ -75,7 +132,7 @@
 }
 .friends .content .friend-item text {
   font-size: 32rpx;
-  display: inline-block;
+  display: inline-block !important;
   width: -webkit-fit-content;
   width: fit-content;
   height: 6vh;
@@ -89,6 +146,7 @@
   height: 3vh;
   display: inline-block;
   size: 100%;
+  margin-left: 1vw;
   vertical-align: middle;
 }
 .friends .content .friend-item button {
@@ -98,5 +156,6 @@
   line-height: 3vh;
   font-size: 25rpx;
   padding: 0 2vw;
+  margin-top: 1.5vh;
 }
 

@@ -7,14 +7,14 @@
 			</view>
 		</view>
 		<view class="content2">
-				<picker id="p1" @change="blackPickerChange" :value="blackindex" :range="blackarray">
-					<view class="uni-input"  style="height:5vh;">我的黑名单</view>
-				</picker>
-				<picker id="p2" @change="showPickerChange" :value="showindex" :range="showarray">
-					<view class="uni-input"  style="height:3vh;">作品可见天数</view>
-				</picker>
-				<view class="border">
-				</view>
+			<picker id="p1" @change="blackPickerChange" :value="blackindex" :range="blackarray">
+				<view class="uni-input" style="height:5vh;">我的黑名单</view>
+			</picker>
+			<picker id="p2" @change="showPickerChange" :value="showindex" :range="showarray">
+				<view class="uni-input" style="height:3vh;">作品可见天数</view>
+			</picker>
+			<view class="border">
+			</view>
 		</view>
 	</view>
 </template>
@@ -42,15 +42,15 @@
 				}]
 			}
 		},
-		methods:{
-			 showPickerChange: function(e) {
-			            console.log('picker发送选择改变，携带值为', e.target.value)
-			            this.showindex = e.target.value
-			        },
-					blackPickerChange: function(e) {
-					           console.log('picker发送选择改变，携带值为', e.target.value)
-					           this.blackindex = e.target.value
-					       },
+		methods: {
+			showPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				this.showindex = e.target.value
+			},
+			blackPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				this.blackindex = e.target.value
+			},
 		}
 	}
 </script>
@@ -63,24 +63,29 @@
 		box-sizing: border-box;
 
 		.content1 {
-			box-sizing:border-box;
-			margin-top:2vh;
+			box-sizing: border-box;
+			margin-top: 2vh;
 			width: 90vw;
-			height:fit-content;
-			background-color:#e8e8e8;
+			height: fit-content;
+			background-color: #e8e8e8;
 			border: 1rpx solid transparent;
 			border-radius: 12rpx;
 			position: relative;
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
-			padding:2vh 5vw;
+			padding: 2vh 5vw;
+
 			.content1-item {
-				height: fit-content;
-				    width: 80vw;
-				    padding: 1vh 0;
-				    border-bottom: 1rpx solid #dedede;
-				    box-sizing: border-box;
+				height: 6vh;
+				width: 80vw;
+				padding: 1vh 0;
+				border-bottom: 1rpx solid #dedede;
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				
 				text {
 					line-height: 4vh;
 					display: inline-block;
@@ -88,34 +93,35 @@
 				}
 
 				#sw {
-					float: right;
+
 					line-height: 4vh;
-					display: inline-block;
-					    transform: scaleX(1.2) scaleY(0.9);
-					    margin-top: -0.2vh;
+					transform: scaleX(1.2) scaleY(0.9);
+					margin-top: -0.2vh;
 				}
 			}
 		}
-		.content2{
-			box-sizing:border-box;
-			margin-top:2vh;
+
+		.content2 {
+			box-sizing: border-box;
+			margin-top: 2vh;
 			width: 90vw;
-			height:fit-content;
-			background-color:#e8e8e8;
+			height: fit-content;
+			background-color: #e8e8e8;
 			border: 1rpx solid transparent;
 			border-radius: 12rpx;
 			position: relative;
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
-			padding:2vh 5vw;
-			.border{
-				width:80vw;
-				height:1vh;
-				position:absolute;
-				top:5vh;
-				left:5vw;
-				border-bottom:1rpx solid #d1ddde;
+			padding: 2vh 5vw;
+
+			.border {
+				width: 80vw;
+				height: 1vh;
+				position: absolute;
+				top: 5vh;
+				left: 5vw;
+				border-bottom: 1rpx solid #d1ddde;
 			}
 		}
 	}

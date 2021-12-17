@@ -43,6 +43,60 @@
   line-height: 6vh;
   padding: 0 5vw;
 }
+.funs .selectPeople {
+  position: absolute;
+  top: 8vh;
+  width: 80vw;
+  height: -webkit-fit-content;
+  height: fit-content;
+  background-color: blue;
+  left: 10vw;
+  z-index: 9;
+  max-height: 50vh;
+  overflow: auto;
+}
+.funs .selectPeople .select-item {
+  width: inherit;
+  height: 7vh;
+  padding: 1vh 3vw;
+  box-sizing: border-box;
+  background-image: linear-gradient(to right, rgba(238, 238, 238, 0.6) 10%, rgba(1, 1, 1, 0.2) 100%);
+  border-bottom: 1rpx solid #999992;
+}
+.funs .selectPeople .select-item image:nth-of-type(1) {
+  width: 5vh;
+  height: 5vh;
+  display: inline-block;
+  size: 100%;
+  vertical-align: middle;
+}
+.funs .selectPeople .select-item view {
+  font-size: 28rpx;
+  display: inline-block;
+  width: -webkit-fit-content;
+  width: fit-content;
+  font-weight: 500;
+  margin-left: 3vw;
+  vertical-align: middle;
+  line-height: 5vh;
+}
+.funs .selectPeople .select-item image:nth-of-type(2) {
+  width: 2vh;
+  height: 2vh;
+  display: inline-block;
+  size: 100%;
+  vertical-align: middle;
+  margin-left: 1vw;
+}
+.funs .selectPeople .select-item button {
+  width: 14vw;
+  height: 3vh;
+  float: right;
+  line-height: 3vh;
+  font-size: 25rpx;
+  padding: 0 2vw;
+  margin-top: 1vh;
+}
 .funs #record-bk {
   position: fixed;
   top: 0;

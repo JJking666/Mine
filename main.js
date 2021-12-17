@@ -8,9 +8,9 @@ import store from './store'
 import uView from '@/uni_modules/uview-ui'
 
 import mixin from './common/mixin'
-
+import qs from 'qs'
 Vue.prototype.$store = store
-
+Vue.prototype.$qs=qs
 Vue.config.productionTip = false
 
 App.mpType = 'app'
