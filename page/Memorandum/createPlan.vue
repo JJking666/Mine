@@ -52,10 +52,14 @@
 			gobackPlan() {
 				let that =this
 				if (this.textData.length <= 2) return
+				that.title=that.title==''?'无':that.title
+				let n=that.textData.split("\n")
+				let finish=new Array(n.length).fill('0')
+				console.log(finish)
 				uni.request({//时间
 					url: 'http://127.0.0.1:3000/plan/addPlan?data=' +
 						'{"UserID":"'+that.id+'","content":"'+that.textData+'","title":"'+that.title+
-						'","startTime":"'+that.datetimerange[0]+'","endTime":"'+that.datetimerange[1]+'"}'
+						'","startTime":"'+that.datetimerange[0]+'","endTime":"'+that.datetimerange[1]+'","finish":['+finish+']}'
 				})
 				uni.navigateBack({
 					delta: 1

@@ -1,75 +1,103 @@
 {
-  "description": "项目配置文件。",
-  "packOptions": {
-    "ignore": []
-  },
-  "setting": {
-    "urlCheck": false,
-    "es6": false,
-    "minified": true,
-    "postcss": true
-  },
-  "compileType": "miniprogram",
-  "libVersion": "",
-  "appid": "wxfb77766131043612",
-  "projectname": "Mine",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
+    "description": "项目配置文件。",
+    "packOptions": {
+        "ignore": []
     },
-    "conversation": {
-      "current": -1,
-      "list": []
+    "setting": {
+        "urlCheck": false,
+        "es6": false,
+        "enhance": true,
+        "postcss": true,
+        "preloadBackgroundData": false,
+        "minified": true,
+        "newFeature": false,
+        "coverView": true,
+        "nodeModules": false,
+        "autoAudits": false,
+        "showShadowRootInWxmlPanel": true,
+        "scopeDataCheck": false,
+        "uglifyFileName": false,
+        "checkInvalidKey": true,
+        "checkSiteMap": true,
+        "uploadWithSourceMap": true,
+        "compileHotReLoad": false,
+        "lazyloadPlaceholderEnable": false,
+        "useMultiFrameRuntime": true,
+        "useApiHook": true,
+        "useApiHostProcess": true,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "enableEngineNative": false,
+        "useIsolateContext": true,
+        "userConfirmedBundleSwitch": false,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "disableUseStrict": false,
+        "showES6CompileOption": false,
+        "useCompilerPlugins": false,
+        "minifyWXML": true
     },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": 0,
-      "list": [
-        {
-          "name": "main",
-          "id": 0,
-          "pathName": "page/HandAccount/handAccount"
+    "compileType": "miniprogram",
+    "libVersion": "",
+    "appid": "wxfb77766131043612",
+    "projectname": "Mine",
+    "condition": {
+        "search": {
+            "list": []
         },
-        {
-          "name": "friends",
-          "id": 1,
-          "pathName": "page/Friends/friends"
+        "conversation": {
+            "list": []
         },
-        {
-          "name": "funs",
-          "id": 2,
-          "pathName": "page/Friends/funs"
+        "game": {
+            "list": []
         },
-        {
-          "name": "record",
-          "id": 3,
-          "pathName": "page/Memorandum/record"
-        },
-        {
-          "name": "setting",
-          "id": 4,
-          "pathName": "page/MySetting/mySetting"
-        },
-        {
-          "name": "Create",
-          "id": 5,
-          "pathName": "page/Creation/creation"
-        },
-        {
-          "name": "Demo",
-          "id": 6,
-          "pathName": "page/demo"
-        },
-        {
-          "name": "GO",
-          "id": 7,
-          "pathName": "page/Memorandum/memorandum"
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "main",
+                    "id": 0,
+                    "pathName": "page/HandAccount/handAccount"
+                },
+                {
+                    "name": "friends",
+                    "id": 1,
+                    "pathName": "page/Friends/friends"
+                },
+                {
+                    "name": "funs",
+                    "id": 2,
+                    "pathName": "page/Friends/funs"
+                },
+                {
+                    "name": "record",
+                    "id": 3,
+                    "pathName": "page/Memorandum/record"
+                },
+                {
+                    "name": "setting",
+                    "id": 4,
+                    "pathName": "page/MySetting/mySetting"
+                },
+                {
+                    "name": "Create",
+                    "id": 5,
+                    "pathName": "page/Creation/creation"
+                },
+                {
+                    "name": "Demo",
+                    "id": 6,
+                    "pathName": "page/demo"
+                },
+                {
+                    "name": "GO",
+                    "id": 7,
+                    "pathName": "page/Memorandum/memorandum"
+                }
+            ]
         }
-      ]
     }
-  }
 }

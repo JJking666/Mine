@@ -54,7 +54,8 @@
 				t1: null,
 				maxid: 10,
 				show:0,
-				deleteID:''
+				deleteID:'',
+				firstRecord:[],
 			}
 		},			 
 		methods: {   
@@ -78,6 +79,7 @@
 									that.recordData.splice(index*2+1, 1);
 								}
 							})
+							that.firstRecord=JSON.parse(JSON.stringify(that.recordData)) 
 							this.hideRecord()
 						} else if (res.cancel) {
 							this.hideRecord()
@@ -119,15 +121,44 @@
 				
 			},
 			select() {
+				if(this.inputValue.length==0){
+					this.recordData=JSON.parse(JSON.stringify(this.firstRecord))
+					return
+				}
 				console.log('s')
 				if (this.t1) {
 					clearInterval(this.t1)
 				}
 				this.t1 = setTimeout(() => {
-					this.textList.forEach((item) => {
+					console.log('t')
+					let r1=[]
+					let r2=[]
+					this.recordData=JSON.parse(JSON.stringify(this.firstRecord))
+					this.recordData1.forEach((item,index) => {
 						let str = new RegExp(this.inputValue)
-						item.textvalue = item.textvalue.replace(this.inputValue,
+						if(item.content.match(str)){
+							r1.push(index)
+							item.content = item.content.replace(this.inputValue,
 							`<span style="color: red">${this.inputValue}</span>`)
+						}	
+					})
+					this.recordData2.forEach((item,index) => {
+						let str = new RegExp(this.inputValue)
+						if(item.content.match(str)){
+							r2.push(index)
+							item.content = item.content.replace(this.inputValue,
+							`<span style="color: red">${this.inputValue}</span>`)
+						}	
+					})
+					r1.forEach((item)=>{
+						let item1 = this.recordData1[item]
+						this.recordData1.splice(item,1);
+						this.recordData1.unshift(item1)
+					})
+					r2.forEach((item)=>{
+						let item2 = this.recordData2[item]
+						this.recordData2.splice(item,1);
+						this.recordData2.unshift(item2)
 					})
 				}, 500);
 				// this.textList.forEach((item)=>{
@@ -135,20 +166,7 @@
 				// 	item.textvalue=item.textvalue.replace(this.inputValue,`<span style="color: red">${this.inputValue}</span>`)
 				// })
 			},
-			created() {
-
-			},
-			addRecord(res) {
-				let record = {};
-				record.id = this.maxid++
-				record.textvalue = res.text;
-				record.date = "11月19号"
-				this.textList.unshift(record)
-				console.log(this.textList)
-				uni.navigateBack({
-					delta: 1
-				})
-			},
+			
 			gotoWriteRecord() {
 				uni.navigateTo({
 					url: 'createRecord'
@@ -178,6 +196,7 @@
 					.then(data=>{
 						let [err1,res1]=data
 						that.recordData=res1.data.data
+						that.firstRecord=JSON.parse(JSON.stringify(that.recordData)) 
 					})
 				}
 			})

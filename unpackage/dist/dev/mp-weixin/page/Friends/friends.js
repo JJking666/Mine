@@ -236,7 +236,11 @@ var _default =
           });
         }
         if (res.data.data.status == 2) {
-
+          that.friends.forEach(function (item) {
+            if (item.id == res.data.data.PeopleID) {
+              that.$set(item, 'status', 2);
+            }
+          });
         }
       });
     },

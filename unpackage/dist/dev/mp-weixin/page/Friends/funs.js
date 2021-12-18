@@ -168,6 +168,42 @@ var _default =
 
   },
   methods: {
+    addFriend: function addFriend() {
+      var that = this;
+      var data = {
+        UserID: this.ID,
+        PeopleID: id };
+
+      data = this.$qs.parse(data);
+      uni.request({
+        url: 'http://127.0.0.1:3000/relationship/addRelationship',
+        data: data }).
+
+      then(function (data) {var _data = _slicedToArray(
+        data, 2),err = _data[0],res = _data[1];
+        console.log(res, res.data.data.PeopleID);
+        if (res.data.data.status == 1) {
+          uni.request({
+            url: 'http://127.0.0.1:3000/user/queryUserById?data=' + res.data.data.PeopleID }).
+
+          then(function (data) {var _data2 = _slicedToArray(
+            data, 2),err = _data2[0],res1 = _data2[1];
+            console.log('f', res1);
+            var friend = {};
+            friend.status = 1;
+            friend.id = res1.data.data[0]._id;
+            friend.headImg = res1.data.data[0].HeadImg;
+            friend.name = res1.data.data[0].Name;
+            friend.sex = res1.data.data[0].Sex;
+            console.log(friend);
+            that.friends.push(friend);
+          });
+        }
+        if (res.data.data.status == 2) {
+
+        }
+      });
+    },
     select: function select() {var _this = this;
       var that = this;
       if (this.inputValue.length < 1) {
@@ -202,8 +238,8 @@ var _default =
       url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
       '{"UserID":"' + option.ID + '","status":[0,2]}' }).
 
-    then(function (data) {var _data = _slicedToArray(
-      data, 2),err = _data[0],res = _data[1];
+    then(function (data) {var _data3 = _slicedToArray(
+      data, 2),err = _data3[0],res = _data3[1];
       // console.log(1,err,res)
       res.data.data.forEach(function (item) {
         var fun = {};
@@ -212,8 +248,8 @@ var _default =
           url: 'http://127.0.0.1:3000/user/queryUserById?data=' + item.
           PeopleID }).
 
-        then(function (data) {var _data2 = _slicedToArray(
-          data, 2),err1 = _data2[0],res1 = _data2[1];
+        then(function (data) {var _data4 = _slicedToArray(
+          data, 2),err1 = _data4[0],res1 = _data4[1];
           // console.log(2,err1,res1)
           fun.id = res1.data.data[0]._id;
           fun.headImg = res1.data.data[0].HeadImg;

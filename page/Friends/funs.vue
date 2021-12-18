@@ -19,7 +19,7 @@
 					<image
 						:src="item.sex=='man'?'../../static/more/faxian-36.png':'../../static/more/微信图片_20211126111415.jpg'"
 						mode=""></image>
-					<button @tap="cancelFun(item.id)">已关注</button>
+					<button @tap="cancelFun(item.id)">关注</button>
 			</view>
 		</view>
 	</view>
@@ -36,6 +36,42 @@
 			}
 		},
 		methods: {
+			addFriend(){
+				let that =this
+				let data = {
+					UserID:this.ID,
+					PeopleID:id
+				}
+				data=this.$qs.parse(data)
+				uni.request({
+					url:'http://127.0.0.1:3000/relationship/addRelationship',
+					data:data
+				})
+				.then((data)=>{
+					let [err,res]=data
+					console.log(res,res.data.data.PeopleID)
+					if(res.data.data.status==1){
+						uni.request({
+							url:'http://127.0.0.1:3000/user/queryUserById?data='+res.data.data.PeopleID
+						})
+						.then(data=>{
+							let [err,res1]=data
+							console.log('f',res1)
+							let friend={}
+							friend.status=1
+							friend.id = res1.data.data[0]._id
+							friend.headImg = res1.data.data[0].HeadImg
+							friend.name = res1.data.data[0].Name
+							friend.sex = res1.data.data[0].Sex
+							console.log(friend)
+							that.friends.push(friend)
+						})
+					}
+					if(res.data.data.status==2){
+						
+					}
+				})
+			},
 			select() {
 				let that = this
 				if (this.inputValue.length < 1) {

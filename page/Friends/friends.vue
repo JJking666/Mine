@@ -104,7 +104,11 @@
 						})
 					}
 					if(res.data.data.status==2){
-						
+						that.friends.forEach((item)=>{
+							if(item.id==res.data.data.PeopleID){
+								that.$set(item,'status',2);
+							}
+						})
 					}
 				})
 			},

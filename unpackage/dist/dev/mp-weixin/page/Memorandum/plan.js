@@ -97,7 +97,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.planData, function(item, index) {
+  var l0 = _vm.__map(_vm.planData1, function(item, index) {
     var $orig = _vm.__get_orig(item)
 
     var g0 = item.startTime.slice(5, 10)
@@ -109,11 +109,24 @@ var render = function() {
     }
   })
 
+  var l1 = _vm.__map(_vm.planData2, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g2 = item.startTime.slice(5, 10)
+    var g3 = item.endTime.slice(5, 10)
+    return {
+      $orig: $orig,
+      g2: g2,
+      g3: g3
+    }
+  })
+
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        l0: l0
+        l0: l0,
+        l1: l1
       }
     }
   )
@@ -170,27 +183,216 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
       id: '',
+      finishStyle: {
+        text: "line-through",
+        color: "grey" },
+
       demoData: [1, 2, 3, 4, 5, 6],
       planData: [],
+      planData1: [],
+      planData2: [],
       maxid: 9,
-      deleteID: '' };
+      deleteID: '',
+      changeF: 0,
+      changing: '',
+      finAnimation: '',
+      dataID: '' };
 
   },
   methods: {
-    changeShow: function changeShow(index) {
-      this.planData[index].visibity = this.planData[index].visibity == "3vh" ? "0vh" : "3vh";
-      this.$set(this.planData, index, {
-        startTime: this.planData[index].startTime,
-        endTime: this.planData[index].endTime,
-        title: this.planData[index].title,
-        content: this.planData[index].content,
-        visibity: this.planData[index].visibity });
+    changeAnimation: function changeAnimation(index) {
 
+    },
+    changeFinish: function changeFinish(status, index, index_1) {var _this = this;
+      if (this.changeF) clearInterval(this.changeF);
+      if (status == 1) {
+        var n = this.planData1[index]['finish'][index_1] == '0' ? '1' : '0';
+        this.$set(this.planData1[index]['finish'], index_1, n);
+        var num = this.planData1[index]['finish'].filter(function (item) {
+          return item == 0;
+        });
+        console.log(num);
+        var animationF = uni.createAnimation({
+          duration: 1000,
+          timingFunction: 'ease' });
+
+        this.animationF = animationF;
+        this.animationF.scale(1.3).opacity(1).step({ duration: 300 });
+        this.animationF.scale(1.0).step({ duration: 800 });
+        this.animationF.opacity(1).step({ duration: 500 });
+        this.finAnimation = this.animationF.export();
+        var data1;
+        var finishA = this.planData1[index]['finish'];
+        var dataID = this.planData1[index]._id;
+        if (num.length == 0) {
+          // console.log('len')
+          // let animationF = uni.createAnimation({
+          // 		duration: 1000,
+          //         timingFunction: 'ease',
+          //     })
+          // this.animationF = animationF
+          // this.animationF.scale(1.3).opacity(1).step()
+          // this.animationF.scale(1.0).step()
+          // this.finAnimation=this.animationF.export()
+          this.planData1[index]['status'] = 1;
+          var i;
+          this.planData.forEach(function (item, index1) {
+            if (item._id == _this.planData1[index]._id) {
+              i = index1;
+              return;
+            }
+          });
+          this.planData[i]['status'] = 1;
+          data1 = {
+            _id: this.planData1[index]._id };
+
+
+          uni.request({
+            url: 'http://127.0.0.1:3000/plan/changePlan',
+            data: data1 });
+
+          this.planData1 = this.planData.filter(function (item) {
+            return item.status == '0';
+          });
+          this.planData2 = this.planData.filter(function (item) {
+            return item.status == '1';
+          });
+          //this.changeShow(1, index)
+        }
+        this.changeF = setTimeout(function () {
+          if (_this.changeF == 0) return;
+          console.log(_this.dataID);
+          var data = {
+            UserID: _this.id,
+            _id: dataID,
+            finish: finishA };
+
+          uni.request({
+            url: 'http://127.0.0.1:3000/plan/changeFinish',
+            data: data }).
+
+          then(function (data) {var _data = _slicedToArray(
+            data, 2),err = _data[0],res = _data[1];
+            console.log(res.data);
+          });
+        }, 1000);
+      } else {
+        var _n2 = this.planData2[index]['finish'][index_1] == '0' ? '1' : '0';
+        this.$set(this.planData2[index]['finish'], index_1, _n2);
+        var _num = this.planData2[index]['finish'].filter(function (item) {
+          return item == 0;
+        });
+        var data2;
+        var _dataID = this.planData2[index]._id;
+        var _finishA = this.planData1[index]['finish'];
+        if (_num.length == 0) {
+          // console.log('len')
+          // let animationF = uni.createAnimation({
+          // 		duration: 1000,
+          //         timingFunction: 'ease',
+          //     })
+          // this.changeShow(index)
+          // this.animationF = animationF
+          // this.animationF.translateX(800).height(0).opacity(0).step()
+          // this.animationdata[index]=this.animationF.export()
+          this.planData2[index]['status'] = '1';
+          this.planData1 = this.planData.filter(function (item) {
+            return item.status == '0';
+          });
+          this.planData2 = this.planData.filter(function (item) {
+            return item.status == '1';
+          });
+          var _data2 = {
+            _id: this.planData2[index]._id };
+
+          uni.request({
+            url: 'http://127.0.0.1:3000/plan/changePlan',
+            data: _data2 });
+
+        }
+        this.changeF = setTimeout(function () {
+          if (_this.changeF == 0) return;
+          var data = {
+            UserID: _this.id,
+            _id: _dataID,
+            finish: _this.planData2[index]['finish'] };
+
+          uni.request({
+            url: 'http://127.0.0.1:3000/plan/changeFinish',
+            data: data }).
+
+          then(function (data) {var _data3 = _slicedToArray(
+            data, 2),err = _data3[0],res = _data3[1];
+            console.log(res.data);
+          });
+        }, 1000);
+      }
+
+    },
+    changeShow: function changeShow(status, index) {
+      if (status == 1) {
+        this.planData1[index].visibity = this.planData1[index].visibity == "3vh" ? "0vh" : "3vh";
+        this.$set(this.planData1, index, {
+          startTime: this.planData1[index].startTime,
+          endTime: this.planData1[index].endTime,
+          title: this.planData1[index].title,
+          content: this.planData1[index].content,
+          visibity: this.planData1[index].visibity,
+          finish: this.planData1[index].finish,
+          _id: this.planData1[index]._id,
+          UserID: this.planData1[index].UserID,
+          status: this.planData1[index].status });
+
+      } else {
+        this.planData2[index].visibity = this.planData2[index].visibity == "3vh" ? "0vh" : "3vh";
+        this.$set(this.planData2, index, {
+          startTime: this.planData2[index].startTime,
+          endTime: this.planData2[index].endTime,
+          title: this.planData2[index].title,
+          content: this.planData2[index].content,
+          visibity: this.planData2[index].visibity,
+          finish: this.planData2[index].finish,
+          _id: this.planData2[index]._id,
+          UserID: this.planData2[index].UserID,
+          status: this.planData2[index].status });
+
+      }
+
+      // this.planData1=this.planData.filter((item)=>{
+      // 	return item.status=='0'
+      // })
+      // this.planData2=this.planData.filter((item)=>{
+      // 	return item.status=='1'
+      // })
       //深层对象无法响应
     },
     createPlan: function createPlan() {
@@ -199,39 +401,34 @@ var _default =
         url: 'createPlan?id=' + that.id });
 
     },
-    getPlan: function getPlan(value) {
-      var plan = {};
-      plan.title = value[0];
-      plan.content = value[1];
-      plan.date = value[2];
-      console.log(value[2]); //["2021-03-20", "2023-05-10"]
-      console.log(value[2][0]); //"2021-03-20"
-      if (value[2][0] == value[2][1]) {
-        plan.date = value[2][1];
+    deletePlan: function deletePlan(status, index) {var _this2 = this;
+      if (status == 1) {
+        this.deleteID = this.planData1[index]._id;
       } else {
-        plan.date = value[2][0] + "-" + value[2][1];
+        this.deleteID = this.planData2[index]._id;
       }
-      plan.id = this.maxid++;
-      plan.visibity = '0vh';
-      this.planitem.unshift(plan);
-    },
-    deletePlan: function deletePlan(index) {var _this = this;
-      this.deleteID = this.planData[index]._id;
+
       uni.showModal({
         title: '提示',
         content: '您确定要删除该计划吗？',
         success: function success(res) {
-          console.log(_this.$data);
+          console.log(_this2.$data);
           if (res.confirm) {
 
-            var that = _this;
+            var that = _this2;
             uni.request({
               url: 'http://127.0.0.1:3000/plan/deletePlan?data=' + that.deleteID }).
 
-            then(function (data1) {var _data = _slicedToArray(
-              data1, 2),err1 = _data[0],res1 = _data[1];
+            then(function (data1) {var _data4 = _slicedToArray(
+              data1, 2),err1 = _data4[0],res1 = _data4[1];
               console.log(res1);
               that.planData.splice(index, 1);
+              _this2.planData1 = _this2.planData.filter(function (item) {
+                return item.status == '0';
+              });
+              _this2.planData2 = _this2.planData.filter(function (item) {
+                return item.status == '1';
+              });
             });
 
           } else if (res.cancel) {
@@ -256,10 +453,11 @@ var _default =
       return "".concat(year, "-").concat(month, "-").concat(day);
     } },
 
-  onShow: function onShow() {
+  onShow: function onShow() {var _this3 = this;
     var that = this;
     var id;
     uni.$on('planemit', this.getPlan);
+
     uni.getStorage({
       key: "UserID",
       success: function success(res) {
@@ -268,12 +466,18 @@ var _default =
         uni.request({
           url: 'http://127.0.0.1:3000/plan/queryPlans?data=' + id }).
 
-        then(function (data) {var _data2 = _slicedToArray(
-          data, 2),err1 = _data2[0],res1 = _data2[1];
+        then(function (data) {var _data5 = _slicedToArray(
+          data, 2),err1 = _data5[0],res1 = _data5[1];
           that.planData = res1.data.data;
           that.planData.forEach(function (item) {
             item.visibity = '0vh';
             item.content = item.content.split("\n");
+          });
+          _this3.planData1 = _this3.planData.filter(function (item) {
+            return item.status == '0';
+          });
+          _this3.planData2 = _this3.planData.filter(function (item) {
+            return item.status == '1';
           });
         });
       } });

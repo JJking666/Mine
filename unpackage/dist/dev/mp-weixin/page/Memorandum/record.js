@@ -215,7 +215,8 @@ var _default =
       t1: null,
       maxid: 10,
       show: 0,
-      deleteID: '' };
+      deleteID: '',
+      firstRecord: [] };
 
   },
   methods: {
@@ -239,6 +240,7 @@ var _default =
                 that.recordData.splice(index * 2 + 1, 1);
               }
             });
+            that.firstRecord = JSON.parse(JSON.stringify(that.recordData));
             _this.hideRecord();
           } else if (res.cancel) {
             _this.hideRecord();
@@ -280,15 +282,44 @@ var _default =
 
     },
     select: function select() {var _this4 = this;
+      if (this.inputValue.length == 0) {
+        this.recordData = JSON.parse(JSON.stringify(this.firstRecord));
+        return;
+      }
       console.log('s');
       if (this.t1) {
         clearInterval(this.t1);
       }
       this.t1 = setTimeout(function () {
-        _this4.textList.forEach(function (item) {
+        console.log('t');
+        var r1 = [];
+        var r2 = [];
+        _this4.recordData = JSON.parse(JSON.stringify(_this4.firstRecord));
+        _this4.recordData1.forEach(function (item, index) {
           var str = new RegExp(_this4.inputValue);
-          item.textvalue = item.textvalue.replace(_this4.inputValue, "<span style=\"color: red\">".concat(
-          _this4.inputValue, "</span>"));
+          if (item.content.match(str)) {
+            r1.push(index);
+            item.content = item.content.replace(_this4.inputValue, "<span style=\"color: red\">".concat(
+            _this4.inputValue, "</span>"));
+          }
+        });
+        _this4.recordData2.forEach(function (item, index) {
+          var str = new RegExp(_this4.inputValue);
+          if (item.content.match(str)) {
+            r2.push(index);
+            item.content = item.content.replace(_this4.inputValue, "<span style=\"color: red\">".concat(
+            _this4.inputValue, "</span>"));
+          }
+        });
+        r1.forEach(function (item) {
+          var item1 = _this4.recordData1[item];
+          _this4.recordData1.splice(item, 1);
+          _this4.recordData1.unshift(item1);
+        });
+        r2.forEach(function (item) {
+          var item2 = _this4.recordData2[item];
+          _this4.recordData2.splice(item, 1);
+          _this4.recordData2.unshift(item2);
         });
       }, 500);
       // this.textList.forEach((item)=>{
@@ -296,20 +327,7 @@ var _default =
       // 	item.textvalue=item.textvalue.replace(this.inputValue,`<span style="color: red">${this.inputValue}</span>`)
       // })
     },
-    created: function created() {
 
-    },
-    addRecord: function addRecord(res) {
-      var record = {};
-      record.id = this.maxid++;
-      record.textvalue = res.text;
-      record.date = "11月19号";
-      this.textList.unshift(record);
-      console.log(this.textList);
-      uni.navigateBack({
-        delta: 1 });
-
-    },
     gotoWriteRecord: function gotoWriteRecord() {
       uni.navigateTo({
         url: 'createRecord' });
@@ -339,6 +357,7 @@ var _default =
         then(function (data) {var _data2 = _slicedToArray(
           data, 2),err1 = _data2[0],res1 = _data2[1];
           that.recordData = res1.data.data;
+          that.firstRecord = JSON.parse(JSON.stringify(that.recordData));
         });
       } });
 
