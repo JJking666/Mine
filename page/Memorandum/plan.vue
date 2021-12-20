@@ -3,7 +3,7 @@
 		<view class="plan-item1" v-for="(item,index) in planData1" :key="index" @tap="changeShow(1,index)"
 			:animation="animationdata[index]"
 			:style="{height:planData1[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh'}">
-			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap="deletePlan(1,index)"></image>
+			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap.stop="deletePlan(1,index)"></image>
 			<text id="date">{{item.title}}</text>
 			<text id="date1">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
 			<view class="planHidden"
@@ -19,7 +19,7 @@
 		<view class="plan-item2" v-for="(item,index) in planData2" :key="index" @tap="changeShow(2,index)"
 			:animation="animationdata[index]"
 			:style="{height:planData2[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh'}">
-			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap="deletePlan(2,index)"></image>
+			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap.stop="deletePlan(2,index)"></image>
 			<text id="date" style="color: grey;text-decoration: line-through;">{{item.title}}</text>
 			<text id="date1" style="color: grey;text-decoration: line-through;">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
 			<view class="planHidden"
@@ -76,15 +76,7 @@
 						return item == 0
 					})
 					console.log(num)
-					let animationF = uni.createAnimation({
-							duration: 1000,
-					        timingFunction: 'ease',
-					    })
-					this.animationF = animationF
-					this.animationF.scale(1.3).opacity(1).step({duration: 300})
-					this.animationF.scale(1.0).step({duration: 800})
-					this.animationF.opacity(1).step({duration: 500})
-					this.finAnimation=this.animationF.export()
+					
 					let data1
 					let finishA=this.planData1[index]['finish']
 					let dataID=this.planData1[index]._id
@@ -110,7 +102,16 @@
 						data1 = {
 							_id: this.planData1[index]._id
 						}
-
+						let animationF = uni.createAnimation({
+						        timingFunction: 'ease',
+						    })
+						this.animationF = animationF
+						this.animationF.scale(1.3).opacity(1).step({duration: 700})
+						this.animationF.scale(0).opacity(0).step({duration: 3800})
+						this.finAnimation=this.animationF.export()
+						setTimeout(()=>{
+							this.finAnimation=null
+						},4500)
 						uni.request({
 							url: 'http://127.0.0.1:3000/plan/changePlan',
 							data: data1
@@ -325,13 +326,14 @@
 	$planHeight:8vh;
 	.finish{
 		width: 100vw;
-		    height: 15vh;
+		    height: 10vh;
 		    position: absolute;
 		    left: 0;
 		    top: 25vh;
-		    line-height: 15vh;
+		    line-height: 10vh;
 		    color: white;
-			opacity: 0;
+			opacity: 0.5;
+			transform: scale(0);
 		    text-align: center;
 		    background-image: linear-gradient(to right,rgba(230, 230, 230, 0.2), #37f6ff, rgba(230, 230, 230, 0.2));
 			transition: all 1s;

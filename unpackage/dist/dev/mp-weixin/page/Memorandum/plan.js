@@ -241,15 +241,7 @@ var _default =
           return item == 0;
         });
         console.log(num);
-        var animationF = uni.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease' });
 
-        this.animationF = animationF;
-        this.animationF.scale(1.3).opacity(1).step({ duration: 300 });
-        this.animationF.scale(1.0).step({ duration: 800 });
-        this.animationF.opacity(1).step({ duration: 500 });
-        this.finAnimation = this.animationF.export();
         var data1;
         var finishA = this.planData1[index]['finish'];
         var dataID = this.planData1[index]._id;
@@ -275,7 +267,16 @@ var _default =
           data1 = {
             _id: this.planData1[index]._id };
 
+          var animationF = uni.createAnimation({
+            timingFunction: 'ease' });
 
+          this.animationF = animationF;
+          this.animationF.scale(1.3).opacity(1).step({ duration: 700 });
+          this.animationF.scale(0).opacity(0).step({ duration: 3800 });
+          this.finAnimation = this.animationF.export();
+          setTimeout(function () {
+            _this.finAnimation = null;
+          }, 4500);
           uni.request({
             url: 'http://127.0.0.1:3000/plan/changePlan',
             data: data1 });

@@ -210,10 +210,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {
+      swiperH1: 0,
+      swiperH2: 0,
       firstCard: '2vh',
       workData1: [],
       workData2: [],
@@ -259,15 +262,110 @@ var _default =
       var optionB = !this.option2[index];
       if (num == 1) {this.option1.splice(index, 1, optionA);} else
       {this.option2.splice(index, 1, optionB);}
+      var l1 = 0;
+      var l2 = 0;
+      this.option1.forEach(function (item) {
+        if (item == true) l1++;
+      });
+      this.option1.forEach(function (item) {
+        if (item == true) l2++;
+      });
+      this.swiperH1 += 30 * l1;
+      this.swiperH2 += 30 * l2;
     },
-    deleteWork: function deleteWork(num, index) {
-      if (num == 1) {this.workData1.splice(index, 1);} else
-      {this.workData2.splice(index, 1);}
+    deleteWork: function deleteWork(num, index) {var _this = this;
+      uni.showModal({
+        title: '提示',
+        content: '您确定要删除该事务吗？',
+        success: function success(res) {
+          console.log(_this.$data);
+          if (res.confirm) {
+            var d1 = {
+              _id: num == 1 ? _this.$data.workData1[index]._id : _this.$data.workData2[index]._id };
+
+            uni.request({
+              url: 'http://127.0.0.1:3000/work/deleteWork',
+              data: d1 }).
+
+            then(function (data1) {var _data = _slicedToArray(
+              data1, 2),err1 = _data[0],res1 = _data[1];
+              console.log(res1);
+              _this.$data.option1 = [];
+              _this.$data.workData1 = [];
+              _this.$data.option2 = [];
+              _this.$data.workData2 = [];
+              res1.data.data.forEach(function (item, index) {
+                if (item.status == 0) {
+                  var work = item;
+                  _this.$data.option1.push(false);
+                  _this.$data.workData1.push(work);
+                } else {
+                  var _work = item;
+                  _this.$data.option2.push(false);
+                  _this.$data.workData2.push(_work);
+                }
+              });
+            });
+          } else if (res.cancel) {
+            return;
+          }
+        } });
+
     },
-    addFinishWork: function addFinishWork(index) {
-      var work = this.workData1[index];
-      this.workData2.unshift(work);
-      this.workData1.splice(index, 1);
+    addFinishWork: function addFinishWork(index) {var _this2 = this;
+      var that = this;
+      console.log(index, this.workData1[index]);
+      var work = this.workData1[index]._id;
+
+      var d1 = {
+        _id: work };
+
+      uni.request({
+        url: 'http://127.0.0.1:3000/work/addFinishWork',
+        data: d1 }).
+
+      then(function (data1) {var _data2 = _slicedToArray(
+        data1, 2),err1 = _data2[0],res1 = _data2[1];
+        that.option1 = [];
+        that.workData1 = [];
+        that.option2 = [];
+        that.workData2 = [];
+        res1.data.data.forEach(function (item, index) {
+          if (item.status == 0) {
+            var _work2 = item;
+            that.option1.push(false);
+            that.workData1.push(_work2);
+          } else {
+            var _work3 = item;
+            that.option2.push(false);
+            that.workData2.push(_work3);
+          }
+        });
+        that.swiperH2 = 0;
+        that.swiperH1 = 0;
+        that.workData1.forEach(function (item, index) {
+          element = "#content-wrap1" + index;
+          query = uni.createSelectorQuery().in(_this2);
+          query.select(element).boundingClientRect();
+          query.exec(function (res) {
+            if (res && res[0]) {
+              that.swiperH1 += res[0].height;
+            }
+          });
+        });
+        that.workData2.forEach(function (item, index) {
+          element = "#content-wrap2" + index;
+          query = uni.createSelectorQuery().in(_this2);
+          query.select(element).boundingClientRect();
+          query.exec(function (res) {
+            if (res && res[0]) {
+              that.swiperH2 += res[0].height;
+            }
+          });
+        });
+        if (that.swiperH2 < 800) that.swiperH2 = 800;
+        if (that.swiperH1 < 800) that.swiperH1 = 800;
+      });
     } },
 
   onShow: function onShow() {
@@ -280,8 +378,8 @@ var _default =
         uni.request({
           url: 'http://127.0.0.1:3000/work/getWorks?data=' + id }).
 
-        then(function (data1) {var _data = _slicedToArray(
-          data1, 2),err1 = _data[0],res1 = _data[1];
+        then(function (data1) {var _data3 = _slicedToArray(
+          data1, 2),err1 = _data3[0],res1 = _data3[1];
           that.option1 = [];
           that.workData1 = [];
           that.option2 = [];
@@ -292,14 +390,45 @@ var _default =
               that.option1.push(false);
               that.workData1.push(work);
             } else {
-              var _work = item;
+              var _work4 = item;
               that.option2.push(false);
-              that.workData2.push(_work);
+              that.workData2.push(_work4);
             }
           });
+          console.log(2);
         });
       } });
 
+  },
+  mounted: function mounted() {var _this3 = this;
+    var element, query;
+    setTimeout(function () {
+      console.log('mmou', _this3.workData1);
+      _this3.workData1.forEach(function (item, index) {
+        element = "#content-wrap1" + index;
+        query = uni.createSelectorQuery().in(_this3);
+        query.select(element).boundingClientRect();
+        query.exec(function (res) {
+          if (res && res[0]) {
+            _this3.swiperH1 += res[0].height;
+          }
+        });
+      });
+      _this3.workData2.forEach(function (item, index) {
+        element = "#content-wrap2" + index;
+        query = uni.createSelectorQuery().in(_this3);
+        query.select(element).boundingClientRect();
+        query.exec(function (res) {
+          if (res && res[0]) {
+            _this3.swiperH2 += res[0].height;
+          }
+        });
+      });
+    }, 200);
+    setTimeout(function () {
+      if (_this3.swiperH2 < 800) _this3.swiperH2 = 800;
+      if (_this3.swiperH1 < 800) _this3.swiperH1 = 800;
+    }, 400);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

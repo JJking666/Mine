@@ -6,22 +6,23 @@
 					activeColor="#a0d1b1"
 					@change="changeCurrent1">
 		</u-subsection>
-		<swiper class="swiper work-swiper" :current="current2" @change="changeCurrent">
-			<swiper-item>
+		<swiper class="swiper work-swiper" :current="current2" @change="changeCurrent" 
+		:style="{height:current2==0?swiperH1+'px':swiperH2+'px'}">
+			<swiper-item >
 				<!-- 待办 -->
 				<view class="swiper-item work-itemA">			
 					<!-- <view style="margin-top: 10vh;background-color: red;height: 1px;"></view> -->
-					<uni-card :title="item.title" 
+					<uni-card :title="item.title"  :id="'content-wrap1' + index"
 						:extra="item.date" 
 						v-for="(item,index) in workData1" 
 						:key="item.id"
 						@tap="workOption(1,index)"><!-- workOption(index) -->
 					    {{item.content}}
-						<view v-if="option1[index]"  class="options">
+						<view class="options" :style="{height:option1[index]==true?'5vh':'0vh'}">
 							<button class="" @tap="deleteWork(1,index)">
 								<image src="../../static/img/memorandum/templateHL.png" ></image>
 							</button>
-							<button class="" @tap="addFinishWork(1,index)">
+							<button class="" @tap="addFinishWork(index)">
 								<image src="../../static/uview/common/logo.png" ></image>
 							</button>
 						</view>
@@ -31,13 +32,13 @@
 			<swiper-item>
 				<!-- 已完成 -->
 				<view class="swiper-item work-itemA">
-					<uni-card :title="item.title"
+					<uni-card :title="item.title" :id="'content-wrap2' + index"
 						:extra="item.date" 
 						v-for="(item,index) in workData2" 
 						:key="item.id"
 						@tap="workOption(2,index)"><!-- workOption(index) -->
 					    {{item.content}}
-						<view v-if="option2[index]"  class="options">
+						<view :style="{height:option2[index]==true?'5vh':'0vh'}"  class="options">
 							<button class="" @tap="deleteWork(2,index)">
 								<image src="../../static/uview/common/logo.png" ></image>
 							</button>
@@ -56,6 +57,8 @@
 	export default {
 		data() {
 			return {
+				swiperH1:0,
+				swiperH2:0,
 				firstCard:'2vh',
 				workData1:[],
 				workData2:[],
@@ -101,15 +104,110 @@
 				let optionB=!this.option2[index]
 				if(num==1){this.option1.splice(index,1,optionA)}
 				else{this.option2.splice(index,1,optionB)}
+				let l1 = 0
+				let l2 = 0
+				this.option1.forEach((item)=>{
+					if(item==true)l1++
+				})
+				this.option1.forEach((item)=>{
+					if(item==true)l2++
+				})
+				this.swiperH1+=30*l1
+				this.swiperH2+=30*l2
 			},
 			deleteWork(num,index){
-				if(num==1){this.workData1.splice(index,1);}
-				else{this.workData2.splice(index,1);}
+				uni.showModal({
+					title: '提示',
+					content: '您确定要删除该事务吗？',
+					success: (res) => {
+						console.log(this.$data)
+						if (res.confirm) {
+							let d1={
+								_id:num==1?this.$data.workData1[index]._id:this.$data.workData2[index]._id
+							}
+							uni.request({
+									url: 'http://127.0.0.1:3000/work/deleteWork',
+									data:d1
+								})
+								.then(data1 => {
+									let [err1, res1] = data1
+									console.log(res1)
+									this.$data.option1=[]
+									this.$data.workData1=[]
+									this.$data.option2=[]
+									this.$data.workData2=[]
+									res1.data.data.forEach((item,index)=>{
+										if(item.status==0){
+											let work = item;
+											this.$data.option1.push(false)
+											this.$data.workData1.push(work)
+										}else{
+											let work = item;
+											this.$data.option2.push(false)
+											this.$data.workData2.push(work)
+										}
+									})
+								})
+						} else if (res.cancel) {
+							return
+						}
+					}
+				})
 			},
 			addFinishWork(index){
-				let work = this.workData1[index]
-				this.workData2.unshift(work)
-				this.workData1.splice(index,1);
+				let that =this
+				console.log(index,this.workData1[index])
+				let work = this.workData1[index]._id
+				
+				let d1 = {
+					_id:work
+				}
+				uni.request({
+					url:'http://127.0.0.1:3000/work/addFinishWork',
+					data:d1
+				})
+				.then(data1=>{
+					let [err1,res1]=data1
+					that.option1=[]
+					that.workData1=[]
+					that.option2=[]
+					that.workData2=[]
+					res1.data.data.forEach((item,index)=>{
+						if(item.status==0){
+							let work = item;
+							that.option1.push(false)
+							that.workData1.push(work)
+						}else{
+							let work = item;
+							that.option2.push(false)
+							that.workData2.push(work)
+						}
+					})
+					that.swiperH2=0
+					that.swiperH1=0
+					that.workData1.forEach((item,index)=>{
+						element = "#content-wrap1"+index
+					    query = uni.createSelectorQuery().in(this);
+					    query.select(element).boundingClientRect();
+					    query.exec((res) => {
+					        if (res && res[0]) {
+								that.swiperH1 += res[0].height;
+					        }
+					    });
+					})
+					that.workData2.forEach((item,index)=>{
+						element = "#content-wrap2"+index
+					    query = uni.createSelectorQuery().in(this);
+					    query.select(element).boundingClientRect();
+					    query.exec((res) => {
+					        if (res && res[0]) {
+								that.swiperH2 += res[0].height;
+					        }
+					    });
+					})
+					if(that.swiperH2<800)that.swiperH2=800
+					if(that.swiperH1<800)that.swiperH1=800
+				})
 			}
 		},
 		onShow() {
@@ -139,9 +237,40 @@
 								that.workData2.push(work)
 							}
 						})
+						console.log(2)
 					})
 				}
 			})
+		},
+		mounted() {
+			let element,query
+			setTimeout(()=>{
+				console.log('mmou',this.workData1)
+				this.workData1.forEach((item,index)=>{
+					element = "#content-wrap1"+index
+				    query = uni.createSelectorQuery().in(this);
+				    query.select(element).boundingClientRect();
+				    query.exec((res) => {
+				        if (res && res[0]) {
+							this.swiperH1 += res[0].height;
+				        }
+				    });
+				})
+				this.workData2.forEach((item,index)=>{
+					element = "#content-wrap2"+index
+				    query = uni.createSelectorQuery().in(this);
+				    query.select(element).boundingClientRect();
+				    query.exec((res) => {
+				        if (res && res[0]) {
+							this.swiperH2 += res[0].height;
+				        }
+				    });
+				})
+			},200)
+			setTimeout(()=>{
+				if(this.swiperH2<800)this.swiperH2=800
+				if(this.swiperH1<800)this.swiperH1=800
+			},400)
 		}
 	}
 </script>
@@ -163,16 +292,17 @@
 				.options{
 					margin-top: 1vh;
 					width: inherit;
-					height: 6vh;
+					height: 5vh;
 					display: flex;
 					flex-direction: row;
 					justify-content:space-evenly;
 					align-items: center;
+					transition: all 0.6s;
 					& button{
 						padding: 0px;
 						width: 10vh;
-						height: 5vh;
-						border: 1rpx solid transparent;
+						height: inherit;
+						border: 0rpx solid transparent;
 						border-radius: 3rpx;
 						margin:0;
 						display: inline-block;
