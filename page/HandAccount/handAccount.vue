@@ -195,7 +195,7 @@
 		},
 		onReady(){
 			let that =this
-			uni.$on('getUser',that.getUser)
+			// uni.$on('getUser',that.getUser)
 			let opanimation = uni.createAnimation({
 			      duration: 1000,
 			        timingFunction: 'ease',

@@ -153,7 +153,13 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var myNav = function myNav() {__webpack_require__.e(/*! require.ensure | components/myNav */ "components/myNav").then((function () {return resolve(__webpack_require__(/*! ../../components/myNav.vue */ 338));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var myNav = function myNav() {__webpack_require__.e(/*! require.ensure | components/myNav */ "components/myNav").then((function () {return resolve(__webpack_require__(/*! ../../components/myNav.vue */ 338));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
 
 
 
@@ -214,38 +220,44 @@ __webpack_require__.r(__webpack_exports__);
       format: true });
 
     return {
+      id: '',
+      test: '',
       creationData: {
-        date: '',
-        weather: '',
-        feel: '',
-        imgX: 0,
-        imgY: 0,
-        bkPath: '',
-        imgPath: '',
-        public: '',
-        imgScale: '',
-        content: '' },
+        UserID: '',
+        bkImgNumber: 0,
+        Text: '',
+        Date: '',
+        Weather: 0,
+        Feel: 0,
+        Public: '',
+        stickerImg: [],
+        stickerImgx: [],
+        stickerImgy: [],
+        stickerImgs: [] },
 
-      feelindex: 0,
-      wtindex: 0,
+      stickArray: [],
+      stickerArray: [],
+      backgroundImgArray: [],
+      feelArray: [],
+      weatherArray: [],
       bkindex: 0,
-      bkPath1: '../../static/more/微信图片_20211126111417.jpg',
-      bkPath: ['快乐背景', '开心背景', '美丽背景', '王牌背景', '菜老头背景', '自定义背景'],
+      bkPath: ['粉色夏日', '碧水中月', '闲逸吉他', '落日阳台', '草莓与花', '熊熊开门', '动物狂欢'],
       tzindex: 0,
-      tzPath1: '../../static/img/icon.jpg',
-      tzPath: ['快乐开心', '开心美丽', '美丽美丽', '王牌美丽', '美丽菜老', '自定美丽'],
-      index: 0,
-      jpheight: 0,
-      array: ['中国', '美国', '巴西', '日本'],
+      tzPath: ['小海豚', '花儿朵', '赤兔儿', '小脑虎', '大蘑菇', '小牛宝', '大螃蟹', '仙人掌', '栅栏儿', '猪宝宝'],
+      jinzindex: 0,
+      wtindex: 0,
+      weatherarray: ['晴日', '多云', '小雨', '雷雨', '小雪', '雾', '雷阵雨'],
+      feelindex: 0,
+      feelarray: ['生气', '快乐', '哭泣', '郁闷', '甜蜜', '难过', '睡觉'],
       index1: 0,
+      jpheight: 0,
       date: currentDate,
       x: 0,
       y: 0,
       tzscale: 1,
-      old: {
-        x: 0,
-        y: 0 } };
-
+      oldX: [],
+      oldY: [],
+      oldScale: [] };
 
   },
   computed: {
@@ -259,30 +271,56 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     tzChange: function tzChange(e) {
       this.tzindex = e.target.value;
+      //console.log(e.target.value)//index
+      this.stickArray.push(e.target.value);
+      this.creationData.stickerImg.push(this.stickerArray[e.target.value].stickerPath);
+      //console.log('tz',this.stickArray[e.target.value].stickerPath)
+      this.creationData.stickerImgx.push(0);
+      this.creationData.stickerImgy.push(0);
+      this.creationData.stickerImgs.push(1);
+      console.log('tz', this.creationData.stickerImgy.length);
     },
     bkChange: function bkChange(e) {
       this.bkindex = e.target.value;
+      this.creationData.bkImgNumber = e.target.value;
     },
     moveTz: function moveTz() {
-      this.index = this.index == 0 ? 999 : 0;
+      this.jinzindex = this.jinzindex == 0 ? 999 : 0;
     },
-    onChange1: function onChange1(e) {
-      this.old.x = e.detail.x;
-      this.old.y = e.detail.y;
+    onChange1: function onChange1(e, index) {
+      console.log(1, index);
+      this.oldX[index] = e.detail.x;
+      this.oldY[index] = e.detail.y;
+      this.creationData.stickerImgx[index] = e.detail.x;
+      this.creationData.stickerImgy[index] = e.detail.y;
     },
-    onChange2: function onChange2(e) {
-      this.old.x = e.detail.x;
-      this.old.y = e.detail.y;
-      this.scale = e.detail.scale;
+    onChange2: function onChange2(e, index) {
+      this.oldX[index] = e.detail.x;
+      this.oldY[index] = e.detail.y;
+      this.oldScale[index] = e.detail.scale;
+      this.creationData.stickerImgx[index] = e.detail.x;
+      this.creationData.stickerImgy[index] = e.detail.y;
+      this.creationData.stickerImgs[index] = e.detail.scale;
     },
     wtChange: function wtChange(e) {
       this.wtindex = e.target.value;
+      this.creationData.Weather = e.target.value;
     },
     feelChange: function feelChange(e) {
       this.feelindex = e.target.value;
+      this.creationData.Feel = e.target.value;
     },
     bindDateChange: function bindDateChange(e) {
       this.date = e.target.value;
+      var data1 = this.getDate();
+      this.creationData.Date = data1;
+      if (this.date == data1) {
+        uni.showToast({
+          title: '今天才' + data1 + '耶~',
+          duration: 2000 });
+
+      }
+      console.log(this.date, this.creationData.Date);
     },
     getDate: function getDate(type) {
       var date = new Date();
@@ -291,47 +329,76 @@ __webpack_require__.r(__webpack_exports__);
       var day = date.getDate();
 
       if (type === 'start') {
-        year = year - 60;
-      } else if (type === 'end') {
-        year = year + 2;
+        year = year - 2;
       }
       month = month > 9 ? month : '0' + month;
       day = day > 9 ? day : '0' + day;
       return "".concat(year, "-").concat(month, "-").concat(day);
     },
-    getRes: function getRes(res) {var _this = this;
-
+    getRes: function getRes(res) {
+      var that = this;
       if (res.type != "tap" && res.type != "click") {
-        this.creationData.date = this.date;
-        this.creationData.feel = this.feelindex;
-        this.creationData.weather = this.wtindex;
-        this.creationData.bkPath = this.bkindex;
-        this.creationData.imgPath = this.tzindex;
-        this.creationData.public = res.isPublic;
-        this.creationData.imgX = this.old.x + 'px';
-        this.creationData.imgY = this.old.y + 'px';
-        this.creationData.content = res.html;
-        this.creationData.imgScale = this.tzscale;
-        setTimeout(function () {uni.$emit('getUser', _this.creationData);}, 500);
-        // console.log(1,this.creationData)
+        console.log('nei', res);
+        this.creationData.Text = res.html;
+        this.creationData.Public = res.isPublic;
+        console.log(this.creationData);
+        uni.showLoading({
+          title: '发布中' });
+
+        uni.request({
+          url: 'http://127.0.0.1:3000/handAccount/addHandAccount',
+          data: that.creationData }).
+
+        then(function (data) {var _data = _slicedToArray(
+          data, 2),err1 = _data[0],res1 = _data[1];
+          var result = res1.data.data;
+          console.log(result);
+          uni.switchTab({
+            url: '../HandAccount/handAccount' });
+
+          uni.hideLoading();
+        });
+        // setTimeout(()=>{uni.$emit('getUser',this.creationData)},500)
+        // // console.log(1,this.creationData)
         // console.log(2,res)
 
-        uni.switchTab({
-          url: '../HandAccount/handAccount' });
 
       } else {
         //获取富文本中内容
+        console.log('wai', res);
         uni.$emit('getres', 'a');
       }
 
     } },
 
-  onReady: function onReady() {
+  onReady: function onReady(option) {var _this = this;
     var that = this;
     uni.onKeyboardHeightChange(function (res) {
       that.jpheight = res.height;
     });
     uni.$on('editOk', that.getRes);
+    uni.getStorage({
+      key: "UserID",
+      success: function success(res) {
+        _this.$data.id = res.data;
+        that.creationData.UserID = res.data;
+        that.test = res.data;
+        console.log('r', that.test);
+        uni.request({
+          url: 'http://127.0.0.1:3000/creation/getCreationInfo?data=' + res.data }).
+
+        then(function (data) {var _data2 = _slicedToArray(
+          data, 2),err1 = _data2[0],res1 = _data2[1];
+          var result = res1.data.data;
+          console.log(result);
+          that.feelArray = result.feels;
+          that.stickerArray = result.stickers;
+          that.weatherArray = result.weathers;
+          that.backgroundImgArray = result.backgroundImgs;
+          that.creationData.Date = that.date;
+        });
+      } });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

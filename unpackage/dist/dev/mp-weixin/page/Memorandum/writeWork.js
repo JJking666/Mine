@@ -169,8 +169,8 @@ __webpack_require__.r(__webpack_exports__);
             url: 'http://127.0.0.1:3000/work/addWorks?data=' +
             '{"UserID":"' + id + '","title":"' + that.textTitle + '","content":"' + that.textValue + '"}' }).
 
-          then(function (data) {var _data =
-            data1,_data2 = _slicedToArray(_data, 2),err1 = _data2[0],res1 = _data2[1];
+          then(function (data1) {var _data = _slicedToArray(
+            data1, 2),err1 = _data[0],res1 = _data[1];
             console.log(res1);
           });
         } });

@@ -37,7 +37,7 @@
 							url:'http://127.0.0.1:3000/work/addWorks?data='+
 							'{"UserID":"'+id+'","title":"'+that.textTitle+'","content":"'+that.textValue+'"}'
 						})
-						.then(data=>{
+						.then(data1=>{
 							let [err1,res1]=data1
 							console.log(res1)
 						})

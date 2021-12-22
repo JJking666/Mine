@@ -35,9 +35,9 @@
           "pathName": "page/HandAccount/handAccount"
         },
         {
-          "name": "friends",
+          "name": "创作",
           "id": 1,
-          "pathName": "page/Friends/friends"
+          "pathName": "page/Creation/creation"
         },
         {
           "name": "funs",

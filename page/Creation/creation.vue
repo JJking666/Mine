@@ -4,44 +4,50 @@
 		<image id="submit" src="../../static/more/rili.png" mode="" @tap="getRes"></image>
 		<view class="creation-bk">
 			<view class="creation-content">
-				<image src="../../static/more/微信图片_20211126111417.jpg"></image>
+				<image :src="backgroundImgArray[bkindex].bkImgPath"></image>
 				<view class="content-nav">
 					<picker class="date" mode="date" :value="date" :start="startDate" :end="endDate"
-						@change="bindDateChange">
+					 @change="bindDateChange">
 						<view class="uni-input">{{date}}</view>
 					</picker>
-					<picker class="weather" @change="wtChange" :value="wtindex" :range="array">
-						<view class="uni-input">{{array[wtindex]}}</view>
+					<picker class="weather" @change="wtChange" :value="wtindex" :range="weatherarray" style="width: 5vh;">
+						<view class="uni-input" id="viewImg1" style="position: relative;">
+							<image class="wtImg" :src="weatherArray[wtindex].weatherPath||'../../static/img/weather/qingtian.png'" mode=""></image>
+						</view>
 					</picker>
-					<picker class="feel" @change="feelChange" :value="feelindex" :range="array">
-						<view class="uni-input">{{array[feelindex]}}</view>
+					<picker class="feel" @change="feelChange" :value="feelindex" :range="feelarray" style="margin-left:2vw;width: 5vh;">
+						<view class="uni-input" id="viewImg2" style="position: relative;">
+							<image class="feelImg" :src="feelArray[feelindex].feelPath||'../../static/img/feel/angry.png'" mode=""></image>
+						</view>
 					</picker>
 				</view>
-				<jin-edit :jpheight="jpheight" :index="index"></jin-edit>
+				<jin-edit :jpheight="jpheight" :index="jinzindex" :creationData="creationData"></jin-edit>
 				<view class="jin" style="margin-top: -120rpx;"></view>
 				<movable-area class="moveArea">
-					<movable-view class="moveView" :x="x" :y="y" 
-					direction="all" @change="onChange1" @scale="onChange2"
+					<movable-view class="moveView" 
+					:x="creationData.stickerImgx[index]" :y="creationData.stickerImgy[index]" 
+					v-for="(item,index) in stickArray" :key="index"
+					direction="all" @change="onChange1($event,index)" @scale="onChange2($event,index)"
 					inertia="true" scale="true" scale-max=2>
-						<image src="../../static/img/icon.jpg" mode="" style="width: inherit;height: inherit;size: 100%;object-fit: cover;"></image>
+						<image :src="creationData.stickerImg[index]" mode="" 
+						style="width: inherit;height: inherit;size: 100%;object-fit: cover;"></image>
 					</movable-view>
 				</movable-area>
 			</view>
 		</view>
 		<view class="footer">
 			<view class="addBk">
-				<button type="">{{bkPath[bkindex]}}</button>
-				<picker id="p1" @change="bkChange" :value="bkindex" :range="bkPath" >*
+				<picker id="p1" @change="bkChange" :value="bkindex" :range="bkPath" >
+					<button type="">{{bkPath[bkindex]}}</button>
 				</picker>
 			</view>
 			<view class="moveTz">
 				<button type="" @tap="moveTz">移动贴纸</button>
 			</view>
 			<view class="addTz">
-				<button type="">{{tzPath[tzindex]}}</button>
-				<picker id="p1" @change="tzChange" :value="tzindex" :range="tzPath" >*
+				<picker id="p1" @change="tzChange" :value="tzindex" :range="tzPath" >
+					<button type="">{{tzPath[tzindex]}}</button>
 				</picker>
-				
 			</view>
 		</view>
 		
@@ -59,38 +65,44 @@
 				format: true
 			})
 			return {
+				id:'',
+				test:'',
 				creationData:{
-					date:'',
-					weather:'',
-					feel:'',
-					imgX:0,
-					imgY:0,
-					bkPath:'',
-					imgPath:'',
-					public:'',
-					imgScale:'',
-					content:''
+					UserID:'',
+					bkImgNumber:0,
+					Text:'',
+					Date:'',
+					Weather:0,
+					Feel:0,
+					Public:'',
+					stickerImg:[],
+					stickerImgx:[],
+					stickerImgy:[],
+					stickerImgs:[],
 				},
-				feelindex:0,
-				wtindex:0,
+				stickArray:[],
+				stickerArray:[],
+				backgroundImgArray:[],
+				feelArray:[],
+				weatherArray:[],
 				bkindex:0,
-				bkPath1:'../../static/more/微信图片_20211126111417.jpg',
-				bkPath:['快乐背景','开心背景','美丽背景','王牌背景','菜老头背景','自定义背景'],
+				bkPath:['粉色夏日','碧水中月','闲逸吉他','落日阳台','草莓与花','熊熊开门','动物狂欢'],
 				tzindex:0,
-				tzPath1:'../../static/img/icon.jpg',
-				tzPath:['快乐开心','开心美丽','美丽美丽','王牌美丽','美丽菜老','自定美丽'],
-				index:0,
-				jpheight:0,
-				array: ['中国', '美国', '巴西', '日本'],
+				tzPath:['小海豚','花儿朵','赤兔儿','小脑虎','大蘑菇','小牛宝','大螃蟹','仙人掌','栅栏儿','猪宝宝'],
+				jinzindex:0,
+				wtindex:0,
+				weatherarray: ['晴日', '多云', '小雨', '雷雨','小雪','雾','雷阵雨'],
+				feelindex:0,
+				feelarray: ['生气', '快乐', '哭泣', '郁闷','甜蜜','难过','睡觉'],
 				index1:0,
+				jpheight:0,
 				date: currentDate,
 				x: 0,
 				y: 0,
 				tzscale:1,
-				old: {
-					x: 0,
-					y: 0
-				},
+				oldX:[],
+				oldY:[],
+				oldScale:[]
 			}
 		},
 		computed: {
@@ -104,30 +116,56 @@
 		methods: {
 			tzChange(e){
 				this.tzindex = e.target.value
+				//console.log(e.target.value)//index
+				this.stickArray.push(e.target.value)
+				this.creationData.stickerImg.push(this.stickerArray[e.target.value].stickerPath)
+				//console.log('tz',this.stickArray[e.target.value].stickerPath)
+				this.creationData.stickerImgx.push(0) 
+				this.creationData.stickerImgy.push(0)
+				this.creationData.stickerImgs.push(1)
+				console.log('tz',this.creationData.stickerImgy.length)
 			},
 			bkChange(e){
 				this.bkindex = e.target.value
+				this.creationData.bkImgNumber = e.target.value
 			},
 			moveTz(){
-				this.index=this.index==0?999:0;
+				this.jinzindex=this.jinzindex==0?999:0;
 			},
-			onChange1: function(e) {
-				this.old.x = e.detail.x
-				this.old.y = e.detail.y
+			onChange1(e,index){
+				console.log(1,index)
+				this.oldX[index] = e.detail.x
+				this.oldY[index] = e.detail.y
+				this.creationData.stickerImgx[index] = e.detail.x
+				this.creationData.stickerImgy[index] = e.detail.y
 			},
-			onChange2(e){
-				this.old.x = e.detail.x
-				this.old.y = e.detail.y
-				this.scale = e.detail.scale
+			onChange2(e,index){
+				this.oldX[index] = e.detail.x
+				this.oldY[index] = e.detail.y
+				this.oldScale[index] = e.detail.scale
+				this.creationData.stickerImgx[index] = e.detail.x
+				this.creationData.stickerImgy[index] = e.detail.y
+				this.creationData.stickerImgs[index] = e.detail.scale
 			},
 			wtChange(e){
 				this.wtindex = e.target.value
+				this.creationData.Weather = e.target.value
 			},
 			feelChange(e){
 				this.feelindex = e.target.value
+				this.creationData.Feel =e.target.value
 			},
 			bindDateChange: function(e) {
 				this.date = e.target.value
+				let data1 = this.getDate()
+				this.creationData.Date = data1
+				if(this.date == data1){
+					uni.showToast({
+						title:'今天才'+data1+'耶~',
+						duration:2000
+					})
+				}
+				console.log(this.date,this.creationData.Date)
 			},
 			getDate(type) {
 				const date = new Date();
@@ -136,47 +174,76 @@
 				let day = date.getDate();
 		
 				if (type === 'start') {
-					year = year - 60;
-				} else if (type === 'end') {
-					year = year + 2;
+					year = year - 2;
 				}
 				month = month > 9 ? month : '0' + month;
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
 			},
 			getRes(res){
-				
+				let that = this
 				if(res.type!="tap"&&res.type!="click"){
-					this.creationData.date=this.date
-					this.creationData.feel=this.feelindex
-					this.creationData.weather=this.wtindex
-					this.creationData.bkPath=this.bkindex;
-					this.creationData.imgPath=this.tzindex;
-					this.creationData.public=res.isPublic
-					this.creationData.imgX=this.old.x+'px';
-					this.creationData.imgY=this.old.y+'px'
-					this.creationData.content=res.html
-					this.creationData.imgScale=this.tzscale
-					setTimeout(()=>{uni.$emit('getUser',this.creationData)},500)
-					// console.log(1,this.creationData)
+					console.log('nei',res)
+					this.creationData.Text = res.html
+					this.creationData.Public = res.isPublic
+					console.log(this.creationData)
+					uni.showLoading({
+						title:'发布中'
+					})
+					uni.request({
+							url: 'http://127.0.0.1:3000/handAccount/addHandAccount',
+							data:that.creationData
+						})
+						.then(data => {
+							let [err1, res1] = data
+							let result = res1.data.data
+							console.log(result)
+							uni.switchTab({
+								url:'../HandAccount/handAccount'
+							})
+							uni.hideLoading()
+					})
+					// setTimeout(()=>{uni.$emit('getUser',this.creationData)},500)
+					// // console.log(1,this.creationData)
 					// console.log(2,res)
 					
-					uni.switchTab({
-						url:'../HandAccount/handAccount'
-					})
+					
 				}else{
 					//获取富文本中内容
+					console.log('wai',res)
 					uni.$emit('getres','a');
 				}
 				
 			}
 		},
-		onReady(){
+		onReady(option){
 			let that = this
 			uni.onKeyboardHeightChange(res => {
 				that.jpheight=res.height
-		    })		
+		    })	
 			uni.$on('editOk',that.getRes)
+			uni.getStorage({
+				key: "UserID",
+				success: (res) => {
+					this.$data.id = res.data
+					that.creationData.UserID = res.data
+					that.test = res.data
+					console.log('r',that.test)
+					uni.request({
+							url: 'http://127.0.0.1:3000/creation/getCreationInfo?data='+ res.data
+						})
+						.then(data => {
+							let [err1, res1] = data
+							let result = res1.data.data
+							console.log(result)
+							that.feelArray = result.feels
+							that.stickerArray = result.stickers
+							that.weatherArray = result.weathers
+							that.backgroundImgArray = result.backgroundImgs
+							that.creationData.Date = that.date
+					})
+				}
+			})
 		}
 	}
 </script>
@@ -185,6 +252,17 @@
 	$content-h:75vh;
 	$content-w:90vw;
 	$imgSize:4vh;
+	#viewImg1,#viewImg2{
+		width: 5vh;
+	}
+	.wtImg,.feelImg{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 3vh;
+		height: 3vh;
+		object-fit:cover;
+	}
 	button{
 		height: 6vh;
 		font-size: $fontSize-sm !important;
@@ -331,63 +409,39 @@
 			align-items: center;
 			padding: auto 10vw;
 			position: fixed;
-			bottom: 0;
+			bottom: 2vh;
 			left: 0;
 			z-index: 999;
 			font-size: $fontSize-sm !important;
 			.addBk{
-				width: fit-content;
-				height: 6vh;
-				box-sizing: border-box;
 				display: inline-block;
-				& button:nth-of-type(1){
-					border-top-right-radius:0;
-					border-bottom-right-radius:0;
-				}
+				width: fit-content;
+				height: fit-content;
+				box-sizing: border-box;
 				& #p1{
-					width: 4vw;
-					height: 6vh;
 					font-size: 40rpx;
 					line-height: 6vh;
-					border: 1rpx solid transparent;
-					border-radius: 10rpx;
 					padding: 0.2vh auto;
 					vertical-align: middle;
 					display: inline-block;
 					margin: 0;
-					white-space:nowrap;
-					border-top-left-radius:0;
-					border-bottom-left-radius:0;
-					background-color: rgba(241,204,184,0.8);
 					box-sizing: border-box;
 				}
 			}
 			.addTz{
 				display: inline-block;
 				width: fit-content;
-				height: 6vh;
+				height: fit-content;
 				box-sizing: border-box;
-				& button:nth-of-type(1){
-					border-top-right-radius:0;
-					border-bottom-right-radius:0;
-				}
 				& #p1{
-					height: 6vh;
-					width: 4vw;
 					font-size: 40rpx;
 					line-height: 6vh;
-					border: 1rpx solid transparent;
-					border-radius: 10rpx;
 					padding: 0.2vh auto;
 					vertical-align: middle;
 					display: inline-block;
 					margin: 0;
-					white-space:nowrap;
-					border-top-left-radius:0;
-					border-bottom-left-radius:0;
-					background-color: rgba(241,204,184,0.8);
 					box-sizing: border-box;
-				}	
+				}
 			}
 			.moveTz{
 				display: inline-block;

@@ -152,8 +152,8 @@
 		        "path": "page/HandAccount/handAccount" //启动页面，必选
 		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
 		    },{
-		        "name": "friends", //模式名称
-		        "path": "page/Friends/friends" //启动页面，必选
+		        "name": "创作", //模式名称
+		        "path": "page/Creation/creation" //启动页面，必选
 		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
 		    },{
 		        "name": "funs", //模式名称

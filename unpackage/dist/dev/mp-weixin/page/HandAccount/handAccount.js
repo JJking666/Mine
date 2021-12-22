@@ -327,7 +327,7 @@ var _default =
 
   onReady: function onReady() {
     var that = this;
-    uni.$on('getUser', that.getUser);
+    // uni.$on('getUser',that.getUser)
     var opanimation = uni.createAnimation({
       duration: 1000,
       timingFunction: 'ease' });
