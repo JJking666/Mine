@@ -161,18 +161,37 @@ var _default =
       this.cssAnimation = 'translate3d(' + 0 + 'px, 0, 0)';
     },
     addUserData: function addUserData() {
-      var data;
+      var Info;
+      var that = this;
       if (/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.Account)) {
-        data = '{"Account":"' + this.Account + '","Password":"' + this.Password + '","Phone":"' + this.Account + '"}';
+        Info = {
+          Account: this.Account,
+          Password: this.Password,
+          Phone: this.Account };
+
       } else {
-        data = '{"Account":"' + this.Account + '","Password":"' + this.Password + '","Email":"' + this.Account + '"}';
+        Info = {
+          Account: this.Account,
+          Password: this.Password,
+          Email: this.Account };
+
       }
       uni.request({
-        url: 'http://127.0.0.1:3000/enroll/test?data=' + data }).
+        url: 'http://127.0.0.1:3000/user/addUser',
+        data: Info }).
 
       then(function (data) {var _data = _slicedToArray(
         data, 2),err = _data[0],res = _data[1];
+        console.log(res.data.data._id);
+        var info = {
+          _id: res.data.data._id };
+
+        uni.request({
+          url: 'http://127.0.0.1:3000/homePage/addHomePage',
+          data: info });
+
       });
+
     },
     moveStart: function moveStart(e) {
       if (this.Password != this.rePassword) {
@@ -194,6 +213,7 @@ var _default =
     moveEnd: function moveEnd() {
       var tag;
       var error = {};
+      var that = this;
       error.pdAccount = false;
       error.pdPassword = false;
       if (!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.Account) &&
@@ -235,11 +255,16 @@ var _default =
         duration: 1000 });
 
       this.addUserData();
+      console.log(that.Account);
+      var Info = {
+        Account: that.Account,
+        Password: that.Password };
+
       setTimeout(function () {
         uni.redirectTo({
           url: '../../page/Login/login' });
 
-      }, 1300);
+      }, 1200);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

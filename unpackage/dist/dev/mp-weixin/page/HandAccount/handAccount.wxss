@@ -26,6 +26,12 @@
   height: 11vw;
   size: 100%;
 }
+editor {
+  height: 71vh !important;
+}
+.uni-app--showleftwindow + .uni-tabbar-bottom {
+  display: none;
+}
 .handAccount {
   height: 100vh;
   width: 100vw;
@@ -92,6 +98,24 @@
   background-color: #e0f8f7;
   margin-top: 8vh;
   padding: 0.5vh 5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head > image:nth-of-type(1) {
+  display: inline-block;
+  margin-left: -12vw;
+  width: 6vh;
+  height: 6vh;
+  object-fit: cover;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head > image:nth-of-type(2) {
+  margin-right: 6vw;
+  width: 6vh;
+  height: 6vh;
+  object-fit: cover;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .date {
   width: 30vw;
@@ -106,34 +130,10 @@
   font-size: 28rpx;
   line-height: 5vh;
 }
-.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .weather {
-  width: 30vw;
-  height: 5vh;
-  display: inline-block;
-}
-.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .weather view {
-  width: 30vw;
-  height: 5vh;
-  text-align: center;
-  font-size: 28rpx;
-  line-height: 5vh;
-}
-.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .feel {
-  width: 30vw;
-  height: 5vh;
-  display: inline-block;
-}
-.handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .feel view {
-  width: 30vw;
-  height: 5vh;
-  text-align: center;
-  font-size: 28rpx;
-  line-height: 5vh;
-}
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain {
   width: 90vw;
   height: 75vh;
-  margin: 5vh auto;
+  margin: 2vh auto;
   background-color: #71D5A1;
   box-sizing: border-box;
   position: relative;
@@ -171,7 +171,7 @@
   position: fixed;
   width: 80vw;
   margin: 0 auto;
-  height: 8vh;
+  height: 7vh;
   background-color: #A0CFFF;
   bottom: 0vh;
   left: 10vw;
@@ -183,7 +183,7 @@
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion .opioion-nav {
   width: inherit;
-  height: 8vh;
+  height: 7vh;
   background-color: #2979FF;
   display: flex;
   flex-direction: row;
@@ -194,8 +194,8 @@
   position: absolute;
   left: 5vw;
   top: auto;
-  width: 6vh;
-  height: 6vh;
+  width: 5vh;
+  height: 5vh;
   display: inline-block;
   vertical-align: middle;
 }
@@ -203,7 +203,7 @@
   position: absolute;
   left: calc(6vh + 7vw);
   top: auto;
-  line-height: 6vh;
+  line-height: 5vh;
   display: inline-block;
   vertical-align: middle;
 }
@@ -211,15 +211,15 @@
   position: absolute;
   right: 7vw;
   top: auto;
-  width: 6vh;
-  height: 6vh;
+  width: 5vh;
+  height: 5vh;
   display: inline-block;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion .opioion-nav text:nth-of-type(2) {
   position: absolute;
   right: 2vw;
   top: auto;
-  line-height: 6vh;
+  line-height: 5vh;
   display: inline-block;
   vertical-align: middle;
 }
@@ -273,12 +273,12 @@
   background-color: #A0CFFF;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s21 {
-  height: 50vh;
+  height: 49vh;
   width: 100vw;
   background-color: #c2a7c0;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s31 {
-  height: 50vh;
+  height: 49vh;
   width: 100vw;
   background-color: #c9ea97;
 }

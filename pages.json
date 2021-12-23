@@ -14,14 +14,20 @@
 				"navigationBarTitleText": "登录"
 				}
 			},{
-			"path": "page/Login/enroll",
-			"style": {
-				"navigationBarTitleText": "注册"
-				}
-			},{
 			"path": "page/Memorandum/memorandum",
 			"style": {
 				"navigationBarTitleText": "备忘录"
+				}
+			},{
+			"path": "page/Creation/creation",
+			"style": {
+				"navigationBarTitleText": "创作",
+				"softinputMode":"adjustPan"
+				}
+			},{
+			"path": "page/Login/enroll",
+			"style": {
+				"navigationBarTitleText": "注册"
 				}
 			},{
 			"path": "page/HandAccount/handAccount",
@@ -79,12 +85,6 @@
 				"navigationBarTitleText": "Demo"
 				}
 			},{
-			"path": "page/Creation/creation",
-			"style": {
-				"navigationBarTitleText": "创作",
-				"softinputMode":"adjustPan"
-				}
-			},{
 			"path": "page/MySetting/account",
 			"style": {
 				"navigationBarTitleText": "账号"
@@ -131,7 +131,8 @@
 	        "pagePath": "page/HandAccount/handAccount",
 	        "iconPath": "./static/uview/common/logo.png",
 	        "selectedIconPath": "./static/uview/common/logo.png",
-	        "text": "手账"
+	        "text": "手账",
+			"visible":false
 	    },{
 	        "pagePath": "page/Memorandum/memorandum",
 	        "iconPath": "./static/uview/common/logo.png",

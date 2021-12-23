@@ -333,32 +333,32 @@ var _default =
           data, 2),err = _data4[0],res = _data4[1];
           that.homePageData.Name = res.data.data[0].Name;
           that.homePageData.UserID = res.data.data[0]._id;
-          uni.setStorage({
-            key: "UserID",
-            data: res.data.data[0]._id });
-
+          // uni.setStorage({
+          // 	key:"UserID",
+          // 	data:res.data.data[0]._id
+          // })
           uni.request({
             url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"] }).
 
-          then(function (data) {var _data5 = _slicedToArray(
-            data, 2),err = _data5[0],res = _data5[1];
-            that.homePageData.HeadImg = res.data.data[0].HeadImg,
-            that.homePageData.motto = res.data.data[0].motto,
-            that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
-            that.homePageData.FanCount = res.data.data[0].FanCount,
-            that.homePageData.workCount = res.data.data[0].workCount,
-            that.homePageData.medals = res.data.data[0].medals;
-            that.homePageData.goods = res.data.data[0].goods;
+          then(function (data1) {var _data5 = _slicedToArray(
+            data1, 2),err1 = _data5[0],res1 = _data5[1];
+            that.homePageData.HeadImg = res1.data.data[0].HeadImg,
+            that.homePageData.motto = res1.data.data[0].motto,
+            that.homePageData.FriendsCount = res1.data.data[0].FriendsCount,
+            that.homePageData.FanCount = res1.data.data[0].FanCount,
+            that.homePageData.workCount = res1.data.data[0].workCount,
+            that.homePageData.medals = res1.data.data[0].medals;
+            that.homePageData.goods = res1.data.data[0].goods;
           });
           uni.request({
             url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
             '{"UserID":"' + that.homePageData.UserID + '","status":[0,1,2]}' }).
 
-          then(function (data) {var _data6 = _slicedToArray(
-            data, 2),err = _data6[0],res = _data6[1];
+          then(function (data2) {var _data6 = _slicedToArray(
+            data2, 2),err2 = _data6[0],res2 = _data6[1];
             var fun = 0;
             var friend = 0;
-            res.data.data.forEach(function (item) {
+            res2.data.data.forEach(function (item) {
               if (item.status == 0 || item.status == 2) fun++;
               if (item.status == 1 || item.status == 2) friend++;
             });

@@ -4,7 +4,7 @@
 			<text>账号管理</text>
 			<view class="content-item" v-for="(item,index) in itemData" :key="index">
 				<text>{{item.content}}</text>
-				<image :src="item.src" v-if="item.src"></image>
+				<image :src="item.src" v-if="item.src" @tap="DoSomething(index)"></image>
 				<p>{{item.right}}</p>
 			</view>
 		</view>
@@ -29,11 +29,30 @@
 					right:'qq1337802617'
 				},{
 					content:'密码',
-					src:'../../static/img/icon.jpg'
+					src:'../../static/uview/example/js.png',
 				},{
 					content:'注销账号',
-					src:'../../static/img/icon.jpg'
+					src:'../../static/img/more/tuichu.png'
 				}]
+			}
+		},
+		methods:{
+			DoSomething(index){
+				if(index == 3){
+					this.changePassword()
+				}else{
+					this.goBackLogin()
+				}
+			},
+			goBackLogin(){
+				uni.removeStorage({
+					key:'UserAccount',
+					success: ()=> {
+					    uni.redirectTo({
+					        url: '../Login/login'
+					    });
+					}
+				})
 			}
 		},
 		onLoad(option) {

@@ -288,7 +288,6 @@ __webpack_require__.r(__webpack_exports__);
       this.jinzindex = this.jinzindex == 0 ? 999 : 0;
     },
     onChange1: function onChange1(e, index) {
-      console.log(1, index);
       this.oldX[index] = e.detail.x;
       this.oldY[index] = e.detail.y;
       this.creationData.stickerImgx[index] = e.detail.x;

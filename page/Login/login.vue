@@ -47,7 +47,6 @@
 				isPassword: false
 			};
 		},
-		onLoad() {},
 		methods: {
 			//当前登录按钮操作
 			login() {
@@ -92,7 +91,7 @@
 									icon: 'none'
 								});
 								uni.switchTab({
-									url: '../HandAccount/handAccount'
+									url: '../MySetting/mySetting'
 								})
 							}, 1200)
 						})
@@ -117,6 +116,7 @@
 			uni.getStorage({
 				key: "UserAccount",
 				success(res) {
+					console.log(res.data)
 					uni.showLoading({
 						title: '登录中'
 					})
@@ -127,7 +127,7 @@
 							icon: 'none'
 						});
 						uni.switchTab({
-							url: '../HandAccount/handAccount'
+							url: '../Memorandum/memorandum'
 						})
 					}, 1200)
 				}

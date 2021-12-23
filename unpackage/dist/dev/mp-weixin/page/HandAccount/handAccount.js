@@ -97,6 +97,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l1 = _vm.__map(_vm.handAccountData, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.Date.slice(0, 10)
+
+    var l0 = _vm.__map(item.stickerImg, function(item1, index1) {
+      var $orig = _vm.__get_orig(item1)
+
+      var m0 = parseInt(index1 + 100)
+      var m1 = _vm.getScale(item.stickerImgs[index1])
+      return {
+        $orig: $orig,
+        m0: m0,
+        m1: m1
+      }
+    })
+
+    return {
+      $orig: $orig,
+      g0: g0,
+      l0: l0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l1: l1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -130,18 +162,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //
 //
 //
 //
@@ -219,6 +240,13 @@ var _default =
       format: true });
 
     return _defineProperty({
+      id: '',
+      handAccountData: [],
+      stickerArray: [],
+      backgroundImgArray: [],
+      feelArray: [],
+      weatherArray: [],
+
       scrollTop: 0,
       old: {
         scrollTop: 0 },
@@ -262,6 +290,9 @@ var _default =
     } },
 
   methods: {
+    getScale: function getScale(s) {
+      return "transform:scale(".concat(s, ")");
+    },
     scroll: function scroll(e) {
       console.log(e);
       this.old.scrollTop = e.detail.scrollTop;
@@ -310,22 +341,28 @@ var _default =
     },
     showOpioion: function showOpioion() {
       if (!this.showOp) {
-        this.opanimation.height(50 + 'vh').step();
+        this.opanimation.height(49 + 'vh').step();
         this.showOp = !this.showOp;
       } else {
-        this.opanimation.height(8 + 'vh').step();
+        this.opanimation.height(7 + 'vh').step();
         this.showOp = !this.showOp;
       }
       this.opAnimation = this.opanimation.export();
     },
-    onEditorReady: function onEditorReady() {
+    onEditorReady: function onEditorReady(index) {var _this = this;
       var that = this;
-      uni.createSelectorQuery().select('#editor').context(function (res) {
-        that.editorCtx = res.context;
+      uni.createSelectorQuery().select('#editor' + index).context(function (res) {
+        _this.editorCtx = res.context;
+        _this.editorCtx.setContents({
+          html: that.handAccountData[index].Text });
+
       }).exec();
     } },
 
-  onReady: function onReady() {
+  onLoad: function onLoad() {
+    wx.hideTabBar();
+  },
+  onReady: function onReady() {var _this2 = this;
     var that = this;
     // uni.$on('getUser',that.getUser)
     var opanimation = uni.createAnimation({
@@ -333,6 +370,41 @@ var _default =
       timingFunction: 'ease' });
 
     this.opanimation = opanimation;
+    uni.getStorage({
+      key: 'UserID',
+      success: function success(res) {
+        _this2.$data.id = res.data;
+        uni.request({
+          url: 'http://127.0.0.1:3000/handAccount/getHandAccounts?data=' + that.id }).
+
+        then(function (data) {var _data = _slicedToArray(
+          data, 2),err1 = _data[0],res1 = _data[1];
+          var result = res1.data.data;
+
+          that.handAccountData = result;
+          that.handAccountData.forEach(function (item) {
+            item.stickerImg = JSON.parse(item.stickerImg[0]);
+            item.stickerImgs = JSON.parse(item.stickerImgs[0]);
+            item.stickerImgx = JSON.parse(item.stickerImgx[0]);
+            item.stickerImgy = JSON.parse(item.stickerImgy[0]);
+          });
+
+          console.log(that.handAccountData);
+        });
+        uni.request({
+          url: 'http://127.0.0.1:3000/creation/getCreationInfo' }).
+
+        then(function (data) {var _data2 = _slicedToArray(
+          data, 2),err1 = _data2[0],res1 = _data2[1];
+          var result = res1.data.data;
+          console.log(result);
+          that.feelArray = result.feels;
+          that.stickerArray = result.stickers;
+          that.weatherArray = result.weathers;
+          that.backgroundImgArray = result.backgroundImgs;
+        });
+      } });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -201,32 +201,32 @@
 						let [err, res] = data
 						that.homePageData.Name=res.data.data[0].Name
 						that.homePageData.UserID=res.data.data[0]._id
-						uni.setStorage({
-							key:"UserID",
-							data:res.data.data[0]._id
-						})
+						// uni.setStorage({
+						// 	key:"UserID",
+						// 	data:res.data.data[0]._id
+						// })
 						uni.request({
 							url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
 						})
-						.then((data) => {
-							let [err, res] = data
-							that.homePageData.HeadImg=res.data.data[0].HeadImg,
-							that.homePageData.motto=res.data.data[0].motto,
-							that.homePageData.FriendsCount=res.data.data[0].FriendsCount,
-							that.homePageData.FanCount=res.data.data[0].FanCount,
-							that.homePageData.workCount=res.data.data[0].workCount,
-							that.homePageData.medals=res.data.data[0].medals
-							that.homePageData.goods =res.data.data[0].goods
+						.then((data1) => {
+							let [err1, res1] = data1
+							that.homePageData.HeadImg=res1.data.data[0].HeadImg,
+							that.homePageData.motto=res1.data.data[0].motto,
+							that.homePageData.FriendsCount=res1.data.data[0].FriendsCount,
+							that.homePageData.FanCount=res1.data.data[0].FanCount,
+							that.homePageData.workCount=res1.data.data[0].workCount,
+							that.homePageData.medals=res1.data.data[0].medals
+							that.homePageData.goods =res1.data.data[0].goods
 						})
 						uni.request({
 							url:'http://127.0.0.1:3000/relationship/queryRelationship?data='+
 							'{"UserID":"'+that.homePageData.UserID+'","status":[0,1,2]}'
 						})
-						.then(data=>{
-							let [err,res]=data
+						.then(data2=>{
+							let [err2,res2]=data2
 							let fun=0
 							let friend=0
-							res.data.data.forEach((item)=>{
+							res2.data.data.forEach((item)=>{
 								if(item.status==0||item.status==2) fun++;
 								if(item.status==1||item.status==2) friend++
 							})

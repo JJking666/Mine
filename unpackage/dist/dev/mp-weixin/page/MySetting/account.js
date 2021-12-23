@@ -161,13 +161,32 @@ var _default =
         right: 'qq1337802617' },
       {
         content: '密码',
-        src: '../../static/img/icon.jpg' },
+        src: '../../static/uview/example/js.png' },
       {
         content: '注销账号',
-        src: '../../static/img/icon.jpg' }] };
+        src: '../../static/img/more/tuichu.png' }] };
 
 
   },
+  methods: {
+    DoSomething: function DoSomething(index) {
+      if (index == 3) {
+        this.changePassword();
+      } else {
+        this.goBackLogin();
+      }
+    },
+    goBackLogin: function goBackLogin() {
+      uni.removeStorage({
+        key: 'UserAccount',
+        success: function success() {
+          uni.redirectTo({
+            url: '../Login/login' });
+
+        } });
+
+    } },
+
   onLoad: function onLoad(option) {
     var that = this;
     uni.request({

@@ -5,30 +5,25 @@
 			<swiper-item id="s1">
 				<swiper class="swiper-ver" easing-function="easeOutCubic" circular vertical=true 
 					:interval="interval" :duration="duration">
-					<swiper-item id="s11">
+					<swiper-item id="s11" v-for="(item,index) in handAccountData" :key="index">
 						<view class="swiper-ver-nav" @tap="showOpioion" >
 							<image src="../../static/img/icon.jpg" mode=""></image>
 							<text>大帅哥</text>
 							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
 						</view>
 						<view class="swiper-ver-head">
-							<picker class="date" mode="date" :value="workData.date" :start="startDate" :end="endDate"
+							<picker class="date" mode="date" :value="item.Date.slice(0,10)" 
 								@change="bindDateChange">
 								<view class="uni-input">{{workData.date}}</view>
 							</picker>
-							<picker class="weather" @change="bindPickerChange" :value="workData.weather" :range="array">
-								<view class="uni-input">{{array[workData.weather]}}</view>
-							</picker>
-							<picker class="feel" @change="bindPickerChange" :value="workData.feel" :range="array">
-								<view class="uni-input">{{array[workData.feel]}}</view>
-							</picker>
+							<image :src="weatherArray[item.Weather].weatherPath" mode=""></image>
+							<image :src="feelArray[item.Feel].feelPath" mode=""></image>
 						</view>
 						<view class="textmain">
 							<image id="bk" src="../../static/more/微信图片_20211126111417.jpg"></image>
-							<editor  id="editor" @statuschange="onStatusChange"
-								read-only="true" @ready="onEditorReady"></editor>
-							<image id="tz" src="../../static/img/icon.jpg"
-							:style="{left:workData.imgX,top:workData.imgY,transform:workData.imgScale}"></image>
+							<editor :id="'editor'+index" read-only="true" @ready="onEditorReady(index)"></editor>
+							<image id="tz" :src="item1" v-for="(item1,index1) in item.stickerImg" :key="parseInt(index1+100)"
+							:style="{left:item.stickerImgx[index1]+'px',top:item.stickerImgy[index1]+'px',transform:getScale(item.stickerImgs[index1])}"></image>
 						</view>
 						<view class="opioion" :animation = "opAnimation">
 							<view class="opioion-nav" @tap="showOpioion">
@@ -61,12 +56,6 @@
 							</scroll-view>
 						</view>
 					</swiper-item>
-					<swiper-item id="s21">
-						<view class="swiper-item uni-bg-green">B</view>
-					</swiper-item>
-					<swiper-item id="s31">
-						<view class="swiper-item uni-bg-blue">C</view>
-					</swiper-item>
 				</swiper>
 			</swiper-item>
 			<swiper-item id="s2">
@@ -87,10 +76,17 @@
 				format: true
 			})
 			return {
+				id:'',
+				handAccountData:[],
+				stickerArray:[],
+				backgroundImgArray:[],
+				feelArray:[],
+				weatherArray:[],
+				
 				scrollTop: 0,
-				            old: {
-				                scrollTop: 0
-				            },
+				old: {
+				    scrollTop: 0
+				},
 				workData:{
 					date:currentDate,
 					weather:0,
@@ -130,6 +126,9 @@
 			}
 		},
 		methods: {
+			getScale(s){
+				return `transform:scale(${s})`
+			},
 			scroll: function(e) {
 			            console.log(e)
 			            this.old.scrollTop = e.detail.scrollTop
@@ -178,20 +177,26 @@
 			},
 			showOpioion(){
 				if(!this.showOp){
-					this.opanimation.height(50+'vh').step()
+					this.opanimation.height(49+'vh').step()
 					this.showOp=!this.showOp
 				}else{
-					this.opanimation.height(8+'vh').step()
+					this.opanimation.height(7+'vh').step()
 					this.showOp=!this.showOp
 				}
 				this.opAnimation = this.opanimation.export()
 			},
-			onEditorReady() {
+			onEditorReady(index) {
 				let that = this;
-				uni.createSelectorQuery().select('#editor').context((res) => {
-					that.editorCtx = res.context
+				uni.createSelectorQuery().select('#editor'+index).context((res) => {
+					this.editorCtx = res.context
+					this.editorCtx.setContents({
+						html:that.handAccountData[index].Text
+					})
 				}).exec()
 			},
+		},
+		onLoad() {
+			wx.hideTabBar()
 		},
 		onReady(){
 			let that =this
@@ -201,6 +206,41 @@
 			        timingFunction: 'ease',
 			    })
 			this.opanimation = opanimation
+			uni.getStorage({
+				key:'UserID',
+				success: (res) => {
+					this.$data.id = res.data
+					uni.request({
+							url: 'http://127.0.0.1:3000/handAccount/getHandAccounts?data='+ that.id
+						})
+						.then(data => {
+							let [err1, res1] = data
+							let result = res1.data.data
+							
+							that.handAccountData = result
+							that.handAccountData.forEach((item)=>{
+								item.stickerImg = JSON.parse(item.stickerImg[0])
+								item.stickerImgs = JSON.parse(item.stickerImgs[0])
+								item.stickerImgx = JSON.parse(item.stickerImgx[0])
+								item.stickerImgy = JSON.parse(item.stickerImgy[0])
+							})
+							
+							console.log(that.handAccountData)
+					})
+					uni.request({
+							url: 'http://127.0.0.1:3000/creation/getCreationInfo'
+						})
+						.then(data => {
+							let [err1, res1] = data
+							let result = res1.data.data
+							console.log(result)
+							that.feelArray = result.feels
+							that.stickerArray = result.stickers
+							that.weatherArray = result.weathers
+							that.backgroundImgArray = result.backgroundImgs
+					})
+				}
+			})
 		}
 	}
 </script>
@@ -209,6 +249,13 @@
 	$content-h:75vh;
 	$content-w:90vw;
 	$imgSize:4vh;
+	$optionImgSize:5vh;
+	editor{
+		height: 71vh !important;
+	}
+	.uni-app--showleftwindow + .uni-tabbar-bottom {
+	        display: none;
+	    }
 	.handAccount {
 		height: 100vh;
 		width: 100vw;
@@ -278,7 +325,24 @@
 							background-color: #e0f8f7;
 							margin-top: 8vh;
 							padding: 0.5vh 5vw;
-
+							display: flex;
+							flex-direction: row;
+							justify-content: space-between;
+							align-items: center;
+							box-sizing: border-box;
+							&>image:nth-of-type(1){
+								display: inline-block;
+								margin-left: -12vw;
+								width: $imgSize-md;
+								height: $imgSize-md;
+								object-fit: cover;
+							}
+							&>image:nth-of-type(2){
+								margin-right: 6vw;
+								width: $imgSize-md;
+								height: $imgSize-md;
+								object-fit: cover;
+							}
 							.date {
 								width: 30vw;
 								height: 5vh;
@@ -293,40 +357,12 @@
 									line-height: 5vh;
 								}
 							}
-
-							.weather {
-								width: 30vw;
-								height: 5vh;
-								display: inline-block;
-
-								view {
-									width: 30vw;
-									height: 5vh;
-									text-align: center;
-									font-size: $fontSize-sm;
-									line-height: 5vh;
-								}
-							}
-
-							.feel {
-								width: 30vw;
-								height: 5vh;
-								display: inline-block;
-
-								view {
-									width: 30vw;
-									height: 5vh;
-									text-align: center;
-									font-size: $fontSize-sm;
-									line-height: 5vh;
-								}
-							}
 						}
 
 						.textmain {
 							width: $content-w;
 							height: $content-h;
-							margin: 5vh auto;
+							margin: 2vh auto;
 							background-color: #71D5A1;
 							box-sizing: border-box;
 							position: relative;
@@ -368,7 +404,7 @@
 							position: fixed;
 							width: 80vw;
 							margin: 0 auto;
-							height: 8vh;
+							height: 7vh;
 							background-color: #A0CFFF;
 							bottom: 0vh;
 							left: 10vw;
@@ -379,7 +415,7 @@
 							}
 							.opioion-nav{
 								width: inherit;
-								height: 8vh;
+								height: 7vh;
 								background-color: #2979FF;
 								display: flex;
 								flex-direction: row;
@@ -389,8 +425,8 @@
 									position: absolute;
 									left: 5vw;
 									top: auto;
-									width: $imgSize-md;
-									height: $imgSize-md;
+									width: $optionImgSize;
+									height: $optionImgSize;
 									display: inline-block;
 									vertical-align: middle;
 								}
@@ -398,7 +434,7 @@
 									position: absolute;
 									left: calc(6vh + 7vw);
 									top: auto;
-									line-height: $imgSize-md;
+									line-height: $optionImgSize;
 									display: inline-block;
 									vertical-align: middle;
 								}
@@ -406,15 +442,15 @@
 									position: absolute;
 									right: 7vw;
 									top: auto;
-									width: $imgSize-md;
-									height: $imgSize-md;
+									width: $optionImgSize;
+									height: $optionImgSize;
 									display: inline-block;
 								}
 								& text:nth-of-type(2){
 									position: absolute;
 									right: 2vw;
 									top: auto;
-									line-height: $imgSize-md;
+									line-height: $optionImgSize;
 									display: inline-block;
 									vertical-align: middle;
 
@@ -476,13 +512,13 @@
 					}
 
 					#s21 {
-						height: 50vh;
+						height: 49vh;
 						width: 100vw;
 						background-color: #c2a7c0;
 					}
 
 					#s31 {
-						height: 50vh;
+						height: 49vh;
 						width: 100vw;
 						background-color: #c9ea97;
 					}

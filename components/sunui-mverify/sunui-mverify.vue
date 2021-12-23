@@ -45,18 +45,37 @@
 				this.cssAnimation = 'translate3d(' + 0 + 'px, 0, 0)';
 			},
 			addUserData(){
-				let data
+				let Info
+				let that =this
 				if(/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.Account)){
-					data='{"Account":"'+this.Account+'","Password":"'+this.Password+'","Phone":"'+this.Account+'"}'
+					Info={
+						Account:this.Account,
+						Password:this.Password,
+						Phone:this.Account,
+					}
 				}else{
-					data='{"Account":"'+this.Account+'","Password":"'+this.Password+'","Email":"'+this.Account+'"}'
+					Info={
+						Account:this.Account,
+						Password:this.Password,
+						Email:this.Account,
+					}
 				}
 				uni.request({
-				        url: 'http://127.0.0.1:3000/enroll/test?data='+data
-				    })
-				    .then(data => {
-				        var [err, res]  = data;
+					url: 'http://127.0.0.1:3000/user/addUser',
+					data:Info
 				})
+				.then(data=>{
+					let [err,res]=data
+					console.log(res.data.data._id)
+					let info = {
+						_id:res.data.data._id
+					}
+					uni.request({
+						url: 'http://127.0.0.1:3000/homePage/addHomePage',
+						data:info
+					})
+				})
+				
 			},
 			moveStart(e) {
 				if(this.Password!=this.rePassword){
@@ -78,6 +97,7 @@
 			moveEnd() {
 				let tag;
 				let error={};
+				let that = this
 				error.pdAccount = false
 				error.pdPassword = false
 				if ((!/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.Account) &&
@@ -119,11 +139,16 @@
 					duration: 1000
 				})
 				this.addUserData()
+				console.log(that.Account)
+				let Info={
+					Account:that.Account,
+					Password:that.Password
+				}
 				setTimeout(() => {
 					uni.redirectTo({
 						url: '../../page/Login/login'
 					})
-				}, 1300)
+				}, 1200)
 			}
 		}
 	}

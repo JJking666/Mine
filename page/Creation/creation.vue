@@ -133,7 +133,6 @@
 				this.jinzindex=this.jinzindex==0?999:0;
 			},
 			onChange1(e,index){
-				console.log(1,index)
 				this.oldX[index] = e.detail.x
 				this.oldY[index] = e.detail.y
 				this.creationData.stickerImgx[index] = e.detail.x
