@@ -1,6 +1,6 @@
 <template>
 	<view class="memorandum">
-		<image src="../../static/more/阳光发芽背景_预览图.jpg"></image>
+		<image src="../../static/img/more/shine.jpg"></image>
 
 		<view class="main">
 			<button class="record" @tap="gotoHandAccount">手账</button>
@@ -19,6 +19,12 @@
 	export default{
 		data(){
 			return{}
+		},
+		onLoad() {
+			wx.showTabBar()
+		},
+		onShow() {
+			wx.showTabBar()
 		},
 		methods:{
 			gotoHandAccount(){

@@ -1,13 +1,13 @@
 <template>
 	<view class="funs">
-		<image id="record-bk" src="../../static/more/微信图片_20211126111415.jpg" mode=""></image>
+		<image id="record-bk" src="../../static/img/bkImg/bk3.jpg" mode=""></image>
 		<input id="record-input" placeholder="输入手机号或昵称" placeholder-style="" v-model="inputValue" @input="select" />
 		<view class="selectPeople">
 			<view class="select-item" v-for="(item,index) in selectFun" :key="index">
 				<image :src="item.headImg">
 					<view v-html="item.name" style="display: inline-block;"></view>
 					<image
-						:src="item.sex=='man'?'../../static/more/faxian-36.png':'../../static/more/微信图片_20211126111415.jpg'"
+						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 						mode=""></image>
 					<button @tap="addFriend(item._id)">关注</button>
 			</view>
@@ -17,7 +17,7 @@
 				<image :src="item.headImg">
 					<text>{{item.name}}</text>
 					<image
-						:src="item.sex=='man'?'../../static/more/faxian-36.png':'../../static/more/微信图片_20211126111415.jpg'"
+						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 						mode=""></image>
 					<button @tap="cancelFun(item.id)">关注</button>
 			</view>
@@ -51,8 +51,12 @@
 					let [err,res]=data
 					console.log(res,res.data.data.PeopleID)
 					if(res.data.data.status==1){
+						let data={
+							_id:res.data.data.PeopleID
+						}
 						uni.request({
-							url:'http://127.0.0.1:3000/user/queryUserById?data='+res.data.data.PeopleID
+							url:'http://127.0.0.1:3000/user/queryUserById',
+							data:data
 						})
 						.then(data=>{
 							let [err,res1]=data
@@ -86,8 +90,6 @@
 					console.log(r)
 					that.selectFun = []
 					that.funs.forEach((item) => {
-						
-
 						if (item.name.match(r)) {
 							console.log('m')
 							let fun = JSON.parse(JSON.stringify(item))
@@ -112,9 +114,12 @@
 					res.data.data.forEach((item) => {
 						let fun = {}
 						fun.status = item.status
+						let data={
+							_id:item.PeopleID
+						}
 						uni.request({
-								url: 'http://127.0.0.1:3000/user/queryUserById?data=' + item
-									.PeopleID
+								url: 'http://127.0.0.1:3000/user/queryUserById',
+								data:data
 							})
 							.then(data => {
 								let [err1, res1] = data

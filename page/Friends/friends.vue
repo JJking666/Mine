@@ -1,6 +1,6 @@
 <template>
 	<view class="friends">
-		<image id="record-bk" src="../../static/more/微信图片_20211126111415.jpg" mode=""></image>
+		<image id="record-bk" src="../../static/img/more/微信图片_20211126111413.jpg" mode=""></image>
 		<input id="record-input" placeholder="输入手机号或昵称" placeholder-style="" v-model="inputValue"
 			@input="select" />
 		<view class="selectPeople">
@@ -8,7 +8,7 @@
 				<image :src="item.HeadImg">
 				<view v-html="item.Name" style="display: inline-block;"></view>
 				<image
-					:src="item.sex=='man'?'../../static/more/faxian-36.png':'../../static/more/微信图片_20211126111415.jpg'"
+					:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 					mode=""></image>
 				<button @tap="addFriend(item._id)">关注</button>
 			</view>
@@ -18,7 +18,7 @@
 				<image :src="item.headImg">
 					<text>{{item.name}}</text>
 					<image
-						:src="item.sex=='man'?'../../static/more/faxian-36.png':'../../static/more/微信图片_20211126111415.jpg'"
+						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 						mode=""></image>
 					<button @tap="cancelFriend(item.id,item.status)">已关注</button>
 			</view>
@@ -87,12 +87,15 @@
 					let [err,res]=data
 					console.log(res,res.data.data.PeopleID)
 					if(res.data.data.status==1){
+						let data={
+							_id:res.data.data.PeopleID
+						}
 						uni.request({
-							url:'http://127.0.0.1:3000/user/queryUserById?data='+res.data.data.PeopleID
+							url:'http://127.0.0.1:3000/user/queryUserById',
+							data:data
 						})
 						.then(data=>{
 							let [err,res1]=data
-							console.log('f',res1)
 							let friend={}
 							friend.status=1
 							friend.id = res1.data.data[0]._id
@@ -159,20 +162,30 @@
 					let [err, res] = data
 					this.ID = option.ID
 					// console.log(1,err,res)
+					console.log(res.data.data)
 					res.data.data.forEach((item) => {
 						let friend = {}
 						friend.status = item.status
+						let data={
+							_id:item.PeopleID
+						}
 						uni.request({
-								url: 'http://127.0.0.1:3000/user/queryUserById?data=' + item.PeopleID
+								url: 'http://127.0.0.1:3000/user/queryUserById',
+								data:data
 							})
 							.then(data => {
 								let [err1, res1] = data
-								// console.log(2,err1,res1)
-								friend.id = res1.data.data[0]._id
-								friend.headImg = res1.data.data[0].HeadImg
-								friend.name = res1.data.data[0].Name
-								friend.sex = res1.data.data[0].Sex
-								that.friends.push(friend)
+								console.log(2,err1,res1)
+								if(!res1.data.data.length){
+									return
+								}else{
+									friend.id = res1.data.data[0]._id
+									friend.headImg = res1.data.data[0].HeadImg
+									friend.name = res1.data.data[0].Name
+									friend.sex = res1.data.data[0].Sex
+									that.friends.push(friend)
+								}
+								
 							})
 					})
 				})

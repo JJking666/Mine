@@ -113,25 +113,28 @@
 			}
 		},
 		onLoad() {
-			uni.getStorage({
-				key: "UserAccount",
-				success(res) {
-					console.log(res.data)
-					uni.showLoading({
-						title: '登录中'
-					})
-					setTimeout(() => {
-						uni.hideLoading()
-						uni.showToast({
-							title: '登录成功！',
-							icon: 'none'
-						});
-						uni.switchTab({
-							url: '../Memorandum/memorandum'
-						})
-					}, 1200)
-				}
+			uni.switchTab({
+				url: '../Memorandum/memorandum'
 			})
+			// uni.getStorage({
+			// 	key: "UserAccount",
+			// 	success(res) {
+			// 		console.log(res.data)
+			// 		uni.showLoading({
+			// 			title: '登录中'
+			// 		})
+			// 		setTimeout(() => {
+			// 			uni.hideLoading()
+			// 			uni.showToast({
+			// 				title: '登录成功！',
+			// 				icon: 'none'
+			// 			});
+			// 			uni.switchTab({
+			// 				url: '../Memorandum/memorandum'
+			// 			})
+			// 		}, 1200)
+			// 	}
+			// })
 		}
 	};
 </script>

@@ -245,25 +245,28 @@ var _default =
     } },
 
   onLoad: function onLoad() {
-    uni.getStorage({
-      key: "UserAccount",
-      success: function success(res) {
-        console.log(res.data);
-        uni.showLoading({
-          title: '登录中' });
+    uni.switchTab({
+      url: '../Memorandum/memorandum' });
 
-        setTimeout(function () {
-          uni.hideLoading();
-          uni.showToast({
-            title: '登录成功！',
-            icon: 'none' });
-
-          uni.switchTab({
-            url: '../Memorandum/memorandum' });
-
-        }, 1200);
-      } });
-
+    // uni.getStorage({
+    // 	key: "UserAccount",
+    // 	success(res) {
+    // 		console.log(res.data)
+    // 		uni.showLoading({
+    // 			title: '登录中'
+    // 		})
+    // 		setTimeout(() => {
+    // 			uni.hideLoading()
+    // 			uni.showToast({
+    // 				title: '登录成功！',
+    // 				icon: 'none'
+    // 			});
+    // 			uni.switchTab({
+    // 				url: '../Memorandum/memorandum'
+    // 			})
+    // 		}, 1200)
+    // 	}
+    // })
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

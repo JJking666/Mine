@@ -219,12 +219,15 @@ var _default =
         data, 2),err = _data2[0],res = _data2[1];
         console.log(res, res.data.data.PeopleID);
         if (res.data.data.status == 1) {
-          uni.request({
-            url: 'http://127.0.0.1:3000/user/queryUserById?data=' + res.data.data.PeopleID }).
+          var _data3 = {
+            _id: res.data.data.PeopleID };
 
-          then(function (data) {var _data3 = _slicedToArray(
-            data, 2),err = _data3[0],res1 = _data3[1];
-            console.log('f', res1);
+          uni.request({
+            url: 'http://127.0.0.1:3000/user/queryUserById',
+            data: _data3 }).
+
+          then(function (data) {var _data4 = _slicedToArray(
+            data, 2),err = _data4[0],res1 = _data4[1];
             var friend = {};
             friend.status = 1;
             friend.id = res1.data.data[0]._id;
@@ -287,24 +290,34 @@ var _default =
       url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
       '{"UserID":"' + option.ID + '","status":[1,2]}' }).
 
-    then(function (data) {var _data4 = _slicedToArray(
-      data, 2),err = _data4[0],res = _data4[1];
+    then(function (data) {var _data5 = _slicedToArray(
+      data, 2),err = _data5[0],res = _data5[1];
       _this3.ID = option.ID;
       // console.log(1,err,res)
+      console.log(res.data.data);
       res.data.data.forEach(function (item) {
         var friend = {};
         friend.status = item.status;
-        uni.request({
-          url: 'http://127.0.0.1:3000/user/queryUserById?data=' + item.PeopleID }).
+        var data = {
+          _id: item.PeopleID };
 
-        then(function (data) {var _data5 = _slicedToArray(
-          data, 2),err1 = _data5[0],res1 = _data5[1];
-          // console.log(2,err1,res1)
-          friend.id = res1.data.data[0]._id;
-          friend.headImg = res1.data.data[0].HeadImg;
-          friend.name = res1.data.data[0].Name;
-          friend.sex = res1.data.data[0].Sex;
-          that.friends.push(friend);
+        uni.request({
+          url: 'http://127.0.0.1:3000/user/queryUserById',
+          data: data }).
+
+        then(function (data) {var _data6 = _slicedToArray(
+          data, 2),err1 = _data6[0],res1 = _data6[1];
+          console.log(2, err1, res1);
+          if (!res1.data.data.length) {
+            return;
+          } else {
+            friend.id = res1.data.data[0]._id;
+            friend.headImg = res1.data.data[0].HeadImg;
+            friend.name = res1.data.data[0].Name;
+            friend.sex = res1.data.data[0].Sex;
+            that.friends.push(friend);
+          }
+
         });
       });
     });

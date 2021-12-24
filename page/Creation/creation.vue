@@ -1,7 +1,7 @@
 
 <template>
 	<view class="creation">
-		<image id="submit" src="../../static/more/rili.png" mode="" @tap="getRes"></image>
+		<image id="submit" src="../../static/img/more/rili.png" mode="" @tap="getRes"></image>
 		<view class="creation-bk">
 			<view class="creation-content">
 				<image :src="backgroundImgArray[bkindex].bkImgPath"></image>

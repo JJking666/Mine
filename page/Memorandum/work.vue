@@ -48,7 +48,7 @@
 			</swiper-item>
 		</swiper>
 		<button type="default" v-show="!current" class="radius-button create" @tap="gotoWriteWork"><!--  -->
-			<image src="../../static/more/add.png"></image>
+			<image src="../../static/img/more/add.png"></image>
 		</button>
 	</view>
 </template>

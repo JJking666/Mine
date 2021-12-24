@@ -1,7 +1,7 @@
 //修改页面
 <template>
 	<view class="record">
-		<image id="record-bk" src="../../static/more/微信图片_20211126111415.jpg" mode=""></image>
+		<image id="record-bk" src="../../static/img/more/微信图片_20211126111415.jpg" mode=""></image>
 		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
 		<view 
 			style="width: 45vw;height: fit-content; margin: 1vw 0; box-sizing: border-box;margin-left: 3vw;display: inline-block;">
@@ -22,7 +22,7 @@
 		</view>
 		<button v-show="!current" class="create" @tap="gotoWriteRecord">
 			<!--  -->
-			<image src="../../static/more/add.png"></image>
+			<image src="../../static/img/more/add.png"></image>
 		</button>
 		<view id="BigRecord" :animation="recordAnimation" @tap="hideRecord()">
 			{{bigrecord}}

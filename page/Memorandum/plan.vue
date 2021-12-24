@@ -34,7 +34,7 @@
 		</view>
 		<button class="create" @tap="createPlan">
 			<!--  -->
-			<image src="../../static/more/add.png"></image>
+			<image src="../../static/img/more/add.png"></image>
 		</button>
 		<view class="finish" :animation="finAnimation">
 			真厉害!又完成一项计划啦~
