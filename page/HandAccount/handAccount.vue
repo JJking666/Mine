@@ -206,7 +206,7 @@
 					}
 					//添加自身
 					uni.request({
-							url: 'http://127.0.0.1:3000/user/queryUserById',
+							url: 'http://120.76.138.164:3000/user/queryUserById',
 							data:me
 						})
 						.then(data => {
@@ -226,7 +226,7 @@
 							that.FriendArray.push(friend)
 						})
 					uni.request({
-							url: 'http://127.0.0.1:3000/handAccount/getHandAccounts?data='+ this.$data.id
+							url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data='+ this.$data.id
 						})
 						.then(data => {
 							let [err1, res1] = data
@@ -244,7 +244,7 @@
 							that.handAccountData.push(handAccount)
 					})
 					uni.request({
-							url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
+							url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
 								'{"UserID":"' + res.data + '","status":[1,2]}'
 						})
 						.then(data => {
@@ -260,7 +260,7 @@
 								}
 								//添加朋友
 								uni.request({
-										url: 'http://127.0.0.1:3000/user/queryUserById',
+										url: 'http://120.76.138.164:3000/user/queryUserById',
 										data:data
 									})
 									.then(data => {
@@ -273,7 +273,7 @@
 										that.FriendArray.push(friend)
 									})
 								uni.request({
-										url: 'http://127.0.0.1:3000/handAccount/getHandAccounts?data='+ item.PeopleID
+										url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data='+ item.PeopleID
 									})
 									.then(data => {
 										let [err1, res1] = data
@@ -293,7 +293,7 @@
 							})
 						})
 					uni.request({
-							url: 'http://127.0.0.1:3000/creation/getCreationInfo'
+							url: 'http://120.76.138.164:3000/creation/getCreationInfo'
 						})
 						.then(data => {
 							let [err1, res1] = data

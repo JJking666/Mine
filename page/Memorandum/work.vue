@@ -126,7 +126,7 @@
 								_id:num==1?this.$data.workData1[index]._id:this.$data.workData2[index]._id
 							}
 							uni.request({
-									url: 'http://127.0.0.1:3000/work/deleteWork',
+									url: 'http://120.76.138.164:3000/work/deleteWork',
 									data:d1
 								})
 								.then(data1 => {
@@ -163,7 +163,7 @@
 					_id:work
 				}
 				uni.request({
-					url:'http://127.0.0.1:3000/work/addFinishWork',
+					url:'http://120.76.138.164:3000/work/addFinishWork',
 					data:d1
 				})
 				.then(data1=>{
@@ -218,7 +218,7 @@
 				success(res) {
 					let id =res.data
 					uni.request({
-						url:'http://127.0.0.1:3000/work/getWorks?data='+id
+						url:'http://120.76.138.164:3000/work/getWorks?data='+id
 					})
 					.then(data1=>{
 						let [err1,res1]=data1

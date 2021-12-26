@@ -145,7 +145,7 @@
 				key: "UserAccount",
 				success(res) {
 					uni.request({
-						url: 'http://127.0.0.1:3000/user/queryUser?data=' + res.data
+						url: 'http://120.76.138.164:3000/user/queryUser?data=' + res.data
 					})
 					.then(data=>{
 						let [err, res] = data
@@ -156,7 +156,7 @@
 							data:res.data.data[0]._id
 						})
 						uni.request({
-							url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
+							url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
 						})
 						.then((data) => {
 							let [err, res] = data
@@ -169,7 +169,7 @@
 							that.homePageData.goods =res.data.data[0].goods
 						})
 						uni.request({
-							url:'http://127.0.0.1:3000/relationship/queryRelationship?data='+
+							url:'http://120.76.138.164:3000/relationship/queryRelationship?data='+
 							'{"UserID":"'+that.homePageData.UserID+'","status":[0,1,2]}'
 						})
 						.then(data=>{
@@ -195,7 +195,7 @@
 				key: "UserAccount",
 				success(res) {
 					uni.request({
-						url: 'http://127.0.0.1:3000/user/queryUser?data=' + res.data
+						url: 'http://120.76.138.164:3000/user/queryUser?data=' + res.data
 					})
 					.then(data=>{
 						let [err, res] = data
@@ -206,7 +206,7 @@
 						// 	data:res.data.data[0]._id
 						// })
 						uni.request({
-							url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
+							url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
 						})
 						.then((data1) => {
 							let [err1, res1] = data1
@@ -219,7 +219,7 @@
 							that.homePageData.goods =res1.data.data[0].goods
 						})
 						uni.request({
-							url:'http://127.0.0.1:3000/relationship/queryRelationship?data='+
+							url:'http://120.76.138.164:3000/relationship/queryRelationship?data='+
 							'{"UserID":"'+that.homePageData.UserID+'","status":[0,1,2]}'
 						})
 						.then(data2=>{

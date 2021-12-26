@@ -205,7 +205,7 @@ var _default =
     console.log(4, this.id);
     if (this.update == 1) {
       uni.request({
-        url: 'http://127.0.0.1:3000/classTable/updateClassTable',
+        url: 'http://120.76.138.164:3000/classTable/updateClassTable',
         data: {
           "data1": {
             "UserID": that.id },
@@ -234,7 +234,7 @@ var _default =
         _this3.$data.id = res.data;
         console.log(4, _this3.$data.id, res.data);
         uni.request({
-          url: 'http://127.0.0.1:3000/classTable/getClassTables?data=' + _this3.$data.id }).
+          url: 'http://120.76.138.164:3000/classTable/getClassTables?data=' + _this3.$data.id }).
 
         then(function (data1) {var _data2 = _slicedToArray(
           data1, 2),err1 = _data2[0],res1 = _data2[1];

@@ -113,7 +113,7 @@
 							this.finAnimation=null
 						},4500)
 						uni.request({
-							url: 'http://127.0.0.1:3000/plan/changePlan',
+							url: 'http://120.76.138.164:3000/plan/changePlan',
 							data: data1
 						})
 						this.planData1=this.planData.filter((item)=>{
@@ -133,7 +133,7 @@
 							finish: finishA
 						}
 						uni.request({
-								url: 'http://127.0.0.1:3000/plan/changeFinish',
+								url: 'http://120.76.138.164:3000/plan/changeFinish',
 								data: data
 							})
 							.then(data => {
@@ -171,7 +171,7 @@
 							_id: this.planData2[index]._id
 						}
 						uni.request({
-							url: 'http://127.0.0.1:3000/plan/changePlan',
+							url: 'http://120.76.138.164:3000/plan/changePlan',
 							data: data1
 						})
 					}
@@ -183,7 +183,7 @@
 							finish: this.planData2[index]['finish']
 						}
 						uni.request({
-								url: 'http://127.0.0.1:3000/plan/changeFinish',
+								url: 'http://120.76.138.164:3000/plan/changeFinish',
 								data: data
 							})
 							.then(data => {
@@ -253,7 +253,7 @@
 
 							let that = this
 							uni.request({
-									url: 'http://127.0.0.1:3000/plan/deletePlan?data=' + that.deleteID
+									url: 'http://120.76.138.164:3000/plan/deletePlan?data=' + that.deleteID
 								})
 								.then(data1 => {
 									let [err1, res1] = data1
@@ -300,7 +300,7 @@
 					id = res.data
 					that.id = res.data
 					uni.request({
-							url: 'http://127.0.0.1:3000/plan/queryPlans?data=' + id
+							url: 'http://120.76.138.164:3000/plan/queryPlans?data=' + id
 						})
 						.then(data => {
 							let [err1, res1] = data

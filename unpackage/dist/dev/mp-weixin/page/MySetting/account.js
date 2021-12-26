@@ -193,12 +193,11 @@ var _default =
       _id: option.ID };
 
     uni.request({
-      url: 'http://127.0.0.1:3000/user/queryUserById',
+      url: 'http://120.76.138.164:3000/user/queryUserById',
       data: data }).
 
     then(function (data) {var _data = _slicedToArray(
       data, 2),err = _data[0],res = _data[1];
-      console.log(res);
       that.itemData[0].right = option.ID.slice(-6);
       that.itemData[1].right = res.data.data[0].Phone;
       that.itemData[2].right = res.data.data[0].Email;

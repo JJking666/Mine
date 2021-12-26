@@ -148,7 +148,7 @@ var _default =
   methods: {
     testDB: function testDB() {
       uni.request({
-        url: 'http://localhost:3000/test',
+        url: 'http://120.76.138.164:3000/test',
         data: {},
         method: 'GET',
         success: function success(data) {
@@ -161,7 +161,7 @@ var _default =
     },
     emailSignUp: function emailSignUp() {
       uni.request({
-        url: 'http://localhost:3000/email',
+        url: 'http://120.76.138.164:3000/email',
         data: {
           email: '246812487@qq.com' },
 

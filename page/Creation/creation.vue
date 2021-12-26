@@ -190,7 +190,7 @@
 						title:'发布中'
 					})
 					uni.request({
-							url: 'http://127.0.0.1:3000/handAccount/addHandAccount',
+							url: 'http://120.76.138.164:3000/handAccount/addHandAccount',
 							data:that.creationData
 						})
 						.then(data => {
@@ -229,7 +229,7 @@
 					that.test = res.data
 					console.log('r',that.test)
 					uni.request({
-							url: 'http://127.0.0.1:3000/creation/getCreationInfo?data='+ res.data
+							url: 'http://120.76.138.164:3000/creation/getCreationInfo?data='+ res.data
 						})
 						.then(data => {
 							let [err1, res1] = data

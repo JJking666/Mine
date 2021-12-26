@@ -172,7 +172,7 @@ var _default =
   onLoad: function onLoad(option) {
     var that = this;
     uni.request({
-      url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + option.ID }).
+      url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + option.ID }).
 
     then(function (data) {var _data = _slicedToArray(
       data, 2),err = _data[0],res = _data[1];
@@ -181,14 +181,14 @@ var _default =
       console.log(5, that.medalData);
     });
     uni.request({
-      url: 'http://127.0.0.1:3000/user/queryUserById?data=' + option.ID }).
+      url: 'http://120.76.138.164:3000/user/queryUserById?data=' + option.ID }).
 
     then(function (data2) {var _data2 = _slicedToArray(
       data2, 2),err2 = _data2[0],res2 = _data2[1];
       that.medalData.name = res2.data.data[0].Name;
     });
     uni.request({
-      url: 'http://127.0.0.1:3000/medal/getMedals' }).
+      url: 'http://120.76.138.164:3000/medal/getMedals' }).
 
     then(function (data1) {var _data3 = _slicedToArray(
       data1, 2),err1 = _data3[0],res1 = _data3[1];

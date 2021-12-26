@@ -166,7 +166,7 @@ __webpack_require__.r(__webpack_exports__);
           id = res.data;
           console.log(id);
           uni.request({
-            url: 'http://127.0.0.1:3000/work/addWorks?data=' +
+            url: 'http://120.76.138.164:3000/work/addWorks?data=' +
             '{"UserID":"' + id + '","title":"' + that.textTitle + '","content":"' + that.textValue + '"}' }).
 
           then(function (data1) {var _data = _slicedToArray(

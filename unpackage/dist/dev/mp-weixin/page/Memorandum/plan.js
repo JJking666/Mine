@@ -278,7 +278,7 @@ var _default =
             _this.finAnimation = null;
           }, 4500);
           uni.request({
-            url: 'http://127.0.0.1:3000/plan/changePlan',
+            url: 'http://120.76.138.164:3000/plan/changePlan',
             data: data1 });
 
           this.planData1 = this.planData.filter(function (item) {
@@ -298,7 +298,7 @@ var _default =
             finish: finishA };
 
           uni.request({
-            url: 'http://127.0.0.1:3000/plan/changeFinish',
+            url: 'http://120.76.138.164:3000/plan/changeFinish',
             data: data }).
 
           then(function (data) {var _data = _slicedToArray(
@@ -336,7 +336,7 @@ var _default =
             _id: this.planData2[index]._id };
 
           uni.request({
-            url: 'http://127.0.0.1:3000/plan/changePlan',
+            url: 'http://120.76.138.164:3000/plan/changePlan',
             data: _data2 });
 
         }
@@ -348,7 +348,7 @@ var _default =
             finish: _this.planData2[index]['finish'] };
 
           uni.request({
-            url: 'http://127.0.0.1:3000/plan/changeFinish',
+            url: 'http://120.76.138.164:3000/plan/changeFinish',
             data: data }).
 
           then(function (data) {var _data3 = _slicedToArray(
@@ -418,7 +418,7 @@ var _default =
 
             var that = _this2;
             uni.request({
-              url: 'http://127.0.0.1:3000/plan/deletePlan?data=' + that.deleteID }).
+              url: 'http://120.76.138.164:3000/plan/deletePlan?data=' + that.deleteID }).
 
             then(function (data1) {var _data4 = _slicedToArray(
               data1, 2),err1 = _data4[0],res1 = _data4[1];
@@ -465,7 +465,7 @@ var _default =
         id = res.data;
         that.id = res.data;
         uni.request({
-          url: 'http://127.0.0.1:3000/plan/queryPlans?data=' + id }).
+          url: 'http://120.76.138.164:3000/plan/queryPlans?data=' + id }).
 
         then(function (data) {var _data5 = _slicedToArray(
           data, 2),err1 = _data5[0],res1 = _data5[1];

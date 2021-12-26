@@ -230,7 +230,7 @@ var _default =
           if (res.confirm) {
             var that = _this;
             uni.request({
-              url: 'http://127.0.0.1:3000/record/deleteRecord?data=' + that.deleteID }).
+              url: 'http://120.76.138.164:3000/record/deleteRecord?data=' + that.deleteID }).
 
             then(function (data1) {var _data = _slicedToArray(
               data1, 2),err1 = _data[0],res1 = _data[1];
@@ -352,7 +352,7 @@ var _default =
         id = res.data;
         console.log(id);
         uni.request({
-          url: 'http://127.0.0.1:3000/record/queryRecords?data=' + id }).
+          url: 'http://120.76.138.164:3000/record/queryRecords?data=' + id }).
 
         then(function (data) {var _data2 = _slicedToArray(
           data, 2),err1 = _data2[0],res1 = _data2[1];

@@ -176,7 +176,7 @@ var _default =
 
       data = this.$qs.parse(data);
       uni.request({
-        url: 'http://127.0.0.1:3000/relationship/addRelationship',
+        url: 'http://120.76.138.164:3000/relationship/addRelationship',
         data: data }).
 
       then(function (data) {var _data = _slicedToArray(
@@ -187,7 +187,7 @@ var _default =
             _id: res.data.data.PeopleID };
 
           uni.request({
-            url: 'http://127.0.0.1:3000/user/queryUserById',
+            url: 'http://120.76.138.164:3000/user/queryUserById',
             data: _data2 }).
 
           then(function (data) {var _data3 = _slicedToArray(
@@ -237,7 +237,7 @@ var _default =
   onLoad: function onLoad(option) {
     var that = this;
     uni.request({
-      url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
+      url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
       '{"UserID":"' + option.ID + '","status":[0,2]}' }).
 
     then(function (data) {var _data4 = _slicedToArray(
@@ -250,7 +250,7 @@ var _default =
           _id: item.PeopleID };
 
         uni.request({
-          url: 'http://127.0.0.1:3000/user/queryUserById',
+          url: 'http://120.76.138.164:3000/user/queryUserById',
           data: data }).
 
         then(function (data) {var _data5 = _slicedToArray(

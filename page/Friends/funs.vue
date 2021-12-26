@@ -44,7 +44,7 @@
 				}
 				data=this.$qs.parse(data)
 				uni.request({
-					url:'http://127.0.0.1:3000/relationship/addRelationship',
+					url:'http://120.76.138.164:3000/relationship/addRelationship',
 					data:data
 				})
 				.then((data)=>{
@@ -55,7 +55,7 @@
 							_id:res.data.data.PeopleID
 						}
 						uni.request({
-							url:'http://127.0.0.1:3000/user/queryUserById',
+							url:'http://120.76.138.164:3000/user/queryUserById',
 							data:data
 						})
 						.then(data=>{
@@ -105,7 +105,7 @@
 		onLoad(option) {
 			let that = this
 			uni.request({
-					url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
+					url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
 						'{"UserID":"' + option.ID + '","status":[0,2]}'
 				})
 				.then(data => {
@@ -118,7 +118,7 @@
 							_id:item.PeopleID
 						}
 						uni.request({
-								url: 'http://127.0.0.1:3000/user/queryUserById',
+								url: 'http://120.76.138.164:3000/user/queryUserById',
 								data:data
 							})
 							.then(data => {

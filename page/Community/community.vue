@@ -16,7 +16,7 @@
 		methods: {
 			testDB() {
 				uni.request({
-					url: 'http://localhost:3000/test',
+					url: 'http://120.76.138.164:3000/test',
 					data: {},
 					method: 'GET',
 					success: (data) => {
@@ -29,7 +29,7 @@
 			},
 			emailSignUp() {
 				uni.request({
-					url: 'http://localhost:3000/email',
+					url: 'http://120.76.138.164:3000/email',
 					data: {
 						email: '246812487@qq.com',
 					},

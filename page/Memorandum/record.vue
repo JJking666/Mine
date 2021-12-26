@@ -69,7 +69,7 @@
 						if (res.confirm) {
 							let that =this
 							uni.request({
-								url:'http://127.0.0.1:3000/record/deleteRecord?data='+ that.deleteID
+								url:'http://120.76.138.164:3000/record/deleteRecord?data='+ that.deleteID
 							})
 							.then(data1=>{
 								let [err1,res1]=data1
@@ -191,7 +191,7 @@
 					id = res.data
 					console.log(id)
 					uni.request({
-						url:'http://127.0.0.1:3000/record/queryRecords?data='+id
+						url:'http://120.76.138.164:3000/record/queryRecords?data='+id
 					})
 					.then(data=>{
 						let [err1,res1]=data

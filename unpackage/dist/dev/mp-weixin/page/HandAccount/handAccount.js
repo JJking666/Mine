@@ -382,7 +382,7 @@ var _default =
 
         //添加自身
         uni.request({
-          url: 'http://127.0.0.1:3000/user/queryUserById',
+          url: 'http://120.76.138.164:3000/user/queryUserById',
           data: me }).
 
         then(function (data) {
@@ -402,7 +402,7 @@ var _default =
           that.FriendArray.push(friend);
         });
         uni.request({
-          url: 'http://127.0.0.1:3000/handAccount/getHandAccounts?data=' + _this2.$data.id }).
+          url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data=' + _this2.$data.id }).
 
         then(function (data) {var _data2 = _slicedToArray(
           data, 2),err1 = _data2[0],res1 = _data2[1];
@@ -420,7 +420,7 @@ var _default =
           that.handAccountData.push(handAccount);
         });
         uni.request({
-          url: 'http://127.0.0.1:3000/relationship/queryRelationship?data=' +
+          url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
           '{"UserID":"' + res.data + '","status":[1,2]}' }).
 
         then(function (data) {var _data3 = _slicedToArray(
@@ -436,7 +436,7 @@ var _default =
 
             //添加朋友
             uni.request({
-              url: 'http://127.0.0.1:3000/user/queryUserById',
+              url: 'http://120.76.138.164:3000/user/queryUserById',
               data: data }).
 
             then(function (data) {var _data4 = _slicedToArray(
@@ -449,7 +449,7 @@ var _default =
               that.FriendArray.push(friend);
             });
             uni.request({
-              url: 'http://127.0.0.1:3000/handAccount/getHandAccounts?data=' + item.PeopleID }).
+              url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data=' + item.PeopleID }).
 
             then(function (data) {var _data5 = _slicedToArray(
               data, 2),err1 = _data5[0],res1 = _data5[1];
@@ -469,7 +469,7 @@ var _default =
           });
         });
         uni.request({
-          url: 'http://127.0.0.1:3000/creation/getCreationInfo' }).
+          url: 'http://120.76.138.164:3000/creation/getCreationInfo' }).
 
         then(function (data) {var _data6 = _slicedToArray(
           data, 2),err1 = _data6[0],res1 = _data6[1];

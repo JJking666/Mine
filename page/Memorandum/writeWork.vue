@@ -34,7 +34,7 @@
 						id = res.data
 						console.log(id)
 						uni.request({
-							url:'http://127.0.0.1:3000/work/addWorks?data='+
+							url:'http://120.76.138.164:3000/work/addWorks?data='+
 							'{"UserID":"'+id+'","title":"'+that.textTitle+'","content":"'+that.textValue+'"}'
 						})
 						.then(data1=>{

@@ -40,7 +40,7 @@
 		onLoad(option) {
 			let that =this
 			uni.request({
-				url: 'http://127.0.0.1:3000/homePage/queryHomePage?data=' + option.ID
+				url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + option.ID
 			})
 			.then((data) => {
 				let [err, res] = data
@@ -49,14 +49,14 @@
 				console.log(5,that.medalData)
 			})
 			uni.request({
-				url:'http://127.0.0.1:3000/user/queryUserById?data='+option.ID
+				url:'http://120.76.138.164:3000/user/queryUserById?data='+option.ID
 			})
 			.then(data2=>{
 				let [err2,res2]=data2
 				that.medalData.name = res2.data.data[0].Name
 			})
 			uni.request({
-				url: 'http://127.0.0.1:3000/medal/getMedals'
+				url: 'http://120.76.138.164:3000/medal/getMedals'
 			})
 			.then((data1) => {
 				let [err1, res1] = data1

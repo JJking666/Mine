@@ -63,7 +63,7 @@
 						title: '登录中'
 					})
 					uni.request({
-							url: 'http://127.0.0.1:3000/login?data=' + this.account
+							url: 'http://120.76.138.164:3000/login?data=' + this.account
 						})
 						.then(data => {
 							var [err, res] = data;
@@ -113,28 +113,25 @@
 			}
 		},
 		onLoad() {
-			uni.switchTab({
-				url: '../Memorandum/memorandum'
+			uni.getStorage({
+				key: "UserAccount",
+				success(res) {
+					console.log(res.data)
+					uni.showLoading({
+						title: '登录中'
+					})
+					setTimeout(() => {
+						uni.hideLoading()
+						uni.showToast({
+							title: '登录成功！',
+							icon: 'none'
+						});
+						uni.switchTab({
+							url: '../Memorandum/memorandum'
+						})
+					}, 1200)
+				}
 			})
-			// uni.getStorage({
-			// 	key: "UserAccount",
-			// 	success(res) {
-			// 		console.log(res.data)
-			// 		uni.showLoading({
-			// 			title: '登录中'
-			// 		})
-			// 		setTimeout(() => {
-			// 			uni.hideLoading()
-			// 			uni.showToast({
-			// 				title: '登录成功！',
-			// 				icon: 'none'
-			// 			});
-			// 			uni.switchTab({
-			// 				url: '../Memorandum/memorandum'
-			// 			})
-			// 		}, 1200)
-			// 	}
-			// })
 		}
 	};
 </script>

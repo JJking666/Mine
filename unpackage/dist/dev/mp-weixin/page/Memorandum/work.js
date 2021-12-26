@@ -284,7 +284,7 @@ var _default =
               _id: num == 1 ? _this.$data.workData1[index]._id : _this.$data.workData2[index]._id };
 
             uni.request({
-              url: 'http://127.0.0.1:3000/work/deleteWork',
+              url: 'http://120.76.138.164:3000/work/deleteWork',
               data: d1 }).
 
             then(function (data1) {var _data = _slicedToArray(
@@ -321,7 +321,7 @@ var _default =
         _id: work };
 
       uni.request({
-        url: 'http://127.0.0.1:3000/work/addFinishWork',
+        url: 'http://120.76.138.164:3000/work/addFinishWork',
         data: d1 }).
 
       then(function (data1) {var _data2 = _slicedToArray(
@@ -376,7 +376,7 @@ var _default =
       success: function success(res) {
         var id = res.data;
         uni.request({
-          url: 'http://127.0.0.1:3000/work/getWorks?data=' + id }).
+          url: 'http://120.76.138.164:3000/work/getWorks?data=' + id }).
 
         then(function (data1) {var _data3 = _slicedToArray(
           data1, 2),err1 = _data3[0],res1 = _data3[1];

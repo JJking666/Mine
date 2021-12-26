@@ -171,7 +171,7 @@ var _default =
   onLoad: function onLoad(option) {
     var that = this;
     uni.request({
-      url: 'http://127.0.0.1:3000/user/queryUserById?data=' + option.ID }).
+      url: 'http://120.76.138.164:3000/user/queryUserById?data=' + option.ID }).
 
     then(function (data) {var _data = _slicedToArray(
       data, 2),err = _data[0],res = _data[1];

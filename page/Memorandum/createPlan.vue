@@ -57,7 +57,7 @@
 				let finish=new Array(n.length).fill('0')
 				console.log(finish)
 				uni.request({//时间
-					url: 'http://127.0.0.1:3000/plan/addPlan?data=' +
+					url: 'http://120.76.138.164:3000/plan/addPlan?data=' +
 						'{"UserID":"'+that.id+'","content":"'+that.textData+'","title":"'+that.title+
 						'","startTime":"'+that.datetimerange[0]+'","endTime":"'+that.datetimerange[1]+'","finish":['+finish+']}'
 				})

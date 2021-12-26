@@ -39,7 +39,7 @@
 		onLoad(option) {
 			let that =this
 			uni.request({
-				url:'http://127.0.0.1:3000/user/queryUserById?data='+option.ID
+				url:'http://120.76.138.164:3000/user/queryUserById?data='+option.ID
 			})
 			.then(data=>{
 				let [err,res]=data

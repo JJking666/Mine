@@ -195,7 +195,7 @@ var _default =
           title: '登录中' });
 
         uni.request({
-          url: 'http://127.0.0.1:3000/login?data=' + this.account }).
+          url: 'http://120.76.138.164:3000/login?data=' + this.account }).
 
         then(function (data) {var _data = _slicedToArray(
           data, 2),err = _data[0],res = _data[1];
@@ -245,28 +245,25 @@ var _default =
     } },
 
   onLoad: function onLoad() {
-    uni.switchTab({
-      url: '../Memorandum/memorandum' });
+    uni.getStorage({
+      key: "UserAccount",
+      success: function success(res) {
+        console.log(res.data);
+        uni.showLoading({
+          title: '登录中' });
 
-    // uni.getStorage({
-    // 	key: "UserAccount",
-    // 	success(res) {
-    // 		console.log(res.data)
-    // 		uni.showLoading({
-    // 			title: '登录中'
-    // 		})
-    // 		setTimeout(() => {
-    // 			uni.hideLoading()
-    // 			uni.showToast({
-    // 				title: '登录成功！',
-    // 				icon: 'none'
-    // 			});
-    // 			uni.switchTab({
-    // 				url: '../Memorandum/memorandum'
-    // 			})
-    // 		}, 1200)
-    // 	}
-    // })
+        setTimeout(function () {
+          uni.hideLoading();
+          uni.showToast({
+            title: '登录成功！',
+            icon: 'none' });
+
+          uni.switchTab({
+            url: '../Memorandum/memorandum' });
+
+        }, 1200);
+      } });
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

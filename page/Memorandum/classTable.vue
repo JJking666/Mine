@@ -64,7 +64,7 @@
 			console.log(4,this.id)
 			if (this.update == 1) {
 				uni.request({
-						url: 'http://127.0.0.1:3000/classTable/updateClassTable',
+						url: 'http://120.76.138.164:3000/classTable/updateClassTable',
 						data: {
 							"data1": {
 								"UserID":that.id
@@ -93,7 +93,7 @@
 					this.$data.id = res.data
 					console.log(4,this.$data.id ,res.data)
 					uni.request({
-							url: 'http://127.0.0.1:3000/classTable/getClassTables?data=' + this.$data.id
+							url: 'http://120.76.138.164:3000/classTable/getClassTables?data=' + this.$data.id
 						})
 						.then(data1 => {
 							let [err1, res1] = data1

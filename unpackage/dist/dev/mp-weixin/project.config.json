@@ -27,49 +27,8 @@
       "list": []
     },
     "miniprogram": {
-      "current": 0,
-      "list": [
-        {
-          "name": "main",
-          "id": 0,
-          "pathName": "page/HandAccount/handAccount"
-        },
-        {
-          "name": "创作",
-          "id": 1,
-          "pathName": "page/Creation/creation"
-        },
-        {
-          "name": "funs",
-          "id": 2,
-          "pathName": "page/Friends/funs"
-        },
-        {
-          "name": "record",
-          "id": 3,
-          "pathName": "page/Memorandum/record"
-        },
-        {
-          "name": "setting",
-          "id": 4,
-          "pathName": "page/MySetting/mySetting"
-        },
-        {
-          "name": "Create",
-          "id": 5,
-          "pathName": "page/Creation/creation"
-        },
-        {
-          "name": "Demo",
-          "id": 6,
-          "pathName": "page/demo"
-        },
-        {
-          "name": "GO",
-          "id": 7,
-          "pathName": "page/Memorandum/memorandum"
-        }
-      ]
+      "current": -1,
+      "list": []
     }
   }
 }
