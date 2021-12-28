@@ -1,20 +1,19 @@
 <template>
 	<view class="friends">
-		<image id="record-bk" src="../../static/img/more/微信图片_20211126111413.jpg" mode=""></image>
+		<image id="record-bk" src="../../static/img/bkImg/bk6.jpg" mode=""></image>
 		<input id="record-input" placeholder="输入手机号或昵称" placeholder-style="" v-model="inputValue"
 			@input="select" />
 		<view class="selectPeople">
-			<view class="select-item" v-for="(item,index) in selectPeople" :key="index" >
+			<view class="select-item" v-for="(item,index) in selectPeople" :key="index" @tap="gotoLookSomeone(item._id)">
 				<image :src="item.HeadImg">
 				<view v-html="item.Name" style="display: inline-block;"></view>
-				<image
-					:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
+				<image :src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 					mode=""></image>
 				<button @tap="addFriend(item._id)">关注</button>
 			</view>
 		</view>
 		<view class="content">
-			<view class="friend-item" v-for="(item,index) in friends" :key="index">
+			<view class="friend-item" v-for="(item,index) in friends" :key="index" @tap="gotoLookFriend(item.id,item.status)"> 
 				<image :src="item.headImg">
 					<text>{{item.name}}</text>
 					<image
@@ -27,6 +26,7 @@
 </template>
 
 <script>
+	import qs from 'qs' 
 	export default {
 		data() {
 			return {
@@ -40,6 +40,20 @@
 			}
 		},
 		methods: {
+			gotoLookFriend(id,status){
+				uni.navigateTo({
+					url:'./lookFriend?id='+id+'&status='+status,
+				})
+			},
+			gotoLookSomeone(id){
+				let friend=this.selectPeople.filter((item)=>{
+					return item._id == id
+				})
+				friend = qs.stringify(friend[0])
+				uni.navigateTo({
+					url:'./lookSomeone?friend='+friend,
+				})
+			},
 			select() {
 				let that = this
 			
@@ -67,41 +81,41 @@
 							that.selectPeople = data[1].data.data
 							that.selectPeople.forEach((item)=>{
 								item.Name=item.Name.replace(that.inputValue,
-							`<span style="color: grey">${this.inputValue}</span>`)
+							`<span style="color: red">${this.inputValue}</span>`)
 							})
 						})
 				}, 500)
 			},
 			addFriend(id){
 				let that =this
-				let data = {
+				let data1 = {
 					UserID:this.ID,
 					PeopleID:id
 				}
-				data=this.$qs.parse(data)
 				uni.request({
 					url:'http://120.76.138.164:3000/relationship/addRelationship',
-					data:data
+					data:data1
 				})
 				.then((data)=>{
 					let [err,res]=data
 					console.log(res,res.data.data.PeopleID)
 					if(res.data.data.status==1){
-						let data={
+						let data3={
 							_id:res.data.data.PeopleID
 						}
 						uni.request({
 							url:'http://120.76.138.164:3000/user/queryUserById',
-							data:data
+							data:data3
 						})
 						.then(data=>{
 							let [err,res1]=data
 							let friend={}
+							console.log(3,res1)
 							friend.status=1
-							friend.id = res1.data.data[0]._id
-							friend.headImg = res1.data.data[0].HeadImg
-							friend.name = res1.data.data[0].Name
-							friend.sex = res1.data.data[0].Sex
+							friend.id = res1.data.data._id
+							friend.headImg = res1.data.data.HeadImg
+							friend.name = res1.data.data.Name
+							friend.sex = res1.data.data.Sex
 							console.log(friend)
 							that.friends.push(friend)
 						})
@@ -142,15 +156,17 @@
 				deleteFriendID1: this.deleteFriendID1,
 				deleteFriendID2: this.deleteFriendID2
 			}
-			console.log(r)
-			let data1 = this.$qs.parse(r)
-			uni.request({
-					url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
-					data: data1
-				})
-				.then((data) => {
-					console.log('ok1')
-				})
+			if(r.deleteFriendID1.length == 0 && r.deleteFriendID2.length == 0){
+				return
+			}else{
+				uni.request({
+						url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
+						data: r
+					})
+					.then((data) => {
+						console.log('ok1')
+					})
+			}
 		},
 		onLoad(option) {
 			let that = this
@@ -162,27 +178,27 @@
 					let [err, res] = data
 					this.ID = option.ID
 					// console.log(1,err,res)
-					console.log(res.data.data)
+					// console.log(res.data.data)
 					res.data.data.forEach((item) => {
 						let friend = {}
 						friend.status = item.status
-						let data={
+						let data3={
 							_id:item.PeopleID
 						}
+						console.log(data3)
 						uni.request({
 								url: 'http://120.76.138.164:3000/user/queryUserById',
-								data:data
+								data:data3
 							})
 							.then(data => {
 								let [err1, res1] = data
-								console.log(2,err1,res1)
-								if(!res1.data.data.length){
+								if(!res1.data.data){
 									return
 								}else{
-									friend.id = res1.data.data[0]._id
-									friend.headImg = res1.data.data[0].HeadImg
-									friend.name = res1.data.data[0].Name
-									friend.sex = res1.data.data[0].Sex
+									friend.id = res1.data.data._id
+									friend.headImg = res1.data.data.HeadImg
+									friend.name = res1.data.data.Name
+									friend.sex = res1.data.data.Sex
 									that.friends.push(friend)
 								}
 								

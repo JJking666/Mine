@@ -199,8 +199,8 @@ var _default =
     then(function (data) {var _data = _slicedToArray(
       data, 2),err = _data[0],res = _data[1];
       that.itemData[0].right = option.ID.slice(-6);
-      that.itemData[1].right = res.data.data[0].Phone;
-      that.itemData[2].right = res.data.data[0].Email;
+      that.itemData[1].right = res.data.data.Phone;
+      that.itemData[2].right = res.data.data.Email;
     });
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

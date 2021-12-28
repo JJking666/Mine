@@ -12,7 +12,7 @@
 				<!-- 待办 -->
 				<view class="swiper-item work-itemA">			
 					<!-- <view style="margin-top: 10vh;background-color: red;height: 1px;"></view> -->
-					<uni-card :title="item.title"  :id="'content-wrap1' + index"
+					<uni-card :title="item.title"  :class="'content-wrap1' + index"
 						:extra="item.date" 
 						v-for="(item,index) in workData1" 
 						:key="item.id"
@@ -32,7 +32,7 @@
 			<swiper-item>
 				<!-- 已完成 -->
 				<view class="swiper-item work-itemA">
-					<uni-card :title="item.title" :id="'content-wrap2' + index"
+					<uni-card :title="item.title" :class="'content-wrap2' + index"
 						:extra="item.date" 
 						v-for="(item,index) in workData2" 
 						:key="item.id"
@@ -186,7 +186,7 @@
 					that.swiperH2=0
 					that.swiperH1=0
 					that.workData1.forEach((item,index)=>{
-						element = "#content-wrap1"+index
+						element = ".content-wrap1"+index
 					    query = uni.createSelectorQuery().in(this);
 					    query.select(element).boundingClientRect();
 					    query.exec((res) => {
@@ -298,10 +298,11 @@
 					justify-content:space-evenly;
 					align-items: center;
 					transition: all 0.6s;
+					overflow: hidden;
 					& button{
 						padding: 0px;
 						width: 10vh;
-						height: inherit;
+						height: 5vh;
 						border: 0rpx solid transparent;
 						border-radius: 3rpx;
 						margin:0;

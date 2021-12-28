@@ -180,12 +180,18 @@ var _default =
       that.medalData.headImg = res.data.data[0].HeadImg;
       console.log(5, that.medalData);
     });
+    var data1 = {
+      _id: option.ID };
+
+    console.log('peron', option.ID);
     uni.request({
-      url: 'http://120.76.138.164:3000/user/queryUserById?data=' + option.ID }).
+      url: 'http://120.76.138.164:3000/user/queryUserById',
+      data: data1 }).
 
     then(function (data2) {var _data2 = _slicedToArray(
       data2, 2),err2 = _data2[0],res2 = _data2[1];
-      that.medalData.name = res2.data.data[0].Name;
+      console.log(res2.data);
+      that.medalData.name = res2.data.data.Name;
     });
     uni.request({
       url: 'http://120.76.138.164:3000/medal/getMedals' }).

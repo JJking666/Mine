@@ -61,17 +61,17 @@
 					}
 				}
 				uni.request({
-					url: 'http://127.0.0.1:3000/user/addUser',
+					url: 'http://120.76.138.164:3000/user/addUser',
 					data:Info
 				})
 				.then(data=>{
 					let [err,res]=data
-					console.log(res.data.data._id)
+					console.log('sun',res.data)
 					let info = {
 						_id:res.data.data._id
 					}
 					uni.request({
-						url: 'http://127.0.0.1:3000/homePage/addHomePage',
+						url: 'http://120.76.138.164:3000/homePage/addHomePage',
 						data:info
 					})
 				})

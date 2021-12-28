@@ -1,7 +1,6 @@
 <template>
 	<view class="plan">
 		<view class="plan-item1" v-for="(item,index) in planData1" :key="index" @tap="changeShow(1,index)"
-			:animation="animationdata[index]"
 			:style="{height:planData1[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh'}">
 			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap.stop="deletePlan(1,index)"></image>
 			<text id="date">{{item.title}}</text>
@@ -17,7 +16,6 @@
 			</view>
 		</view>
 		<view class="plan-item2" v-for="(item,index) in planData2" :key="index" @tap="changeShow(2,index)"
-			:animation="animationdata[index]"
 			:style="{height:planData2[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh'}">
 			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap.stop="deletePlan(2,index)"></image>
 			<text id="date" style="color: grey;text-decoration: line-through;">{{item.title}}</text>
@@ -69,6 +67,8 @@
 			},
 			changeFinish(status, index, index_1) {
 				if (this.changeF) clearInterval(this.changeF)
+				let data1
+				//修改已完成计划的单项
 				if (status == 1) {
 					let n = this.planData1[index]['finish'][index_1] == '0' ? '1' : '0'
 					this.$set(this.planData1[index]['finish'], index_1, n)
@@ -77,19 +77,10 @@
 					})
 					console.log(num)
 					
-					let data1
+					
 					let finishA=this.planData1[index]['finish']
 					let dataID=this.planData1[index]._id
 					if (num.length == 0) {
-						// console.log('len')
-						// let animationF = uni.createAnimation({
-						// 		duration: 1000,
-						//         timingFunction: 'ease',
-						//     })
-						// this.animationF = animationF
-						// this.animationF.scale(1.3).opacity(1).step()
-						// this.animationF.scale(1.0).step()
-						// this.finAnimation=this.animationF.export()
 						this.planData1[index]['status'] = 1
 						let i 
 						this.planData.forEach((item,index1)=>{
@@ -99,9 +90,6 @@
 							}
 						})
 						this.planData[i]['status'] = 1
-						data1 = {
-							_id: this.planData1[index]._id
-						}
 						let animationF = uni.createAnimation({
 						        timingFunction: 'ease',
 						    })
@@ -112,10 +100,6 @@
 						setTimeout(()=>{
 							this.finAnimation=null
 						},4500)
-						uni.request({
-							url: 'http://120.76.138.164:3000/plan/changePlan',
-							data: data1
-						})
 						this.planData1=this.planData.filter((item)=>{
 							return item.status=='0'
 						})
@@ -124,14 +108,23 @@
 						})
 						//this.changeShow(1, index)
 					}
+					//修改选项
 					this.changeF = setTimeout(() => {
-						if (this.changeF == 0) return
+						if (this.changeF == 0) return 
 						console.log(this.dataID)
 						let data = {
 							UserID: this.id,
 							_id: dataID,
 							finish: finishA
 						}
+						data1 = {
+							_id: this.planData1[index]._id,
+							num:num.length
+						}
+						uni.request({
+							url: 'http://120.76.138.164:3000/plan/changePlan',
+							data: data1
+						})
 						uni.request({
 								url: 'http://120.76.138.164:3000/plan/changeFinish',
 								data: data
@@ -147,19 +140,11 @@
 					let num = this.planData2[index]['finish'].filter((item) => {
 						return item == 0
 					})
-					let data2
 					let dataID=this.planData2[index]._id
 					let finishA=this.planData1[index]['finish']
+					//若选项全为1则将这项计划改为已完成
 					if (num.length == 0) {
-						// console.log('len')
-						// let animationF = uni.createAnimation({
-						// 		duration: 1000,
-						//         timingFunction: 'ease',
-						//     })
-						// this.changeShow(index)
-						// this.animationF = animationF
-						// this.animationF.translateX(800).height(0).opacity(0).step()
-						// this.animationdata[index]=this.animationF.export()
+						
 						this.planData2[index]['status'] = '1'
 						this.planData1=this.planData.filter((item)=>{
 							return item.status=='0'
@@ -167,14 +152,8 @@
 						this.planData2=this.planData.filter((item)=>{
 							return item.status=='1'
 						})
-						let data1 = {
-							_id: this.planData2[index]._id
-						}
-						uni.request({
-							url: 'http://120.76.138.164:3000/plan/changePlan',
-							data: data1
-						})
 					}
+					//修改选项
 					this.changeF = setTimeout(() => {
 						if (this.changeF == 0) return
 						let data = {
@@ -182,6 +161,14 @@
 							_id: dataID,
 							finish: this.planData2[index]['finish']
 						}
+						data1 = {
+							_id: this.planData1[index]._id,
+							num:num.length
+						}
+						uni.request({
+							url: 'http://120.76.138.164:3000/plan/changePlan',
+							data: data1
+						})
 						uni.request({
 								url: 'http://120.76.138.164:3000/plan/changeFinish',
 								data: data
@@ -292,7 +279,6 @@
 		onShow() {
 			let that = this
 			let id
-			uni.$on('planemit', this.getPlan);
 
 			uni.getStorage({
 				key: "UserID",
@@ -368,6 +354,7 @@
 
 			.planHidden {
 				transition: all 0.5s ease;
+				overflow: hidden;
 			}
 
 			#date {

@@ -7,7 +7,7 @@
 			</view>
 			<view id="content">
 				<text>{{medalData.name}}</text>
-				<text>已{{medalData.medals.length}}解锁身份</text>
+				<text>已{{medalData.medals.length}}解锁种身份</text>
 				<view class="medals">
 					<image :src="allMedals[item].medalPath" v-for="(item,index) in medalData.medals" :key="index"></image>
 				</view>
@@ -48,12 +48,18 @@
 				that.medalData.headImg = res.data.data[0].HeadImg
 				console.log(5,that.medalData)
 			})
+			let data1={
+				_id:option.ID
+			}
+			console.log('peron',option.ID)
 			uni.request({
-				url:'http://120.76.138.164:3000/user/queryUserById?data='+option.ID
+				url: 'http://120.76.138.164:3000/user/queryUserById',
+				data:data1
 			})
 			.then(data2=>{
 				let [err2,res2]=data2
-				that.medalData.name = res2.data.data[0].Name
+				console.log(res2.data)
+				that.medalData.name = res2.data.data.Name
 			})
 			uni.request({
 				url: 'http://120.76.138.164:3000/medal/getMedals'

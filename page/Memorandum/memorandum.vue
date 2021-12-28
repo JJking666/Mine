@@ -20,12 +20,6 @@
 		data(){
 			return{}
 		},
-		onLoad() {
-			wx.showTabBar()
-		},
-		onShow() {
-			wx.showTabBar()
-		},
 		methods:{
 			gotoHandAccount(){
 				uni.navigateTo({

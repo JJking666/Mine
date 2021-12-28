@@ -195,7 +195,8 @@ var _default =
           title: '登录中' });
 
         uni.request({
-          url: 'http://120.76.138.164:3000/login?data=' + this.account }).
+          url: 'http://120.76.138.164:3000/login?data=' + this.account,
+          timeout: 3000 }).
 
         then(function (data) {var _data = _slicedToArray(
           data, 2),err = _data[0],res = _data[1];
@@ -225,7 +226,15 @@ var _default =
             uni.switchTab({
               url: '../MySetting/mySetting' });
 
-          }, 1200);
+          }, 800);
+        }).
+        catch(function (err) {
+          console.log(err, '超时');
+          uni.hideLoading();
+          uni.showToast({
+            title: '请检查您的网络！',
+            icon: 'none' });
+
         });
       }
 
@@ -248,7 +257,7 @@ var _default =
     uni.getStorage({
       key: "UserAccount",
       success: function success(res) {
-        console.log(res.data);
+        // console.log(res.data)
         uni.showLoading({
           title: '登录中' });
 
@@ -261,7 +270,7 @@ var _default =
           uni.switchTab({
             url: '../Memorandum/memorandum' });
 
-        }, 1200);
+        }, 800);
       } });
 
   } };exports.default = _default;

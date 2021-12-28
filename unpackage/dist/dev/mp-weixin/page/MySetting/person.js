@@ -170,18 +170,23 @@ var _default =
   },
   onLoad: function onLoad(option) {
     var that = this;
+    var data = {
+      _id: option.ID };
+
+    console.log('peron', option.ID);
     uni.request({
-      url: 'http://120.76.138.164:3000/user/queryUserById?data=' + option.ID }).
+      url: 'http://120.76.138.164:3000/user/queryUserById',
+      data: data }).
 
     then(function (data) {var _data = _slicedToArray(
       data, 2),err = _data[0],res = _data[1];
       console.log(res);
-      that.person.headImg = res.data.data[0].HeadImg;
+      that.person.headImg = res.data.data.HeadImg;
       that.person.ID = option.ID.slice(-6);
-      if (res.data.data[0].Sex == 'man') that.person.sex = '男';else
+      if (res.data.data.Sex == 'man') that.person.sex = '男';else
       that.person.sex = '女';
-      that.person.motto = res.data.data[0].motto;
-      that.person.name = res.data.data[0].Name;
+      that.person.motto = res.data.data.motto;
+      that.person.name = res.data.data.Name;
     });
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

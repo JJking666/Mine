@@ -96,7 +96,7 @@ var components
 try {
   components = {
     jinEdit: function() {
-      return Promise.all(/*! import() | components/jin-edit/jin-edit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/jin-edit/jin-edit")]).then(__webpack_require__.bind(null, /*! @/components/jin-edit/jin-edit.vue */ 316))
+      return Promise.all(/*! import() | components/jin-edit/jin-edit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/jin-edit/jin-edit")]).then(__webpack_require__.bind(null, /*! @/components/jin-edit/jin-edit.vue */ 330))
     }
   }
 } catch (e) {
@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var myNav = function myNav() {__webpack_require__.e(/*! require.ensure | components/myNav */ "components/myNav").then((function () {return resolve(__webpack_require__(/*! ../../components/myNav.vue */ 323));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var myNav = function myNav() {__webpack_require__.e(/*! require.ensure | components/myNav */ "components/myNav").then((function () {return resolve(__webpack_require__(/*! ../../components/myNav.vue */ 337));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -237,14 +237,14 @@ __webpack_require__.r(__webpack_exports__);
 
       stickArray: [],
       stickerArray: [],
-      backgroundImgArray: [],
-      feelArray: [],
-      weatherArray: [],
+      backgroundImgArray: [{ "_id": "61a77a5309de386fef91088b", "bkImgNumber": 1, "bkImgName": "粉色夏日", "bkImgPath": "../../static/img/bkImg/bk1.jpg", "__v": 0 }, { "_id": "61a77bf66d1c1d1e7077f12d", "bkImgNumber": 2, "bkImgName": "碧水中月", "bkImgPath": "../../static/img/bkImg/bk2.jpg" }, { "_id": "61a77bf66d1c1d1e7077f12e", "bkImgNumber": 3, "bkImgName": "闲逸吉他", "bkImgPath": "../../static/img/bkImg/bk3.jpg" }, { "_id": "61a77bf66d1c1d1e7077f12f", "bkImgNumber": 4, "bkImgName": "落日阳台", "bkImgPath": "../../static/img/bkImg/bk4.jpg" }, { "_id": "61a77bf66d1c1d1e7077f130", "bkImgNumber": 5, "bkImgName": "草莓与花", "bkImgPath": "../../static/img/bkImg/bk5.jpg" }, { "_id": "61a77bf66d1c1d1e7077f131", "bkImgNumber": 6, "bkImgName": "熊熊开门", "bkImgPath": "../../static/img/bkImg/bk6.jpg" }, { "_id": "61a77bf66d1c1d1e7077f132", "bkImgNumber": 7, "bkImgName": "动物狂欢", "bkImgPath": "../../static/img/bkImg/bk7.jpg" }], //背景总数据
+      feelArray: [{ "_id": "61c2e347bc1e29458db599c0", "feelNumber": 0, "feelName": "生气", "feelPath": "../../static/img/feel/angry.png" }, { "_id": "61c2e347bc1e29458db599c1", "feelNumber": 1, "feelName": "快乐", "feelPath": "../../static/img/feel/cool.png" }, { "_id": "61c2e347bc1e29458db599c2", "feelNumber": 2, "feelName": "哭泣", "feelPath": "../../static/img/feel/cry.png" }, { "_id": "61c2e347bc1e29458db599c3", "feelNumber": 3, "feelName": "郁闷", "feelPath": "../../static/img/feel/injury.png" }, { "_id": "61c2e347bc1e29458db599c4", "feelNumber": 4, "feelName": "甜蜜", "feelPath": "../../static/img/feel/kiss.png" }, { "_id": "61c2e347bc1e29458db599c5", "feelNumber": 5, "feelName": "难过", "feelPath": "../../static/img/feel/sad.png" }, { "_id": "61c2e347bc1e29458db599c6", "feelNumber": 6, "feelName": "睡觉", "feelPath": "../../static/img/feel/sleeping.png" }], //心情总数据
+      weatherArray: [{ "_id": "61c2e71abc1e29458db599c7", "weatherNumber": 0, "weatherName": "晴日", "weatherPath": "../../static/img/weather/qingtian.png" }, { "_id": "61c2e71abc1e29458db599c8", "weatherNumber": 1, "weatherName": "多云", "weatherPath": "../../static/img/weather/shaoyun.png" }, { "_id": "61c2e71abc1e29458db599c9", "weatherNumber": 2, "weatherName": "小雨", "weatherPath": "../../static/img/weather/baoyu.png" }, { "_id": "61c2e71abc1e29458db599ca", "weatherNumber": 3, "weatherName": "雷雨", "weatherPath": "../../static/img/weather/leizhenyu.png" }, { "_id": "61c2e71abc1e29458db599cb", "weatherNumber": 4, "weatherName": "小雪", "weatherPath": "../../static/img/weather/daxue.png" }, { "_id": "61c2e71abc1e29458db599cc", "weatherNumber": 5, "weatherName": "雾", "weatherPath": "../../static/img/weather/wu.png" }, { "_id": "61c2e71abc1e29458db599cd", "weatherNumber": 6, "weatherName": "雷阵雨", "weatherPath": "../../static/img/weather/tedazhenyu.png" }], //天气总数据
       bkindex: 0,
       bkPath: ['粉色夏日', '碧水中月', '闲逸吉他', '落日阳台', '草莓与花', '熊熊开门', '动物狂欢'],
       tzindex: 0,
       tzPath: ['小海豚', '花儿朵', '赤兔儿', '小脑虎', '大蘑菇', '小牛宝', '大螃蟹', '仙人掌', '栅栏儿', '猪宝宝'],
-      jinzindex: 0,
+      jinzindex: 999,
       wtindex: 0,
       weatherarray: ['晴日', '多云', '小雨', '雷雨', '小雪', '雾', '雷阵雨'],
       feelindex: 0,
@@ -350,8 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 
         then(function (data) {var _data = _slicedToArray(
           data, 2),err1 = _data[0],res1 = _data[1];
-          var result = res1.data.data;
-          console.log(result);
+          var result = res1.data.data || [];
           uni.switchTab({
             url: '../HandAccount/handAccount' });
 
@@ -374,8 +373,10 @@ __webpack_require__.r(__webpack_exports__);
     var that = this;
     uni.onKeyboardHeightChange(function (res) {
       that.jpheight = res.height;
+      console.log('jin', that.jpheight);
     });
     uni.$on('editOk', that.getRes);
+
     uni.getStorage({
       key: "UserID",
       success: function success(res) {
@@ -388,12 +389,19 @@ __webpack_require__.r(__webpack_exports__);
 
         then(function (data) {var _data2 = _slicedToArray(
           data, 2),err1 = _data2[0],res1 = _data2[1];
-          var result = res1.data.data;
+          var result = res1.data.data || [];
           console.log(result);
-          that.feelArray = result.feels;
-          that.stickerArray = result.stickers;
-          that.weatherArray = result.weathers;
-          that.backgroundImgArray = result.backgroundImgs;
+          that.feelArray = result.feels || [];
+          that.stickerArray = result.stickers || [];
+          that.weatherArray = result.weathers || [];
+          that.backgroundImgArray = [];
+          result.backgroundImgs.forEach(function (item) {
+            var bkArray = {};
+            bkArray.bkImgName = item.bkImgName;
+            bkArray.bkImgNumber = item.bkImgNumber;
+            bkArray.bkImgPath = item.bkImgPath || '';
+            that.backgroundImgArray.push(bkArray);
+          });
           that.creationData.Date = that.date;
         });
       } });

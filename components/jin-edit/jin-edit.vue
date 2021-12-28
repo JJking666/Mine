@@ -12,20 +12,22 @@
 			:show-img-resize="true"
 			@ready="onEditorReady"
 			id="editor"
-			@statuschange="statuschange"
-			@focus="editFocus" 
+			adjust-position="false"
+			:fucos="isfocus"
+			@statuschange="statuschange" 
 			@blur="editBlur"
+			@focus="editFocus()"
 			ref="editot"
 		></editor>   
 		<!-- 操作工具 --><!-- //修改 -->
 		<view class="tool-view" v-show="jpheight>0?true:false" :style="{bottom:jpheight+'px'}" ><!-- v-show="jpheight>0?true:false" -->
-			<view class="tool">
+			<view class="tool" >
 				<jinIcon class="single" type="&#xe6f3;" font-size="44rpx" title="插入图片" @click="insertImage"></jinIcon>
 				<jinIcon class="single" type="&#xe6f9;" font-size="44rpx" title="修改文字样式" @click="showMore" :color="showMoreTool ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6eb;" font-size="44rpx" title="分割线" @click="insertDivider"></jinIcon>
 				<jinIcon class="single" type="&#xe6e8;" font-size="44rpx" title="撤销" @click="undo"></jinIcon>
 				<jinIcon class="single" type="&#xe705;" font-size="44rpx" title="重做" @click="redo"></jinIcon>
-				<jinIcon class="single" type="&#xeb8a;" font-size="44rpx" title="设置" @click="showSetting"></jinIcon>
+				<jinIcon class="single" type="&#xeb8a;" font-size="44rpx" title="设置" @tap.stop="showSetting()"></jinIcon>
 			</view>
 			<!-- 文字相关操作 --><!-- //修改 -->
 			<view class="font-more" :style="{ height: true ? '100rpx' : 0 }"> <!-- :style="{ height: true ? '100rpx' : 0 }" -->
@@ -36,7 +38,6 @@
 				<jinIcon class="single" type="&#xe6f1;" font-size="44rpx" title="居中" @click="setCenter" :color="showCenter ? activeColor : '#666666'"></jinIcon>
 				<jinIcon class="single" type="&#xe6ed;" font-size="44rpx" title="居右" @click="setRight" :color="showRight ? activeColor : '#666666'"></jinIcon>
 			</view>
-			<view class="setting-layer-mask" v-if="showSettingLayer" @click="showSetting"></view>
 			<view class="setting-layer" v-if="showSettingLayer">
 				<view class="single" @click="release(true)">
 					<jinIcon class="icon" type="&#xe639;" ></jinIcon>
@@ -107,6 +108,7 @@ export default {
 	},
 	data() {
 		return {
+			isfocus:true,
 			showMoreTool: false,
 			showBold: false,
 			showItalic: false,
@@ -247,13 +249,20 @@ export default {
 			this.showRight = !this.showRight;
 			this.editorCtx.format('align', this.showRight ? 'right' : false);
 		},
-		showSetting() {
+		showSetting(e) {
 			this.showSettingLayer = !this.showSettingLayer;
+			e.preventDefault();
+			
+			// const query = uni.createSelectorQuery().in(this);
+			// query.select('#editot').boundingClientRect(data => {
+			//   console.log(query,data)
+			// }).exec();
 		},//修改
 		editFocus(e) {
-
+			this.isfocus=true
 		},//修改
 		editBlur() {
+			this.isfocus=false
 		},
 		release(isPublic) {
 			this.showSettingLayer = false;

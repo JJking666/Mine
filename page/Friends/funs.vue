@@ -36,7 +36,7 @@
 			}
 		},
 		methods: {
-			addFriend(){
+			addFriend(id){
 				let that =this
 				let data = {
 					UserID:this.ID,
@@ -63,10 +63,10 @@
 							console.log('f',res1)
 							let friend={}
 							friend.status=1
-							friend.id = res1.data.data[0]._id
-							friend.headImg = res1.data.data[0].HeadImg
-							friend.name = res1.data.data[0].Name
-							friend.sex = res1.data.data[0].Sex
+							friend.id = res1.data.data._id
+							friend.headImg = res1.data.data.HeadImg
+							friend.name = res1.data.data.Name
+							friend.sex = res1.data.data.Sex
 							console.log(friend)
 							that.friends.push(friend)
 						})

@@ -130,35 +130,35 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ 138));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var _default =
 {
   data: function data() {
     return {
@@ -172,6 +172,20 @@ var _default =
 
   },
   methods: {
+    gotoLookFriend: function gotoLookFriend(id, status) {
+      uni.navigateTo({
+        url: './lookFriend?id=' + id + '&status=' + status });
+
+    },
+    gotoLookSomeone: function gotoLookSomeone(id) {
+      var friend = this.selectPeople.filter(function (item) {
+        return item._id == id;
+      });
+      friend = _qs.default.stringify(friend[0]);
+      uni.navigateTo({
+        url: './lookSomeone?friend=' + friend });
+
+    },
     select: function select() {var _this = this;
       var that = this;
 
@@ -198,7 +212,7 @@ var _default =
 
           that.selectPeople = data[1].data.data;
           that.selectPeople.forEach(function (item) {
-            item.Name = item.Name.replace(that.inputValue, "<span style=\"color: grey\">".concat(
+            item.Name = item.Name.replace(that.inputValue, "<span style=\"color: red\">".concat(
             _this.inputValue, "</span>"));
           });
         });
@@ -206,34 +220,34 @@ var _default =
     },
     addFriend: function addFriend(id) {
       var that = this;
-      var data = {
+      var data1 = {
         UserID: this.ID,
         PeopleID: id };
 
-      data = this.$qs.parse(data);
       uni.request({
         url: 'http://120.76.138.164:3000/relationship/addRelationship',
-        data: data }).
+        data: data1 }).
 
       then(function (data) {var _data2 = _slicedToArray(
         data, 2),err = _data2[0],res = _data2[1];
         console.log(res, res.data.data.PeopleID);
         if (res.data.data.status == 1) {
-          var _data3 = {
+          var data3 = {
             _id: res.data.data.PeopleID };
 
           uni.request({
             url: 'http://120.76.138.164:3000/user/queryUserById',
-            data: _data3 }).
+            data: data3 }).
 
-          then(function (data) {var _data4 = _slicedToArray(
-            data, 2),err = _data4[0],res1 = _data4[1];
+          then(function (data) {var _data3 = _slicedToArray(
+            data, 2),err = _data3[0],res1 = _data3[1];
             var friend = {};
+            console.log(3, res1);
             friend.status = 1;
-            friend.id = res1.data.data[0]._id;
-            friend.headImg = res1.data.data[0].HeadImg;
-            friend.name = res1.data.data[0].Name;
-            friend.sex = res1.data.data[0].Sex;
+            friend.id = res1.data.data._id;
+            friend.headImg = res1.data.data.HeadImg;
+            friend.name = res1.data.data.Name;
+            friend.sex = res1.data.data.Sex;
             console.log(friend);
             that.friends.push(friend);
           });
@@ -274,15 +288,17 @@ var _default =
       deleteFriendID1: this.deleteFriendID1,
       deleteFriendID2: this.deleteFriendID2 };
 
-    console.log(r);
-    var data1 = this.$qs.parse(r);
-    uni.request({
-      url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
-      data: data1 }).
+    if (r.deleteFriendID1.length == 0 && r.deleteFriendID2.length == 0) {
+      return;
+    } else {
+      uni.request({
+        url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
+        data: r }).
 
-    then(function (data) {
-      console.log('ok1');
-    });
+      then(function (data) {
+        console.log('ok1');
+      });
+    }
   },
   onLoad: function onLoad(option) {var _this3 = this;
     var that = this;
@@ -290,31 +306,31 @@ var _default =
       url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
       '{"UserID":"' + option.ID + '","status":[1,2]}' }).
 
-    then(function (data) {var _data5 = _slicedToArray(
-      data, 2),err = _data5[0],res = _data5[1];
+    then(function (data) {var _data4 = _slicedToArray(
+      data, 2),err = _data4[0],res = _data4[1];
       _this3.ID = option.ID;
       // console.log(1,err,res)
-      console.log(res.data.data);
+      // console.log(res.data.data)
       res.data.data.forEach(function (item) {
         var friend = {};
         friend.status = item.status;
-        var data = {
+        var data3 = {
           _id: item.PeopleID };
 
+        console.log(data3);
         uni.request({
           url: 'http://120.76.138.164:3000/user/queryUserById',
-          data: data }).
+          data: data3 }).
 
-        then(function (data) {var _data6 = _slicedToArray(
-          data, 2),err1 = _data6[0],res1 = _data6[1];
-          console.log(2, err1, res1);
-          if (!res1.data.data.length) {
+        then(function (data) {var _data5 = _slicedToArray(
+          data, 2),err1 = _data5[0],res1 = _data5[1];
+          if (!res1.data.data) {
             return;
           } else {
-            friend.id = res1.data.data[0]._id;
-            friend.headImg = res1.data.data[0].HeadImg;
-            friend.name = res1.data.data[0].Name;
-            friend.sex = res1.data.data[0].Sex;
+            friend.id = res1.data.data._id;
+            friend.headImg = res1.data.data.HeadImg;
+            friend.name = res1.data.data.Name;
+            friend.sex = res1.data.data.Sex;
             that.friends.push(friend);
           }
 

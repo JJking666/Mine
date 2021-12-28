@@ -43,6 +43,9 @@
 			}
 		},
 		methods: {
+			switch1Change(){
+				
+			},
 			showPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.showindex = e.target.value

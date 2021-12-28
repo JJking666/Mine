@@ -71,6 +71,7 @@ checkbox {
 }
 .plan .plan-item1 .planHidden {
   transition: all 0.5s ease;
+  overflow: hidden;
 }
 .plan .plan-item1 #date {
   margin: 0 auto;

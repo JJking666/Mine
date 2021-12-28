@@ -63,7 +63,8 @@
 						title: '登录中'
 					})
 					uni.request({
-							url: 'http://120.76.138.164:3000/login?data=' + this.account
+							url: 'http://120.76.138.164:3000/login?data=' + this.account,
+							timeout:3000
 						})
 						.then(data => {
 							var [err, res] = data;
@@ -93,7 +94,15 @@
 								uni.switchTab({
 									url: '../MySetting/mySetting'
 								})
-							}, 1200)
+							}, 800)
+						})
+						.catch(err=>{
+							console.log(err,'超时')
+							uni.hideLoading()
+							uni.showToast({
+								title: '请检查您的网络！',
+								icon: 'none'
+							});
 						})
 				}
 
@@ -116,7 +125,7 @@
 			uni.getStorage({
 				key: "UserAccount",
 				success(res) {
-					console.log(res.data)
+					// console.log(res.data)
 					uni.showLoading({
 						title: '登录中'
 					})
@@ -129,7 +138,7 @@
 						uni.switchTab({
 							url: '../Memorandum/memorandum'
 						})
-					}, 1200)
+					}, 800)
 				}
 			})
 		}

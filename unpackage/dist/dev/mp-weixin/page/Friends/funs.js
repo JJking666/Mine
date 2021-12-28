@@ -168,7 +168,7 @@ var _default =
 
   },
   methods: {
-    addFriend: function addFriend() {
+    addFriend: function addFriend(id) {
       var that = this;
       var data = {
         UserID: this.ID,
@@ -195,10 +195,10 @@ var _default =
             console.log('f', res1);
             var friend = {};
             friend.status = 1;
-            friend.id = res1.data.data[0]._id;
-            friend.headImg = res1.data.data[0].HeadImg;
-            friend.name = res1.data.data[0].Name;
-            friend.sex = res1.data.data[0].Sex;
+            friend.id = res1.data.data._id;
+            friend.headImg = res1.data.data.HeadImg;
+            friend.name = res1.data.data.Name;
+            friend.sex = res1.data.data.Sex;
             console.log(friend);
             that.friends.push(friend);
           });

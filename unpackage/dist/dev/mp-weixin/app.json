@@ -20,7 +20,9 @@
     "page/MySetting/privacy",
     "page/MySetting/medal",
     "page/Friends/friends",
-    "page/Friends/funs"
+    "page/Friends/funs",
+    "page/Friends/lookFriend",
+    "page/Friends/lookSomeone"
   ],
   "subPackages": [],
   "window": {

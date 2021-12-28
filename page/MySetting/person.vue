@@ -38,18 +38,23 @@
 		},
 		onLoad(option) {
 			let that =this
+			let data={
+				_id:option.ID
+			}
+			console.log('peron',option.ID)
 			uni.request({
-				url:'http://120.76.138.164:3000/user/queryUserById?data='+option.ID
+				url: 'http://120.76.138.164:3000/user/queryUserById',
+				data:data
 			})
 			.then(data=>{
 				let [err,res]=data
 				console.log(res)
-				that.person.headImg=res.data.data[0].HeadImg
+				that.person.headImg=res.data.data.HeadImg
 				that.person.ID = option.ID.slice(-6)
-				if(res.data.data[0].Sex == 'man')that.person.sex='男'
+				if(res.data.data.Sex == 'man')that.person.sex='男'
 				else that.person.sex='女'
-				that.person.motto = res.data.data[0].motto
-				that.person.name = res.data.data[0].Name
+				that.person.motto = res.data.data.motto
+				that.person.name = res.data.data.Name
 			})
 		}
 	}

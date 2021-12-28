@@ -27,8 +27,34 @@
       "list": []
     },
     "miniprogram": {
-      "current": -1,
-      "list": []
+      "current": 0,
+      "list": [
+        {
+          "name": "main",
+          "id": 0,
+          "pathName": "page/HandAccount/handAccount"
+        },
+        {
+          "name": "好友",
+          "id": 1,
+          "pathName": "page/MySetting/mySetting"
+        },
+        {
+          "name": "创作",
+          "id": 2,
+          "pathName": "page/Creation/creation"
+        },
+        {
+          "name": "looks",
+          "id": 3,
+          "pathName": "page/Friends/lookSomeone"
+        },
+        {
+          "name": "lookf",
+          "id": 4,
+          "pathName": "page/Friends/lookFriend"
+        }
+      ]
     }
   }
 }

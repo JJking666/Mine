@@ -175,6 +175,9 @@ var _default =
 
   },
   methods: {
+    switch1Change: function switch1Change() {
+
+    },
     showPickerChange: function showPickerChange(e) {
       console.log('picker发送选择改变，携带值为', e.target.value);
       this.showindex = e.target.value;

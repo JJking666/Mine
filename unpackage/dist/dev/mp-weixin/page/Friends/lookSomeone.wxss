@@ -1,0 +1,209 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 2vh;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #a7dab9;
+  padding: 2vw 2vw;
+  box-sizing: border-box;
+  border: 1rpx solid #A5A5A5;
+}
+.create image {
+  width: 11vw;
+  height: 11vw;
+  size: 100%;
+}
+.home {
+  overflow: hidden;
+  width: 750rpx;
+  height: 100vh;
+  background-color: #3F536E;
+  position: relative;
+}
+.home .home-bk {
+  z-index: -1;
+  width: 750rpx;
+  height: 100vh;
+  -webkit-filter: blur(8px);
+          filter: blur(8px);
+}
+.home .home-add {
+  padding-top: 100rpx;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.home .home-add .someMedals {
+  width: 58vw;
+  height: -webkit-fit-content;
+  height: fit-content;
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+}
+.home .home-add .someMedals image {
+  display: inline-block;
+  width: 8vw;
+  height: 8vw;
+  size: 100%;
+  margin-left: 2vw;
+}
+.home .home-add .someMedals image:nth-of-type(1) {
+  display: inline-block;
+  width: 8vw;
+  height: 8vw;
+  size: 100%;
+  margin-left: 0vw;
+}
+.home .home-add .someNumber {
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.5vh;
+  color: white;
+}
+.home .home-add .someNumber > text:nth-of-type(1) {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.home .home-add .someNumber > text:nth-of-type(1)::after {
+  content: '获赞';
+  margin-left: 2vw;
+  font-size: 28rpx;
+}
+.home .home-add .someNumber > text:nth-of-type(2) {
+  margin-left: 7vw;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.home .home-add .someNumber > text:nth-of-type(2)::after {
+  content: '关注';
+  margin-left: 2vw;
+  font-size: 28rpx;
+}
+.home .home-add .someNumber text:nth-of-type(3) {
+  margin-left: 7vw;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.home .home-add .someNumber text:nth-of-type(3)::after {
+  content: '粉丝';
+  margin-left: 2vw;
+  font-size: 28rpx;
+}
+.home .home-add text {
+  z-index: 100;
+  margin-top: 30rpx;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  font-size: 30rpx;
+  text-align-last: center;
+}
+.home .home-add .home-add-btn {
+  position: absolute;
+  left: 15vw;
+  bottom: 5vh;
+  width: 70vw;
+  height: 100rpx;
+  background-color: #9690ed;
+  border-radius: 3%;
+}
+.home .home-add .home-add-md {
+  z-index: 999;
+  width: 300rpx;
+  height: 300rpx;
+  position: relative;
+  border: 1rpx solid #F8F8F8;
+  border-radius: 15rpx;
+  box-shadow: 0rpx 5rpx 5rpx 5rpx #1a2122;
+  margin-top: -200rpx;
+}
+.home .home-add .home-add-md image:nth-child(1) {
+  width: 100%;
+  height: 100%;
+}
+.home .home-add .home-add-md image:nth-child(2) {
+  position: absolute;
+  right: 10rpx;
+  bottom: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.home .home-send {
+  overflow: hidden;
+  z-index: 555;
+  position: absolute;
+  left: 5vw;
+  top: 35vh;
+  width: 90vw;
+  height: 56vh;
+  background-color: #ed8e8e;
+  border-radius: 3%;
+  display: flex;
+  flex-direction: column;
+  -webkit-transform: translateY(66vh);
+          transform: translateY(66vh);
+}
+.home .home-send .home-send-md {
+  width: 90vw;
+  background-color: #ed8e8e;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.home .home-send .home-send-md text {
+  margin-left: 8vw;
+  margin-top: 30rpx;
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.home .home-send .home-send-md textarea {
+  margin-left: 5vw;
+  width: 75vw;
+  margin: 0px auto;
+  margin-top: 30rpx;
+  padding: 25rpx;
+  background-color: #dc5030;
+  color: #F8F8F8;
+}
+.home .home-send .home-send-btn {
+  position: absolute;
+  width: 86vw;
+  bottom: 3vh;
+  left: 2vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.home .home-send .home-send-btn button {
+  width: 70vw;
+  height: 100rpx;
+  background-color: #f1e989;
+  border-radius: 3%;
+}
+

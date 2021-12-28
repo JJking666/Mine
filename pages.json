@@ -33,6 +33,9 @@
 			"path": "page/HandAccount/handAccount",
 			"style": {
 				"navigationBarTitleText": "手账"
+				// "app-plus": {
+				// 	"softinputMode": "adjustResize"
+				// 	}
 				}
 			},{
 			"path": "page/Community/community",
@@ -114,8 +117,19 @@
 			"style": {
 				"navigationBarTitleText": "粉丝"
 				}
+			},{
+            "path" : "page/Friends/lookFriend",
+            "style" : {
+                "navigationBarTitleText": "好友信息",
+                "enablePullDownRefresh": false
+				}
+			},{
+			"path": "page/Friends/lookSomeone",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+				}
 			}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uView",
@@ -143,44 +157,32 @@
 	        "selectedIconPath": "./static/uview/common/logo.png",
 	        "text": "设置"
 	    }]	
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式（list 的索引项）
+		"list": [{
+		        "name": "main", //模式名称
+		        "path": "page/HandAccount/handAccount" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "好友", //模式名称
+		        "path": "page/MySetting/mySetting" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "创作", //模式名称
+		        "path": "page/Creation/creation" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "looks", //模式名称
+		        "path": "page/Friends/lookSomeone" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "lookf", //模式名称
+		        "path": "page/Friends/lookFriend" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    }
+		]
 	}
-	// "condition": { //模式配置，仅开发期间生效
-	// 	"current": 0, //当前激活的模式（list 的索引项）
-	// 	"list": [{
-	// 	        "name": "main", //模式名称
-	// 	        "path": "page/HandAccount/handAccount" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    },{
-	// 	        "name": "创作", //模式名称
-	// 	        "path": "page/Creation/creation" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    },{
-	// 	        "name": "funs", //模式名称
-	// 	        "path": "page/Friends/funs" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    },{
-	// 	        "name": "record", //模式名称
-	// 	        "path": "page/Memorandum/record" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    },{
-	// 	        "name": "setting", //模式名称
-	// 	        "path": "page/MySetting/mySetting" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    },{
-	// 	        "name": "Create", //模式名称
-	// 	        "path": "page/Creation/creation" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    },{
-	// 	        "name": "Demo", //模式名称
-	// 	        "path": "page/demo" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    },{
-	// 	        "name": "GO", //模式名称
-	// 	        "path": "page/Memorandum/memorandum" //启动页面，必选
-	// 	        //"query": "" //启动参数，在页面的onLoad函数里面得到。
-	// 	    }
-	// 	]
-	// }
 	// "subPackages": [{
 	// 	"root": "pages/componentsA",
 	// 	"pages": [

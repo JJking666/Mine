@@ -1,13 +1,20 @@
 <template>
 	<view class="handAccount">
-		<swiper class="swiper-hor" easing-function="easeOutCubic" circular :interval="interval" 
+		<view id="nothing" v-if="handAccountData.length==0"> 
+			<image src="../../static/img/bkImg/bk6.jpg" mode=""></image>
+			<text>快来发布些手账吧</text>
+			<image src="../../static/img/more/biaoqianA01_biji-94.png" mode="" @tap="gotoCreation"></image>
+			<text>添加些好友呀</text>
+			<image src="../../static/img/more/xiangkan.png" mode="" @tap="gotoFriend"></image>
+		</view>
+		<swiper class="swiper-hor" easing-function="easeOutCubic" circular :interval="interval" v-if="handAccountData.length!=0"
 			:duration="duration">
 			<swiper-item id="s1" v-for="(item0,index0) in handAccountData" :key="parseInt(index0+1000)">
 				<swiper class="swiper-ver" easing-function="easeOutCubic" circular vertical=true 
 					:interval="interval" :duration="duration">
 					<swiper-item id="s11" v-for="(item,index) in item0" :key="index">
 						<view class="swiper-ver-nav" @tap="showOpioion" >
-							<image :src="FriendArray[index0].headImg" mode=""></image>
+							<image :src="FriendArray!=[]?FriendArray[index0].headImg:'../../static/img/icon.jpg'" mode=""></image>
 							<text>{{FriendArray[index0].name}}</text>
 							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
 						</view>
@@ -68,6 +75,7 @@
 </template>
 
 <script>
+	import Qs from 'qs'
 	export default {
 		data() {
 			const currentDate = this.getDate({
@@ -75,7 +83,7 @@
 			})
 			return {
 				id:'',
-				handAccountData:[[{"_id":"61c5c5f2f2b5251ee583f22a","UserID":"61a57f00e4a7438b252b1635","bkImgNumber":4,"Text":"<p>你好，帅哥马崇濠</p><p>你是我的阳光</p>","Date":"2021-12-24T00:00:00.000Z","Weather":0,"Feel":0,"Public":true,"stickerImg":["../../static/img/tzIcon/ma.png","../../static/img/tzIcon/laohu.png","../../static/img/tzIcon/mogu.png","../../static/img/tzIcon/pangxie.png"],"stickerImgx":[0,244.7,11.1,216.7],"stickerImgy":[469,25.9,115.9,120.9],"stickerImgs":[1,1,1,1],"__v":0},{"_id":"61c5c8aadfba82c4d695a2d3","UserID":"61a57f00e4a7438b252b1635","bkImgNumber":6,"Text":"<p>阳光明媚呀</p>","Date":"2021-12-24T00:00:00.000Z","Weather":2,"Feel":1,"Public":true,"stickerImg":["../../static/img/tzIcon/ma.png","../../static/img/tzIcon/mogu.png","../../static/img/tzIcon/pangxie.png","../../static/img/tzIcon/xianrenzhang.png"],"stickerImgx":[27.8,265.2,127.6,9.8],"stickerImgy":[419,116.9,213,275.8],"stickerImgs":[1,1,1,1],"__v":0}],[{"_id":"61c424ebbad38c4f0726cbd4","UserID":"61a488a32be844636ac72344","bkImgNumber":2,"Text":"<p>今天天气真不错</p>","Date":"2021-12-23T00:00:00.000Z","Weather":2,"Feel":1,"Public":true,"stickerImg":["../../static/img/tzIcon/ma.png","../../static/img/tzIcon/laohu.png","../../static/img/tzIcon/mogu.png"],"stickerImgx":[0,113.6,237.6],"stickerImgy":[470.6,470.6,468.1],"stickerImgs":[1,1,1],"__v":0},{"_id":"61c425a2bad38c4f0726cbde","UserID":"61a488a32be844636ac72344","bkImgNumber":5,"Text":"<p>蔡艺说她想挨打</p>","Date":"2021-12-23T00:00:00.000Z","Weather":0,"Feel":1,"Public":true,"stickerImg":["../../static/img/tzIcon/laohu.png","../../static/img/tzIcon/mogu.png","../../static/img/tzIcon/pangxie.png"],"stickerImgx":[251.9,256.4,7.2],"stickerImgy":[117.4,21.7,237.7],"stickerImgs":[1,1,1],"__v":0},{"_id":"61c42657bad38c4f0726cbe4","UserID":"61a488a32be844636ac72344","bkImgNumber":5,"Text":"<p>蔡老头出来挨打！</p>","Date":"2021-12-23T00:00:00.000Z","Weather":0,"Feel":1,"Public":true,"stickerImg":["../../static/img/tzIcon/laohu.png","../../static/img/tzIcon/mogu.png","../../static/img/tzIcon/pangxie.png"],"stickerImgx":[251.9,256.4,7.2],"stickerImgy":[117.4,21.7,237.7],"stickerImgs":[1,1,1],"__v":0},{"_id":"61c42657bad38c4f0726cbe6","UserID":"61a488a32be844636ac72344","bkImgNumber":6,"Text":"<p>蔡艺的狗头，我收下了！</p>","Date":"2021-12-23T00:00:00.000Z","Weather":0,"Feel":4,"Public":true,"stickerImg":["../../static/img/tzIcon/hua3.png","../../static/img/tzIcon/zhalan.png","../../static/img/tzIcon/zhalan.png","../../static/img/tzIcon/zhalan.png","../../static/img/tzIcon/zhalan.png","../../static/img/tzIcon/pangxie.png"],"stickerImgx":[1.6,0,86.6,170.8,259.8,218.5],"stickerImgy":[256.2,462.7,461.6,461.1,460.6,83.6],"stickerImgs":[1,1,1,1,1,1],"__v":0}]],//手账数据
+				handAccountData:[],
 				stickerArray:[{"_id":"61a788c57533c4e420813108","stickerNumber":1,"stickerName":"海豚","stickerPath":"../../static/img/tzIcon/haitun.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf7f","stickerNumber":2,"stickerName":"花儿","stickerPath":"../../static/img/tzIcon/hua3.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf81","stickerNumber":4,"stickerName":"赤兔","stickerPath":"../../static/img/tzIcon/ma.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf80","stickerNumber":3,"stickerName":"小脑虎","stickerPath":"../../static/img/tzIcon/laohu.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf82","stickerNumber":5,"stickerName":"大蘑菇","stickerPath":"../../static/img/tzIcon/mogu.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf83","stickerNumber":6,"stickerName":"牛宝","stickerPath":"../../static/img/tzIcon/niu.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf84","stickerNumber":7,"stickerName":"大螃蟹","stickerPath":"../../static/img/tzIcon/pangxie.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf85","stickerNumber":8,"stickerName":"仙人掌","stickerPath":"../../static/img/tzIcon/xianrenzhang.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf86","stickerNumber":9,"stickerName":"栅栏","stickerPath":"../../static/img/tzIcon/zhalan.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf87","stickerNumber":10,"stickerName":"猪宝宝","stickerPath":"../../static/img/tzIcon/zhu.png","__v":0}],//贴纸总数据
 				backgroundImgArray:[{"_id":"61a77a5309de386fef91088b","bkImgNumber":1,"bkImgName":"粉色夏日","bkImgPath":"../../static/img/bkImg/bk1.jpg","__v":0},{"_id":"61a77bf66d1c1d1e7077f12d","bkImgNumber":2,"bkImgName":"碧水中月","bkImgPath":"../../static/img/bkImg/bk2.jpg"},{"_id":"61a77bf66d1c1d1e7077f12e","bkImgNumber":3,"bkImgName":"闲逸吉他","bkImgPath":"../../static/img/bkImg/bk3.jpg"},{"_id":"61a77bf66d1c1d1e7077f12f","bkImgNumber":4,"bkImgName":"落日阳台","bkImgPath":"../../static/img/bkImg/bk4.jpg"},{"_id":"61a77bf66d1c1d1e7077f130","bkImgNumber":5,"bkImgName":"草莓与花","bkImgPath":"../../static/img/bkImg/bk5.jpg"},{"_id":"61a77bf66d1c1d1e7077f131","bkImgNumber":6,"bkImgName":"熊熊开门","bkImgPath":"../../static/img/bkImg/bk6.jpg"},{"_id":"61a77bf66d1c1d1e7077f132","bkImgNumber":7,"bkImgName":"动物狂欢","bkImgPath":"../../static/img/bkImg/bk7.jpg"}],//背景总数据
 				feelArray:[{"_id":"61c2e347bc1e29458db599c0","feelNumber":0,"feelName":"生气","feelPath":"../../static/img/feel/angry.png"},{"_id":"61c2e347bc1e29458db599c1","feelNumber":1,"feelName":"快乐","feelPath":"../../static/img/feel/cool.png"},{"_id":"61c2e347bc1e29458db599c2","feelNumber":2,"feelName":"哭泣","feelPath":"../../static/img/feel/cry.png"},{"_id":"61c2e347bc1e29458db599c3","feelNumber":3,"feelName":"郁闷","feelPath":"../../static/img/feel/injury.png"},{"_id":"61c2e347bc1e29458db599c4","feelNumber":4,"feelName":"甜蜜","feelPath":"../../static/img/feel/kiss.png"},{"_id":"61c2e347bc1e29458db599c5","feelNumber":5,"feelName":"难过","feelPath":"../../static/img/feel/sad.png"},{"_id":"61c2e347bc1e29458db599c6","feelNumber":6,"feelName":"睡觉","feelPath":"../../static/img/feel/sleeping.png"}],//心情总数据
@@ -124,6 +132,16 @@
 			}
 		},
 		methods: {
+			gotoCreation(){
+				uni.navigateTo({
+					url:'../Creation/creation'
+				})
+			},
+			gotoFriend(){
+				uni.navigateTo({
+					url:'../Friends/friends'
+				})
+			},
 			getScale(s){
 				return `transform:scale(${s})`
 			},
@@ -132,6 +150,7 @@
 			            this.old.scrollTop = e.detail.scrollTop
 			        },
 			say(){
+				console.log(this.handAccountData)
 				console.log(11)
 			},
 			bindPickerChange: function(e) {
@@ -157,13 +176,7 @@
 				return `${year}-${month}-${day}`;
 			},
 			showOpioion(){
-				
-				// console.log(JSON.stringify(this.handAccountData))
-				// console.log(JSON.stringify(this.stickerArray))
-				// console.log(JSON.stringify(this.backgroundImgArray))
-				// console.log(JSON.stringify(this.feelArray))
-				// console.log(JSON.stringify(this.weatherArray))
-				// console.log(JSON.stringify(this.FriendArray))
+	
 				if(!this.showOp){
 					this.opanimation.height(49+'vh').step()
 					this.showOp=!this.showOp
@@ -186,8 +199,13 @@
 				}).exec()
 			},
 		},
-		onLoad() {
+		onShow() {
+			console.log('show')
 			wx.hideTabBar()
+		},
+		onHide() {
+			console.log('hide')
+			wx.showTabBar()
 		},
 		onReady(){
 			let that =this
@@ -201,108 +219,115 @@
 				key:'UserID',
 				success: (res) => {
 					that.$data.id = res.data
-					let me={
-						_id:this.$data.id
-					}
-					//添加自身
-					uni.request({
-							url: 'http://120.76.138.164:3000/user/queryUserById',
-							data:me
-						})
-						.then(data => {
-							that.handAccountData=[]//手账数据
-							that.stickerArray=[]//贴纸总数据
-							that.backgroundImgArray=[]//背景总数据
-							that.feelArray=[]//心情总数据
-							that.weatherArray=[]//天气总数据
-							that.FriendArray=[]//关注列表数据
-							let [err1, res1] = data
-							console.log(2,err1,res1)
-							let friend = {}
-							friend.id = res1.data.data[0]._id
-							friend.headImg = res1.data.data[0].HeadImg
-							friend.name = res1.data.data[0].Name
-							friend.sex = res1.data.data[0].Sex
-							that.FriendArray.push(friend)
-						})
+					that.handAccountData=[]//手账数据
+					//that.stickerArray=[]//贴纸总数据
+					that.backgroundImgArray=[]//背景总数据
+					that.feelArray=[]//心情总数据
+					that.weatherArray=[]//天气总数据
+					that.FriendArray=[]//关注列表数据
+					//添加自身手账
+					console.log(that.FriendArray)
 					uni.request({
 							url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data='+ this.$data.id
 						})
 						.then(data => {
 							let [err1, res1] = data
 							let result = res1.data.data
+							//若无手账则不添加自身
+							if(result.length==0){return}
 							let handAccount = result
-							handAccount.forEach((item)=>{
-								item.stickerImg = JSON.parse(item.stickerImg[0])
-								item.stickerImgs = JSON.parse(item.stickerImgs[0])
-								item.stickerImgx = JSON.parse(item.stickerImgx[0])
-								item.stickerImgy = JSON.parse(item.stickerImgy[0])
-							})
-							handAccount.filter((item)=>{
+							handAccount = handAccount.filter((item)=>{
 								return item.Public == true
+							}) 
+							handAccount.forEach((item)=>{
+								item.stickerImg = item.stickerImg.toString().split(",")
+								item.stickerImgs = item.stickerImgs.toString().split(",")
+								item.stickerImgx = item.stickerImgx.toString().split(",")
+								item.stickerImgy = item.stickerImgy.toString().split(",")
 							})
 							that.handAccountData.push(handAccount)
-					})
-					uni.request({
+							console.log(3,that.handAccountData)
+							let me={
+								_id:this.$data.id
+							}
+							uni.request({
+									url: 'http://120.76.138.164:3000/user/queryUserById',
+									data:me
+								})
+								.then(data => {
+									
+									let [err1, res1] = data
+									let friend = {}
+									friend.id = res1.data.data._id
+									friend.headImg = res1.data.data.HeadImg||[]
+									friend.name = res1.data.data.Name
+									friend.sex = res1.data.data.Sex
+									that.FriendArray.push(friend)
+							})
+						})
+						uni.request({
 							url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
 								'{"UserID":"' + res.data + '","status":[1,2]}'
 						})
 						.then(data => {
 							let [err, res] = data
 							// console.log(1,err,res)
-							console.log(res.data.data)
 							res.data.data.forEach((item) => {
 								let friend = {}
 								let handAccount=[]
 								friend.status = item.status
-								let data={
-									_id:item.PeopleID
-								}
-								//添加朋友
-								uni.request({
-										url: 'http://120.76.138.164:3000/user/queryUserById',
-										data:data
-									})
-									.then(data => {
-										let [err1, res1] = data
-										console.log(2,err1,res1)
-										friend.id = res1.data.data[0]._id
-										friend.headImg = res1.data.data[0].HeadImg
-										friend.name = res1.data.data[0].Name
-										friend.sex = res1.data.data[0].Sex
-										that.FriendArray.push(friend)
-									})
 								uni.request({
 										url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data='+ item.PeopleID
 									})
-									.then(data => {
+								.then(data => {
 										let [err1, res1] = data
 										let result = res1.data.data
-										handAccount = result
-										handAccount.forEach((item)=>{
-											item.stickerImg = JSON.parse(item.stickerImg[0])
-											item.stickerImgs = JSON.parse(item.stickerImgs[0])
-											item.stickerImgx = JSON.parse(item.stickerImgx[0])
-											item.stickerImgy = JSON.parse(item.stickerImgy[0])
-										})
-										handAccount.filter((item)=>{
+										let handAccount = result
+										if(result.length==0)return 
+								
+										handAccount = handAccount.filter((item)=>{
 											return item.Public == true
 										})
+										handAccount.forEach((item)=>{
+											item.stickerImg = item.stickerImg.toString().split(",")
+											item.stickerImgs = item.stickerImgs.toString().split(",")
+											item.stickerImgx = item.stickerImgx.toString().split(",")
+											item.stickerImgy = item.stickerImgy.toString().split(",")
+										})
 										that.handAccountData.push(handAccount)
-								})
+										console.log(that.handAccountData)
+										//添加朋友
+										let data4={
+											_id:item.PeopleID
+										}
+										uni.request({
+												url: 'http://120.76.138.164:3000/user/queryUserById',
+												data:data4
+											})
+											.then(data => {
+												let [err1, res4] = data
+												friend.id = res4.data.data._id
+												friend.headImg = res4.data.data.HeadImg	|| []
+												friend.name = res4.data.data.Name
+												friend.sex = res4.data.data.Sex
+												that.FriendArray.push(friend)
+												console.log(that.FriendArray)
+											})
+								})	
 							})
 						})
+					
+					
 					uni.request({
 							url: 'http://120.76.138.164:3000/creation/getCreationInfo'
 						})
 						.then(data => {
 							let [err1, res1] = data
 							let result = res1.data.data
-							console.log(result)
-							that.feelArray = result.feels
-							that.stickerArray = result.stickers
-							that.weatherArray = result.weathers
-							that.backgroundImgArray = result.backgroundImgs
+							that.feelArray = result.feels||[]
+							// that.stickerArray = result.stickers||[]
+							that.weatherArray = result.weathers||[]
+							that.backgroundImgArray = result.backgroundImgs||[]
 					})
 				}
 			})
@@ -321,6 +346,37 @@
 	.uni-app--showleftwindow + .uni-tabbar-bottom {
 	        display: none;
 	    }
+	#nothing{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		height: 100vh;
+		width: 100vw;
+		&>text{
+			    z-index: 9;
+			    font-size: larger;
+			    font-weight: 600;
+		}
+		&>image{
+			margin-top: 1vh;
+			z-index: 9;
+			width: 7vh;
+			height: 7vh;
+			object-fit: cover;
+		}
+		&>image:nth-of-type(1){
+			position: absolute;
+			margin-top: 0vh;
+			z-index: 0;
+			top: 0;
+			left: 0;
+			height: inherit;
+			width: inherit;
+			object-fit: cover;
+		}
+	}
 	.handAccount {
 		height: 100vh;
 		width: 100vw;

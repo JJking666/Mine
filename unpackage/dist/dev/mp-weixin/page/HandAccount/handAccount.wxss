@@ -32,6 +32,37 @@ editor {
 .uni-app--showleftwindow + .uni-tabbar-bottom {
   display: none;
 }
+#nothing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+#nothing > text {
+  z-index: 9;
+  font-size: larger;
+  font-weight: 600;
+}
+#nothing > image {
+  margin-top: 1vh;
+  z-index: 9;
+  width: 7vh;
+  height: 7vh;
+  object-fit: cover;
+}
+#nothing > image:nth-of-type(1) {
+  position: absolute;
+  margin-top: 0vh;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: inherit;
+  object-fit: cover;
+}
 .handAccount {
   height: 100vh;
   width: 100vw;

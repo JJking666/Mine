@@ -67,8 +67,8 @@
 			.then(data=>{
 				let [err,res]=data
 				that.itemData[0].right = option.ID.slice(-6)
-				that.itemData[1].right =res.data.data[0].Phone
-				that.itemData[2].right = res.data.data[0].Email
+				that.itemData[1].right =res.data.data.Phone
+				that.itemData[2].right = res.data.data.Email
 			})
 		}
 	}
