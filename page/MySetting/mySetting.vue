@@ -141,6 +141,7 @@
 		},
 		onShow(){
 			let that =this
+			wx.showTabBar()
 			uni.getStorage({
 				key: "UserAccount",
 				success(res) {

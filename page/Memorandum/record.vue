@@ -20,7 +20,7 @@
 				<image id="deleteImg" @tap=deleteRecord(2,index) src="../../static/img/memorandum/close-bold.png" mode=""></image>
 			</view>
 		</view>
-		<button v-show="!current" class="create" @tap="gotoWriteRecord">
+		<button  class="create" @tap="gotoWriteRecord">
 			<!--  -->
 			<image src="../../static/img/more/add.png"></image>
 		</button>
@@ -175,7 +175,6 @@
 		},
 		onReady() {
 			let that = this
-			uni.$on('contentemit', this.addRecord)
 			let animation1 = uni.createAnimation({
 			    duration: 1000,
 			    timingFunction: 'ease',

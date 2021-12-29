@@ -14,14 +14,14 @@
 					:interval="interval" :duration="duration">
 					<swiper-item id="s11" v-for="(item,index) in item0" :key="index">
 						<view class="swiper-ver-nav" @tap="showOpioion" >
-							<image :src="FriendArray!=[]?FriendArray[index0].headImg:'../../static/img/icon.jpg'" mode=""></image>
+							<image v-if="FriendArray&&FriendArray[index0].headImg" :src="FriendArray[index0].headImg||'../../static/img/icon.jpg'" mode=""></image>
 							<text>{{FriendArray[index0].name}}</text>
 							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
 						</view>
 						<view class="swiper-ver-head">
 							<picker class="date" mode="date" :value="item.Date.slice(0,10)" 
 								@change="bindDateChange">
-								<view class="uni-input">{{workData.date}}</view>
+								<view class="uni-input">{{item.Date.slice(0,10)}}</view>
 							</picker>
 							<image :src="weatherArray[item.Weather].weatherPath" mode=""></image>
 							<image :src="feelArray[item.Feel].feelPath" mode=""></image>
@@ -92,18 +92,6 @@
 				scrollTop: 0,
 				old: {
 				    scrollTop: 0
-				},
-				workData:{
-					date:currentDate,
-					weather:0,
-					feel:0,
-					imgX:0,
-					imgY:0,
-					bkPath:'../../static/img/more/微信图片_20211126111417.jpg',
-					imgPath:'../../static/img/icon.jpg',
-					public:true,
-					imgScale:1,
-					content:"<p>ma</p><h2>喝喝酒</h2>"
 				},
 				opAnimation: {},
 				showOp:false,

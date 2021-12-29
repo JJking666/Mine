@@ -9,7 +9,7 @@
 				<view v-html="item.Name" style="display: inline-block;"></view>
 				<image :src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 					mode=""></image>
-				<button @tap="addFriend(item._id)">关注</button>
+				
 			</view>
 		</view>
 		<view class="content">
@@ -19,7 +19,6 @@
 					<image
 						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 						mode=""></image>
-					<button @tap="cancelFriend(item.id,item.status)">已关注</button>
 			</view>
 		</view>
 	</view>
@@ -45,13 +44,9 @@
 					url:'./lookFriend?id='+id+'&status='+status,
 				})
 			},
-			gotoLookSomeone(id){
-				let friend=this.selectPeople.filter((item)=>{
-					return item._id == id
-				})
-				friend = qs.stringify(friend[0])
+			gotoLookSomeone(id,status){
 				uni.navigateTo({
-					url:'./lookSomeone?friend='+friend,
+					url:'./lookSomeone?id='+id,
 				})
 			},
 			select() {
@@ -129,83 +124,60 @@
 					}
 				})
 			},
-			cancelFriend(id, status) {
-				console.log(id, status)
-				this.friends.forEach((item, index) => {
-					if (item.id == id) {
-						this.friends.splice(index, 1)
-						return
-					}
-				})
-				let r = {
-					UserID: this.ID,
-					PeopleID: id,
-					status: status
+			getInfo(option){
+				let that = this
+				if(option ==null){
+					option.ID = this.ID
 				}
-				if (r.status == 1) {
-					this.deleteFriendID1.push(r)
-				} else {
-					this.deleteFriendID2.push(r)
-				}
-			}
-		},
-		onUnload() {
-			let that = this
-			let r = {
-				UserID: this.ID,
-				deleteFriendID1: this.deleteFriendID1,
-				deleteFriendID2: this.deleteFriendID2
-			}
-			if(r.deleteFriendID1.length == 0 && r.deleteFriendID2.length == 0){
-				return
-			}else{
 				uni.request({
-						url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
-						data: r
+						url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
+							'{"UserID":"' + option.ID + '","status":[1,2]}'
 					})
-					.then((data) => {
-						console.log('ok1')
+					.then(data => {
+						let [err, res] = data
+						that.ID = option.ID
+						console.log(1,err,res)
+						// console.log(res.data.data)
+						res.data.data.forEach((item) => {
+							let friend = {}
+							friend.status = item.status
+							let data3={
+								_id:item.PeopleID
+							}
+							console.log(data3)
+							uni.request({
+									url: 'http://120.76.138.164:3000/user/queryUserById',
+									data:data3
+								})
+								.then(data => {
+									let [err1, res1] = data
+									if(!res1.data.data){
+										return
+									}else{
+										friend.id = res1.data.data._id
+										friend.headImg = res1.data.data.HeadImg
+										friend.name = res1.data.data.Name
+										friend.sex = res1.data.data.Sex
+										that.friends.push(friend)
+									}
+									
+								})
+						})
 					})
 			}
 		},
 		onLoad(option) {
-			let that = this
-			uni.request({
-					url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
-						'{"UserID":"' + option.ID + '","status":[1,2]}'
-				})
-				.then(data => {
-					let [err, res] = data
-					this.ID = option.ID
-					// console.log(1,err,res)
-					// console.log(res.data.data)
-					res.data.data.forEach((item) => {
-						let friend = {}
-						friend.status = item.status
-						let data3={
-							_id:item.PeopleID
-						}
-						console.log(data3)
-						uni.request({
-								url: 'http://120.76.138.164:3000/user/queryUserById',
-								data:data3
-							})
-							.then(data => {
-								let [err1, res1] = data
-								if(!res1.data.data){
-									return
-								}else{
-									friend.id = res1.data.data._id
-									friend.headImg = res1.data.data.HeadImg
-									friend.name = res1.data.data.Name
-									friend.sex = res1.data.data.Sex
-									that.friends.push(friend)
-								}
-								
-							})
-					})
-				})
+			console.log(1)
+			this.getInfo(option)
 		},
+		onShow() {
+			console.log(2)
+			if(this.ID == ''){
+				return 
+			}
+			let option = {}
+			this.getInfo(option)
+		}
 	}
 </script>
 

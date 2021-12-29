@@ -157,7 +157,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ 138));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var _default =
 {
   data: function data() {
@@ -177,13 +176,9 @@ var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ 138));function _i
         url: './lookFriend?id=' + id + '&status=' + status });
 
     },
-    gotoLookSomeone: function gotoLookSomeone(id) {
-      var friend = this.selectPeople.filter(function (item) {
-        return item._id == id;
-      });
-      friend = _qs.default.stringify(friend[0]);
+    gotoLookSomeone: function gotoLookSomeone(id, status) {
       uni.navigateTo({
-        url: './lookSomeone?friend=' + friend });
+        url: './lookSomeone?id=' + id });
 
     },
     select: function select() {var _this = this;
@@ -261,82 +256,59 @@ var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ 138));function _i
         }
       });
     },
-    cancelFriend: function cancelFriend(id, status) {var _this2 = this;
-      console.log(id, status);
-      this.friends.forEach(function (item, index) {
-        if (item.id == id) {
-          _this2.friends.splice(index, 1);
-          return;
-        }
-      });
-      var r = {
-        UserID: this.ID,
-        PeopleID: id,
-        status: status };
-
-      if (r.status == 1) {
-        this.deleteFriendID1.push(r);
-      } else {
-        this.deleteFriendID2.push(r);
+    getInfo: function getInfo(option) {
+      var that = this;
+      if (option == null) {
+        option.ID = this.ID;
       }
-    } },
-
-  onUnload: function onUnload() {
-    var that = this;
-    var r = {
-      UserID: this.ID,
-      deleteFriendID1: this.deleteFriendID1,
-      deleteFriendID2: this.deleteFriendID2 };
-
-    if (r.deleteFriendID1.length == 0 && r.deleteFriendID2.length == 0) {
-      return;
-    } else {
       uni.request({
-        url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
-        data: r }).
+        url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
+        '{"UserID":"' + option.ID + '","status":[1,2]}' }).
 
-      then(function (data) {
-        console.log('ok1');
-      });
-    }
-  },
-  onLoad: function onLoad(option) {var _this3 = this;
-    var that = this;
-    uni.request({
-      url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
-      '{"UserID":"' + option.ID + '","status":[1,2]}' }).
+      then(function (data) {var _data4 = _slicedToArray(
+        data, 2),err = _data4[0],res = _data4[1];
+        that.ID = option.ID;
+        console.log(1, err, res);
+        // console.log(res.data.data)
+        res.data.data.forEach(function (item) {
+          var friend = {};
+          friend.status = item.status;
+          var data3 = {
+            _id: item.PeopleID };
 
-    then(function (data) {var _data4 = _slicedToArray(
-      data, 2),err = _data4[0],res = _data4[1];
-      _this3.ID = option.ID;
-      // console.log(1,err,res)
-      // console.log(res.data.data)
-      res.data.data.forEach(function (item) {
-        var friend = {};
-        friend.status = item.status;
-        var data3 = {
-          _id: item.PeopleID };
+          console.log(data3);
+          uni.request({
+            url: 'http://120.76.138.164:3000/user/queryUserById',
+            data: data3 }).
 
-        console.log(data3);
-        uni.request({
-          url: 'http://120.76.138.164:3000/user/queryUserById',
-          data: data3 }).
+          then(function (data) {var _data5 = _slicedToArray(
+            data, 2),err1 = _data5[0],res1 = _data5[1];
+            if (!res1.data.data) {
+              return;
+            } else {
+              friend.id = res1.data.data._id;
+              friend.headImg = res1.data.data.HeadImg;
+              friend.name = res1.data.data.Name;
+              friend.sex = res1.data.data.Sex;
+              that.friends.push(friend);
+            }
 
-        then(function (data) {var _data5 = _slicedToArray(
-          data, 2),err1 = _data5[0],res1 = _data5[1];
-          if (!res1.data.data) {
-            return;
-          } else {
-            friend.id = res1.data.data._id;
-            friend.headImg = res1.data.data.HeadImg;
-            friend.name = res1.data.data.Name;
-            friend.sex = res1.data.data.Sex;
-            that.friends.push(friend);
-          }
-
+          });
         });
       });
-    });
+    } },
+
+  onLoad: function onLoad(option) {
+    console.log(1);
+    this.getInfo(option);
+  },
+  onShow: function onShow() {
+    console.log(2);
+    if (this.ID == '') {
+      return;
+    }
+    var option = {};
+    this.getInfo(option);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

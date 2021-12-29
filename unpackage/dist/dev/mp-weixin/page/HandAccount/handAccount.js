@@ -108,6 +108,7 @@ var render = function() {
             var $orig = _vm.__get_orig(item)
 
             var g0 = item.Date.slice(0, 10)
+            var g1 = item.Date.slice(0, 10)
 
             var l0 = _vm.__map(item.stickerImg, function(item1, index1) {
               var $orig = _vm.__get_orig(item1)
@@ -124,6 +125,7 @@ var render = function() {
             return {
               $orig: $orig,
               g0: g0,
+              g1: g1,
               l0: l0
             }
           })
@@ -270,18 +272,6 @@ var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ 138));function _i
       scrollTop: 0,
       old: {
         scrollTop: 0 },
-
-      workData: {
-        date: currentDate,
-        weather: 0,
-        feel: 0,
-        imgX: 0,
-        imgY: 0,
-        bkPath: '../../static/img/more/微信图片_20211126111417.jpg',
-        imgPath: '../../static/img/icon.jpg',
-        public: true,
-        imgScale: 1,
-        content: "<p>ma</p><h2>喝喝酒</h2>" },
 
       opAnimation: {},
       showOp: false,

@@ -7,7 +7,7 @@
 			<text id="date1">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
 			<view class="planHidden"
 				:style="{height:planData1[index].visibity=='3vh'?4*item.content.length + 1 + 'vh':'0vh'}">
-				<label v-for="(item_1,index_1) in planData1[index].content" :key="index_1" class="label"
+				<label v-for="(item_1,index_1) in planData1[index].content" :key="index_1+200" class="label"
 					:style="{height:planData1[index].visibity,textDecoration:item.finish[index_1]=='1'?'line-through':'',
 					color:item.finish[index_1]=='1'?'grey':'black'}">
 					<checkbox value="cb" :checked="item.finish[index_1]=='1'?true:false" color="#999bb9"
@@ -15,14 +15,14 @@
 				</label>
 			</view>
 		</view>
-		<view class="plan-item2" v-for="(item,index) in planData2" :key="index" @tap="changeShow(2,index)"
+		<view class="plan-item2" v-for="(item,index) in planData2" :key="index+300" @tap="changeShow(2,index)"
 			:style="{height:planData2[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh'}">
 			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap.stop="deletePlan(2,index)"></image>
 			<text id="date" style="color: grey;text-decoration: line-through;">{{item.title}}</text>
 			<text id="date1" style="color: grey;text-decoration: line-through;">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
 			<view class="planHidden"
 				:style="{height:planData2[index].visibity=='3vh'?4*item.content.length + 1 + 'vh':'0vh'}">
-				<label v-for="(item_1,index_1) in planData2[index].content" :key="index_1" class="label"
+				<label v-for="(item_1,index_1) in planData2[index].content" :key="index_1+100" class="label"
 					:style="{height:planData2[index].visibity,textDecoration:finishStyle.text,color:finishStyle.color}">
 					<checkbox value="cb" :checked="item.finish[index_1]=='1'?true:false" color="#999bb9"
 						 @tap.stop="changeFinish(2,index,index_1)" />{{item_1}}
@@ -66,8 +66,12 @@
 				
 			},
 			changeFinish(status, index, index_1) {
-				if (this.changeF) clearInterval(this.changeF)
+				if (!this.changeF) {
+					console.log('cao')
+					clearTimeout(this.changeF)
+				}
 				let data1
+				let i
 				//修改已完成计划的单项
 				if (status == 1) {
 					let n = this.planData1[index]['finish'][index_1] == '0' ? '1' : '0'
@@ -75,16 +79,12 @@
 					let num = this.planData1[index]['finish'].filter((item) => {
 						return item == 0
 					})
-					console.log(num)
-					
-					
 					let finishA=this.planData1[index]['finish']
 					let dataID=this.planData1[index]._id
 					if (num.length == 0) {
 						this.planData1[index]['status'] = 1
-						let i 
 						this.planData.forEach((item,index1)=>{
-							if(item._id == this.planData1[index]._id){
+							if(item._id == dataID){
 								i=index1
 								return 
 							}
@@ -111,19 +111,24 @@
 					//修改选项
 					this.changeF = setTimeout(() => {
 						if (this.changeF == 0) return 
-						console.log(this.dataID)
+						console.log(dataID)
 						let data = {
 							UserID: this.id,
 							_id: dataID,
 							finish: finishA
 						}
 						data1 = {
-							_id: this.planData1[index]._id,
+							_id: dataID,
 							num:num.length
 						}
+						console.log(data,data1)
 						uni.request({
 							url: 'http://120.76.138.164:3000/plan/changePlan',
-							data: data1
+							data: data1,
+						})
+						.then(data => {
+							let [err, res] = data;
+							console.log(err,res)
 						})
 						uni.request({
 								url: 'http://120.76.138.164:3000/plan/changeFinish',
@@ -131,9 +136,9 @@
 							})
 							.then(data => {
 								let [err, res] = data;
-								console.log(res.data);
+								console.log(err,res)
 							})
-					}, 1000)
+					}, 1500)
 				} else {
 					let n = this.planData2[index]['finish'][index_1] == '0' ? '1' : '0'
 					this.$set(this.planData2[index]['finish'], index_1, n)
@@ -144,7 +149,12 @@
 					let finishA=this.planData1[index]['finish']
 					//若选项全为1则将这项计划改为已完成
 					if (num.length == 0) {
-						
+						this.planData.forEach((item,index1)=>{
+							if(item._id == dataID){
+								i=index1
+								return 
+							}
+						})
 						this.planData2[index]['status'] = '1'
 						this.planData1=this.planData.filter((item)=>{
 							return item.status=='0'
@@ -159,12 +169,13 @@
 						let data = {
 							UserID: this.id,
 							_id: dataID,
-							finish: this.planData2[index]['finish']
+							finish: this.$data.planData[i]['finish']
 						}
 						data1 = {
-							_id: this.planData1[index]._id,
+							_id: dataID,
 							num:num.length
 						}
+						console.log(data,data1)
 						uni.request({
 							url: 'http://120.76.138.164:3000/plan/changePlan',
 							data: data1
@@ -175,9 +186,8 @@
 							})
 							.then(data => {
 								let [err, res] = data;
-								console.log(res.data);
 							})
-					}, 1000)
+					}, 1500)
 				}
 
 			},
@@ -293,7 +303,8 @@
 							that.planData = res1.data.data
 							that.planData.forEach((item) => {
 								item.visibity = '0vh'
-								item.content = item.content.split("\n")
+								item.content = item.content.split(/[0-9]./)
+								item.content.splice(0,1)
 							})
 							this.planData1 = this.planData.filter((item) => {
 								return item.status == '0'

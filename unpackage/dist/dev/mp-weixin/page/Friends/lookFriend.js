@@ -98,11 +98,39 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var g0 = _vm.id.slice(-6)
+
+  var l1 = _vm.__map(_vm.handAccountData, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g1 = item.Date.slice(0, 10)
+    var g2 = item.Date.slice(0, 10)
+
+    var l0 = _vm.__map(item.stickerImg, function(item1, index1) {
+      var $orig = _vm.__get_orig(item1)
+
+      var m0 = parseInt(index1 + 100)
+      var m1 = _vm.getScale(item.stickerImgs[index1])
+      return {
+        $orig: $orig,
+        m0: m0,
+        m1: m1
+      }
+    })
+
+    return {
+      $orig: $orig,
+      g1: g1,
+      g2: g2,
+      l0: l0
+    }
+  })
+
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        g0: g0
+        g0: g0,
+        l1: l1
       }
     }
   )
@@ -195,9 +223,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 var _default =
 {
   data: function data() {
@@ -208,6 +233,8 @@ var _default =
       swiperIndex: 0,
       homePageData: {},
       FriendData: {},
+      allMedals: [],
+      isFriend: true,
       handAccountData: [],
       animationData1: {},
       animationData2: {},
@@ -380,13 +407,51 @@ var _default =
         "_id": "61c2e71abc1e29458db599cd",
         "weatherNumber": 6,
         "weatherName": "雷阵雨",
-        "weatherPath": "../../static/img/weather/tedazhenyu.png" }],
+        "weatherPath": "../../static/img/weather/tedazhenyu.png" }]
       //天气总数据
-      allMedals: [],
-      isFriend: true };
-
+    };
   },
-  onLoad: function onLoad(option) {var _this = this;
+  methods: {
+    homeAdd: function homeAdd() {
+      this.isFriend = !this.isFriend;
+    },
+    onEditorReady: function onEditorReady(index) {var _this = this;
+      var that = this;
+      uni.createSelectorQuery().select('#editor' + index).context(function (res) {
+        _this.editorCtx = res.context;
+        _this.editorCtx.setContents({
+          html: that.handAccountData[index].Text });
+
+      }).exec();
+    },
+    getScale: function getScale(s) {
+      return "transform:scale(".concat(s, ")");
+    } },
+
+  onUnload: function onUnload() {
+    if (this.isFriend == false) {
+      var deleteFriendID1 = '';
+      var deleteFriendID2 = '';
+      if (this.status == 1) {
+        deleteFriendID1 = this.id;
+      } else {
+        deleteFriendID2 = this.id;
+      }
+      var r = {
+        UserID: this.UserID,
+        deleteFriendID1: deleteFriendID1,
+        deleteFriendID2: deleteFriendID2 };
+
+      uni.request({
+        url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
+        data: r }).
+
+      then(function (data) {
+        console.log('ok1');
+      });
+    }
+  },
+  onLoad: function onLoad(option) {var _this2 = this;
     var that = this;
     this.id = option.id;
     this.status = option.status;
@@ -398,7 +463,7 @@ var _default =
       key: 'UserID',
       success: function success(res) {
         console.log('userid', res.data);
-        _this.UserID = res.data;
+        _this2.UserID = res.data;
       } });
 
     uni.request({
@@ -468,34 +533,6 @@ var _default =
       that.homePageData.FanCount = fun;
       that.homePageData.FriendsCount = friend;
     });
-  },
-  methods: {
-    homeAdd: function homeAdd() {
-      this.isFriend = !this.isFriend;
-    } },
-
-  onHide: function onHide() {
-    if (this.isFriend == false) {
-      var deleteFriendID1 = [];
-      var deleteFriendID2 = [];
-      if (this.status == 1) {
-        deleteFriendID1.push(this.id);
-      } else {
-        deleteFriendID2.push(this.id);
-      }
-      var r = {
-        UserID: this.UserID,
-        deleteFriendID1: deleteFriendID1,
-        deleteFriendID2: deleteFriendID2 };
-
-      uni.request({
-        url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
-        data: r }).
-
-      then(function (data) {
-        console.log('ok1');
-      });
-    }
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

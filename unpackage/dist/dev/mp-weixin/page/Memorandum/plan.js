@@ -231,8 +231,12 @@ var _default =
 
     },
     changeFinish: function changeFinish(status, index, index_1) {var _this = this;
-      if (this.changeF) clearInterval(this.changeF);
+      if (!this.changeF) {
+        console.log('cao');
+        clearTimeout(this.changeF);
+      }
       var data1;
+      var i;
       //修改已完成计划的单项
       if (status == 1) {
         var n = this.planData1[index]['finish'][index_1] == '0' ? '1' : '0';
@@ -240,16 +244,12 @@ var _default =
         var num = this.planData1[index]['finish'].filter(function (item) {
           return item == 0;
         });
-        console.log(num);
-
-
         var finishA = this.planData1[index]['finish'];
         var dataID = this.planData1[index]._id;
         if (num.length == 0) {
           this.planData1[index]['status'] = 1;
-          var i;
           this.planData.forEach(function (item, index1) {
-            if (item._id == _this.planData1[index]._id) {
+            if (item._id == dataID) {
               i = index1;
               return;
             }
@@ -276,29 +276,34 @@ var _default =
         //修改选项
         this.changeF = setTimeout(function () {
           if (_this.changeF == 0) return;
-          console.log(_this.dataID);
+          console.log(dataID);
           var data = {
             UserID: _this.id,
             _id: dataID,
             finish: finishA };
 
           data1 = {
-            _id: _this.planData1[index]._id,
+            _id: dataID,
             num: num.length };
 
+          console.log(data, data1);
           uni.request({
             url: 'http://120.76.138.164:3000/plan/changePlan',
-            data: data1 });
+            data: data1 }).
 
+          then(function (data) {var _data = _slicedToArray(
+            data, 2),err = _data[0],res = _data[1];
+            console.log(err, res);
+          });
           uni.request({
             url: 'http://120.76.138.164:3000/plan/changeFinish',
             data: data }).
 
-          then(function (data) {var _data = _slicedToArray(
-            data, 2),err = _data[0],res = _data[1];
-            console.log(res.data);
+          then(function (data) {var _data2 = _slicedToArray(
+            data, 2),err = _data2[0],res = _data2[1];
+            console.log(err, res);
           });
-        }, 1000);
+        }, 1500);
       } else {
         var _n2 = this.planData2[index]['finish'][index_1] == '0' ? '1' : '0';
         this.$set(this.planData2[index]['finish'], index_1, _n2);
@@ -309,7 +314,12 @@ var _default =
         var _finishA = this.planData1[index]['finish'];
         //若选项全为1则将这项计划改为已完成
         if (_num.length == 0) {
-
+          this.planData.forEach(function (item, index1) {
+            if (item._id == _dataID) {
+              i = index1;
+              return;
+            }
+          });
           this.planData2[index]['status'] = '1';
           this.planData1 = this.planData.filter(function (item) {
             return item.status == '0';
@@ -324,12 +334,13 @@ var _default =
           var data = {
             UserID: _this.id,
             _id: _dataID,
-            finish: _this.planData2[index]['finish'] };
+            finish: _this.$data.planData[i]['finish'] };
 
           data1 = {
-            _id: _this.planData1[index]._id,
+            _id: _dataID,
             num: _num.length };
 
+          console.log(data, data1);
           uni.request({
             url: 'http://120.76.138.164:3000/plan/changePlan',
             data: data1 });
@@ -338,11 +349,10 @@ var _default =
             url: 'http://120.76.138.164:3000/plan/changeFinish',
             data: data }).
 
-          then(function (data) {var _data2 = _slicedToArray(
-            data, 2),err = _data2[0],res = _data2[1];
-            console.log(res.data);
+          then(function (data) {var _data3 = _slicedToArray(
+            data, 2),err = _data3[0],res = _data3[1];
           });
-        }, 1000);
+        }, 1500);
       }
 
     },
@@ -407,8 +417,8 @@ var _default =
             uni.request({
               url: 'http://120.76.138.164:3000/plan/deletePlan?data=' + that.deleteID }).
 
-            then(function (data1) {var _data3 = _slicedToArray(
-              data1, 2),err1 = _data3[0],res1 = _data3[1];
+            then(function (data1) {var _data4 = _slicedToArray(
+              data1, 2),err1 = _data4[0],res1 = _data4[1];
               console.log(res1);
               that.planData.splice(index, 1);
               _this2.planData1 = _this2.planData.filter(function (item) {
@@ -453,12 +463,13 @@ var _default =
         uni.request({
           url: 'http://120.76.138.164:3000/plan/queryPlans?data=' + id }).
 
-        then(function (data) {var _data4 = _slicedToArray(
-          data, 2),err1 = _data4[0],res1 = _data4[1];
+        then(function (data) {var _data5 = _slicedToArray(
+          data, 2),err1 = _data5[0],res1 = _data5[1];
           that.planData = res1.data.data;
           that.planData.forEach(function (item) {
             item.visibity = '0vh';
-            item.content = item.content.split("\n");
+            item.content = item.content.split(/[0-9]./);
+            item.content.splice(0, 1);
           });
           _this3.planData1 = _this3.planData.filter(function (item) {
             return item.status == '0';

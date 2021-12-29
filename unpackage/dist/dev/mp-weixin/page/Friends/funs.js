@@ -155,8 +155,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 var _default =
 {
   data: function data() {
@@ -168,45 +166,10 @@ var _default =
 
   },
   methods: {
-    addFriend: function addFriend(id) {
-      var that = this;
-      var data = {
-        UserID: this.ID,
-        PeopleID: id };
+    gotoLookSomeone: function gotoLookSomeone(id, status) {
+      uni.navigateTo({
+        url: './lookSomeone?id=' + id });
 
-      data = this.$qs.parse(data);
-      uni.request({
-        url: 'http://120.76.138.164:3000/relationship/addRelationship',
-        data: data }).
-
-      then(function (data) {var _data = _slicedToArray(
-        data, 2),err = _data[0],res = _data[1];
-        console.log(res, res.data.data.PeopleID);
-        if (res.data.data.status == 1) {
-          var _data2 = {
-            _id: res.data.data.PeopleID };
-
-          uni.request({
-            url: 'http://120.76.138.164:3000/user/queryUserById',
-            data: _data2 }).
-
-          then(function (data) {var _data3 = _slicedToArray(
-            data, 2),err = _data3[0],res1 = _data3[1];
-            console.log('f', res1);
-            var friend = {};
-            friend.status = 1;
-            friend.id = res1.data.data._id;
-            friend.headImg = res1.data.data.HeadImg;
-            friend.name = res1.data.data.Name;
-            friend.sex = res1.data.data.Sex;
-            console.log(friend);
-            that.friends.push(friend);
-          });
-        }
-        if (res.data.data.status == 2) {
-
-        }
-      });
     },
     select: function select() {var _this = this;
       var that = this;
@@ -240,8 +203,8 @@ var _default =
       url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
       '{"UserID":"' + option.ID + '","status":[0,2]}' }).
 
-    then(function (data) {var _data4 = _slicedToArray(
-      data, 2),err = _data4[0],res = _data4[1];
+    then(function (data) {var _data = _slicedToArray(
+      data, 2),err = _data[0],res = _data[1];
       // console.log(1,err,res)
       res.data.data.forEach(function (item) {
         var fun = {};
@@ -253,13 +216,13 @@ var _default =
           url: 'http://120.76.138.164:3000/user/queryUserById',
           data: data }).
 
-        then(function (data) {var _data5 = _slicedToArray(
-          data, 2),err1 = _data5[0],res1 = _data5[1];
+        then(function (data) {var _data2 = _slicedToArray(
+          data, 2),err1 = _data2[0],res1 = _data2[1];
           // console.log(2,err1,res1)
-          fun.id = res1.data.data[0]._id;
-          fun.headImg = res1.data.data[0].HeadImg;
-          fun.name = res1.data.data[0].Name;
-          fun.sex = res1.data.data[0].Sex;
+          fun.id = res1.data.data._id;
+          fun.headImg = res1.data.data.HeadImg;
+          fun.name = res1.data.data.Name;
+          fun.sex = res1.data.data.Sex;
           that.funs.push(fun);
         });
       });

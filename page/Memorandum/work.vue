@@ -2,17 +2,17 @@
 <template>
 	<view class="work">
 		<u-subsection :list="list" mode="subsection"
-					:current="current1" fontSize="16px" 
+					:current="ubIndex" fontSize="16px" 
 					activeColor="#a0d1b1"
 					@change="changeCurrent1">
 		</u-subsection>
-		<swiper class="swiper work-swiper" :current="current2" @change="changeCurrent" 
-		:style="{height:current2==0?swiperH1+'px':swiperH2+'px'}">
+		<swiper class="swiper work-swiper" :current="swiperIndex" @change="changeCurrent" 
+		:style="{height:swiperIndex==0?swiperH1+'px':swiperH2+'px'}">
 			<swiper-item >
 				<!-- 待办 -->
 				<view class="swiper-item work-itemA">			
 					<!-- <view style="margin-top: 10vh;background-color: red;height: 1px;"></view> -->
-					<uni-card :title="item.title"  :class="'content-wrap1' + index"
+					<uni-card :title="item.title"  :class="'content-wrap1' + index" v-if="workData1"
 						:extra="item.date" 
 						v-for="(item,index) in workData1" 
 						:key="item.id"
@@ -32,7 +32,7 @@
 			<swiper-item>
 				<!-- 已完成 -->
 				<view class="swiper-item work-itemA">
-					<uni-card :title="item.title" :class="'content-wrap2' + index"
+					<uni-card :title="item.title" :class="'content-wrap2' + index"  v-if="workData2"
 						:extra="item.date" 
 						v-for="(item,index) in workData2" 
 						:key="item.id"
@@ -47,7 +47,7 @@
 				</view>	
 			</swiper-item>
 		</swiper>
-		<button type="default" v-show="!current" class="radius-button create" @tap="gotoWriteWork"><!--  -->
+		<button type="default" class="radius-button create" @tap="gotoWriteWork"><!--  -->
 			<image src="../../static/img/more/add.png"></image>
 		</button>
 	</view>
@@ -71,19 +71,19 @@
 				interval: 2000,
 				duration: 500,
 				list: ['待办', '已完成'],
-				current1: 1,
-				current2: 0,
+				ubIndex: 1,
+				swiperIndex: 0,
 			}
 		},
 		methods: {
 			changeCurrent(index) {
 				console.log(typeof index,index)
-				this.current2 = index.detail.current;
-				this.current1=this.current2==0?1:0;
+				this.swiperIndex = index.detail.current||0
+				this.ubIndex=this.swiperIndex==0?1:0;
 			},
 			changeCurrent1(index) {
 				console.log(typeof index,index)
-				this.current1 = index==0?1:0;
+				this.ubIndex = index==0?1:0;
 			},
 			gotoWriteWork(){
 				console.log("tap")
@@ -154,6 +154,37 @@
 					}
 				})
 			},
+			show() {
+				let element,query
+				setTimeout(()=>{
+					console.log('mmou',this.workData1)
+					this.workData1 = this.workData1||[]
+					this.workData1.forEach((item,index)=>{
+						element = "#content-wrap1"+index
+					    query = uni.createSelectorQuery().in(this);
+					    query.select(element).boundingClientRect();
+					    query.exec((res) => {
+					        if (res && res[0]) {
+								this.swiperH1 += res[0].height;
+					        }
+					    });
+					})
+					this.workData2.forEach((item,index)=>{
+						element = "#content-wrap2"+index
+					    query = uni.createSelectorQuery().in(this);
+					    query.select(element).boundingClientRect();
+					    query.exec((res) => {
+					        if (res && res[0]) {
+								this.swiperH2 += res[0].height;
+					        }
+					    });
+					})
+				},200)
+				setTimeout(()=>{
+					if(this.swiperH2<800)this.swiperH2=800
+					if(this.swiperH1<800)this.swiperH1=800
+				},400)
+			},
 			addFinishWork(index){
 				let that =this
 				console.log(index,this.workData1[index])
@@ -210,13 +241,13 @@
 				})
 			}
 		},
-		onShow() {
+		onLoad() {
 			uni.$on('addWork',this.addWork)
-			let that =this
 			uni.getStorage({
 				key:"UserID",
-				success(res) {
+				success:(res)=> {
 					let id =res.data
+					let that = this
 					uni.request({
 						url:'http://120.76.138.164:3000/work/getWorks?data='+id
 					})
@@ -225,7 +256,7 @@
 						that.option1=[]
 						that.workData1=[]
 						that.option2=[]
-						that.workData2=[]
+						console.log(3333,res1)
 						res1.data.data.forEach((item,index)=>{
 							if(item.status==0){
 								let work = item;
@@ -237,41 +268,15 @@
 								that.workData2.push(work)
 							}
 						})
+						that.option1=that.option1||[]
+						that.workData1=that.workData1||[]
+						that.option2=that.option1||[]
 						console.log(2)
+						this.show()
 					})
 				}
 			})
 		},
-		mounted() {
-			let element,query
-			setTimeout(()=>{
-				console.log('mmou',this.workData1)
-				this.workData1.forEach((item,index)=>{
-					element = "#content-wrap1"+index
-				    query = uni.createSelectorQuery().in(this);
-				    query.select(element).boundingClientRect();
-				    query.exec((res) => {
-				        if (res && res[0]) {
-							this.swiperH1 += res[0].height;
-				        }
-				    });
-				})
-				this.workData2.forEach((item,index)=>{
-					element = "#content-wrap2"+index
-				    query = uni.createSelectorQuery().in(this);
-				    query.select(element).boundingClientRect();
-				    query.exec((res) => {
-				        if (res && res[0]) {
-							this.swiperH2 += res[0].height;
-				        }
-				    });
-				})
-			},200)
-			setTimeout(()=>{
-				if(this.swiperH2<800)this.swiperH2=800
-				if(this.swiperH1<800)this.swiperH1=800
-			},400)
-		}
 	}
 </script>
 

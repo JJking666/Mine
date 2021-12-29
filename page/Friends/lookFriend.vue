@@ -1,7 +1,7 @@
 <template>
 	<view class="lookFriend">
 		<swiper :current="swiperIndex" vertical="true" circular="true" style="height: 100vh;">
-			<swiper-item >
+			<swiper-item>
 				<view class="home">
 					<image :src="homePageData.HeadImg" mode="" class="home-bk"></image>
 					<view class="home-add" :animation="animationData1">
@@ -31,9 +31,9 @@
 					<text>{{FriendData.Name}}</text>
 					<image id="selectUser" src="../../static/uview/common/logo.png"></image>
 				</view>
-				<!-- <view class="swiper-ver-head">
-					<picker class="date" mode="date" :value="item.Date.slice(0,10)" @change="bindDateChange">
-						<view class="uni-input">{{workData.date}}</view>
+				<view class="swiper-ver-head">
+					<picker class="date" mode="date" :value="item.Date.slice(0,10)">
+						<view class="uni-input">{{item.Date.slice(0,10)}}</view>
 					</picker>
 					<image :src="weatherArray[item.Weather].weatherPath" mode=""></image>
 					<image :src="feelArray[item.Feel].feelPath" mode=""></image>
@@ -42,16 +42,13 @@
 				<view class="textmain">
 					<image id="bk" :src="backgroundImgArray[item.bkImgNumber].bkImgPath"></image>
 					<scroll-view :scroll-top="scrollTop" scroll-y="true" style="height: 75vh;box-sizing: border-box;">
-						<editor :id="'editor'+index0+index" read-only="true" @ready="onEditorReady(index0,index)">
+						<editor :id="'editor'+index" read-only="true" @ready="onEditorReady(index)">
 						</editor>
 					</scroll-view>
 					<image id="tz" :src="item1" v-for="(item1,index1) in item.stickerImg" :key="parseInt(index1+100)"
 						:style="{left:item.stickerImgx[index1]+'px',top:item.stickerImgy[index1]+'px',transform:getScale(item.stickerImgs[index1])}">
 					</image>
-				</view> -->
-			</swiper-item>
-			<swiper-item>
-				C
+				</view>
 			</swiper-item>
 		</swiper>
 	</view>
@@ -67,6 +64,8 @@
 				swiperIndex: 0,
 				homePageData: {},
 				FriendData: {},
+				allMedals: [],
+				isFriend: true,
 				handAccountData: [],
 				animationData1: {},
 				animationData2: {},
@@ -241,8 +240,46 @@
 					"weatherName": "雷阵雨",
 					"weatherPath": "../../static/img/weather/tedazhenyu.png"
 				}], //天气总数据
-				allMedals: [],
-				isFriend: true,
+			}
+		},
+		methods: {
+			homeAdd() {
+				this.isFriend = !this.isFriend
+			},
+			onEditorReady(index) {
+				let that = this;
+				uni.createSelectorQuery().select('#editor' + index).context((res) => {
+					this.editorCtx = res.context
+					this.editorCtx.setContents({
+						html: that.handAccountData[index].Text
+					})
+				}).exec()
+			},
+			getScale(s) {
+				return `transform:scale(${s})`
+			},
+		},
+		onUnload() {
+			if (this.isFriend == false) {
+				let deleteFriendID1 = ''
+				let deleteFriendID2 = ''
+				if (this.status == 1) {
+					deleteFriendID1=this.id
+				} else {
+					deleteFriendID2=this.id
+				}
+				let r = {
+					UserID: this.UserID,
+					deleteFriendID1: deleteFriendID1,
+					deleteFriendID2: deleteFriendID2
+				}
+				uni.request({
+						url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
+						data: r
+					})
+					.then((data) => {
+						console.log('ok1')
+					})
 			}
 		},
 		onLoad(option) {
@@ -264,99 +301,72 @@
 					url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data=' + this.$data.id
 				})
 				.then(data => {
-						let [err1, res1] = data
-						let result = res1.data.data
-						//若无手账则不添加自身
-						if (result.length == 0) {
-							return
-						}
-						let handAccount1 = result
-						handAccount1 = handAccount1.filter((item) => {
-							return item.Public == true
-						})
-						handAccount1.forEach((item) => {
-							item.stickerImg = item.stickerImg.toString().split(",")
-							item.stickerImgs = item.stickerImgs.toString().split(",")
-							item.stickerImgx = item.stickerImgx.toString().split(",")
-							item.stickerImgy = item.stickerImgy.toString().split(",")
-						})
-						that.handAccountData = handAccount1
-					})
-					uni.request({
-						url: 'http://120.76.138.164:3000/user/queryUserById',
-						data: data1
-					})
-					.then(data => {
-						let [err, res1] = data
-						let friend = {}
-						that.FriendData = res1.data.data
-
-					}) 
-					uni.request({
-						url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + option.id
-					})
-					.then((data) => {
-						let [err, res] = data
-						that.homePageData.HeadImg = res.data.data[0].HeadImg,
-							that.homePageData.motto = res.data.data[0].motto,
-							that.homePageData.FanCount = res.data.data[0].FanCount,
-							that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
-							that.homePageData.workCount = res.data.data[0].workCount,
-							that.homePageData.medals = res.data.data[0].medals
-						that.homePageData.goods = res.data.data[0].goods
-					}) 
-					uni.request({
-						url: 'http://120.76.138.164:3000/medal/getMedals'
-					})
-					.then((data1) => {
-						let [err1, res1] = data1
-						that.allMedals = res1.data.data
-					}) 
-					uni.request({
-						url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
-							'{"UserID":"' + option.id + '","status":[0,1,2]}'
-					})
-					.then(data => {
-						let [err, res] = data
-						let fun = 0
-						let friend = 0
-						res.data.data.forEach((item) => {
-							if (item.status == 0 || item.status == 2) fun++;
-							if (item.status == 1 || item.status == 2) friend++
-						})
-						that.homePageData.FanCount = fun
-						that.homePageData.FriendsCount = friend
-					})
-				},
-				methods: {
-					homeAdd() {
-						this.isFriend = !this.isFriend
-					},
-				},
-				onHide() {
-					if (this.isFriend == false) {
-						let deleteFriendID1 = []
-						let deleteFriendID2 = []
-						if (this.status == 1) {
-							deleteFriendID1.push(this.id)
-						} else {
-							deleteFriendID2.push(this.id)
-						}
-						let r = {
-							UserID: this.UserID,
-							deleteFriendID1: deleteFriendID1,
-							deleteFriendID2: deleteFriendID2
-						}
-						uni.request({
-								url: 'http://120.76.138.164:3000/relationship/deleteRelationship',
-								data: r
-							})
-							.then((data) => {
-								console.log('ok1')
-							})
+					let [err1, res1] = data
+					let result = res1.data.data
+					//若无手账则不添加自身
+					if (result.length == 0) {
+						return
 					}
-				}
+					let handAccount1 = result
+					handAccount1 = handAccount1.filter((item) => {
+						return item.Public == true
+					})
+					handAccount1.forEach((item) => {
+						item.stickerImg = item.stickerImg.toString().split(",")
+						item.stickerImgs = item.stickerImgs.toString().split(",")
+						item.stickerImgx = item.stickerImgx.toString().split(",")
+						item.stickerImgy = item.stickerImgy.toString().split(",")
+					})
+					that.handAccountData = handAccount1
+				})
+			uni.request({
+					url: 'http://120.76.138.164:3000/user/queryUserById',
+					data: data1
+				})
+				.then(data => {
+					let [err, res1] = data
+					let friend = {}
+					that.FriendData = res1.data.data
+
+				})
+			uni.request({
+					url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + option.id
+				})
+				.then((data) => {
+					let [err, res] = data
+					that.homePageData.HeadImg = res.data.data[0].HeadImg,
+						that.homePageData.motto = res.data.data[0].motto,
+						that.homePageData.FanCount = res.data.data[0].FanCount,
+						that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
+						that.homePageData.workCount = res.data.data[0].workCount,
+						that.homePageData.medals = res.data.data[0].medals
+					that.homePageData.goods = res.data.data[0].goods
+				})
+			uni.request({
+					url: 'http://120.76.138.164:3000/medal/getMedals'
+				})
+				.then((data1) => {
+					let [err1, res1] = data1
+					that.allMedals = res1.data.data
+				})
+			uni.request({
+					url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
+						'{"UserID":"' + option.id + '","status":[0,1,2]}'
+				})
+				.then(data => {
+					let [err, res] = data
+					let fun = 0
+					let friend = 0
+					res.data.data.forEach((item) => {
+						if (item.status == 0 || item.status == 2) fun++;
+						if (item.status == 1 || item.status == 2) friend++
+					})
+					that.homePageData.FanCount = fun
+					that.homePageData.FriendsCount = friend
+				})
 		}
+
+	}
 </script>
 
 <style lang="scss">

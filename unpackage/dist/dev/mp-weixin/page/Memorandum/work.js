@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uSubsection: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-subsection/u-subsection */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-subsection/u-subsection")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-subsection/u-subsection.vue */ 351))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-subsection/u-subsection */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-subsection/u-subsection")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-subsection/u-subsection.vue */ 353))
     },
     uniCard: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-card/components/uni-card/uni-card */ "uni_modules/uni-card/components/uni-card/uni-card").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-card/components/uni-card/uni-card.vue */ 359))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-card/components/uni-card/uni-card */ "uni_modules/uni-card/components/uni-card/uni-card").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-card/components/uni-card/uni-card.vue */ 361))
     }
   }
 } catch (e) {
@@ -229,19 +229,19 @@ var _default =
       interval: 2000,
       duration: 500,
       list: ['待办', '已完成'],
-      current1: 1,
-      current2: 0 };
+      ubIndex: 1,
+      swiperIndex: 0 };
 
   },
   methods: {
     changeCurrent: function changeCurrent(index) {
       console.log(typeof index, index);
-      this.current2 = index.detail.current;
-      this.current1 = this.current2 == 0 ? 1 : 0;
+      this.swiperIndex = index.detail.current || 0;
+      this.ubIndex = this.swiperIndex == 0 ? 1 : 0;
     },
     changeCurrent1: function changeCurrent1(index) {
       console.log(typeof index, index);
-      this.current1 = index == 0 ? 1 : 0;
+      this.ubIndex = index == 0 ? 1 : 0;
     },
     gotoWriteWork: function gotoWriteWork() {
       console.log("tap");
@@ -312,7 +312,38 @@ var _default =
         } });
 
     },
-    addFinishWork: function addFinishWork(index) {var _this2 = this;
+    show: function show() {var _this2 = this;
+      var element, query;
+      setTimeout(function () {
+        console.log('mmou', _this2.workData1);
+        _this2.workData1 = _this2.workData1 || [];
+        _this2.workData1.forEach(function (item, index) {
+          element = "#content-wrap1" + index;
+          query = uni.createSelectorQuery().in(_this2);
+          query.select(element).boundingClientRect();
+          query.exec(function (res) {
+            if (res && res[0]) {
+              _this2.swiperH1 += res[0].height;
+            }
+          });
+        });
+        _this2.workData2.forEach(function (item, index) {
+          element = "#content-wrap2" + index;
+          query = uni.createSelectorQuery().in(_this2);
+          query.select(element).boundingClientRect();
+          query.exec(function (res) {
+            if (res && res[0]) {
+              _this2.swiperH2 += res[0].height;
+            }
+          });
+        });
+      }, 200);
+      setTimeout(function () {
+        if (_this2.swiperH2 < 800) _this2.swiperH2 = 800;
+        if (_this2.swiperH1 < 800) _this2.swiperH1 = 800;
+      }, 400);
+    },
+    addFinishWork: function addFinishWork(index) {var _this3 = this;
       var that = this;
       console.log(index, this.workData1[index]);
       var work = this.workData1[index]._id;
@@ -345,7 +376,7 @@ var _default =
         that.swiperH1 = 0;
         that.workData1.forEach(function (item, index) {
           element = ".content-wrap1" + index;
-          query = uni.createSelectorQuery().in(_this2);
+          query = uni.createSelectorQuery().in(_this3);
           query.select(element).boundingClientRect();
           query.exec(function (res) {
             if (res && res[0]) {
@@ -355,7 +386,7 @@ var _default =
         });
         that.workData2.forEach(function (item, index) {
           element = "#content-wrap2" + index;
-          query = uni.createSelectorQuery().in(_this2);
+          query = uni.createSelectorQuery().in(_this3);
           query.select(element).boundingClientRect();
           query.exec(function (res) {
             if (res && res[0]) {
@@ -368,13 +399,13 @@ var _default =
       });
     } },
 
-  onShow: function onShow() {
+  onLoad: function onLoad() {var _this4 = this;
     uni.$on('addWork', this.addWork);
-    var that = this;
     uni.getStorage({
       key: "UserID",
       success: function success(res) {
         var id = res.data;
+        var that = _this4;
         uni.request({
           url: 'http://120.76.138.164:3000/work/getWorks?data=' + id }).
 
@@ -383,7 +414,7 @@ var _default =
           that.option1 = [];
           that.workData1 = [];
           that.option2 = [];
-          that.workData2 = [];
+          console.log(3333, res1);
           res1.data.data.forEach(function (item, index) {
             if (item.status == 0) {
               var work = item;
@@ -395,40 +426,14 @@ var _default =
               that.workData2.push(_work4);
             }
           });
+          that.option1 = that.option1 || [];
+          that.workData1 = that.workData1 || [];
+          that.option2 = that.option1 || [];
           console.log(2);
+          _this4.show();
         });
       } });
 
-  },
-  mounted: function mounted() {var _this3 = this;
-    var element, query;
-    setTimeout(function () {
-      console.log('mmou', _this3.workData1);
-      _this3.workData1.forEach(function (item, index) {
-        element = "#content-wrap1" + index;
-        query = uni.createSelectorQuery().in(_this3);
-        query.select(element).boundingClientRect();
-        query.exec(function (res) {
-          if (res && res[0]) {
-            _this3.swiperH1 += res[0].height;
-          }
-        });
-      });
-      _this3.workData2.forEach(function (item, index) {
-        element = "#content-wrap2" + index;
-        query = uni.createSelectorQuery().in(_this3);
-        query.select(element).boundingClientRect();
-        query.exec(function (res) {
-          if (res && res[0]) {
-            _this3.swiperH2 += res[0].height;
-          }
-        });
-      });
-    }, 200);
-    setTimeout(function () {
-      if (_this3.swiperH2 < 800) _this3.swiperH2 = 800;
-      if (_this3.swiperH1 < 800) _this3.swiperH1 = 800;
-    }, 400);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

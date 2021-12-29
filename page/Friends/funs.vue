@@ -3,23 +3,21 @@
 		<image id="record-bk" src="../../static/img/bkImg/bk3.jpg" mode=""></image>
 		<input id="record-input" placeholder="输入手机号或昵称" placeholder-style="" v-model="inputValue" @input="select" />
 		<view class="selectPeople">
-			<view class="select-item" v-for="(item,index) in selectFun" :key="index">
+			<view class="select-item" v-for="(item,index) in selectFun" :key="index" @tap="gotoLookSomeone(item._id)">
 				<image :src="item.headImg">
 					<view v-html="item.name" style="display: inline-block;"></view>
 					<image
 						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 						mode=""></image>
-					<button @tap="addFriend(item._id)">关注</button>
 			</view>
 		</view>
 		<view class="content">
-			<view class="fun-item" v-for="(item,index) in funs" :key="index">
+			<view class="fun-item" v-for="(item,index) in funs" :key="index" @tap="gotoLookSomeone(item._id)">
 				<image :src="item.headImg">
 					<text>{{item.name}}</text>
 					<image
 						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
 						mode=""></image>
-					<button @tap="cancelFun(item.id)">关注</button>
 			</view>
 		</view>
 	</view>
@@ -36,44 +34,9 @@
 			}
 		},
 		methods: {
-			addFriend(id){
-				let that =this
-				let data = {
-					UserID:this.ID,
-					PeopleID:id
-				}
-				data=this.$qs.parse(data)
-				uni.request({
-					url:'http://120.76.138.164:3000/relationship/addRelationship',
-					data:data
-				})
-				.then((data)=>{
-					let [err,res]=data
-					console.log(res,res.data.data.PeopleID)
-					if(res.data.data.status==1){
-						let data={
-							_id:res.data.data.PeopleID
-						}
-						uni.request({
-							url:'http://120.76.138.164:3000/user/queryUserById',
-							data:data
-						})
-						.then(data=>{
-							let [err,res1]=data
-							console.log('f',res1)
-							let friend={}
-							friend.status=1
-							friend.id = res1.data.data._id
-							friend.headImg = res1.data.data.HeadImg
-							friend.name = res1.data.data.Name
-							friend.sex = res1.data.data.Sex
-							console.log(friend)
-							that.friends.push(friend)
-						})
-					}
-					if(res.data.data.status==2){
-						
-					}
+			gotoLookSomeone(id,status){
+				uni.navigateTo({
+					url:'./lookSomeone?id='+id,
 				})
 			},
 			select() {
@@ -124,10 +87,10 @@
 							.then(data => {
 								let [err1, res1] = data
 								// console.log(2,err1,res1)
-								fun.id = res1.data.data[0]._id
-								fun.headImg = res1.data.data[0].HeadImg
-								fun.name = res1.data.data[0].Name
-								fun.sex = res1.data.data[0].Sex
+								fun.id = res1.data.data._id
+								fun.headImg = res1.data.data.HeadImg
+								fun.name = res1.data.data.Name
+								fun.sex = res1.data.data.Sex
 								that.funs.push(fun)
 							})
 					})

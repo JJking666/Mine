@@ -273,6 +273,7 @@ var _default =
 
   onShow: function onShow() {
     var that = this;
+    wx.showTabBar();
     uni.getStorage({
       key: "UserAccount",
       success: function success(res) {

@@ -336,7 +336,6 @@ var _default =
 
   onReady: function onReady() {
     var that = this;
-    uni.$on('contentemit', this.addRecord);
     var animation1 = uni.createAnimation({
       duration: 1000,
       timingFunction: 'ease' });

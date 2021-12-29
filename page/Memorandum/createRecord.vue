@@ -1,9 +1,9 @@
 <template>
 	<view class="container">
-		<!-- <robin-editor class="editor" @cancel="hideEditor" @save="saveEditor" v-model="html" :imageUploader="uploadImg"
-			:muiltImage="true">
-		</robin-editor> -->
-		<jinEdit placeholder="请输入内容" @editOk="editOk" uploadFileUrl="/#"></jinEdit> 
+		<textarea placeholder="写些小思路~" focus auto-height  @confirm="finish" v-model="content" >
+			
+		</textarea>
+		<image src="../../static/img/more/rili.png" @tap="finish" mode=""></image>
 	</view>
 </template>
 
@@ -12,11 +12,9 @@
 	export default {
 		data() {
 			return {
-				content:""
+				content:"",
+				id:''
 			}
-		},
-		components: {
-			jinEdit
 		},
 		methods: {
 			// 点击发布
@@ -24,23 +22,56 @@
 				 this.content = res;
 				 console.log(res)
 				 uni.$emit('contentemit',res)
-			}
+			},
+			finish(){
+				let data={
+					UserID:this.id,
+					content:this.content
+				}
+				uni.request({
+					url:'http://120.76.138.164:3000/record/addRecord',
+					data:this.content
+				})
+				.then((data)=>{
+					uni.redirectTo({
+						url:'record'
+					})
+				})
+			},
+		},
+		onReady() {
+			uni.getStorage({
+				key:'UserID',
+				success:(res)=>{
+					this.id =res.data
+				}
+			})
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.container {
-		padding: 10px;
+		padding: 2vh;
+		background-color: aliceblue;
+		width: 100vw;
+		height: 100vh;
+		
 	}
-
-	#editor {
-		width: 100%;
-		height: 300px;
-		background-color: #CCCCCC;
+	image{
+			width: 5vh;
+			height: 5vh;
+			display: inline-block;
+			position: fixed;
+			right: 2vh;
+			top: 1vh;
+			object-fit: cover;
 	}
-
-	button {
-		margin-top: 10px;
+	textarea{
+		text-decoration: underline;
+		font-style: oblique;
+		font-size: 40rpx;
+		font-family: emoji;
+		width: 80vw;
 	}
 </style>

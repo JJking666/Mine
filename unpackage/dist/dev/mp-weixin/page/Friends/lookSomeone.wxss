@@ -26,6 +26,229 @@
   height: 11vw;
   size: 100%;
 }
+editor {
+  height: 71vh !important;
+}
+#s11 {
+  background-color: rgba(251, 232, 232, 0.9);
+  height: 100vh;
+  width: 100vw;
+}
+#s11 .swiper-ver-nav {
+  width: 100vw;
+  height: 8vh;
+  background-image: linear-gradient(rgba(255, 89, 89, 0.75), rgba(119, 133, 236, 0.9));
+  position: fixed;
+  top: 0vh;
+  left: 0;
+  padding: 1vh 10vw;
+  box-sizing: border-box;
+}
+#s11 .swiper-ver-nav image {
+  position: center;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 100%;
+  object-fit: cover;
+}
+#s11 .swiper-ver-nav text {
+  display: inline-block;
+  height: 8vh;
+  margin-left: 10vw;
+  font-size: 32rpx;
+  font-weight: 500;
+  vertical-align: middle;
+  margin-left: 5vw;
+}
+#s11 .swiper-ver-nav #selectUser {
+  float: right;
+  margin-top: 0.5vh;
+  position: center;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 100%;
+  object-fit: cover;
+}
+#s11 .swiper-ver-head {
+  width: 100vw;
+  height: 6vh;
+  background-color: #e0f8f7;
+  margin-top: 8vh;
+  padding: 0.5vh 5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+#s11 .swiper-ver-head > image:nth-of-type(1) {
+  display: inline-block;
+  margin-left: -12vw;
+  width: 6vh;
+  height: 6vh;
+  object-fit: cover;
+}
+#s11 .swiper-ver-head > image:nth-of-type(2) {
+  margin-right: 6vw;
+  width: 6vh;
+  height: 6vh;
+  object-fit: cover;
+}
+#s11 .swiper-ver-head .date {
+  width: 30vw;
+  height: 5vh;
+  display: inline-block;
+}
+#s11 .swiper-ver-head .date view {
+  width: 30vw;
+  height: 5vh;
+  background-color: ragb(221, 160, 221, 0.5);
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 5vh;
+}
+#s11 .textmain {
+  width: 90vw;
+  height: 75vh;
+  margin: 2vh auto;
+  background-color: #71D5A1;
+  box-sizing: border-box;
+  position: relative;
+  padding: 2vh 5vw;
+}
+#s11 .textmain #bk {
+  width: 90vw;
+  height: 75vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  size: 100%;
+  display: block;
+}
+#s11 .textmain #content {
+  width: calc(90vw - 60rpx);
+  height: 70vh;
+  margin: auto;
+  display: block;
+  font-size: 32rpx;
+  overflow: auto;
+  z-index: 1;
+}
+#s11 .textmain #tz {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10vh;
+  height: 10vh;
+  size: 100%;
+  z-index: 2;
+}
+#s11 .opioion {
+  position: fixed;
+  width: 80vw;
+  margin: 0 auto;
+  height: 7vh;
+  background-color: #A0CFFF;
+  bottom: 0vh;
+  left: 10vw;
+  z-index: 9;
+}
+#s11 .opioion .opioion-scroll {
+  height: 42vh;
+  width: 80vw;
+}
+#s11 .opioion .opioion-nav {
+  width: inherit;
+  height: 7vh;
+  background-color: #2979FF;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+#s11 .opioion .opioion-nav image:nth-of-type(1) {
+  position: absolute;
+  left: 5vw;
+  top: auto;
+  width: 5vh;
+  height: 5vh;
+  display: inline-block;
+  vertical-align: middle;
+}
+#s11 .opioion .opioion-nav text:nth-of-type(1) {
+  position: absolute;
+  left: calc(6vh + 7vw);
+  top: auto;
+  line-height: 5vh;
+  display: inline-block;
+  vertical-align: middle;
+}
+#s11 .opioion .opioion-nav image:nth-of-type(2) {
+  position: absolute;
+  right: 7vw;
+  top: auto;
+  width: 5vh;
+  height: 5vh;
+  display: inline-block;
+}
+#s11 .opioion .opioion-nav text:nth-of-type(2) {
+  position: absolute;
+  right: 2vw;
+  top: auto;
+  line-height: 5vh;
+  display: inline-block;
+  vertical-align: middle;
+}
+#s11 .opioion .opioion-main {
+  width: 80vw;
+  height: 17vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  display: inline-block;
+  background-color: #8F939C;
+  padding: 1.5vh 5vw;
+  box-sizing: border-box;
+}
+#s11 .opioion .opioion-main .main-nav image {
+  width: 6vh;
+  height: 6vh;
+  border-radius: 100%;
+  vertical-align: middle;
+}
+#s11 .opioion .opioion-main .main-nav text {
+  margin: 0;
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: 6vh;
+  line-height: 6vh;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-left: 2vw;
+}
+#s11 .opioion .opioion-main text {
+  font-size: 28rpx;
+  margin-top: 1.3vh;
+  display: inline-block;
+  font-weight: 500;
+}
+#s11 .moveArea {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 90vw;
+  height: 80vw;
+  margin: 0 auto;
+  background-color: #F0AD4E;
+}
+#s11 .moveArea .moveView {
+  width: 20vw;
+  height: 15vh;
+  background-color: #A0CFFF;
+}
 .home {
   overflow: hidden;
   width: 750rpx;
