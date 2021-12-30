@@ -480,6 +480,7 @@ var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ 138));function _i
                 friend.sex = res4.data.data.Sex;
                 that.FriendArray.push(friend);
                 console.log(that.FriendArray);
+                that.$forceUpdate();
               });
             });
           });
@@ -496,6 +497,7 @@ var _qs = _interopRequireDefault(__webpack_require__(/*! qs */ 138));function _i
           // that.stickerArray = result.stickers||[]
           that.weatherArray = result.weathers || [];
           that.backgroundImgArray = result.backgroundImgs || [];
+          that.$forceUpdate();
         });
       } });
 

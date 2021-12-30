@@ -183,6 +183,7 @@
 							})
 							that.homePageData.FanCount=fun
 							that.homePageData.FriendsCount=friend
+							that.$forceUpdate()
 						})
 					})
 					
@@ -194,7 +195,8 @@
 			let that = this
 			uni.getStorage({
 				key: "UserAccount",
-				success(res) {
+				success:(res)=>{
+					let that =this
 					uni.request({
 						url: 'http://120.76.138.164:3000/user/queryUser?data=' + res.data
 					})
@@ -233,9 +235,10 @@
 							})
 							that.homePageData.FanCount=fun
 							that.homePageData.FriendsCount=friend
+							that.$forceUpdate()
 						})
 					})
-					
+					//
 				}
 			})
 

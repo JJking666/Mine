@@ -34,7 +34,7 @@
 				</view>
 			</swiper-item>
 			<swiper-item id="s11" v-for="(item,index) in handAccountData" :key="index" v-if="isFriend">
-				<view class="swiper-ver-nav" @tap="showOpioion">
+				<view class="swiper-ver-nav" >
 					<image :src="homePageData.HeadImg" mode="">
 					</image>
 					<text>{{FriendData.Name}}</text>
@@ -50,7 +50,7 @@
 
 				<view class="textmain">
 					<image id="bk" :src="backgroundImgArray[item.bkImgNumber].bkImgPath"></image>
-					<scroll-view :scroll-top="scrollTop" scroll-y="true" style="height: 75vh;box-sizing: border-box;">
+					<scroll-view  scroll-y="true" style="height: 75vh;box-sizing: border-box;">
 						<editor :id="'editor'+index" read-only="true" @ready="onEditorReady(index)">
 						</editor>
 					</scroll-view>
@@ -339,6 +339,7 @@
 					}
 					that.homePageData.FanCount = fun
 					that.homePageData.FriendsCount = friend
+					this.$forceUpdate()
 				})
 		},
 		methods: {

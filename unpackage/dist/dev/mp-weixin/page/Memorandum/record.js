@@ -329,7 +329,7 @@ var _default =
     },
 
     gotoWriteRecord: function gotoWriteRecord() {
-      uni.navigateTo({
+      uni.redirectTo({
         url: 'createRecord' });
 
     } },
@@ -357,6 +357,27 @@ var _default =
           data, 2),err1 = _data2[0],res1 = _data2[1];
           that.recordData = res1.data.data;
           that.firstRecord = JSON.parse(JSON.stringify(that.recordData));
+          that.$forceUpdate();
+        });
+      } });
+
+  },
+  onShow: function onShow() {
+    var that = this;
+    var id;
+    uni.getStorage({
+      key: "UserID",
+      success: function success(res) {
+        id = res.data;
+        console.log(id);
+        uni.request({
+          url: 'http://120.76.138.164:3000/record/queryRecords?data=' + id }).
+
+        then(function (data) {var _data3 = _slicedToArray(
+          data, 2),err1 = _data3[0],res1 = _data3[1];
+          that.recordData = res1.data.data;
+          that.firstRecord = JSON.parse(JSON.stringify(that.recordData));
+          that.$forceUpdate();
         });
       } });
 

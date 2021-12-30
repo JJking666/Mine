@@ -215,6 +215,7 @@
 			}
 		},
 		onReady(option){
+			wx.showTabBar()
 			let that = this
 			uni.onKeyboardHeightChange(res => {
 				that.jpheight=res.height

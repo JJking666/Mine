@@ -4,9 +4,9 @@
 			<image src="../../static/img/memorandum/complete.png" id="img1" @tap="createOk"></image>
 		</myNav>
 		<view class="main">
-			<textarea v-model="this.textTitle"  cols="1" maxlength="12" placeholder="标题" placeholder-style="font-size:32rpx;">
+			<textarea v-model="textTitle"  cols="1" maxlength="12" placeholder="标题" placeholder-style="font-size:32rpx;">
 				</textarea>
-			<textarea v-model="this.textValue"  placeholder="请输入内容" focus="true" confirm-type="done"
+			<textarea v-model="textValue"  placeholder="请输入内容" focus="true" confirm-type="done"
 				auto-blur="true"></textarea>
 		</view>
 	</view>
@@ -32,10 +32,10 @@
 					key:"UserID",
 					success:(res)=>{
 						id = res.data
-						console.log(id)
+						console.log(id,this.textTitle,this.textValue)
 						uni.request({
 							url:'http://120.76.138.164:3000/work/addWorks?data='+
-							'{"UserID":"'+id+'","title":"'+that.textTitle+'","content":"'+that.textValue+'"}'
+							'{"UserID":"'+id+'","title":"'+this.textTitle+'","content":"'+this.textValue+'"}'
 						})
 						.then(data1=>{
 							let [err1,res1]=data1

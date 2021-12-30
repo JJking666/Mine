@@ -48,9 +48,15 @@
 				uni.removeStorage({
 					key:'UserAccount',
 					success: ()=> {
+						console.log('gb1')
 					    uni.redirectTo({
 					        url: '../Login/login'
 					    });
+					},
+					fail() {
+						uni.redirectTo({
+						    url: '../Login/login'
+						});
 					}
 				})
 			}

@@ -8,7 +8,7 @@
 					placeholder-style="" @input="this.update=1"></textarea>
 				<textarea v-model="classTableData.classNumber[index]" placeholder="学号" maxlength="12"
 					placeholder-style="line-height: 5vh;" @input="this.update=1"></textarea>
-				<image v-if="item" :src="item"></image><!-- ||'../../static/img/icon.jpg' -->
+				<image  :src="item||'../../static/img/icon.jpg'"></image><!-- ||'../../static/img/icon.jpg' -->
 			</swiper-item>
 		</swiper>
 		<button type="primary" @tap="openImg1(nowIndex)">从相册选取</button>
@@ -22,7 +22,7 @@
 		data() {
 			return {
 				nowIndex: 0,
-				classTableData: [],
+				classTableData:new Object(),
 				indicatorDots: true,
 				update: 0,
 				id:'',
@@ -36,9 +36,8 @@
 					sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'], //从相册选择
 					success: (res) => {
-						that.update = 1
-						this.$data.classTableData.classPath.splice(this.$data.nowIndex, 1, res.tempFilePaths[
-							0])
+						this.$data.update = 1
+						this.$data.classTableData.classPath.splice(this.$data.nowIndex, 1, res.tempFilePaths[0])
 					}
 				});
 			},
@@ -50,8 +49,8 @@
 					sourceType: ['camera'], //从相册选择
 					success: (res) => {
 						that.update = 1
-						this.$data.classTableData.classPath.splice(this.$data.nowIndex, 1, res.tempFilePaths[
-							0])
+						console.log(this.$data.classTableData)
+						this.$data.classTableData.classPath.splice(this.$data.nowIndex, 1, res.tempFilePaths[0])
 					}
 				});
 			},
@@ -93,11 +92,26 @@
 					this.$data.id = res.data
 					console.log(4,this.$data.id ,res.data)
 					uni.request({
-							url: 'http://120.76.138.164:3000/classTable/getClassTables?data=' + this.$data.id
+							url: 'http://120.76.138.164:3000/classTable/queryClassTable?data=' + this.$data.id
 						})
 						.then(data1 => {
 							let [err1, res1] = data1
-							that.classTableData = res1.data.data[0]
+							console.log(res1.data.data)
+							if(res1.data.data.length!=0){
+								that.classTableData = res1.data.data[0]
+								console.log('notnull')
+							}else{
+								uni.request({
+									url: 'http://120.76.138.164:3000/classTable/addClassTable?data=' + this.$data.id
+								})
+								that.$set(that.classTableData,'className',['','','','','',''])
+								that.$set(that.classTableData,'classNumber',['','','','','',''])
+								that.$set(that.classTableData,'classPath',new Array(5).fill('../../static/img/icon.jpg'))
+								// that.classTableData.className=['','','','','','']
+								// that.classTableData.classNumber=['','','','','','']
+								// that.classTableData.classPath=new Array(5).fill('../../static/img/icon.jpg')
+								console.log(that.classTableData)
+							}
 						})
 				}
 			})

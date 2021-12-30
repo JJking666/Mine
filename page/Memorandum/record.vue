@@ -168,7 +168,7 @@
 			},
 			
 			gotoWriteRecord() {
-				uni.navigateTo({
+				uni.redirectTo({
 					url: 'createRecord'
 				})
 			}
@@ -196,6 +196,27 @@
 						let [err1,res1]=data
 						that.recordData=res1.data.data
 						that.firstRecord=JSON.parse(JSON.stringify(that.recordData)) 
+						that.$forceUpdate()
+					})
+				}
+			})
+		},
+		onShow() {
+			let that =this
+			let id
+			uni.getStorage({
+				key:"UserID",
+				success:(res)=>{
+					id = res.data
+					console.log(id)
+					uni.request({
+						url:'http://120.76.138.164:3000/record/queryRecords?data='+id
+					})
+					.then(data=>{
+						let [err1,res1]=data
+						that.recordData=res1.data.data
+						that.firstRecord=JSON.parse(JSON.stringify(that.recordData)) 
+						that.$forceUpdate()
 					})
 				}
 			})

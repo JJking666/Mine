@@ -20,6 +20,9 @@
 		data(){
 			return{}
 		},
+		onShow() {
+			wx.showTabBar()
+		},
 		methods:{
 			gotoHandAccount(){
 				uni.navigateTo({

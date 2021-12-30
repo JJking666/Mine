@@ -18,7 +18,7 @@
 			<view class="medals2">
 				<view class="image" v-for="(item,index) in allMedals" :key="index">
 					<image :src="item.medalPath" mode=""></image>
-					<text>{{item.medalName}}</text>
+					<text>{{index}}</text>
 				</view>
 			</view>
 		</view>

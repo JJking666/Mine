@@ -248,8 +248,8 @@ var _default =
     },
     //立刻注册
     reg: function reg() {
-      uni.redirectTo({
-        url: 'enroll' });
+      uni.navigateTo({
+        url: './enroll' });
 
     } },
 

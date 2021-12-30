@@ -97,9 +97,6 @@ try {
   components = {
     uSubsection: function() {
       return Promise.all(/*! import() | uni_modules/uview-ui/components/u-subsection/u-subsection */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-subsection/u-subsection")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-subsection/u-subsection.vue */ 353))
-    },
-    uniCard: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-card/components/uni-card/uni-card */ "uni_modules/uni-card/components/uni-card/uni-card").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-card/components/uni-card/uni-card.vue */ 361))
     }
   }
 } catch (e) {
@@ -123,6 +120,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.workData1, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.time.toString().slice(0, 10)
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
+  var l1 = _vm.__map(_vm.workData2, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g1 = item.time.toString().slice(0, 10)
+    return {
+      $orig: $orig,
+      g1: g1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+        l1: l1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -211,12 +237,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      swiperH1: 0,
-      swiperH2: 0,
+      swiperH1: 10,
+      swiperH2: 10,
       firstCard: '2vh',
       workData1: [],
       workData2: [],
@@ -235,7 +263,6 @@ var _default =
   },
   methods: {
     changeCurrent: function changeCurrent(index) {
-      console.log(typeof index, index);
       this.swiperIndex = index.detail.current || 0;
       this.ubIndex = this.swiperIndex == 0 ? 1 : 0;
     },
@@ -257,11 +284,18 @@ var _default =
       this.noteData1.unshift(work);
     },
     workOption: function workOption(num, index) {
-      console.log(2);
-      var optionA = !this.option1[index];
-      var optionB = !this.option2[index];
-      if (num == 1) {this.option1.splice(index, 1, optionA);} else
-      {this.option2.splice(index, 1, optionB);}
+      if (num == 1) {
+        var optionA = !this.option1[index];
+        if (optionA == true) this.swiperH1 += 20;else
+        this.swiperH1 -= 20;
+        this.option1.splice(index, 1, optionA);
+      } else
+      {
+        var optionB = !this.option2[index];
+        if (optionB == true) this.swiperH2 += 42;else
+        this.swiperH2 -= 42;
+        this.option2.splice(index, 1, optionB);
+      }
       var l1 = 0;
       var l2 = 0;
       this.option1.forEach(function (item) {
@@ -270,8 +304,6 @@ var _default =
       this.option1.forEach(function (item) {
         if (item == true) l2++;
       });
-      this.swiperH1 += 30 * l1;
-      this.swiperH2 += 30 * l2;
     },
     deleteWork: function deleteWork(num, index) {var _this = this;
       uni.showModal({
@@ -283,28 +315,22 @@ var _default =
             var d1 = {
               _id: num == 1 ? _this.$data.workData1[index]._id : _this.$data.workData2[index]._id };
 
+
             uni.request({
               url: 'http://120.76.138.164:3000/work/deleteWork',
               data: d1 }).
 
             then(function (data1) {var _data = _slicedToArray(
               data1, 2),err1 = _data[0],res1 = _data[1];
-              console.log(res1);
-              _this.$data.option1 = [];
-              _this.$data.workData1 = [];
-              _this.$data.option2 = [];
-              _this.$data.workData2 = [];
-              res1.data.data.forEach(function (item, index) {
-                if (item.status == 0) {
-                  var work = item;
-                  _this.$data.option1.push(false);
-                  _this.$data.workData1.push(work);
-                } else {
-                  var _work = item;
-                  _this.$data.option2.push(false);
-                  _this.$data.workData2.push(_work);
-                }
-              });
+              if (num == 1) {
+                console.log('de1`');
+                _this.workData1.splice(index, 1);
+                _this.option1.splice(index, 1);
+              } else {
+                console.log('de2`');
+                _this.option2.splice(index, 1);
+                _this.workData2.splice(index, 1);
+              }
             });
           } else if (res.cancel) {
             return;
@@ -313,10 +339,11 @@ var _default =
 
     },
     show: function show() {var _this2 = this;
+      console.log('show');
       var element, query;
       setTimeout(function () {
-        console.log('mmou', _this2.workData1);
         _this2.workData1 = _this2.workData1 || [];
+        _this2.workData2 = _this2.workData2 || [];
         _this2.workData1.forEach(function (item, index) {
           element = "#content-wrap1" + index;
           query = uni.createSelectorQuery().in(_this2);
@@ -324,6 +351,7 @@ var _default =
           query.exec(function (res) {
             if (res && res[0]) {
               _this2.swiperH1 += res[0].height;
+              _this2.swiperH1 += 12;
             }
           });
         });
@@ -334,14 +362,16 @@ var _default =
           query.exec(function (res) {
             if (res && res[0]) {
               _this2.swiperH2 += res[0].height;
+              _this2.swiperH2 += 12;
             }
           });
         });
-      }, 200);
+        _this2.$forceUpdate();
+      }, 100);
       setTimeout(function () {
         if (_this2.swiperH2 < 800) _this2.swiperH2 = 800;
         if (_this2.swiperH1 < 800) _this2.swiperH1 = 800;
-      }, 400);
+      }, 500);
     },
     addFinishWork: function addFinishWork(index) {var _this3 = this;
       var that = this;
@@ -357,49 +387,29 @@ var _default =
 
       then(function (data1) {var _data2 = _slicedToArray(
         data1, 2),err1 = _data2[0],res1 = _data2[1];
-        that.option1 = [];
-        that.workData1 = [];
-        that.option2 = [];
-        that.workData2 = [];
-        res1.data.data.forEach(function (item, index) {
-          if (item.status == 0) {
-            var _work2 = item;
-            that.option1.push(false);
-            that.workData1.push(_work2);
-          } else {
-            var _work3 = item;
-            that.option2.push(false);
-            that.workData2.push(_work3);
+        var element = "#content-wrap1" + index;
+        var query = uni.createSelectorQuery().in(_this3);
+        query.select(element).boundingClientRect();
+        query.exec(function (res) {
+          if (res && res[0]) {
+            that.swiperH1 -= res[0].height;
+            that.swiperH1 -= 12;
+            that.swiperH2 += res[0].height;
+            that.swiperH2 += 12;
           }
         });
-        that.swiperH2 = 0;
-        that.swiperH1 = 0;
-        that.workData1.forEach(function (item, index) {
-          element = ".content-wrap1" + index;
-          query = uni.createSelectorQuery().in(_this3);
-          query.select(element).boundingClientRect();
-          query.exec(function (res) {
-            if (res && res[0]) {
-              that.swiperH1 += res[0].height;
-            }
-          });
-        });
-        that.workData2.forEach(function (item, index) {
-          element = "#content-wrap2" + index;
-          query = uni.createSelectorQuery().in(_this3);
-          query.select(element).boundingClientRect();
-          query.exec(function (res) {
-            if (res && res[0]) {
-              that.swiperH2 += res[0].height;
-            }
-          });
-        });
-        if (that.swiperH2 < 800) that.swiperH2 = 800;
-        if (that.swiperH1 < 800) that.swiperH1 = 800;
+        setTimeout(function () {
+          if (that.swiperH2 < 800) that.swiperH2 = 800;
+          if (that.swiperH1 < 800) that.swiperH1 = 800;
+        }, 500);
+        that.workData2.push(that.workData1[index]);
+        that.workData1.splice(index, 1);
+
       });
     } },
 
-  onLoad: function onLoad() {var _this4 = this;
+  onShow: function onShow() {var _this4 = this;
+    console.log('onload');
     uni.$on('addWork', this.addWork);
     uni.getStorage({
       key: "UserID",
@@ -413,22 +423,29 @@ var _default =
           data1, 2),err1 = _data3[0],res1 = _data3[1];
           that.option1 = [];
           that.workData1 = [];
+          that.workData2 = [];
           that.option2 = [];
-          console.log(3333, res1);
+          that.swiperH1 = 10;
+          that.swiperH2 = 10;
+          var option11 = [];
+          var workData11 = [];
+          var option21 = [];
+          var workData21 = [];
           res1.data.data.forEach(function (item, index) {
             if (item.status == 0) {
               var work = item;
-              that.option1.push(false);
-              that.workData1.push(work);
+              option11.push(false);
+              workData11.push(work);
             } else {
-              var _work4 = item;
-              that.option2.push(false);
-              that.workData2.push(_work4);
+              var _work = item;
+              option21.push(false);
+              workData21.push(_work);
             }
           });
-          that.option1 = that.option1 || [];
-          that.workData1 = that.workData1 || [];
-          that.option2 = that.option1 || [];
+          that.option1 = option11 || [];
+          that.workData1 = workData11 || [];
+          that.option2 = option21 || [];
+          that.workData2 = workData21 || [];
           console.log(2);
           _this4.show();
         });

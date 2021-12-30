@@ -5,19 +5,24 @@
 			<text id="dq">个人信息</text>
 			<view id="id">
 				<text id="id">ID:{{person.ID}}</text>
-				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
 			<view id="name">
-				<text >{{person.name}}</text>
-				<image src="../../static/uview/example/js.png" mode=""></image>
+				<text v-show="changeArray[1]==0">{{person.name}}</text>
+				<input type="text" v-model="person.name" v-show="changeArray[1]!=0"/>
+				<image src="../../static/uview/example/js.png" mode="" @tap="changeA(1)"></image>
 			</view>
 			<view id="password">
 				<text>{{person.sex}}</text>
-				<image src="../../static/uview/example/js.png" mode=""></image>
 			</view>
-			<view id="account">
-				<text>{{person.motto}}</text>
-				<image src="../../static/uview/example/js.png" mode=""></image>
+			<view >
+				<text v-show="changeArray[3]==0">{{person.motto}}</text>
+				<input type="text"  v-model="person.motto" v-show="changeArray[3]!=0"/>
+				<image src="../../static/uview/example/js.png" mode="" @tap="changeA(3)"> </image>
+			</view>
+			<view >
+				<text v-show="changeArray[4]==0">{{person.funMotto}}</text>
+				<input type="text"  v-model="person.funMotto" v-show="changeArray[4]!=0"/>
+				<image src="../../static/uview/example/js.png" mode="" @tap="changeA(4)"></image>
 			</view>
 		</view>
 	</view>
@@ -27,14 +32,42 @@
 	export default{
 		data(){
 			return {
+				changeArray:[0,0,0,0,0],
 				person:{
 					headImg:'',
 					ID:'',
 					name:'',
 					sex:'',
-					motto:''
+					motto:'',
 				}
 			}
+		},
+		methods:{
+			changeA(index){
+				let c=this.changeArray[index]==0?1:0
+				this.$set(this.changeArray,index,c)
+				console.log(this.changeArray[index])
+			}
+		},
+		onUnload() {
+			uni.getStorage({
+				key:'UserID',
+				success:(res)=>{
+					let data1 = {
+						UserID:res.data,
+						Name:this.person.name,
+						motto:this.person.motto,
+						funMotto:this.person.funMotto
+					}
+					uni.request({
+						url:'http://120.76.138.164:3000/user/changeUserInfo',
+						data:data1
+					})
+					.then((data)=>{
+						
+					})
+				}
+			})
 		},
 		onLoad(option) {
 			let that =this
@@ -54,6 +87,7 @@
 				if(res.data.data.Sex == 'man')that.person.sex='男'
 				else that.person.sex='女'
 				that.person.motto = res.data.data.motto
+				that.person.funMotto = res.data.data.funMotto
 				that.person.name = res.data.data.Name
 			})
 		}
@@ -85,6 +119,12 @@
 					display: inline-block;
 					font-size: $fontSize-sm;
 				}
+				input{
+					line-height: 4vh;
+					display: inline-block;
+					font-size: $fontSize-sm;
+					font-style: oblique;
+				}
 				image{
 					margin-top: 0.5vh;
 					float: right;
@@ -93,7 +133,7 @@
 				}
 			}
 			#account{
-				text{
+				text,input{
 					overflow: hidden;
 					text-overflow: ellipsis;
 					line-height: 4vh;

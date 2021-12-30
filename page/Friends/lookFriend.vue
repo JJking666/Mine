@@ -3,7 +3,7 @@
 		<swiper :current="swiperIndex" vertical="true" circular="true" style="height: 100vh;">
 			<swiper-item>
 				<view class="home">
-					<image :src="homePageData.HeadImg" mode="" class="home-bk"></image>
+					<image :src="homePageData.HeadImg" style="z-index: 9;" mode="" class="home-bk"></image>
 					<view class="home-add" :animation="animationData1">
 						<view class="home-add-md" :animation="animationData3">
 							<image :src="homePageData.HeadImg" mode=""></image>
@@ -25,7 +25,7 @@
 				</view>
 			</swiper-item>
 			<swiper-item id="s11" v-for="(item,index) in handAccountData" :key="index">
-				<view class="swiper-ver-nav" @tap="showOpioion">
+				<view class="swiper-ver-nav" >
 					<image :src="homePageData.HeadImg" mode="">
 					</image>
 					<text>{{FriendData.Name}}</text>
@@ -41,7 +41,7 @@
 
 				<view class="textmain">
 					<image id="bk" :src="backgroundImgArray[item.bkImgNumber].bkImgPath"></image>
-					<scroll-view :scroll-top="scrollTop" scroll-y="true" style="height: 75vh;box-sizing: border-box;">
+					<scroll-view  scroll-y="true" style="height: 75vh;box-sizing: border-box;">
 						<editor :id="'editor'+index" read-only="true" @ready="onEditorReady(index)">
 						</editor>
 					</scroll-view>
@@ -261,6 +261,7 @@
 		},
 		onUnload() {
 			if (this.isFriend == false) {
+				console.log(this.status)
 				let deleteFriendID1 = ''
 				let deleteFriendID2 = ''
 				if (this.status == 1) {
@@ -363,6 +364,7 @@
 					})
 					that.homePageData.FanCount = fun
 					that.homePageData.FriendsCount = friend
+					that.$forceUpdate()
 				})
 		}
 

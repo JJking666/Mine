@@ -18,22 +18,19 @@
 		},
 		methods: {
 			// 点击发布
-			editOk(res) {
-				 this.content = res;
-				 console.log(res)
-				 uni.$emit('contentemit',res)
-			},
 			finish(){
 				let data={
 					UserID:this.id,
 					content:this.content
 				}
+				console.log(data)
 				uni.request({
 					url:'http://120.76.138.164:3000/record/addRecord',
-					data:this.content
+					data:data
 				})
 				.then((data)=>{
-					uni.redirectTo({
+					console.log('finish')
+					uni.reLaunch({
 						url:'record'
 					})
 				})

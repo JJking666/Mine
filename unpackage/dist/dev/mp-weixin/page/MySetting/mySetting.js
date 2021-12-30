@@ -315,6 +315,7 @@ var _default =
             });
             that.homePageData.FanCount = fun;
             that.homePageData.FriendsCount = friend;
+            that.$forceUpdate();
           });
         });
 
@@ -322,11 +323,12 @@ var _default =
 
 
   },
-  onReady: function onReady() {
+  onReady: function onReady() {var _this = this;
     var that = this;
     uni.getStorage({
       key: "UserAccount",
       success: function success(res) {
+        var that = _this;
         uni.request({
           url: 'http://120.76.138.164:3000/user/queryUser?data=' + res.data }).
 
@@ -365,9 +367,10 @@ var _default =
             });
             that.homePageData.FanCount = fun;
             that.homePageData.FriendsCount = friend;
+            that.$forceUpdate();
           });
         });
-
+        //
       } });
 
 

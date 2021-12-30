@@ -116,8 +116,8 @@
 			},
 			//立刻注册
 			reg() {
-				uni.redirectTo({
-					url: 'enroll'
+				uni.navigateTo({
+					url:'./enroll'
 				})
 			}
 		},

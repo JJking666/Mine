@@ -300,6 +300,7 @@
 												friend.sex = res4.data.data.Sex
 												that.FriendArray.push(friend)
 												console.log(that.FriendArray)
+												that.$forceUpdate()
 											})
 								})	
 							})
@@ -316,6 +317,7 @@
 							// that.stickerArray = result.stickers||[]
 							that.weatherArray = result.weathers||[]
 							that.backgroundImgArray = result.backgroundImgs||[]
+							that.$forceUpdate()
 					})
 				}
 			})

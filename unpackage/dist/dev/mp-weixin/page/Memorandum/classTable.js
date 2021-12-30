@@ -163,7 +163,7 @@ var _default =
   data: function data() {
     return {
       nowIndex: 0,
-      classTableData: [],
+      classTableData: new Object(),
       indicatorDots: true,
       update: 0,
       id: '' };
@@ -177,9 +177,8 @@ var _default =
         sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album'], //从相册选择
         success: function success(res) {
-          that.update = 1;
-          _this.$data.classTableData.classPath.splice(_this.$data.nowIndex, 1, res.tempFilePaths[
-          0]);
+          _this.$data.update = 1;
+          _this.$data.classTableData.classPath.splice(_this.$data.nowIndex, 1, res.tempFilePaths[0]);
         } });
 
     },
@@ -191,8 +190,8 @@ var _default =
         sourceType: ['camera'], //从相册选择
         success: function success(res) {
           that.update = 1;
-          _this2.$data.classTableData.classPath.splice(_this2.$data.nowIndex, 1, res.tempFilePaths[
-          0]);
+          console.log(_this2.$data.classTableData);
+          _this2.$data.classTableData.classPath.splice(_this2.$data.nowIndex, 1, res.tempFilePaths[0]);
         } });
 
     },
@@ -234,11 +233,26 @@ var _default =
         _this3.$data.id = res.data;
         console.log(4, _this3.$data.id, res.data);
         uni.request({
-          url: 'http://120.76.138.164:3000/classTable/getClassTables?data=' + _this3.$data.id }).
+          url: 'http://120.76.138.164:3000/classTable/queryClassTable?data=' + _this3.$data.id }).
 
         then(function (data1) {var _data2 = _slicedToArray(
           data1, 2),err1 = _data2[0],res1 = _data2[1];
-          that.classTableData = res1.data.data[0];
+          console.log(res1.data.data);
+          if (res1.data.data.length != 0) {
+            that.classTableData = res1.data.data[0];
+            console.log('notnull');
+          } else {
+            uni.request({
+              url: 'http://120.76.138.164:3000/classTable/addClassTable?data=' + _this3.$data.id });
+
+            that.$set(that.classTableData, 'className', ['', '', '', '', '', '']);
+            that.$set(that.classTableData, 'classNumber', ['', '', '', '', '', '']);
+            that.$set(that.classTableData, 'classPath', new Array(5).fill('../../static/img/icon.jpg'));
+            // that.classTableData.className=['','','','','','']
+            // that.classTableData.classNumber=['','','','','','']
+            // that.classTableData.classPath=new Array(5).fill('../../static/img/icon.jpg')
+            console.log(that.classTableData);
+          }
         });
       } });
 

@@ -157,17 +157,17 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   methods: {
-    createOk: function createOk() {
+    createOk: function createOk() {var _this = this;
       var that = this;
       var id;
       uni.getStorage({
         key: "UserID",
         success: function success(res) {
           id = res.data;
-          console.log(id);
+          console.log(id, _this.textTitle, _this.textValue);
           uni.request({
             url: 'http://120.76.138.164:3000/work/addWorks?data=' +
-            '{"UserID":"' + id + '","title":"' + that.textTitle + '","content":"' + that.textValue + '"}' }).
+            '{"UserID":"' + id + '","title":"' + _this.textTitle + '","content":"' + _this.textValue + '"}' }).
 
           then(function (data1) {var _data = _slicedToArray(
             data1, 2),err1 = _data[0],res1 = _data[1];

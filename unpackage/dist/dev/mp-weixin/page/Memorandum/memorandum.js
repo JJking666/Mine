@@ -152,6 +152,9 @@ var _default =
   data: function data() {
     return {};
   },
+  onShow: function onShow() {
+    wx.showTabBar();
+  },
   methods: {
     gotoHandAccount: function gotoHandAccount() {
       uni.navigateTo({

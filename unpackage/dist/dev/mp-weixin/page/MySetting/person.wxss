@@ -53,13 +53,19 @@
   display: inline-block;
   font-size: 28rpx;
 }
+.person .content > view input {
+  line-height: 4vh;
+  display: inline-block;
+  font-size: 28rpx;
+  font-style: oblique;
+}
 .person .content > view image {
   margin-top: 0.5vh;
   float: right;
   line-height: 4vh;
   display: inline-block;
 }
-.person .content #account text {
+.person .content #account text, .person .content #account input {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 4vh;

@@ -96,7 +96,7 @@ var components
 try {
   components = {
     jinEdit: function() {
-      return Promise.all(/*! import() | components/jin-edit/jin-edit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/jin-edit/jin-edit")]).then(__webpack_require__.bind(null, /*! @/components/jin-edit/jin-edit.vue */ 332))
+      return Promise.all(/*! import() | components/jin-edit/jin-edit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/jin-edit/jin-edit")]).then(__webpack_require__.bind(null, /*! @/components/jin-edit/jin-edit.vue */ 258))
     }
   }
 } catch (e) {
@@ -370,6 +370,7 @@ __webpack_require__.r(__webpack_exports__);
     } },
 
   onReady: function onReady(option) {var _this = this;
+    wx.showTabBar();
     var that = this;
     uni.onKeyboardHeightChange(function (res) {
       that.jpheight = res.height;
