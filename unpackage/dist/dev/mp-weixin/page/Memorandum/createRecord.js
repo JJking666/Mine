@@ -162,8 +162,8 @@ var _default = { data: function data() {return { content: "", id: '' };}, method
 
       then(function (data) {
         console.log('finish');
-        uni.reLaunch({
-          url: 'record' });
+        uni.navigateBack({
+          delta: 1 });
 
       });
     } },

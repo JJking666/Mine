@@ -156,7 +156,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
@@ -166,7 +165,9 @@ var _default =
         name: '',
         medals: [] },
 
-      allMedals: [] };
+      allMedals: [],
+      allMedalName: ['小白', '咸鱼', '萌新', '佛系', '万人迷', '社交名流', '过关斩将', '宏图伟略', '卷王'] };
+
 
   },
   onLoad: function onLoad(option) {

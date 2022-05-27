@@ -4,37 +4,96 @@
  * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
  */
 @import '@/uni_modules/uview-ui/theme.scss';
+$imgSize:4vh;
+$imgSize-md:6vh;
+$imgSize-lg:10vh;
+$backgroundC0:#d7f9ff;
+$backgroundC:#b1eaf5;	//大部分背景色
+$card-pad-backgroundC:#f5f5f5;	//card外部
+$card-backgroundC:#ffffff;
+$item-backgroundC:white;
+$shadowC1:#b1eaf5;	//浅蓝
+$shadowC2:#5edcf5;	//深蓝
+$fontC:#a8a8a8;	//浅灰
+$mainColor1:#B1EAF5;	//浅蓝
+$mainColor2:#51BDE7;	//微深蓝
+$mainColor3:#C6AEF1;	//粉紫色
+$mainColor4:#00ACD7;	//深蓝
+$mainColor5:#a39affcf;	//蓝紫色
+.linear_button {
+    background-image: linear-gradient(to right bottom, #b28ff2, #00ACD7, #b892fb);
+}
+.linear_back{
+    background-image: linear-gradient(to bottom,#51BDE7,#C6AEF1);
+}
+#filterImg{
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			filter: blur(8rpx);
+		}
 $fontSize-sm:28rpx;
 	$fontSize-md:32rpx;
 	$fontSize-lg:36rpx;
 	.radius-button{
 		border: 1px solid transparent;
-		border-radius: 2vh;
+		border-radius: 4vh;
 	}
 $imgSize:4vh;
 $navHeight:var(--status-bar-height);
 $padding-tb:5vw;
 $navHeight:var(--status-bar-height);
 $padding-lr:2vh;
+.box_shadow{
+	box-shadow:6rpx 6rpx 2rpx #b1eaf5;
+}
 .create{
 	border: 1px solid transparent;
 	border-radius: 50%;
-			position: fixed;
-			right: 4vw;
-			bottom:20vh;
-			width: 15vw;
-			height: 15vw;
-			background-color: #a7dab9;
-			padding: 2vw 2vw;
-			box-sizing: border-box;
-			border: 1rpx solid #A5A5A5;
-			image{
-				width: 11vw;
-				height: 11vw;
-				size: 100%;
-			}
-		}
+	position: fixed;
+	right: 4vw;
+	bottom:20vh;
+	width: 15vw;
+	height: 15vw;
+	background-color: #51BDE7;
+	padding: 2vw 2vw;
+	box-sizing: border-box;
+	border: 1rpx solid transparent;
+	box-shadow: 0 0 55rpx 5rpx #4fafef;
+	image{
+		width: 11vw;
+		height: 11vw;
+		size: 100%;
+	}
+}
 		
-		$imgSize:4vh;
-		$imgSize-md:6vh;
-		$imgSize-lg:10vh;
+
+.buttonStyle1{
+	background-image: linear-gradient(to right bottom, #7867cc, #b7bafb);
+}
+.buttonStyle2{
+	background-image: linear-gradient(to right bottom, #c29df5, #9655fb);
+}
+
+.buttonStyle3{
+	background-image: linear-gradient(to right bottom, #a6f1ff, #4de9f9);
+}
+
+.buttonStyle4{
+	background-image: linear-gradient(to right bottom, #80e6a6, #fdf9cb);
+}
+
+.buttonStyle5{
+	background-image: linear-gradient(to right bottom, #fbcd74, #ff8e19);
+}
+
+.buttonStyle6{
+	background-image: linear-gradient(to right bottom, #75bffb, #0791ff);
+}
+
+.buttonStyle7{
+	background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
+}

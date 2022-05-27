@@ -182,10 +182,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;} //
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _this = void 0;function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;} //
 //
 //
 //
@@ -261,6 +258,16 @@ var _default =
       swiperIndex: 0 };
 
   },
+  computed: {
+    workData22: function workData22() {
+      if (!_this) return;
+      return _this.workData2.reverse();
+    },
+    workData11: function workData11() {
+      if (!_this) return;
+      return _this.workData1.reverse();
+    } },
+
   methods: {
     changeCurrent: function changeCurrent(index) {
       this.swiperIndex = index.detail.current || 0;
@@ -280,7 +287,13 @@ var _default =
       if (!data.title && !data.value) return;
       if (!data.title) data.title = "无";
       if (!data.value) data.value = "无";
-      var work = { id: this.maxid, title: data.title, content: data.value, date: "11/17", option: false };
+      var work = {
+        id: this.maxid,
+        title: data.title,
+        content: data.value,
+        date: "11/17",
+        option: false };
+
       this.noteData1.unshift(work);
     },
     workOption: function workOption(num, index) {
@@ -289,8 +302,7 @@ var _default =
         if (optionA == true) this.swiperH1 += 20;else
         this.swiperH1 -= 20;
         this.option1.splice(index, 1, optionA);
-      } else
-      {
+      } else {
         var optionB = !this.option2[index];
         if (optionB == true) this.swiperH2 += 42;else
         this.swiperH2 -= 42;
@@ -305,15 +317,16 @@ var _default =
         if (item == true) l2++;
       });
     },
-    deleteWork: function deleteWork(num, index) {var _this = this;
+    deleteWork: function deleteWork(num, index) {var _this2 = this;
       uni.showModal({
         title: '提示',
         content: '您确定要删除该事务吗？',
         success: function success(res) {
-          console.log(_this.$data);
+          console.log(_this2.$data);
           if (res.confirm) {
             var d1 = {
-              _id: num == 1 ? _this.$data.workData1[index]._id : _this.$data.workData2[index]._id };
+              _id: num == 1 ? _this2.$data.workData1[index]._id : _this2.$data.workData2[
+              index]._id };
 
 
             uni.request({
@@ -324,12 +337,12 @@ var _default =
               data1, 2),err1 = _data[0],res1 = _data[1];
               if (num == 1) {
                 console.log('de1`');
-                _this.workData1.splice(index, 1);
-                _this.option1.splice(index, 1);
+                _this2.workData1.splice(index, 1);
+                _this2.option1.splice(index, 1);
               } else {
                 console.log('de2`');
-                _this.option2.splice(index, 1);
-                _this.workData2.splice(index, 1);
+                _this2.option2.splice(index, 1);
+                _this2.workData2.splice(index, 1);
               }
             });
           } else if (res.cancel) {
@@ -338,84 +351,96 @@ var _default =
         } });
 
     },
-    show: function show() {var _this2 = this;
+    show: function show() {var _this3 = this;
       console.log('show');
       var element, query;
       setTimeout(function () {
-        _this2.workData1 = _this2.workData1 || [];
-        _this2.workData2 = _this2.workData2 || [];
-        _this2.workData1.forEach(function (item, index) {
+        _this3.workData1 = _this3.workData1 || [];
+        _this3.workData2 = _this3.workData2 || [];
+        _this3.workData1.forEach(function (item, index) {
           element = "#content-wrap1" + index;
-          query = uni.createSelectorQuery().in(_this2);
+          query = uni.createSelectorQuery().in(_this3);
           query.select(element).boundingClientRect();
           query.exec(function (res) {
             if (res && res[0]) {
-              _this2.swiperH1 += res[0].height;
-              _this2.swiperH1 += 12;
+              _this3.swiperH1 += res[0].height;
+              _this3.swiperH1 += 12;
             }
           });
         });
-        _this2.workData2.forEach(function (item, index) {
+        _this3.workData2.forEach(function (item, index) {
           element = "#content-wrap2" + index;
-          query = uni.createSelectorQuery().in(_this2);
+          query = uni.createSelectorQuery().in(_this3);
           query.select(element).boundingClientRect();
           query.exec(function (res) {
             if (res && res[0]) {
-              _this2.swiperH2 += res[0].height;
-              _this2.swiperH2 += 12;
+              _this3.swiperH2 += res[0].height;
+              _this3.swiperH2 += 12;
             }
           });
         });
-        _this2.$forceUpdate();
+        _this3.$forceUpdate();
       }, 100);
       setTimeout(function () {
-        if (_this2.swiperH2 < 800) _this2.swiperH2 = 800;
-        if (_this2.swiperH1 < 800) _this2.swiperH1 = 800;
+        if (_this3.swiperH2 < 700) _this3.swiperH2 = 700;
+        if (_this3.swiperH1 < 700) _this3.swiperH1 = 700;
+        _this3.$forceUpdate();
       }, 500);
     },
-    addFinishWork: function addFinishWork(index) {var _this3 = this;
+    addFinishWork: function addFinishWork(index) {var _this4 = this;
       var that = this;
-      console.log(index, this.workData1[index]);
-      var work = this.workData1[index]._id;
+      uni.showModal({
+        title: '提示',
+        content: '该事务是否完成?',
+        success: function success(res) {
+          if (res.confirm) {
+            var _that = _this4;
+            var work = _this4.workData1[index]._id;
+            var d1 = {
+              _id: work };
 
-      var d1 = {
-        _id: work };
+            uni.request({
+              url: 'http://120.76.138.164:3000/work/addFinishWork',
+              data: d1 }).
 
-      uni.request({
-        url: 'http://120.76.138.164:3000/work/addFinishWork',
-        data: d1 }).
+            then(function (data1) {var _data2 = _slicedToArray(
+              data1, 2),err1 = _data2[0],res1 = _data2[1];
+              var element = "#content-wrap1" + index;
+              var query = uni.createSelectorQuery().in(_this4);
+              query.select(element).boundingClientRect();
+              query.exec(function (res) {
+                if (res && res[0]) {
+                  _that.swiperH1 -= res[0].height;
+                  _that.swiperH1 -= 12;
+                  _that.swiperH2 += res[0].height;
+                  _that.swiperH2 += 12;
+                }
+              });
+              setTimeout(function () {
+                if (_that.swiperH2 < 800) _that.swiperH2 = 800;
+                if (_that.swiperH1 < 800) _that.swiperH1 = 800;
+              }, 500);
+              _that.workData2.push(_that.workData1[index]);
+              _that.workData1.splice(index, 1);
 
-      then(function (data1) {var _data2 = _slicedToArray(
-        data1, 2),err1 = _data2[0],res1 = _data2[1];
-        var element = "#content-wrap1" + index;
-        var query = uni.createSelectorQuery().in(_this3);
-        query.select(element).boundingClientRect();
-        query.exec(function (res) {
-          if (res && res[0]) {
-            that.swiperH1 -= res[0].height;
-            that.swiperH1 -= 12;
-            that.swiperH2 += res[0].height;
-            that.swiperH2 += 12;
+            });
+          } else if (res.cancel) {
+            return;
           }
-        });
-        setTimeout(function () {
-          if (that.swiperH2 < 800) that.swiperH2 = 800;
-          if (that.swiperH1 < 800) that.swiperH1 = 800;
-        }, 500);
-        that.workData2.push(that.workData1[index]);
-        that.workData1.splice(index, 1);
+        } });
 
-      });
+      console.log(index, this.workData1[index]);
+
     } },
 
-  onShow: function onShow() {var _this4 = this;
+  onShow: function onShow() {var _this5 = this;
     console.log('onload');
     uni.$on('addWork', this.addWork);
     uni.getStorage({
       key: "UserID",
       success: function success(res) {
         var id = res.data;
-        var that = _this4;
+        var that = _this5;
         uni.request({
           url: 'http://120.76.138.164:3000/work/getWorks?data=' + id }).
 
@@ -447,7 +472,7 @@ var _default =
           that.option2 = option21 || [];
           that.workData2 = workData21 || [];
           console.log(2);
-          _this4.show();
+          _this5.show();
         });
       } });
 

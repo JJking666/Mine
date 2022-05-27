@@ -2,11 +2,11 @@
 	<view class="mysetting">
 		<view class="setting-nav">
 			<view class="nav-vip">
-				<image :src="homePageData.HeadImg" mode=""></image>
+				<image src="../../static/img/common/VIP.png" mode=""></image>
 				<text>Mine会员</text>
 			</view>
 			<image src="../../static/img/memorandum/dm7.jpg" mode=""></image>
-			<image src="../../static/img/memorandum/bk2.jpg" mode=""></image>
+			<image :src="homePageData.HeadImg" mode=""></image>
 			<text>{{homePageData.Name}}</text>
 			<view class="qianm">
 				<text>{{homePageData.motto}}</text>
@@ -23,19 +23,19 @@
 					<text>个人</text>
 				</view>
 				<view class="main1-card-item" @tap="gotoPerson">
-					<image src="../../static/img/icon.jpg"></image>
+					<image src="../../static/img/common/person.png"></image>
 					<text>个人</text>
 				</view>
 				<view class="main1-card-item" @tap="gotoAccount">
-					<image src="../../static/img/icon.jpg"></image>
+					<image src="../../static/img/common/zhanghu.png"></image>
 					<text>账户</text>
 				</view>
 				<view class="main1-card-item" @tap="gotoPrivacy">
-					<image src="../../static/img/icon.jpg"></image>
+					<image src="../../static/img/common/yinsi.png"></image>
 					<text>隐私</text>
 				</view>
 				<view class="main1-card-item" @tap="gotoMedal">
-					<image src="../../static/img/icon.jpg"></image>
+					<image src="../../static/img/common/xunzhang.png"></image>
 					<text>勋章</text>
 				</view>
 			</view>
@@ -150,8 +150,11 @@
 					})
 					.then(data=>{
 						let [err, res] = data
-						that.homePageData.Name=res.data.data[0].Name
+						that.$set(that.homePageData,"Name",res.data.data[0].Name)
 						that.homePageData.UserID=res.data.data[0]._id
+						that.homePageData.HeadImg=res.data.data[0].HeadImg,
+						that.$set(that.homePageData,"motto",res.data.data[0].motto)
+						that.$forceUpdate()
 						uni.setStorage({
 							key:"UserID",
 							data:res.data.data[0]._id
@@ -161,13 +164,14 @@
 						})
 						.then((data) => {
 							let [err, res] = data
-							that.homePageData.HeadImg=res.data.data[0].HeadImg,
-							that.homePageData.motto=res.data.data[0].motto,
-							that.homePageData.FriendsCount=res.data.data[0].FriendsCount,
-							that.homePageData.FanCount=res.data.data[0].FanCount,
+							// that.homePageData.HeadImg=res.data.data[0].HeadImg,
+							// that.homePageData.motto=res.data.data[0].motto,
+							that.$set(that.homePageData,"FriendsCount",res.data.data[0].FriendsCount)
+							that.$set(that.homePageData,"FanCount",res.data.data[0].FanCount)
 							that.homePageData.workCount=res.data.data[0].workCount,
 							that.homePageData.medals=res.data.data[0].medals
 							that.homePageData.goods =res.data.data[0].goods
+							that.$forceUpdate()
 						})
 						uni.request({
 							url:'http://120.76.138.164:3000/relationship/queryRelationship?data='+
@@ -201,25 +205,28 @@
 						url: 'http://120.76.138.164:3000/user/queryUser?data=' + res.data
 					})
 					.then(data=>{
-						let [err, res] = data
-						that.homePageData.Name=res.data.data[0].Name
-						that.homePageData.UserID=res.data.data[0]._id
+						let [err1, res0] = data
+						that.homePageData.HeadImg=res0.data.data[0].HeadImg
+						that.homePageData.motto=res0.data.data[0].motto
+						that.homePageData.Name=res0.data.data[0].Name
+						that.homePageData.UserID=res0.data.data[0]._id
 						// uni.setStorage({
 						// 	key:"UserID",
 						// 	data:res.data.data[0]._id
 						// })
 						uni.request({
-							url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"]
+							url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + res0.data.data[0]["_id"]
 						})
 						.then((data1) => {
 							let [err1, res1] = data1
-							that.homePageData.HeadImg=res1.data.data[0].HeadImg,
-							that.homePageData.motto=res1.data.data[0].motto,
-							that.homePageData.FriendsCount=res1.data.data[0].FriendsCount,
-							that.homePageData.FanCount=res1.data.data[0].FanCount,
+							// that.homePageData.HeadImg=res1.data.data[0].HeadImg,
+							// that.homePageData.motto=res1.data.data[0].motto,
+							that.$set(that.homePageData,"FriendsCount",res.data.data[0].FriendsCount)
+							that.$set(that.homePageData,"FanCount",res.data.data[0].FanCount)
 							that.homePageData.workCount=res1.data.data[0].workCount,
 							that.homePageData.medals=res1.data.data[0].medals
 							that.homePageData.goods =res1.data.data[0].goods
+							that.$forceUpdate()
 						})
 						uni.request({
 							url:'http://120.76.138.164:3000/relationship/queryRelationship?data='+
@@ -252,24 +259,22 @@
 		width: 100vw;
 		background-color: #e6ebf4;
 		position: relative;
-
 		.nav-vip {
 			position: absolute;
 			right: 0;
-			top: 5vh;
+			top: 8vh;
 			height: 5vh;
 			width: fit-content;
 			padding: 0.5vh 2vw;
 			box-sizing: border-box;
 			background-color: rgba($color: #242424, $alpha: 0.7);
 			z-index: 2;
-
 			&>image {
 				vertical-align: middle;
 				display: inline-block;
 				width: 4vh;
 				height: 4vh;
-				size: 100%;
+				size: 120%;
 				object-fit: cover;
 			}
 
@@ -307,9 +312,9 @@
 			}
 
 			&>image:nth-of-type(2) {
-				height: 18vh;
-				width: 18vh;
-				border-radius: 100%;
+				height: 240rpx;
+				width: 220rpx;
+				border-radius: 50%;
 				size: 100%;
 				object-fit: cover;
 				z-index: 10;
@@ -408,7 +413,7 @@
 			.main1-card {
 				width: 90vw;
 				height: fit-content;
-				background-color: #9deaa6;
+				background-color: $mainColor1;
 				padding: 1vh 5vw;
 				padding-top: 8vh;
 				padding-bottom: 1vh;
@@ -426,8 +431,8 @@
 					position: absolute;
 					left: 5vw;
 					top: 0;
-					border-bottom: 1px solid #939395;
-
+					border-bottom: 1px solid #ffffff;
+					font-weight: bold;
 					text {
 						line-height: 6vh;
 						font-size: $fontSize-md;
@@ -473,7 +478,7 @@
 				border-radius: 25rpx;
 				width: 90vw;
 				height: fit-content;
-				background-color: #a6e4f1;
+				background-color: $mainColor3;
 				padding: 1vh 5vw;
 				padding-top: 8vh;
 				padding-bottom: 1vh;
@@ -491,7 +496,7 @@
 					position: absolute;
 					left: 5vw;
 					top: 0;
-					border-bottom: 1px solid #939395;
+					border-bottom: 1px solid #ffffff;
 
 					text {
 						line-height: 6vh;

@@ -4,9 +4,28 @@
  * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
  * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
  */
+.linear_button {
+  background-image: linear-gradient(to right bottom, #b28ff2, #00ACD7, #b892fb);
+}
+.linear_back {
+  background-image: linear-gradient(to bottom, #51BDE7, #C6AEF1);
+}
+#filterImg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-filter: blur(8rpx);
+          filter: blur(8rpx);
+}
 .radius-button {
   border: 1px solid transparent;
-  border-radius: 2vh;
+  border-radius: 4vh;
+}
+.box_shadow {
+  box-shadow: 6rpx 6rpx 2rpx #b1eaf5;
 }
 .create {
   border: 1px solid transparent;
@@ -16,15 +35,37 @@
   bottom: 20vh;
   width: 15vw;
   height: 15vw;
-  background-color: #a7dab9;
+  background-color: #51BDE7;
   padding: 2vw 2vw;
   box-sizing: border-box;
-  border: 1rpx solid #A5A5A5;
+  border: 1rpx solid transparent;
+  box-shadow: 0 0 55rpx 5rpx #4fafef;
 }
 .create image {
   width: 11vw;
   height: 11vw;
   size: 100%;
+}
+.buttonStyle1 {
+  background-image: linear-gradient(to right bottom, #7867cc, #b7bafb);
+}
+.buttonStyle2 {
+  background-image: linear-gradient(to right bottom, #c29df5, #9655fb);
+}
+.buttonStyle3 {
+  background-image: linear-gradient(to right bottom, #a6f1ff, #4de9f9);
+}
+.buttonStyle4 {
+  background-image: linear-gradient(to right bottom, #80e6a6, #fdf9cb);
+}
+.buttonStyle5 {
+  background-image: linear-gradient(to right bottom, #fbcd74, #ff8e19);
+}
+.buttonStyle6 {
+  background-image: linear-gradient(to right bottom, #75bffb, #0791ff);
+}
+.buttonStyle7 {
+  background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
 }
 .mysetting {
   height: 100vh;
@@ -35,7 +76,7 @@
 .mysetting .nav-vip {
   position: absolute;
   right: 0;
-  top: 5vh;
+  top: 8vh;
   height: 5vh;
   width: -webkit-fit-content;
   width: fit-content;
@@ -49,7 +90,7 @@
   display: inline-block;
   width: 4vh;
   height: 4vh;
-  size: 100%;
+  size: 120%;
   object-fit: cover;
 }
 .mysetting .nav-vip > text {
@@ -83,9 +124,9 @@
   z-index: 1;
 }
 .mysetting .setting-nav > image:nth-of-type(2) {
-  height: 18vh;
-  width: 18vh;
-  border-radius: 100%;
+  height: 240rpx;
+  width: 220rpx;
+  border-radius: 50%;
   size: 100%;
   object-fit: cover;
   z-index: 10;
@@ -169,7 +210,7 @@
   width: 90vw;
   height: -webkit-fit-content;
   height: fit-content;
-  background-color: #9deaa6;
+  background-color: #B1EAF5;
   padding: 1vh 5vw;
   padding-top: 8vh;
   padding-bottom: 1vh;
@@ -187,7 +228,8 @@
   position: absolute;
   left: 5vw;
   top: 0;
-  border-bottom: 1px solid #939395;
+  border-bottom: 1px solid #ffffff;
+  font-weight: bold;
 }
 .mysetting .setting-main1 .main1-card .main1-title text {
   line-height: 6vh;
@@ -229,7 +271,7 @@
   width: 90vw;
   height: -webkit-fit-content;
   height: fit-content;
-  background-color: #a6e4f1;
+  background-color: #C6AEF1;
   padding: 1vh 5vw;
   padding-top: 8vh;
   padding-bottom: 1vh;
@@ -247,7 +289,7 @@
   position: absolute;
   left: 5vw;
   top: 0;
-  border-bottom: 1px solid #939395;
+  border-bottom: 1px solid #ffffff;
 }
 .mysetting .setting-main2 .main2-card .main2-title text {
   line-height: 6vh;

@@ -40,12 +40,13 @@
 						.then(data1=>{
 							let [err1,res1]=data1
 							console.log(res1)
+							uni.navigateBack({
+								delta:1
+							})
 						})
 					}
 				})
-				uni.navigateBack({
-					delta:1
-				})
+				
 			},
 		}
 	}
@@ -63,13 +64,13 @@
 	.writeWork {
 		width: 100vw;
 		height: 100vh;
-		background-color: #DBF1E1;
+		background-color: $shadowC1;
 		box-sizing: border-box;
 		overflow: auto;
 		.main {
 			width: 100vw;
 			height: fit-content;
-			background-color: #DBF1E1;
+			background-color: $shadowC1;
 			padding: 1vh 3vw;
 			margin-top: calc(5vh + var(--status-bar-height));
 			& textarea:nth-of-type(1) {

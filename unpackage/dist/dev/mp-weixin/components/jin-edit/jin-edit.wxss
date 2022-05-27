@@ -5,6 +5,7 @@
 	padding-bottom: 120rpx;
 	height: -webkit-fit-content;
 	height: fit-content;
+	/* max-height: 70vh; */
 }
 /*修改
  */
@@ -15,7 +16,7 @@
 	height: 50vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
-	background-color: rgba( 240,230,140,0.2);
+	background-color: rgba( 255,255,255,0.2);
 	z-index: 99999;
 }
 .tool-view.data-v-52149304{

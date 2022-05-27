@@ -1,15 +1,14 @@
 <template>
-	<view class="friends">
-		<image id="record-bk" src="../../static/img/bkImg/bk6.jpg" mode=""></image>
+	<view class="friends linear_back">
+		<!-- <image id="record-bk" src="../../static/img/bkImg/bk6.jpg" mode=""></image> -->
 		<input id="record-input" placeholder="输入手机号或昵称" placeholder-style="" v-model="inputValue"
 			@input="select" />
 		<view class="selectPeople">
 			<view class="select-item" v-for="(item,index) in selectPeople" :key="index" @tap="gotoLookSomeone(item._id)">
 				<image :src="item.HeadImg">
 				<view v-html="item.Name" style="display: inline-block;"></view>
-				<image :src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
+				<image :src="item.sex!='man'?'../../static/img/common/nan.png':'../../static/img/common/nv.png'"
 					mode=""></image>
-				
 			</view>
 		</view>
 		<view class="content">
@@ -17,7 +16,7 @@
 				<image :src="item.headImg">
 					<text>{{item.name}}</text>
 					<image
-						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
+						:src="item.sex!='man'?'../../static/img/common/nan.png':'../../static/img/common/nv.png'"
 						mode=""></image>
 			</view>
 		</view>
@@ -113,6 +112,7 @@
 							friend.sex = res1.data.data.Sex
 							console.log(friend)
 							that.friends.push(friend)
+							this.$forceUpdate()
 						})
 					}
 					if(res.data.data.status==2){
@@ -210,16 +210,15 @@
 			background-color: blue;
 			left: 10vw;
 			z-index: 9;
-			max-height: 50vh;
+			max-height: 49vh;
 			overflow: auto;
 			.select-item {
 				width: inherit;
 				height: 7vh;
 				padding: 1vh 3vw;
 				box-sizing: border-box;
-				background-image: linear-gradient(to right, rgba(238, 238, 238, 0.6) 10%, rgba(1, 1, 1, 0.2) 100%);
-				border-bottom: 1rpx solid #999992;
-
+				background-image: linear-gradient(to right, #ffffff 50%, #fbfbfb 100%);
+				    border-bottom: 1rpx solid #e7ebf0;
 				image:nth-of-type(1) {
 					width: 5vh;
 					height: 5vh;
@@ -282,8 +281,8 @@
 				height: 9vh;
 				padding: 1.5vh 10vw;
 				box-sizing: border-box;
-				background-image: linear-gradient(to right, rgba(238, 238, 238, 0.6) 10%, rgba(1, 1, 1, 0.2) 100%);
-				border-bottom: 1rpx solid #999992;
+				background-image: linear-gradient(to right, rgb(132,180,253) 50%, rgb(110,148,255) 100%);
+				    border-bottom: 1rpx solid #c6daf5;
 
 				image:nth-of-type(1) {
 					width: 6vh;
@@ -309,7 +308,7 @@
 					height: 3vh;
 					display: inline-block;
 					size: 100%;
-					margin-left: 1vw;
+					margin-left: 3vw;
 					vertical-align: middle;
 				}
 

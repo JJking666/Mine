@@ -4,9 +4,28 @@
  * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
  * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
  */
+.linear_button {
+  background-image: linear-gradient(to right bottom, #b28ff2, #00ACD7, #b892fb);
+}
+.linear_back {
+  background-image: linear-gradient(to bottom, #51BDE7, #C6AEF1);
+}
+#filterImg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-filter: blur(8rpx);
+          filter: blur(8rpx);
+}
 .radius-button {
   border: 1px solid transparent;
-  border-radius: 2vh;
+  border-radius: 4vh;
+}
+.box_shadow {
+  box-shadow: 6rpx 6rpx 2rpx #b1eaf5;
 }
 .create {
   border: 1px solid transparent;
@@ -16,15 +35,37 @@
   bottom: 20vh;
   width: 15vw;
   height: 15vw;
-  background-color: #a7dab9;
+  background-color: #51BDE7;
   padding: 2vw 2vw;
   box-sizing: border-box;
-  border: 1rpx solid #A5A5A5;
+  border: 1rpx solid transparent;
+  box-shadow: 0 0 55rpx 5rpx #4fafef;
 }
 .create image {
   width: 11vw;
   height: 11vw;
   size: 100%;
+}
+.buttonStyle1 {
+  background-image: linear-gradient(to right bottom, #7867cc, #b7bafb);
+}
+.buttonStyle2 {
+  background-image: linear-gradient(to right bottom, #c29df5, #9655fb);
+}
+.buttonStyle3 {
+  background-image: linear-gradient(to right bottom, #a6f1ff, #4de9f9);
+}
+.buttonStyle4 {
+  background-image: linear-gradient(to right bottom, #80e6a6, #fdf9cb);
+}
+.buttonStyle5 {
+  background-image: linear-gradient(to right bottom, #fbcd74, #ff8e19);
+}
+.buttonStyle6 {
+  background-image: linear-gradient(to right bottom, #75bffb, #0791ff);
+}
+.buttonStyle7 {
+  background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
 }
 #viewImg1, #viewImg2 {
   width: 5vh;
@@ -41,13 +82,16 @@ button {
   height: 6vh;
   font-size: 28rpx !important;
   border: 1rpx solid transparent;
-  border-radius: 10rpx;
+  border-radius: 20rpx;
   padding: 0.2vh 3vw;
   vertical-align: middle;
   display: inline-block;
   margin: 0;
   white-space: nowrap;
-  background-color: #f1ccb8;
+  background-image: linear-gradient(to right bottom, #b1eaf5, #d9f1f9);
+  font-family: emoji;
+  font-weight: 500;
+  color: #292929;
 }
 #img1 {
   position: absolute;
@@ -61,16 +105,17 @@ button {
   height: 5vh;
   display: block;
   position: absolute;
-  right: 5vw;
-  top: 1vh;
+  right: 3vw;
+  top: 0vh;
   size: 100%;
+  z-index: 999;
 }
 .creation {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
   padding: 5vh 5vw;
-  background-color: #b8f1cc;
+  background-image: linear-gradient(to right bottom, #b1eaf5 20%, #d9f1f9 50%);
 }
 .creation .creation-bk {
   width: 90vw;
@@ -78,8 +123,10 @@ button {
   border: 1rpx solid transparent;
   border-radius: 30rpx;
   margin-top: 7vh;
+  box-shadow: 0rpx 0rpx 55rpx #5edcf5;
 }
 .creation .creation-bk .creation-content {
+  overflow: hidden;
   width: inherit;
   height: inherit;
   background-color: rgba(255, 192, 203, 0.2);
@@ -87,11 +134,12 @@ button {
   border: 1rpx solid transparent;
   border-radius: 30rpx;
   position: relative;
+  box-shadow: 0rpx 0rpx 25rpx #b1eaf5;
 }
 .creation .creation-bk .creation-content .jin {
   height: 20vh;
   width: calc(100%-60rpx);
-  background-color: rgba(240, 230, 140, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   z-index: 999;
   margin: 0 30rpx;
 }
@@ -119,6 +167,7 @@ button {
   top: 0;
   left: 0;
   z-index: -1;
+  border-radius: 30rpx;
 }
 .creation .creation-bk .creation-content .content-nav {
   width: 90vw;
@@ -144,7 +193,7 @@ button {
   width: 25vw;
   height: 5vh;
   text-align: center;
-  font-size: 28rpx;
+  font-size: 32rpx;
   line-height: 5vh;
 }
 .creation .creation-bk .creation-content .content-nav .weather {
@@ -226,5 +275,8 @@ button {
   height: -webkit-fit-content;
   height: fit-content;
   box-sizing: border-box;
+}
+.creation .footer .moveTz button, .creation .footer .addTz button, .creation .footer .addBk button {
+  min-width: 20vw;
 }
 

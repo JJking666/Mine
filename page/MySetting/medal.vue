@@ -7,18 +7,17 @@
 			</view>
 			<view id="content">
 				<text>{{medalData.name}}</text>
-				<text>已{{medalData.medals.length}}解锁种身份</text>
+				<text>已解锁{{medalData.medals.length}}种成就</text>
 				<view class="medals">
 					<image :src="allMedals[item].medalPath" v-for="(item,index) in medalData.medals" :key="index"></image>
 				</view>
 			</view>
 		</view>
 		<view class="content2">
-			<image src="../../static/img/memorandum/dm1.jpg" mode=""></image>
 			<view class="medals2">
 				<view class="image" v-for="(item,index) in allMedals" :key="index">
 					<image :src="item.medalPath" mode=""></image>
-					<text>{{index}}</text>
+					<text>{{allMedalName[index]}}</text>
 				</view>
 			</view>
 		</view>
@@ -34,7 +33,9 @@
 					name:'',
 					medals:[]
 				},
-				allMedals:[]
+				allMedals:[],
+				allMedalName:['小白','咸鱼','萌新','佛系','万人迷','社交名流','过关斩将','宏图伟略','卷王'],
+				
 			}
 		},
 		onLoad(option) {

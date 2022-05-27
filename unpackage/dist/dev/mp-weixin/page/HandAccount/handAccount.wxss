@@ -4,9 +4,28 @@
  * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
  * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
  */
+.linear_button {
+  background-image: linear-gradient(to right bottom, #b28ff2, #00ACD7, #b892fb);
+}
+.linear_back {
+  background-image: linear-gradient(to bottom, #51BDE7, #C6AEF1);
+}
+#filterImg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-filter: blur(8rpx);
+          filter: blur(8rpx);
+}
 .radius-button {
   border: 1px solid transparent;
-  border-radius: 2vh;
+  border-radius: 4vh;
+}
+.box_shadow {
+  box-shadow: 6rpx 6rpx 2rpx #b1eaf5;
 }
 .create {
   border: 1px solid transparent;
@@ -16,18 +35,41 @@
   bottom: 20vh;
   width: 15vw;
   height: 15vw;
-  background-color: #a7dab9;
+  background-color: #51BDE7;
   padding: 2vw 2vw;
   box-sizing: border-box;
-  border: 1rpx solid #A5A5A5;
+  border: 1rpx solid transparent;
+  box-shadow: 0 0 55rpx 5rpx #4fafef;
 }
 .create image {
   width: 11vw;
   height: 11vw;
   size: 100%;
 }
+.buttonStyle1 {
+  background-image: linear-gradient(to right bottom, #7867cc, #b7bafb);
+}
+.buttonStyle2 {
+  background-image: linear-gradient(to right bottom, #c29df5, #9655fb);
+}
+.buttonStyle3 {
+  background-image: linear-gradient(to right bottom, #a6f1ff, #4de9f9);
+}
+.buttonStyle4 {
+  background-image: linear-gradient(to right bottom, #80e6a6, #fdf9cb);
+}
+.buttonStyle5 {
+  background-image: linear-gradient(to right bottom, #fbcd74, #ff8e19);
+}
+.buttonStyle6 {
+  background-image: linear-gradient(to right bottom, #75bffb, #0791ff);
+}
+.buttonStyle7 {
+  background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
+}
 editor {
   height: 71vh !important;
+  z-index: 88;
 }
 .uni-app--showleftwindow + .uni-tabbar-bottom {
   display: none;
@@ -87,11 +129,12 @@ editor {
   background-color: rgba(251, 232, 232, 0.9);
   height: 100vh;
   width: 100vw;
+  touch-action: none;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav {
   width: 100vw;
   height: 8vh;
-  background-image: linear-gradient(rgba(255, 89, 89, 0.75), rgba(119, 133, 236, 0.9));
+  background-image: linear-gradient(#5097f2, #cdeffa, #b7cbf8);
   position: fixed;
   top: 0vh;
   left: 0;
@@ -116,18 +159,17 @@ editor {
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-nav #selectUser {
   float: right;
-  margin-top: 0.5vh;
+  margin-top: 1vh;
   position: center;
-  width: 5vh;
-  height: 5vh;
+  width: 4vh;
+  height: 4vh;
   border-radius: 100%;
   object-fit: cover;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head {
   width: 100vw;
   height: 6vh;
-  background-color: #e0f8f7;
-  margin-top: 8vh;
+  margin-top: 9vh;
   padding: 0.5vh 5vw;
   display: flex;
   flex-direction: row;
@@ -152,25 +194,29 @@ editor {
   width: 30vw;
   height: 5vh;
   display: inline-block;
+  z-index: 999;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .swiper-ver-head .date view {
   width: 30vw;
   height: 5vh;
   background-color: ragb(221, 160, 221, 0.5);
   text-align: center;
-  font-size: 28rpx;
+  font-size: 36rpx;
   line-height: 5vh;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain {
   width: 90vw;
   height: 75vh;
-  margin: 2vh auto;
-  background-color: #71D5A1;
+  margin: 0.5vh auto;
   box-sizing: border-box;
   position: relative;
   padding: 2vh 5vw;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+  box-shadow: 0rpx 0rpx 55rpx #5edcf5;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain #bk {
+  opacity: 0.8;
   width: 90vw;
   height: 75vh;
   position: absolute;
@@ -178,6 +224,7 @@ editor {
   top: 0;
   size: 100%;
   display: block;
+  border-radius: 30rpx;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .textmain #content {
   width: calc(90vw - 60rpx);
@@ -200,13 +247,22 @@ editor {
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion {
   position: fixed;
-  width: 80vw;
+  width: 15vw;
   margin: 0 auto;
-  height: 7vh;
-  background-color: #A0CFFF;
-  bottom: 0vh;
-  left: 10vw;
+  height: 11vw;
+  /* background-color: #A0CFFF; */
+  bottom: 30rpx;
+  right: 12vw;
   z-index: 9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion image {
+  width: 80%;
+  height: 100%;
+  size: 100%;
+  min-width: 80%;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .opioion .opioion-scroll {
   height: 42vh;
@@ -288,6 +344,24 @@ editor {
   margin-top: 1.3vh;
   display: inline-block;
   font-weight: 500;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .getGood {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 24vw;
+  height: 23vw;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  z-index: 9999;
+}
+.handAccount .swiper-hor #s1 .swiper-ver #s11 .getGood image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .handAccount .swiper-hor #s1 .swiper-ver #s11 .moveArea {
   position: fixed;

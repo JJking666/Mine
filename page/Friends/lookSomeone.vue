@@ -3,10 +3,10 @@
 		<swiper :current="swiperIndex" vertical="true" circular="true" style="height: 100vh;">
 			<swiper-item>
 				<view class="home">
-					<image :src="homePageData.HeadImg" mode="" class="home-bk"></image>
+					<image :src="homePageData.HeadImg||'../../static/img/memorandum/bk2.jpg'" style="z-index: 9;" class="home-bk"></image>
 					<view class="home-add" :animation="animationData1">
 						<view class="home-add-md" :animation="animationData3">
-							<image :src="homePageData.HeadImg" mode=""></image>
+							<image :src="homePageData.HeadImg||'../../static/img/memorandum/bk2.jpg'" mode=""></image>
 						</view>
 						<text>ID:{{id.slice(-6)}}</text>
 						<text>昵称:{{FriendData.Name}}</text>
@@ -25,7 +25,7 @@
 					<view class="home-send" :animation="animationData2">
 						<view class="home-send-md">
 							<text>{{FriendData.Name}}</text>
-							<textarea value="" placeholder="快和Ta介绍一下自己吧~~" placeholder-style="color:#F8F8F8" />
+							<textarea value="" placeholder="快和Ta介绍一下自己吧~~" placeholder-style="color:#464646" />
 						</view>
 						<view class="home-send-btn">
 							<button type="default" @tap="homeSend()">查看作品</button>
@@ -33,30 +33,41 @@
 					</view>
 				</view>
 			</swiper-item>
-			<swiper-item id="s11" v-for="(item,index) in handAccountData" :key="index" v-if="isFriend">
-				<view class="swiper-ver-nav" >
+			<swiper-item id="s11" v-for="(item,index) in handAccountData" :key="index">
+				<image id="filterImg" :src="nowBkImg[item.bkImgNumber]"></image>
+				<view class="swiper-ver-nav">
+					<image :src="homePageData.HeadImg" mode="">
+					</image>
+					<text>{{FriendData.Name}}</text>
+				</view>
+				<!-- <view class="swiper-ver-nav" >
 					<image :src="homePageData.HeadImg" mode="">
 					</image>
 					<text>{{FriendData.Name}}</text>
 					<image id="selectUser" src="../../static/uview/common/logo.png"></image>
-				</view>
+				</view> -->
 				<view class="swiper-ver-head">
-					<picker class="date" mode="date" :value="item.Date.slice(0,10)">
-						<view class="uni-input">{{item.Date.slice(0,10)}}</view>
-					</picker>
+					<view class="date">{{item.Date.slice(0,10)}}</view>
 					<image :src="weatherArray[item.Weather].weatherPath" mode=""></image>
 					<image :src="feelArray[item.Feel].feelPath" mode=""></image>
 				</view>
-
-				<view class="textmain">
-					<image id="bk" :src="backgroundImgArray[item.bkImgNumber].bkImgPath"></image>
-					<scroll-view  scroll-y="true" style="height: 75vh;box-sizing: border-box;">
-						<editor :id="'editor'+index" read-only="true" @ready="onEditorReady(index)">
-						</editor>
+				<view class="textmain" @tap="doubleTap(index)">
+					<image id="bk" :src="nowBkImg[item.bkImgNumber]"></image>
+					<scroll-view :scroll-top="scrollTop" @touchstart.stop="" scroll-y="true"
+						style="height: 900rpx;background-color:transparent;z-index: 99; box-sizing: border-box;">
+						<editor :id="'editor'+index" read-only="true"
+							@ready="onEditorReady(index)"></editor>
 					</scroll-view>
-					<image id="tz" :src="item1" v-for="(item1,index1) in item.stickerImg" :key="parseInt(index1+100)"
+					<image id="tz" :src="item1" v-for="(item1,index1) in item.stickerImg"
+						:key="parseInt(index1+100)"
 						:style="{left:item.stickerImgx[index1]+'px',top:item.stickerImgy[index1]+'px',transform:getScale(item.stickerImgs[index1])}">
 					</image>
+				</view>
+				<view class="opioion" @tap="tapGood(index)">
+					<image :src="item.isGood?'../../static/img/more/aixin2.png':'../../static/img/more/aixin.png'"></image><text>{{item.good}}</text>
+				</view>
+				<view class="getGood" :animation="goodAnimation">
+					<image src="../../static/img/more/aixin2.png"></image>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -80,6 +91,11 @@
 				animationData3: {},
 				allMedals: [],
 				isFriend: false,
+				nowBkImg: ["../../static/img/bkImg/pmoon.jpg", "../../static/img/bkImg/pdouble.jpg",
+					"../../static/img/bkImg/double.jpg", "../../static/img/bkImg/free.jpg",
+					"../../static/img/bkImg/eat.jpg", "../../static/img/bkImg/fly.jpg",
+					"../../static/img/bkImg/girl.jpg"
+				],
 				stickerArray: [{
 					"_id": "61a788c57533c4e420813108",
 					"stickerNumber": 1,
@@ -256,7 +272,7 @@
 			let that = this
 			this.id = option.id
 			this.status = option.status
-			console.log(option.id)
+			console.log('friendID',option.id)
 			let data1 = {
 				_id: option.id
 			}
@@ -296,16 +312,19 @@
 				.then(data => {
 					let [err, res1] = data
 					let friend = {}
+					console.log('qi',res1)
 					that.FriendData = res1.data.data
-
+					that.homePageData.HeadImg = res1.data.data.HeadImg
+					that.homePageData.motto = res1.data.data.motto
 				})
 			uni.request({
 					url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + option.id
 				})
 				.then((data) => {
 					let [err, res] = data
-					that.homePageData.HeadImg = res.data.data[0].HeadImg,
-						that.homePageData.motto = res.data.data[0].motto,
+					// that.homePageData.HeadImg = res.data.data[0].HeadImg,
+					// 	that.homePageData.motto = res.data.data[0].motto,
+					console.log('hp',res)
 						that.homePageData.FanCount = res.data.data[0].FanCount,
 						that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
 						that.homePageData.workCount = res.data.data[0].workCount,
@@ -343,6 +362,59 @@
 				})
 		},
 		methods: {
+			tapGood(index){
+				this.$set(this.handAccountData[index],"isGood",!this.handAccountData[index].isGood)
+				if(this.handAccountData[index].isGood === true) {
+					if(this.goodAnimation)return 
+					this.addGoodArr.push(this.handAccountData[index]._id)
+					this.$set(this.handAccountData[index],"good",this.handAccountData[index].good + 1)
+					this.goodAnimation = uni.createAnimation({
+						timingFunction: 'ease',
+					})
+					this.goodAnimation.opacity(0.5).step({duration: 200})
+					this.goodAnimation.scale(1.0).opacity(0.9).step({duration: 400})
+					this.goodAnimation.translateX(16 + 'vw').translateY(-16 + 'vh').opacity(0).step({duration: 1200})
+					this.goodAnimation.scale(0).translateX(0 + 'vw').translateY(0 + 'vh').step({duration: 100})
+					this.goodAnimation=this.goodAnimation.export()
+					setTimeout(()=>{
+						this.goodAnimation = null
+					},1900)
+				}else{
+					this.$set(this.handAccountData[index],"good",this.handAccountData[index].good -1)
+					this.handAccountData[index].funs = this.handAccountData[index].funs.filter(item=>{
+						return item != this.id
+					})
+				}
+			},
+			doubleTap(index) {
+				// console.log("doubleTap", index,)
+				this.touchNum++
+				setTimeout(() => {
+					if (this.touchNum == 1) {
+						console.log('单击')
+					}
+					if (this.touchNum >= 2) {
+						console.log('双击')
+						if(this.goodAnimation || this.handAccountData[index].isGood)return
+						this.addGoodArr.push(this.handAccountData[index]._id)
+						this.$set(this.handAccountData[index],"good",this.handAccountData[index].good + 1)
+						this.goodAnimation = uni.createAnimation({
+							timingFunction: 'ease',
+						})
+						this.goodAnimation.opacity(0.5).step({duration: 200})
+						this.goodAnimation.scale(1.0).opacity(0.9).step({duration: 400})
+						this.goodAnimation.translateX(16 + 'vw').translateY(-16 + 'vh').opacity(0).step({duration: 1200})
+						this.goodAnimation.scale(0).translateX(0 + 'vw').translateY(0 + 'vh').step({duration: 100})
+						this.goodAnimation=this.goodAnimation.export()
+						setTimeout(()=>{
+							this.goodAnimation = null
+						},1900)
+						this.$set(this.handAccountData[index],"isGood",true)
+					}
+					this.touchNum = 0
+				}, 250)
+			},
+			
 			homeAdd() {
 				if(this.isFriend == true) return
 				this.isFriend = true
@@ -407,6 +479,7 @@
 <style lang="scss">
 	$content-h:75vh;
 	$content-w:90vw;
+	$border_radius:30rpx;
 	$imgSize:4vh;
 	$optionImgSize:5vh;
 	
@@ -418,11 +491,12 @@
 		background-color: rgba(251, 232, 232, 0.9);
 		height: 100vh;
 		width: 100vw;
+		touch-action: none;
 	
 		.swiper-ver-nav {
 			width: 100vw;
 			height: 8vh;
-			background-image: linear-gradient(rgba(255, 89, 89, 0.75), rgba(119, 133, 236, 0.9));
+			background-image: linear-gradient(rgb(80,151,242), rgba(205,239,250,90%),rgba(183,203,248 ,75%));
 			position: fixed;
 			top: 0vh;
 			left: 0;
@@ -449,220 +523,250 @@
 	
 			#selectUser {
 				float: right;
-				margin-top: 0.5vh;
+				margin-top: 1vh;
 				position: center;
-				width: 5vh;
-				height: 5vh;
+				width: 4vh;
+				height: 4vh;
 				border-radius: 100%;
 				object-fit: cover;
 			}
 		}
+	
 		.swiper-ver-head {
-				width: 100vw;
-				height: 6vh;
-				background-color: #e0f8f7;
-				margin-top: 8vh;
-				padding: 0.5vh 5vw;
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				align-items: center;
-				box-sizing: border-box;
-		
-				&>image:nth-of-type(1) {
-					display: inline-block;
-					margin-left: -12vw;
-					width: $imgSize-md;
-					height: $imgSize-md;
-					object-fit: cover;
-				}
-		
-				&>image:nth-of-type(2) {
-					margin-right: 6vw;
-					width: $imgSize-md;
-					height: $imgSize-md;
-					object-fit: cover;
-				}
-		
-				.date {
+			width: 100vw;
+			height: 6vh;
+			margin-top: 9vh;
+			padding: 0.5vh 5vw;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			box-sizing: border-box;
+	
+			&>image:nth-of-type(1) {
+				display: inline-block;
+				margin-left: -12vw;
+				width: $imgSize-md;
+				height: $imgSize-md;
+				object-fit: cover;
+			}
+	
+			&>image:nth-of-type(2) {
+				margin-right: 6vw;
+				width: $imgSize-md;
+				height: $imgSize-md;
+				object-fit: cover;
+			}
+	
+			.date {
+				width: 30vw;
+				height: 5vh;
+				display: inline-block;
+				z-index: 999;
+	
+				view {
 					width: 30vw;
 					height: 5vh;
-					display: inline-block;
-		
-					view {
-						width: 30vw;
-						height: 5vh;
-						background-color: ragb(221, 160, 221, 0.5);
-						text-align: center;
-						font-size: $fontSize-sm;
-						line-height: 5vh;
-					}
-				}
-			}
-		
-			.textmain {
-				width: $content-w;
-				height: $content-h;
-				margin: 2vh auto;
-				background-color: #71D5A1;
-				box-sizing: border-box;
-				position: relative;
-				padding: 2vh 5vw;
-		
-				& #bk {
-					width: $content-w;
-					height: $content-h;
-					position: absolute;
-					left: 0;
-					top: 0;
-					size: 100%;
-					display: block;
-		
-				}
-		
-				& #content {
-					width: calc(90vw - 60rpx);
-					height: 70vh;
-					margin: auto;
-					display: block;
-					font-size: $fontSize-md;
-					overflow: auto;
-					z-index: 1;
-				}
-		
-				& #tz {
-					display: block;
-					position: absolute;
-					left: 0;
-					top: 0;
-					width: 10vh;
-					height: 10vh;
-					size: 100%;
-					z-index: 2;
-				}
-			}
-		
-			.opioion {
-				// overflow: scroll;
-				position: fixed;
-				width: 80vw;
-				margin: 0 auto;
-				height: 7vh;
-				background-color: #A0CFFF;
-				bottom: 0vh;
-				left: 10vw;
-				z-index: 9;
-		
-				.opioion-scroll {
-					height: 42vh;
-					width: 80vw;
-				}
-		
-				.opioion-nav {
-					width: inherit;
-					height: 7vh;
-					background-color: #2979FF;
-					display: flex;
-					flex-direction: row;
-					align-items: center;
-					position: relative;
-		
-					& image:nth-of-type(1) {
-						position: absolute;
-						left: 5vw;
-						top: auto;
-						width: $optionImgSize;
-						height: $optionImgSize;
-						display: inline-block;
-						vertical-align: middle;
-					}
-		
-					& text:nth-of-type(1) {
-						position: absolute;
-						left: calc(6vh + 7vw);
-						top: auto;
-						line-height: $optionImgSize;
-						display: inline-block;
-						vertical-align: middle;
-					}
-		
-					& image:nth-of-type(2) {
-						position: absolute;
-						right: 7vw;
-						top: auto;
-						width: $optionImgSize;
-						height: $optionImgSize;
-						display: inline-block;
-					}
-		
-					& text:nth-of-type(2) {
-						position: absolute;
-						right: 2vw;
-						top: auto;
-						line-height: $optionImgSize;
-						display: inline-block;
-						vertical-align: middle;
-		
-					}
-				}
-		
-				.opioion-main {
-					width: 80vw;
-					height: 17vh;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					display: inline-block;
-					background-color: #8F939C;
-					padding: 1.5vh 5vw;
-					box-sizing: border-box;
-		
-					.main-nav {
-						& image {
-							width: $imgSize-md;
-							height: $imgSize-md;
-							border-radius: 100%;
-							vertical-align: middle;
-						}
-		
-						& text {
-							margin: 0;
-							width: fit-content;
-							height: $imgSize-md;
-							line-height: $imgSize-md;
-							display: inline-block;
-							vertical-align: middle;
-							font-size: $fontSize-md;
-							font-weight: 600;
-							margin-left: 2vw;
-						}
-					}
-		
-					& text {
-						font-size: $fontSize-sm;
-						margin-top: 1.3vh;
-						display: inline-block;
-						font-weight: 500;
-					}
-				}
-			}
-		
-			.moveArea {
-				position: fixed;
-				bottom: 0;
-				left: 0;
-				width: 90vw;
-				height: 80vw;
-				margin: 0 auto;
-				background-color: #F0AD4E;
-		
-				.moveView {
-					width: 20vw;
-					height: 15vh;
-					background-color: #A0CFFF;
+					background-color: ragb(221, 160, 221, 0.5);
+					text-align: center;
+					font-size: $fontSize-lg;
+					line-height: 5vh;
 				}
 			}
 		}
+	
+		.textmain {
+			width: $content-w;
+			height: $content-h;
+			margin: 0.5vh auto;
+			box-sizing: border-box;
+			position: relative;
+			padding: 2vh 5vw;
+			border: 1rpx solid transparent;
+			border-radius: $border_radius;
+			box-shadow: 0rpx 0rpx 55rpx $shadowC2;
+	
+			& #bk {
+				opacity: 0.8;
+				width: $content-w;
+				height: $content-h;
+				position: absolute;
+				left: 0;
+				top: 0;
+				size: 100%;
+				display: block;
+				border-radius: $border_radius;
+			}
+	
+			& #content {
+				width: calc(90vw - 60rpx);
+				height: 70vh;
+				margin: auto;
+				display: block;
+				font-size: $fontSize-md;
+				overflow: auto;
+				z-index: 1;
+			}
+	
+			& #tz {
+				display: block;
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 10vh;
+				height: 10vh;
+				size: 100%;
+				z-index: 2;
+			}
+		}
+	
+		.opioion {
+			// overflow: scroll;
+			position: fixed;
+			width: 15vw;
+			margin: 0 auto;
+			height: 11vw;
+			/* background-color: #A0CFFF; */
+			bottom: 30rpx;
+			right: 12vw;
+			z-index: 9;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+	
+			image {
+				width: 80%;
+				height: 100%;
+				size: 100%;
+				min-width: 80%;
+			}
+	
+			.opioion-scroll {
+				height: 42vh;
+				width: 80vw;
+			}
+	
+			.opioion-nav {
+				width: inherit;
+				height: 7vh;
+				background-color: #2979FF;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				position: relative;
+	
+				& image:nth-of-type(1) {
+					position: absolute;
+					left: 5vw;
+					top: auto;
+					width: $optionImgSize;
+					height: $optionImgSize;
+					display: inline-block;
+					vertical-align: middle;
+				}
+	
+				& text:nth-of-type(1) {
+					position: absolute;
+					left: calc(6vh + 7vw);
+					top: auto;
+					line-height: $optionImgSize;
+					display: inline-block;
+					vertical-align: middle;
+				}
+	
+				& image:nth-of-type(2) {
+					position: absolute;
+					right: 7vw;
+					top: auto;
+					width: $optionImgSize;
+					height: $optionImgSize;
+					display: inline-block;
+				}
+	
+				& text:nth-of-type(2) {
+					position: absolute;
+					right: 2vw;
+					top: auto;
+					line-height: $optionImgSize;
+					display: inline-block;
+					vertical-align: middle;
+				}
+			}
+	
+			.opioion-main {
+				width: 80vw;
+				height: 17vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				display: inline-block;
+				background-color: #8F939C;
+				padding: 1.5vh 5vw;
+				box-sizing: border-box;
+	
+				.main-nav {
+					& image {
+						width: $imgSize-md;
+						height: $imgSize-md;
+						border-radius: 100%;
+						vertical-align: middle;
+					}
+	
+					& text {
+						margin: 0;
+						width: fit-content;
+						height: $imgSize-md;
+						line-height: $imgSize-md;
+						display: inline-block;
+						vertical-align: middle;
+						font-size: $fontSize-md;
+						font-weight: 600;
+						margin-left: 2vw;
+					}
+				}
+	
+				& text {
+					font-size: $fontSize-sm;
+					margin-top: 1.3vh;
+					display: inline-block;
+					font-weight: 500;
+				}
+			}
+		}
+			
+		.getGood {
+			position: absolute;
+			top:0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+			width: 24vw;
+			height: 23vw;
+			transform: scale(0);
+			z-index: 9999;
+			image{
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+		.moveArea {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 90vw;
+			height: 80vw;
+			margin: 0 auto;
+			background-color: #F0AD4E;
+	
+			.moveView {
+				width: 20vw;
+				height: 15vh;
+				background-color: #A0CFFF;
+			}
+		}
+	}
 	.home {
 		overflow: hidden;
 		width: 750rpx;
@@ -729,6 +833,7 @@
 						content: '获赞';
 						margin-left: 2vw;
 						font-size: $fontSize-sm;
+						white-space: nowrap;
 					}
 				}
 
@@ -741,6 +846,7 @@
 						content: '关注';
 						margin-left: 2vw;
 						font-size: $fontSize-sm;
+						white-space: nowrap;
 					}
 				}
 
@@ -753,6 +859,7 @@
 						content: '粉丝';
 						margin-left: 2vw;
 						font-size: $fontSize-sm;
+						white-space: nowrap;
 					}
 				}
 			}
@@ -777,6 +884,7 @@
 				height: 100rpx;
 				background-color: #9690ed;
 				border-radius: 3%;
+				z-index: 9;
 			}
 
 			.home-add-md {
@@ -812,7 +920,7 @@
 			top: 35vh;
 			width: 90vw;
 			height: 56vh;
-			background-color: #ed8e8e;
+			background-color: #a3d5f6;
 			border-radius: 3%;
 			display: flex;
 			flex-direction: column;
@@ -820,7 +928,7 @@
 
 			.home-send-md {
 				width: 90vw;
-				background-color: #ed8e8e;
+				background-color: #a3d5f6;
 				height: 50vh;
 				display: flex;
 				justify-content: center;
@@ -840,8 +948,7 @@
 					margin: 0px auto;
 					margin-top: 30rpx;
 					padding: 25rpx;
-					background-color: #dc5030;
-					color: #F8F8F8;
+					background-color: #fdfeff;
 				}
 			}
 
@@ -857,7 +964,7 @@
 				button {
 					width: 70vw;
 					height: 100rpx;
-					background-color: #f1e989;
+					background-color: #89b5f1;
 					border-radius: 3%;
 				}
 			}

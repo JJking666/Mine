@@ -30,8 +30,8 @@
 				})
 				.then((data)=>{
 					console.log('finish')
-					uni.reLaunch({
-						url:'record'
+					uni.navigateBack({
+						delta: 1
 					})
 				})
 			},

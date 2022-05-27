@@ -211,6 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 {
   components: {
     myNav: myNav },
@@ -236,14 +237,54 @@ __webpack_require__.r(__webpack_exports__);
         stickerImgs: [] },
 
       stickArray: [],
-      stickerArray: [],
-      backgroundImgArray: [{ "_id": "61a77a5309de386fef91088b", "bkImgNumber": 1, "bkImgName": "粉色夏日", "bkImgPath": "../../static/img/bkImg/bk1.jpg", "__v": 0 }, { "_id": "61a77bf66d1c1d1e7077f12d", "bkImgNumber": 2, "bkImgName": "碧水中月", "bkImgPath": "../../static/img/bkImg/bk2.jpg" }, { "_id": "61a77bf66d1c1d1e7077f12e", "bkImgNumber": 3, "bkImgName": "闲逸吉他", "bkImgPath": "../../static/img/bkImg/bk3.jpg" }, { "_id": "61a77bf66d1c1d1e7077f12f", "bkImgNumber": 4, "bkImgName": "落日阳台", "bkImgPath": "../../static/img/bkImg/bk4.jpg" }, { "_id": "61a77bf66d1c1d1e7077f130", "bkImgNumber": 5, "bkImgName": "草莓与花", "bkImgPath": "../../static/img/bkImg/bk5.jpg" }, { "_id": "61a77bf66d1c1d1e7077f131", "bkImgNumber": 6, "bkImgName": "熊熊开门", "bkImgPath": "../../static/img/bkImg/bk6.jpg" }, { "_id": "61a77bf66d1c1d1e7077f132", "bkImgNumber": 7, "bkImgName": "动物狂欢", "bkImgPath": "../../static/img/bkImg/bk7.jpg" }], //背景总数据
+      stickerArray: [{
+        "stickerNumber": 1,
+        "stickerName": "星球",
+        "stickerPath": "../../static/img/tzIcon/waixingqiu.png" },
+      {
+        "stickerNumber": 2,
+        "stickerName": "花儿",
+        "stickerPath": "../../static/img/tzIcon/hua3.png" },
+      {
+        "stickerNumber": 4,
+        "stickerName": "火箭",
+        "stickerPath": "../../static/img/tzIcon/huojian.png" },
+      {
+        "stickerNumber": 3,
+        "stickerName": "小脑虎",
+        "stickerPath": "../../static/img/tzIcon/laohu.png" },
+      {
+        "stickerNumber": 5,
+        "stickerName": "大蘑菇",
+        "stickerPath": "../../static/img/tzIcon/mogu.png" },
+      {
+        "stickerNumber": 6,
+        "stickerName": "火龙",
+        "stickerPath": "../../static/img/tzIcon/konglong.png" },
+      {
+        "stickerNumber": 7,
+        "stickerName": "大螃蟹",
+        "stickerPath": "../../static/img/tzIcon/pangxie.png" },
+      {
+        "stickerNumber": 8,
+        "stickerName": "仙人掌",
+        "stickerPath": "../../static/img/tzIcon/xianrenzhang.png" },
+      {
+        "stickerNumber": 9,
+        "stickerName": "栅栏",
+        "stickerPath": "../../static/img/tzIcon/zhalan.png" },
+      {
+        "stickerNumber": 10,
+        "stickerName": "章鱼",
+        "stickerPath": "../../static/img/tzIcon/zhangyu.png" }],
+
+      backgroundImgArray: [{ "_id": "61a77a5309de386fef91088b", "bkImgNumber": 1, "bkImgName": "粉色夏日", "bkImgPath": "../../static/img/bkImg/艾斯.jpg", "__v": 0 }, { "_id": "61a77bf66d1c1d1e7077f12d", "bkImgNumber": 2, "bkImgName": "碧水中月", "bkImgPath": "../../static/img/bkImg/bk2.jpg" }, { "_id": "61a77bf66d1c1d1e7077f12e", "bkImgNumber": 3, "bkImgName": "闲逸吉他", "bkImgPath": "../../static/img/bkImg/bk3.jpg" }, { "_id": "61a77bf66d1c1d1e7077f12f", "bkImgNumber": 4, "bkImgName": "落日阳台", "bkImgPath": "../../static/img/bkImg/bk4.jpg" }, { "_id": "61a77bf66d1c1d1e7077f130", "bkImgNumber": 5, "bkImgName": "草莓与花", "bkImgPath": "../../static/img/bkImg/bk5.jpg" }, { "_id": "61a77bf66d1c1d1e7077f131", "bkImgNumber": 6, "bkImgName": "熊熊开门", "bkImgPath": "../../static/img/bkImg/bk6.jpg" }, { "_id": "61a77bf66d1c1d1e7077f132", "bkImgNumber": 7, "bkImgName": "动物狂欢", "bkImgPath": "../../static/img/bkImg/bk7.jpg" }], //背景总数据
       feelArray: [{ "_id": "61c2e347bc1e29458db599c0", "feelNumber": 0, "feelName": "生气", "feelPath": "../../static/img/feel/angry.png" }, { "_id": "61c2e347bc1e29458db599c1", "feelNumber": 1, "feelName": "快乐", "feelPath": "../../static/img/feel/cool.png" }, { "_id": "61c2e347bc1e29458db599c2", "feelNumber": 2, "feelName": "哭泣", "feelPath": "../../static/img/feel/cry.png" }, { "_id": "61c2e347bc1e29458db599c3", "feelNumber": 3, "feelName": "郁闷", "feelPath": "../../static/img/feel/injury.png" }, { "_id": "61c2e347bc1e29458db599c4", "feelNumber": 4, "feelName": "甜蜜", "feelPath": "../../static/img/feel/kiss.png" }, { "_id": "61c2e347bc1e29458db599c5", "feelNumber": 5, "feelName": "难过", "feelPath": "../../static/img/feel/sad.png" }, { "_id": "61c2e347bc1e29458db599c6", "feelNumber": 6, "feelName": "睡觉", "feelPath": "../../static/img/feel/sleeping.png" }], //心情总数据
       weatherArray: [{ "_id": "61c2e71abc1e29458db599c7", "weatherNumber": 0, "weatherName": "晴日", "weatherPath": "../../static/img/weather/qingtian.png" }, { "_id": "61c2e71abc1e29458db599c8", "weatherNumber": 1, "weatherName": "多云", "weatherPath": "../../static/img/weather/shaoyun.png" }, { "_id": "61c2e71abc1e29458db599c9", "weatherNumber": 2, "weatherName": "小雨", "weatherPath": "../../static/img/weather/baoyu.png" }, { "_id": "61c2e71abc1e29458db599ca", "weatherNumber": 3, "weatherName": "雷雨", "weatherPath": "../../static/img/weather/leizhenyu.png" }, { "_id": "61c2e71abc1e29458db599cb", "weatherNumber": 4, "weatherName": "小雪", "weatherPath": "../../static/img/weather/daxue.png" }, { "_id": "61c2e71abc1e29458db599cc", "weatherNumber": 5, "weatherName": "雾", "weatherPath": "../../static/img/weather/wu.png" }, { "_id": "61c2e71abc1e29458db599cd", "weatherNumber": 6, "weatherName": "雷阵雨", "weatherPath": "../../static/img/weather/tedazhenyu.png" }], //天气总数据
       bkindex: 0,
-      bkPath: ['粉色夏日', '碧水中月', '闲逸吉他', '落日阳台', '草莓与花', '熊熊开门', '动物狂欢'],
+      bkPath: ['月亮', '光遇', '情侣', '悠闲', '干饭', '飞翔', '美少女'],
       tzindex: 0,
-      tzPath: ['小海豚', '花儿朵', '赤兔儿', '小脑虎', '大蘑菇', '小牛宝', '大螃蟹', '仙人掌', '栅栏儿', '猪宝宝'],
+      tzName: ['星球', '花儿朵', '火箭', '小脑虎', '大蘑菇', '火龙', '大螃蟹', '仙人掌', '栅栏儿', '章鱼'],
       jinzindex: 999,
       wtindex: 0,
       weatherarray: ['晴日', '多云', '小雨', '雷雨', '小雪', '雾', '雷阵雨'],
@@ -257,7 +298,8 @@ __webpack_require__.r(__webpack_exports__);
       tzscale: 1,
       oldX: [],
       oldY: [],
-      oldScale: [] };
+      oldScale: [],
+      nowBkImg: ["../../static/img/bkImg/pmoon.jpg", "../../static/img/bkImg/pdouble.jpg", "../../static/img/bkImg/double.jpg", "../../static/img/bkImg/free.jpg", "../../static/img/bkImg/eat.jpg", "../../static/img/bkImg/fly.jpg", "../../static/img/bkImg/girl.jpg"] };
 
   },
   computed: {
@@ -334,42 +376,51 @@ __webpack_require__.r(__webpack_exports__);
       day = day > 9 ? day : '0' + day;
       return "".concat(year, "-").concat(month, "-").concat(day);
     },
-    getRes: function getRes(res) {
+    getRes: function getRes(res) {var _this = this;
       var that = this;
-      if (res.type != "tap" && res.type != "click") {
-        console.log('nei', res);
-        this.creationData.Text = res.html;
-        this.creationData.Public = res.isPublic;
-        console.log(this.creationData);
-        uni.showLoading({
-          title: '发布中' });
+      var isPublic = false;
+      uni.showModal({
+        content: '是否仅自己可见？',
+        success: function success(res11) {
+          var ispublic;
+          if (res11.confirm) ispublic = true;else
+          ispublic = false;
+          if (res.type != "tap" && res.type != "click") {
+            console.log('nei', res);
+            _this.creationData.Text = res.html;
+            _this.creationData.Public = ispublic;
+            console.log('nei', _this.creationData);
+            uni.showLoading({
+              title: '发布中' });
 
-        uni.request({
-          url: 'http://120.76.138.164:3000/handAccount/addHandAccount',
-          data: that.creationData }).
+            uni.request({
+              url: 'http://120.76.138.164:3000/handAccount/addHandAccount',
+              data: that.creationData }).
 
-        then(function (data) {var _data = _slicedToArray(
-          data, 2),err1 = _data[0],res1 = _data[1];
-          var result = res1.data.data || [];
-          uni.switchTab({
-            url: '../HandAccount/handAccount' });
+            then(function (data) {var _data = _slicedToArray(
+              data, 2),err1 = _data[0],res1 = _data[1];
+              var result = res1.data.data || [];
+              uni.switchTab({
+                url: '../HandAccount/handAccount' });
 
-          uni.hideLoading();
-        });
-        // setTimeout(()=>{uni.$emit('getUser',this.creationData)},500)
-        // // console.log(1,this.creationData)
-        // console.log(2,res)
+              uni.hideLoading();
+            });
+            // setTimeout(()=>{uni.$emit('getUser',this.creationData)},500)
+            // // console.log(1,this.creationData)
+            // console.log(2,res)
+          } else {
+            //获取富文本中内容
+            console.log('wai', res);
+            uni.$emit('getres', 'a');
+          }
+        } });
 
 
-      } else {
-        //获取富文本中内容
-        console.log('wai', res);
-        uni.$emit('getres', 'a');
-      }
+
 
     } },
 
-  onReady: function onReady(option) {var _this = this;
+  onReady: function onReady(option) {var _this2 = this;
     wx.showTabBar();
     var that = this;
     uni.onKeyboardHeightChange(function (res) {
@@ -381,7 +432,7 @@ __webpack_require__.r(__webpack_exports__);
     uni.getStorage({
       key: "UserID",
       success: function success(res) {
-        _this.$data.id = res.data;
+        _this2.$data.id = res.data;
         that.creationData.UserID = res.data;
         that.test = res.data;
         console.log('r', that.test);
@@ -391,19 +442,20 @@ __webpack_require__.r(__webpack_exports__);
         then(function (data) {var _data2 = _slicedToArray(
           data, 2),err1 = _data2[0],res1 = _data2[1];
           var result = res1.data.data || [];
-          console.log(result);
+          console.log("result", result);
           that.feelArray = result.feels || [];
-          that.stickerArray = result.stickers || [];
+          // that.stickerArray = result.stickers || []
           that.weatherArray = result.weathers || [];
           that.backgroundImgArray = [];
-          result.backgroundImgs.forEach(function (item) {
+          result.backgroundImgs.forEach(function (item, index) {
             var bkArray = {};
             bkArray.bkImgName = item.bkImgName;
             bkArray.bkImgNumber = item.bkImgNumber;
-            bkArray.bkImgPath = item.bkImgPath || '';
+            bkArray.bkImgPath = that.nowBkImg[index];
             that.backgroundImgArray.push(bkArray);
           });
           that.creationData.Date = that.date;
+          console.log("backgroundImgArray", that.backgroundImgArray);
         });
       } });
 

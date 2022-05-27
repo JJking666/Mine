@@ -102,25 +102,23 @@ var render = function() {
   var l1 = _vm.__map(_vm.handAccountData, function(item, index) {
     var $orig = _vm.__get_orig(item)
 
-    var g1 = _vm.isFriend ? item.Date.slice(0, 10) : null
-    var g2 = _vm.isFriend ? item.Date.slice(0, 10) : null
-    var l0 = _vm.isFriend
-      ? _vm.__map(item.stickerImg, function(item1, index1) {
-          var $orig = _vm.__get_orig(item1)
+    var g1 = item.Date.slice(0, 10)
 
-          var m0 = parseInt(index1 + 100)
-          var m1 = _vm.getScale(item.stickerImgs[index1])
-          return {
-            $orig: $orig,
-            m0: m0,
-            m1: m1
-          }
-        })
-      : null
+    var l0 = _vm.__map(item.stickerImg, function(item1, index1) {
+      var $orig = _vm.__get_orig(item1)
+
+      var m0 = parseInt(index1 + 100)
+      var m1 = _vm.getScale(item.stickerImgs[index1])
+      return {
+        $orig: $orig,
+        m0: m0,
+        m1: m1
+      }
+    })
+
     return {
       $orig: $orig,
       g1: g1,
-      g2: g2,
       l0: l0
     }
   })
@@ -233,6 +231,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -249,6 +258,11 @@ var _default =
       animationData3: {},
       allMedals: [],
       isFriend: false,
+      nowBkImg: ["../../static/img/bkImg/pmoon.jpg", "../../static/img/bkImg/pdouble.jpg",
+      "../../static/img/bkImg/double.jpg", "../../static/img/bkImg/free.jpg",
+      "../../static/img/bkImg/eat.jpg", "../../static/img/bkImg/fly.jpg",
+      "../../static/img/bkImg/girl.jpg"],
+
       stickerArray: [{
         "_id": "61a788c57533c4e420813108",
         "stickerNumber": 1,
@@ -425,7 +439,7 @@ var _default =
     var that = this;
     this.id = option.id;
     this.status = option.status;
-    console.log(option.id);
+    console.log('friendID', option.id);
     var data1 = {
       _id: option.id };
 
@@ -465,16 +479,19 @@ var _default =
     then(function (data) {var _data2 = _slicedToArray(
       data, 2),err = _data2[0],res1 = _data2[1];
       var friend = {};
+      console.log('qi', res1);
       that.FriendData = res1.data.data;
-
+      that.homePageData.HeadImg = res1.data.data.HeadImg;
+      that.homePageData.motto = res1.data.data.motto;
     });
     uni.request({
       url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + option.id }).
 
     then(function (data) {var _data3 = _slicedToArray(
       data, 2),err = _data3[0],res = _data3[1];
-      that.homePageData.HeadImg = res.data.data[0].HeadImg,
-      that.homePageData.motto = res.data.data[0].motto,
+      // that.homePageData.HeadImg = res.data.data[0].HeadImg,
+      // 	that.homePageData.motto = res.data.data[0].motto,
+      console.log('hp', res);
       that.homePageData.FanCount = res.data.data[0].FanCount,
       that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
       that.homePageData.workCount = res.data.data[0].workCount,
@@ -512,6 +529,59 @@ var _default =
     });
   },
   methods: {
+    tapGood: function tapGood(index) {var _this2 = this;
+      this.$set(this.handAccountData[index], "isGood", !this.handAccountData[index].isGood);
+      if (this.handAccountData[index].isGood === true) {
+        if (this.goodAnimation) return;
+        this.addGoodArr.push(this.handAccountData[index]._id);
+        this.$set(this.handAccountData[index], "good", this.handAccountData[index].good + 1);
+        this.goodAnimation = uni.createAnimation({
+          timingFunction: 'ease' });
+
+        this.goodAnimation.opacity(0.5).step({ duration: 200 });
+        this.goodAnimation.scale(1.0).opacity(0.9).step({ duration: 400 });
+        this.goodAnimation.translateX(16 + 'vw').translateY(-16 + 'vh').opacity(0).step({ duration: 1200 });
+        this.goodAnimation.scale(0).translateX(0 + 'vw').translateY(0 + 'vh').step({ duration: 100 });
+        this.goodAnimation = this.goodAnimation.export();
+        setTimeout(function () {
+          _this2.goodAnimation = null;
+        }, 1900);
+      } else {
+        this.$set(this.handAccountData[index], "good", this.handAccountData[index].good - 1);
+        this.handAccountData[index].funs = this.handAccountData[index].funs.filter(function (item) {
+          return item != _this2.id;
+        });
+      }
+    },
+    doubleTap: function doubleTap(index) {var _this3 = this;
+      // console.log("doubleTap", index,)
+      this.touchNum++;
+      setTimeout(function () {
+        if (_this3.touchNum == 1) {
+          console.log('单击');
+        }
+        if (_this3.touchNum >= 2) {
+          console.log('双击');
+          if (_this3.goodAnimation || _this3.handAccountData[index].isGood) return;
+          _this3.addGoodArr.push(_this3.handAccountData[index]._id);
+          _this3.$set(_this3.handAccountData[index], "good", _this3.handAccountData[index].good + 1);
+          _this3.goodAnimation = uni.createAnimation({
+            timingFunction: 'ease' });
+
+          _this3.goodAnimation.opacity(0.5).step({ duration: 200 });
+          _this3.goodAnimation.scale(1.0).opacity(0.9).step({ duration: 400 });
+          _this3.goodAnimation.translateX(16 + 'vw').translateY(-16 + 'vh').opacity(0).step({ duration: 1200 });
+          _this3.goodAnimation.scale(0).translateX(0 + 'vw').translateY(0 + 'vh').step({ duration: 100 });
+          _this3.goodAnimation = _this3.goodAnimation.export();
+          setTimeout(function () {
+            _this3.goodAnimation = null;
+          }, 1900);
+          _this3.$set(_this3.handAccountData[index], "isGood", true);
+        }
+        _this3.touchNum = 0;
+      }, 250);
+    },
+
     homeAdd: function homeAdd() {
       if (this.isFriend == true) return;
       this.isFriend = true;
@@ -557,11 +627,11 @@ var _default =
       this.animationData2 = animation2.export();
       this.animationData3 = animation3.export();
     },
-    onEditorReady: function onEditorReady(index) {var _this2 = this;
+    onEditorReady: function onEditorReady(index) {var _this4 = this;
       var that = this;
       uni.createSelectorQuery().select('#editor' + index).context(function (res) {
-        _this2.editorCtx = res.context;
-        _this2.editorCtx.setContents({
+        _this4.editorCtx = res.context;
+        _this4.editorCtx.setContents({
           html: that.handAccountData[index].Text });
 
       }).exec();

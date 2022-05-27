@@ -181,12 +181,12 @@ var _default =
         key: 'UserAccount',
         success: function success() {
           console.log('gb1');
-          uni.redirectTo({
+          uni.reLaunch({
             url: '../Login/login' });
 
         },
         fail: function fail() {
-          uni.redirectTo({
+          uni.reLaunch({
             url: '../Login/login' });
 
         } });

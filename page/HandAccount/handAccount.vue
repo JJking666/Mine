@@ -1,42 +1,52 @@
 <template>
 	<view class="handAccount">
-		<view id="nothing" v-if="handAccountData.length==0"> 
+		<view id="nothing" v-if="handAccountData.length==0">
 			<image src="../../static/img/bkImg/bk6.jpg" mode=""></image>
+			<text>回到主页</text>
+			<image src="../../static/img/more/biaoqianA01_biji-94.png" mode="" @tap="gotoMemorandum"></image>
 			<text>快来发布些手账吧</text>
 			<image src="../../static/img/more/biaoqianA01_biji-94.png" mode="" @tap="gotoCreation"></image>
 			<text>添加些好友呀</text>
 			<image src="../../static/img/more/xiangkan.png" mode="" @tap="gotoFriend"></image>
 		</view>
-		<swiper class="swiper-hor" easing-function="easeOutCubic" circular :interval="interval" v-if="handAccountData.length!=0"
-			:duration="duration">
+		<swiper class="swiper-hor" easing-function="easeOutCubic" circular :interval="interval"
+			v-if="handAccountData.length!=0" :duration="duration">
 			<swiper-item id="s1" v-for="(item0,index0) in handAccountData" :key="parseInt(index0+1000)">
-				<swiper class="swiper-ver" easing-function="easeOutCubic" circular vertical=true 
-					:interval="interval" :duration="duration">
+				<swiper class="swiper-ver" easing-function="easeOutCubic" circular vertical :interval="interval"
+					:duration="duration">
 					<swiper-item id="s11" v-for="(item,index) in item0" :key="index">
-						<view class="swiper-ver-nav" @tap="showOpioion" >
-							<image v-if="FriendArray&&FriendArray[index0].headImg" :src="FriendArray[index0].headImg||'../../static/img/icon.jpg'" mode=""></image>
+						<image id="filterImg" :src="nowBkImg[item.bkImgNumber]"></image>
+						<view class="swiper-ver-nav">
+							<image v-if="FriendArray&&FriendArray[index0].headImg"
+								:src="FriendArray[index0].headImg||'../../static/img/icon.jpg'" mode=""></image>
 							<text>{{FriendArray[index0].name}}</text>
-							<image id="selectUser" src="../../static/uview/common/logo.png"></image>
+							<image id="selectUser" src="../../static/img/common/home.png" @tap="gotoMemorandum">
+							</image>
 						</view>
 						<view class="swiper-ver-head">
-							<picker class="date" mode="date" :value="item.Date.slice(0,10)" 
-								@change="bindDateChange">
-								<view class="uni-input">{{item.Date.slice(0,10)}}</view>
-							</picker>
+							<view class="date ">{{item.Date.slice(0,10)}}</view>
 							<image :src="weatherArray[item.Weather].weatherPath" mode=""></image>
 							<image :src="feelArray[item.Feel].feelPath" mode=""></image>
 						</view>
-						
-						<view class="textmain">
-							<image id="bk" :src="backgroundImgArray[item.bkImgNumber].bkImgPath"></image>
-							<scroll-view :scroll-top="scrollTop" scroll-y="true" style="height: 75vh;box-sizing: border-box;">
-						    	<editor :id="'editor'+index0+index" read-only="true" @ready="onEditorReady(index0,index)"></editor>
-						    </scroll-view>
-							<image id="tz" :src="item1" v-for="(item1,index1) in item.stickerImg" :key="parseInt(index1+100)"
-							:style="{left:item.stickerImgx[index1]+'px',top:item.stickerImgy[index1]+'px',transform:getScale(item.stickerImgs[index1])}"></image>
+						<view class="textmain" @tap="doubleTap(index0,index)">
+							<image id="bk" :src="nowBkImg[item.bkImgNumber]"></image>
+							<scroll-view :scroll-top="scrollTop" @touchstart.stop="" scroll-y="true"
+								style="height: 900rpx;background-color:transparent;z-index: 99; box-sizing: border-box;">
+								<editor :id="'editor'+index0+index" read-only="true"
+									@ready="onEditorReady(index0,index)"></editor>
+							</scroll-view>
+							<image id="tz" :src="item1" v-for="(item1,index1) in item.stickerImg"
+								:key="parseInt(index1+100)"
+								:style="{left:item.stickerImgx[index1]+'px',top:item.stickerImgy[index1]+'px',transform:getScale(item.stickerImgs[index1])}">
+							</image>
 						</view>
-		
-						<view class="opioion" :animation = "opAnimation">
+						<view class="opioion" @tap="tapGood(index0,index)">
+							<image :src="item.isGood?'../../static/img/more/aixin2.png':'../../static/img/more/aixin.png'"></image><text>{{item.good}}</text>
+						</view>
+						<view class="getGood" :animation="goodAnimation">
+							<image src="../../static/img/more/aixin2.png"></image>
+						</view>
+						<!-- <view class="opioion" :animation = "opAnimation">
 							<view class="opioion-nav" @tap="showOpioion" @blur="showOpioion">
 								<image src="../../static/img/icon.jpg"></image><text >2</text>
 								<image src="../../static/img/memorandum/dm1.jpg"></image><text>2</text>
@@ -65,15 +75,13 @@
 									<text>阿巴阿巴阿巴啊叭叭叭阿宝阿坝吧阿叭叭阿巴巴巴</text>
 								</view>
 							</scroll-view>
-						</view>
+						</view> -->
 					</swiper-item>
 				</swiper>
 			</swiper-item>
 		</swiper>
-		
 	</view>
 </template>
-
 <script>
 	import Qs from 'qs'
 	export default {
@@ -82,19 +90,40 @@
 				format: true
 			})
 			return {
-				id:'',
-				handAccountData:[],
-				stickerArray:[{"_id":"61a788c57533c4e420813108","stickerNumber":1,"stickerName":"海豚","stickerPath":"../../static/img/tzIcon/haitun.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf7f","stickerNumber":2,"stickerName":"花儿","stickerPath":"../../static/img/tzIcon/hua3.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf81","stickerNumber":4,"stickerName":"赤兔","stickerPath":"../../static/img/tzIcon/ma.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf80","stickerNumber":3,"stickerName":"小脑虎","stickerPath":"../../static/img/tzIcon/laohu.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf82","stickerNumber":5,"stickerName":"大蘑菇","stickerPath":"../../static/img/tzIcon/mogu.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf83","stickerNumber":6,"stickerName":"牛宝","stickerPath":"../../static/img/tzIcon/niu.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf84","stickerNumber":7,"stickerName":"大螃蟹","stickerPath":"../../static/img/tzIcon/pangxie.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf85","stickerNumber":8,"stickerName":"仙人掌","stickerPath":"../../static/img/tzIcon/xianrenzhang.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf86","stickerNumber":9,"stickerName":"栅栏","stickerPath":"../../static/img/tzIcon/zhalan.png","__v":0},{"_id":"61a78c414f9717e4a8eeaf87","stickerNumber":10,"stickerName":"猪宝宝","stickerPath":"../../static/img/tzIcon/zhu.png","__v":0}],//贴纸总数据
-				backgroundImgArray:[{"_id":"61a77a5309de386fef91088b","bkImgNumber":1,"bkImgName":"粉色夏日","bkImgPath":"../../static/img/bkImg/bk1.jpg","__v":0},{"_id":"61a77bf66d1c1d1e7077f12d","bkImgNumber":2,"bkImgName":"碧水中月","bkImgPath":"../../static/img/bkImg/bk2.jpg"},{"_id":"61a77bf66d1c1d1e7077f12e","bkImgNumber":3,"bkImgName":"闲逸吉他","bkImgPath":"../../static/img/bkImg/bk3.jpg"},{"_id":"61a77bf66d1c1d1e7077f12f","bkImgNumber":4,"bkImgName":"落日阳台","bkImgPath":"../../static/img/bkImg/bk4.jpg"},{"_id":"61a77bf66d1c1d1e7077f130","bkImgNumber":5,"bkImgName":"草莓与花","bkImgPath":"../../static/img/bkImg/bk5.jpg"},{"_id":"61a77bf66d1c1d1e7077f131","bkImgNumber":6,"bkImgName":"熊熊开门","bkImgPath":"../../static/img/bkImg/bk6.jpg"},{"_id":"61a77bf66d1c1d1e7077f132","bkImgNumber":7,"bkImgName":"动物狂欢","bkImgPath":"../../static/img/bkImg/bk7.jpg"}],//背景总数据
-				feelArray:[{"_id":"61c2e347bc1e29458db599c0","feelNumber":0,"feelName":"生气","feelPath":"../../static/img/feel/angry.png"},{"_id":"61c2e347bc1e29458db599c1","feelNumber":1,"feelName":"快乐","feelPath":"../../static/img/feel/cool.png"},{"_id":"61c2e347bc1e29458db599c2","feelNumber":2,"feelName":"哭泣","feelPath":"../../static/img/feel/cry.png"},{"_id":"61c2e347bc1e29458db599c3","feelNumber":3,"feelName":"郁闷","feelPath":"../../static/img/feel/injury.png"},{"_id":"61c2e347bc1e29458db599c4","feelNumber":4,"feelName":"甜蜜","feelPath":"../../static/img/feel/kiss.png"},{"_id":"61c2e347bc1e29458db599c5","feelNumber":5,"feelName":"难过","feelPath":"../../static/img/feel/sad.png"},{"_id":"61c2e347bc1e29458db599c6","feelNumber":6,"feelName":"睡觉","feelPath":"../../static/img/feel/sleeping.png"}],//心情总数据
-				weatherArray:[{"_id":"61c2e71abc1e29458db599c7","weatherNumber":0,"weatherName":"晴日","weatherPath":"../../static/img/weather/qingtian.png"},{"_id":"61c2e71abc1e29458db599c8","weatherNumber":1,"weatherName":"多云","weatherPath":"../../static/img/weather/shaoyun.png"},{"_id":"61c2e71abc1e29458db599c9","weatherNumber":2,"weatherName":"小雨","weatherPath":"../../static/img/weather/baoyu.png"},{"_id":"61c2e71abc1e29458db599ca","weatherNumber":3,"weatherName":"雷雨","weatherPath":"../../static/img/weather/leizhenyu.png"},{"_id":"61c2e71abc1e29458db599cb","weatherNumber":4,"weatherName":"小雪","weatherPath":"../../static/img/weather/daxue.png"},{"_id":"61c2e71abc1e29458db599cc","weatherNumber":5,"weatherName":"雾","weatherPath":"../../static/img/weather/wu.png"},{"_id":"61c2e71abc1e29458db599cd","weatherNumber":6,"weatherName":"雷阵雨","weatherPath":"../../static/img/weather/tedazhenyu.png"}],//天气总数据
-				FriendArray:[{"id":"61a57f00e4a7438b252b1635","headImg":"../../static/img/icon.jpg","name":"大白菜","sex":"woman"},{"status":1,"id":"61a488a32be844636ac72344","headImg":"../../static/img/icon.jpg","name":"马崇濠","sex":"man"}],//关注列表数据
+				goodAnimation:null,
+				touchNum: 0,
+				getGood: [],
+				nowBkImg: ["../../static/img/bkImg/pmoon.jpg", "../../static/img/bkImg/pdouble.jpg",
+					"../../static/img/bkImg/double.jpg", "../../static/img/bkImg/free.jpg",
+					"../../static/img/bkImg/eat.jpg", "../../static/img/bkImg/fly.jpg",
+					"../../static/img/bkImg/girl.jpg"
+				],
+				id: '',
+				scr: true,
+				handAccountData: [],
+				addGoodArr:[],
+				stickerArray: [], //贴纸总数据
+				backgroundImgArray: [], //背景总数据
+				feelArray: [], //心情总数据
+				weatherArray: [], //天气总数据
+				FriendArray: [{
+					"id": "61a57f00e4a7438b252b1635",
+					"headImg": "../../static/img/icon.jpg",
+					"name": "大白菜",
+					"sex": "woman"
+				}, {
+					"status": 1,
+					"id": "61a488a32be844636ac72344",
+					"headImg": "../../static/img/icon.jpg",
+					"name": "马崇濠",
+					"sex": "man"
+				}], //关注列表数据
 				scrollTop: 0,
 				old: {
-				    scrollTop: 0
+					scrollTop: 0
 				},
 				opAnimation: {},
-				showOp:false,
+				showOp: false,
 				background: ['color1', 'color2', 'color3'],
 				autoplay: false,
 				interval: 2000,
@@ -120,40 +149,100 @@
 			}
 		},
 		methods: {
-			gotoCreation(){
+			tapGood(i0, i1){
+				this.$set(this.handAccountData[i0][i1],"isGood",!this.handAccountData[i0][i1].isGood)
+				if(this.handAccountData[i0][i1].isGood === true) {
+					this.addGoodArr.push(this.handAccountData[i0][i1]._id)
+					if(this.goodAnimation)return 
+					this.$set(this.handAccountData[i0][i1],"good",this.handAccountData[i0][i1].good + 1)
+					this.goodAnimation = uni.createAnimation({
+						timingFunction: 'ease',
+					})
+					this.goodAnimation.opacity(0.5).step({duration: 200})
+					this.goodAnimation.scale(1.0).opacity(0.9).step({duration: 400})
+					this.goodAnimation.translateX(16 + 'vw').translateY(-16 + 'vh').opacity(0).step({duration: 1200})
+					this.goodAnimation.scale(0).translateX(0 + 'vw').translateY(0 + 'vh').step({duration: 100})
+					this.goodAnimation=this.goodAnimation.export()
+					setTimeout(()=>{
+						this.goodAnimation = null
+					},1900)
+				}else{
+					this.$set(this.handAccountData[i0][i1],"good",this.handAccountData[i0][i1].good -1)
+					this.handAccountData[i0][i1].funs = this.handAccountData[i0][i1].funs.filter(item=>{
+						return item != this.id
+					})
+				}
+			},
+			doubleTap(i0, i1) {
+				console.log("doubleTap", i0, i1,)
+				this.touchNum++
+				setTimeout(() => {
+					if (this.touchNum == 1) {
+						console.log('单击')
+					}
+					if (this.touchNum >= 2) {
+						console.log('双击')
+						this.addGoodArr.push(this.handAccountData[i0][i1]._id)
+						if(this.goodAnimation || this.handAccountData[i0][i1].isGood)return
+						this.$set(this.handAccountData[i0][i1],"good",this.handAccountData[i0][i1].good + 1)
+						this.goodAnimation = uni.createAnimation({
+							timingFunction: 'ease',
+						})
+						this.goodAnimation.opacity(0.5).step({duration: 200})
+						this.goodAnimation.scale(1.0).opacity(0.9).step({duration: 400})
+						this.goodAnimation.translateX(16 + 'vw').translateY(-16 + 'vh').opacity(0).step({duration: 1200})
+						this.goodAnimation.scale(0).translateX(0 + 'vw').translateY(0 + 'vh').step({duration: 100})
+						this.goodAnimation=this.goodAnimation.export()
+						setTimeout(()=>{
+							this.goodAnimation = null
+						},1900)
+						this.$set(this.handAccountData[i0][i1],"isGood",true)
+					}
+					this.touchNum = 0
+				}, 250)
+			},
+			gotoCreation() {
 				uni.navigateTo({
-					url:'../Creation/creation'
+					url: '../Creation/creation'
 				})
 			},
-			gotoFriend(){
+			gotoFriend() {
 				uni.navigateTo({
-					url:'../Friends/friends'
+					url: '../Friends/friends'
 				})
 			},
-			getScale(s){
+			getScale(s) {
 				return `transform:scale(${s})`
 			},
-			scroll: function(e) {
-			            console.log(e)
-			            this.old.scrollTop = e.detail.scrollTop
-			        },
-			say(){
+			scroll: function (e) {
+				console.log(e)
+				this.old.scrollTop = e.detail.scrollTop
+			},
+			scrolling(e) {
+				console.log('sss', e)
+				this.scrolling = false
+			},
+			say() {
 				console.log(this.handAccountData)
 				console.log(11)
 			},
-			bindPickerChange: function(e) {
+			bindPickerChange: function (e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
 			},
-			bindDateChange: function(e) {
+			bindDateChange: function (e) {
 				this.date = e.target.value
+			},
+			gotoMemorandum() {
+				uni.reLaunch({
+					url: '../Memorandum/memorandum'
+				})
 			},
 			getDate(type) {
 				const date = new Date();
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();
-
 				if (type === 'start') {
 					year = year - 60;
 				} else if (type === 'end') {
@@ -163,26 +252,25 @@
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
 			},
-			showOpioion(){
-	
-				if(!this.showOp){
-					this.opanimation.height(49+'vh').step()
-					this.showOp=!this.showOp
-				}else{
+			showOpioion() {
+				if (!this.showOp) {
+					this.opanimation.height(49 + 'vh').step()
+					this.showOp = !this.showOp
+				} else {
 					uni.switchTab({
 						url: '../Memorandum/memorandum'
 					})
-					this.opanimation.height(7+'vh').step()
-					this.showOp=!this.showOp
+					this.opanimation.height(7 + 'vh').step()
+					this.showOp = !this.showOp
 				}
 				this.opAnimation = this.opanimation.export()
 			},
-			onEditorReady(index0,index) {
+			onEditorReady(index0, index) {
 				let that = this;
-				uni.createSelectorQuery().select('#editor'+index0+index).context((res) => {
+				uni.createSelectorQuery().select('#editor' + index0 + index).context((res) => {
 					this.editorCtx = res.context
 					this.editorCtx.setContents({
-						html:that.handAccountData[index0][index].Text
+						html: that.handAccountData[index0][index].Text
 					})
 				}).exec()
 			},
@@ -195,148 +283,213 @@
 			console.log('hide')
 			wx.showTabBar()
 		},
-		onReady(){
-			let that =this
+		onUnload() {
+			const haArray = this.handAccountData
+			const id =this.id
+			haArray.forEach(async(item1,index1)=>{
+				let userGood = 0
+				item1.forEach(async (item2,index2)=>{
+					console.log("item2.isGood",1)
+					if(item2.isGood&&this.addGoodArr.includes(item2._id)){
+						userGood++
+						//记录点赞者id
+						item2.funs.push(id)
+						item2.funs = Array.from(new Set(item2.funs))
+						const data1 = {
+							_id:item2._id,
+							funs:item2.funs
+						}
+						console.log("item2.isGood",2,data1)
+						uni.request({
+							url:'http://120.76.138.164:3000/handAccount/addFun',
+							data:data1,
+							method:'POST'
+						}).then(res=>{
+							console.log("addFun",res)
+						})
+						//增加作品赞数
+						const data2 = {
+							_id:item2._id,
+							goodNum:item2.good
+						}
+						uni.request({
+							url:'http://120.76.138.164:3000/handAccount/addGood',
+							data:data2
+						}).then(res=>{
+							console.log("addGood",res)
+						})
+						
+					}
+				})
+				const data3 = {
+					_id:id,
+					goods:''
+				}
+				const homePageData = await uni.request({
+					url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + id 
+				})
+				data3.goods = homePageData[1].data.data[0].goods + userGood
+				console.log("success",homePageData)
+				await uni.request({
+					url: "http://120.76.138.164:3000/homePage/updateGood",
+					data: data3
+				})
+				// .then((data) => {
+				// 	let [err, res] = data
+				// 	that.homePageData.goods =res.data.data[0].goods
+				// })
+			})
+		},
+		onReady() {
+			console.log('ready')
+			let that = this
 			// uni.$on('getUser',that.getUser)
 			let opanimation = uni.createAnimation({
-			      duration: 1000,
-			        timingFunction: 'ease',
-			    })
+				duration: 1000,
+				timingFunction: 'ease',
+			})
 			this.opanimation = opanimation
 			uni.getStorage({
-				key:'UserID',
-				success: (res) => {
+				key: 'UserID',
+				success:async (res) => {
 					that.$data.id = res.data
-					that.handAccountData=[]//手账数据
+					that.handAccountData = [] //手账数据
 					//that.stickerArray=[]//贴纸总数据
-					that.backgroundImgArray=[]//背景总数据
-					that.feelArray=[]//心情总数据
-					that.weatherArray=[]//天气总数据
-					that.FriendArray=[]//关注列表数据
+					that.backgroundImgArray = [] //背景总数据
+					that.feelArray = [] //心情总数据
+					that.weatherArray = [] //天气总数据
+					that.FriendArray = [] //关注列表数据
+					
 					//添加自身手账
 					console.log(that.FriendArray)
 					uni.request({
-							url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data='+ this.$data.id
+						url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data=' + this.$data.id
+					}).then(data => {
+						let [err1, res1] = data
+						let result = res1.data.data
+						//若无手账则不添加自身
+						if (result.length == 0) {
+							return
+						}
+						let handAccount = result
+						handAccount = handAccount.filter((item) => {
+							return item.Public == true
 						})
-						.then(data => {
-							let [err1, res1] = data
-							let result = res1.data.data
-							//若无手账则不添加自身
-							if(result.length==0){return}
-							let handAccount = result
-							handAccount = handAccount.filter((item)=>{
-								return item.Public == true
-							}) 
-							handAccount.forEach((item)=>{
-								item.stickerImg = item.stickerImg.toString().split(",")
-								item.stickerImgs = item.stickerImgs.toString().split(",")
-								item.stickerImgx = item.stickerImgx.toString().split(",")
-								item.stickerImgy = item.stickerImgy.toString().split(",")
-							})
-							that.handAccountData.push(handAccount)
-							console.log(3,that.handAccountData)
-							let me={
-								_id:this.$data.id
-							}
-							uni.request({
-									url: 'http://120.76.138.164:3000/user/queryUserById',
-									data:me
-								})
-								.then(data => {
-									
-									let [err1, res1] = data
-									let friend = {}
-									friend.id = res1.data.data._id
-									friend.headImg = res1.data.data.HeadImg||[]
-									friend.name = res1.data.data.Name
-									friend.sex = res1.data.data.Sex
-									that.FriendArray.push(friend)
-							})
+						handAccount.forEach((item) => {
+							item.stickerImg = item.stickerImg.toString().split(",")
+							item.stickerImgs = item.stickerImgs.toString().split(",")
+							item.stickerImgx = item.stickerImgx.toString().split(",")
+							item.stickerImgy = item.stickerImgy.toString().split(",")
+							item.isGood = item.funs.includes(this.$data.id)
+							console.log("load",item.isGood,this.$data.id)
 						})
+						this.handAccountData.push(handAccount)
+						console.log(3, this.handAccountData)
+						let me = {
+							_id: this.$data.id
+						}
 						uni.request({
-							url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
-								'{"UserID":"' + res.data + '","status":[1,2]}'
+							url: 'http://120.76.138.164:3000/user/queryUserById',
+							data: me
+						}).then(data => {
+							let [err1, res1] = data
+							let friend = {}
+							friend.id = res1.data.data._id
+							friend.headImg = res1.data.data.HeadImg || []
+							friend.name = res1.data.data.Name
+							friend.sex = res1.data.data.Sex
+							that.FriendArray.push(friend)
 						})
-						.then(data => {
-							let [err, res] = data
-							// console.log(1,err,res)
-							res.data.data.forEach((item) => {
-								let friend = {}
-								let handAccount=[]
-								friend.status = item.status
+					})
+					uni.request({
+						url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
+							'{"UserID":"' + res.data + '","status":[1,2]}'
+					}).then(data => {
+						let [err, res] = data
+						// console.log(1,err,res)
+						res.data.data.forEach((item) => {
+							let friend = {}
+							let handAccount = []
+							friend.status = item.status
+							uni.request({
+								url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data=' +
+									item.PeopleID
+							}).then(data => {
+								let [err1, res1] = data
+								let result = res1.data.data
+								let handAccount = result
+								if (result.length == 0) return
+								handAccount = handAccount.filter((item) => {
+									return item.Public == true
+								})
+								handAccount.forEach((item) => {
+									item.stickerImg = item.stickerImg
+									.toString().split(",")
+									item.stickerImgs = item.stickerImgs
+										.toString().split(",")
+									item.stickerImgx = item.stickerImgx
+										.toString().split(",")
+									item.stickerImgy = item.stickerImgy
+										.toString().split(",")
+									item.isGood = item.funs.includes(that.$data.id)
+									console.log("load",item.isGood,that.$data.id)
+								})
+								that.handAccountData.push(handAccount)
+								console.log(that.handAccountData)
+								//添加朋友
+								let data4 = {
+									_id: item.PeopleID
+								}
 								uni.request({
-										url: 'http://120.76.138.164:3000/handAccount/getHandAccounts?data='+ item.PeopleID
-									})
-								.then(data => {
-										let [err1, res1] = data
-										let result = res1.data.data
-										let handAccount = result
-										if(result.length==0)return 
-								
-										handAccount = handAccount.filter((item)=>{
-											return item.Public == true
-										})
-										handAccount.forEach((item)=>{
-											item.stickerImg = item.stickerImg.toString().split(",")
-											item.stickerImgs = item.stickerImgs.toString().split(",")
-											item.stickerImgx = item.stickerImgx.toString().split(",")
-											item.stickerImgy = item.stickerImgy.toString().split(",")
-										})
-										that.handAccountData.push(handAccount)
-										console.log(that.handAccountData)
-										//添加朋友
-										let data4={
-											_id:item.PeopleID
-										}
-										uni.request({
-												url: 'http://120.76.138.164:3000/user/queryUserById',
-												data:data4
-											})
-											.then(data => {
-												let [err1, res4] = data
-												friend.id = res4.data.data._id
-												friend.headImg = res4.data.data.HeadImg	|| []
-												friend.name = res4.data.data.Name
-												friend.sex = res4.data.data.Sex
-												that.FriendArray.push(friend)
-												console.log(that.FriendArray)
-												that.$forceUpdate()
-											})
-								})	
+									url: 'http://120.76.138.164:3000/user/queryUserById',
+									data: data4
+								}).then(data => {
+									let [err1, res4] = data
+									friend.id = res4.data.data._id
+									friend.headImg = res4.data.data
+										.HeadImg || []
+									friend.name = res4.data.data.Name
+									friend.sex = res4.data.data.Sex
+									that.FriendArray.push(friend)
+									console.log(that.FriendArray)
+									that.$forceUpdate()
+								})
 							})
 						})
-					
-					
+					})
 					uni.request({
-							url: 'http://120.76.138.164:3000/creation/getCreationInfo'
-						})
-						.then(data => {
-							let [err1, res1] = data
-							let result = res1.data.data
-							that.feelArray = result.feels||[]
-							// that.stickerArray = result.stickers||[]
-							that.weatherArray = result.weathers||[]
-							that.backgroundImgArray = result.backgroundImgs||[]
-							that.$forceUpdate()
+						url: 'http://120.76.138.164:3000/creation/getCreationInfo'
+					}).then(data => {
+						let [err1, res1] = data
+						let result = res1.data.data
+						that.feelArray = result.feels || []
+						// that.stickerArray = result.stickers||[]
+						that.weatherArray = result.weathers || []
+						that.backgroundImgArray = result.backgroundImgs || []
+						that.$forceUpdate()
 					})
 				}
 			})
 		}
 	}
 </script>
-
 <style lang="scss">
 	$content-h:75vh;
 	$content-w:90vw;
+	$border_radius:30rpx;
 	$imgSize:4vh;
 	$optionImgSize:5vh;
-	editor{
+
+	editor {
 		height: 71vh !important;
+		z-index:88;
 	}
-	.uni-app--showleftwindow + .uni-tabbar-bottom {
-	        display: none;
-	    }
-	#nothing{
+
+	.uni-app--showleftwindow+.uni-tabbar-bottom {
+		display: none;
+	}
+
+	#nothing {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -344,19 +497,22 @@
 		position: relative;
 		height: 100vh;
 		width: 100vw;
-		&>text{
-			    z-index: 9;
-			    font-size: larger;
-			    font-weight: 600;
+
+		&>text {
+			z-index: 9;
+			font-size: larger;
+			font-weight: 600;
 		}
-		&>image{
+
+		&>image {
 			margin-top: 1vh;
 			z-index: 9;
 			width: 7vh;
 			height: 7vh;
 			object-fit: cover;
 		}
-		&>image:nth-of-type(1){
+
+		&>image:nth-of-type(1) {
 			position: absolute;
 			margin-top: 0vh;
 			z-index: 0;
@@ -367,6 +523,7 @@
 			object-fit: cover;
 		}
 	}
+
 	.handAccount {
 		height: 100vh;
 		width: 100vw;
@@ -386,15 +543,17 @@
 					height: 100vh;
 					width: 100vw;
 					position: relative;
+
 					#s11 {
-						background-color: rgba(251,232,232,0.9);
+						background-color: rgba(251, 232, 232, 0.9);
 						height: 100vh;
 						width: 100vw;
+						touch-action: none;
 
 						.swiper-ver-nav {
 							width: 100vw;
 							height: 8vh;
-							background-image: linear-gradient(rgba(255,89,89,0.75), rgba(119,133,236,0.9));
+							background-image: linear-gradient(rgb(80,151,242), rgba(205,239,250,90%),rgba(183,203,248 ,75%));
 							position: fixed;
 							top: 0vh;
 							left: 0;
@@ -409,7 +568,7 @@
 								object-fit: cover;
 							}
 
-							text{
+							text {
 								display: inline-block;
 								height: 8vh;
 								margin-left: 10vw;
@@ -421,10 +580,10 @@
 
 							#selectUser {
 								float: right;
-								margin-top: 0.5vh;
+								margin-top: 1vh;
 								position: center;
-								width: 5vh;
-								height: 5vh;
+								width: 4vh;
+								height: 4vh;
 								border-radius: 100%;
 								object-fit: cover;
 							}
@@ -433,38 +592,41 @@
 						.swiper-ver-head {
 							width: 100vw;
 							height: 6vh;
-							background-color: #e0f8f7;
-							margin-top: 8vh;
+							margin-top: 9vh;
 							padding: 0.5vh 5vw;
 							display: flex;
 							flex-direction: row;
 							justify-content: space-between;
 							align-items: center;
 							box-sizing: border-box;
-							&>image:nth-of-type(1){
+
+							&>image:nth-of-type(1) {
 								display: inline-block;
 								margin-left: -12vw;
 								width: $imgSize-md;
 								height: $imgSize-md;
 								object-fit: cover;
 							}
-							&>image:nth-of-type(2){
+
+							&>image:nth-of-type(2) {
 								margin-right: 6vw;
 								width: $imgSize-md;
 								height: $imgSize-md;
 								object-fit: cover;
 							}
+
 							.date {
 								width: 30vw;
 								height: 5vh;
 								display: inline-block;
+								z-index: 999;
 
 								view {
 									width: 30vw;
 									height: 5vh;
 									background-color: ragb(221, 160, 221, 0.5);
 									text-align: center;
-									font-size: $fontSize-sm;
+									font-size: $fontSize-lg;
 									line-height: 5vh;
 								}
 							}
@@ -473,12 +635,16 @@
 						.textmain {
 							width: $content-w;
 							height: $content-h;
-							margin: 2vh auto;
-							background-color: #71D5A1;
+							margin: 0.5vh auto;
 							box-sizing: border-box;
 							position: relative;
 							padding: 2vh 5vw;
-							& #bk{
+							border: 1rpx solid transparent;
+							border-radius: $border_radius;
+							box-shadow: 0rpx 0rpx 55rpx $shadowC2;
+
+							& #bk {
+								opacity: 0.8;
 								width: $content-w;
 								height: $content-h;
 								position: absolute;
@@ -486,19 +652,20 @@
 								top: 0;
 								size: 100%;
 								display: block;
-								
+								border-radius: $border_radius;
 							}
-								
-							& #content{
+
+							& #content {
 								width: calc(90vw - 60rpx);
 								height: 70vh;
 								margin: auto;
 								display: block;
 								font-size: $fontSize-md;
-								 overflow: auto;
-								 z-index: 1;	
+								overflow: auto;
+								z-index: 1;
 							}
-							& #tz{
+
+							& #tz {
 								display: block;
 								position: absolute;
 								left: 0;
@@ -513,18 +680,30 @@
 						.opioion {
 							// overflow: scroll;
 							position: fixed;
-							width: 80vw;
+							width: 15vw;
 							margin: 0 auto;
-							height: 7vh;
-							background-color: #A0CFFF;
-							bottom: 0vh;
-							left: 10vw;
+							height: 11vw;
+							/* background-color: #A0CFFF; */
+							bottom: 30rpx;
+							right: 12vw;
 							z-index: 9;
-							.opioion-scroll{
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+
+							image {
+								width: 80%;
+								height: 100%;
+								size: 100%;
+								min-width: 80%;
+							}
+
+							.opioion-scroll {
 								height: 42vh;
 								width: 80vw;
 							}
-							.opioion-nav{
+
+							.opioion-nav {
 								width: inherit;
 								height: 7vh;
 								background-color: #2979FF;
@@ -532,7 +711,8 @@
 								flex-direction: row;
 								align-items: center;
 								position: relative;
-								& image:nth-of-type(1){
+
+								& image:nth-of-type(1) {
 									position: absolute;
 									left: 5vw;
 									top: auto;
@@ -541,7 +721,8 @@
 									display: inline-block;
 									vertical-align: middle;
 								}
-								& text:nth-of-type(1){
+
+								& text:nth-of-type(1) {
 									position: absolute;
 									left: calc(6vh + 7vw);
 									top: auto;
@@ -549,7 +730,8 @@
 									display: inline-block;
 									vertical-align: middle;
 								}
-								& image:nth-of-type(2){
+
+								& image:nth-of-type(2) {
 									position: absolute;
 									right: 7vw;
 									top: auto;
@@ -557,17 +739,18 @@
 									height: $optionImgSize;
 									display: inline-block;
 								}
-								& text:nth-of-type(2){
+
+								& text:nth-of-type(2) {
 									position: absolute;
 									right: 2vw;
 									top: auto;
 									line-height: $optionImgSize;
 									display: inline-block;
 									vertical-align: middle;
-
 								}
 							}
-							.opioion-main{
+
+							.opioion-main {
 								width: 80vw;
 								height: 17vh;
 								display: flex;
@@ -577,14 +760,16 @@
 								background-color: #8F939C;
 								padding: 1.5vh 5vw;
 								box-sizing: border-box;
-								.main-nav{
-									& image{
-									width: $imgSize-md;
-									height: $imgSize-md;
-									border-radius: 100%;
-									vertical-align: middle;
+
+								.main-nav {
+									& image {
+										width: $imgSize-md;
+										height: $imgSize-md;
+										border-radius: 100%;
+										vertical-align: middle;
 									}
-									& text{
+
+									& text {
 										margin: 0;
 										width: fit-content;
 										height: $imgSize-md;
@@ -596,8 +781,8 @@
 										margin-left: 2vw;
 									}
 								}
-								
-								& text{
+
+								& text {
 									font-size: $fontSize-sm;
 									margin-top: 1.3vh;
 									display: inline-block;
@@ -605,8 +790,25 @@
 								}
 							}
 						}
-						
-						.moveArea{
+							
+						.getGood {
+							position: absolute;
+							top:0;
+							bottom: 0;
+							left: 0;
+							right: 0;
+							margin: auto;
+							width: 24vw;
+							height: 23vw;
+							transform: scale(0);
+							z-index: 9999;
+							image{
+								width: 100%;
+								height: 100%;
+								object-fit: cover;
+							}
+						}
+						.moveArea {
 							position: fixed;
 							bottom: 0;
 							left: 0;
@@ -614,7 +816,8 @@
 							height: 80vw;
 							margin: 0 auto;
 							background-color: #F0AD4E;
-							.moveView{
+
+							.moveView {
 								width: 20vw;
 								height: 15vh;
 								background-color: #A0CFFF;
@@ -648,22 +851,10 @@
 				background-color: #c9ea97;
 			}
 		}
-
 	}
-</style>
-
-[{bkImgName: "粉色夏日"
-bkImgNumber: 1
-bkImgPath: "../../static/img/bkImg/bk1.jpg"},{bkImgName: "碧水中月"
-bkImgNumber: 2
-bkImgPath: "../../static/img/bkImg/bk2.jpg"},{bkImgName: "闲逸吉他"
-bkImgNumber: 3
-bkImgPath: "../../static/img/bkImg/bk3.jpg"},{bkImgName: "落日阳台"
-bkImgNumber: 4
-bkImgPath: "../../static/img/bkImg/bk4.jpg"},{bkImgName: "草莓与花"
-bkImgNumber: 5
-bkImgPath: "../../static/img/bkImg/bk5.jpg"},{bkImgName: "熊熊开门"
-bkImgNumber: 6
-bkImgPath: "../../static/img/bkImg/bk6.jpg"},{bkImgName: "动物狂欢"
-bkImgNumber: 7
-bkImgPath: "../../static/img/bkImg/bk7.jpg"}]
+</style> [{bkImgName: "粉色夏日" bkImgNumber: 1 bkImgPath: "../../static/img/bkImg/bk1.jpg"},{bkImgName: "碧水中月" bkImgNumber:
+2 bkImgPath: "../../static/img/bkImg/bk2.jpg"},{bkImgName: "闲逸吉他" bkImgNumber: 3 bkImgPath:
+"../../static/img/bkImg/bk3.jpg"},{bkImgName: "落日阳台" bkImgNumber: 4 bkImgPath:
+"../../static/img/bkImg/bk4.jpg"},{bkImgName: "草莓与花" bkImgNumber: 5 bkImgPath:
+"../../static/img/bkImg/bk5.jpg"},{bkImgName: "熊熊开门" bkImgNumber: 6 bkImgPath:
+"../../static/img/bkImg/bk6.jpg"},{bkImgName: "动物狂欢" bkImgNumber: 7 bkImgPath: "../../static/img/bkImg/bk7.jpg"}]

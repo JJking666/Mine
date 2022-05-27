@@ -214,10 +214,12 @@ var _default =
       uni.request({ //时间
         url: 'http://120.76.138.164:3000/plan/addPlan?data=' +
         '{"UserID":"' + that.id + '","content":"' + that.textData + '","title":"' + that.title +
-        '","startTime":"' + that.datetimerange[0] + '","endTime":"' + that.datetimerange[1] + '","finish":[' + finish + ']}' });
+        '","startTime":"' + that.datetimerange[0] + '","endTime":"' + that.datetimerange[1] + '","finish":[' + finish + ']}' }).
+      then(function () {
+        uni.navigateBack({
+          delta: 1 });
 
-      uni.navigateBack({
-        delta: 1 });
+      });
 
     },
     getDate: function getDate(type) {

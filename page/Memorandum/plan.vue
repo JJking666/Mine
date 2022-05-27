@@ -1,30 +1,31 @@
 <template>
-	<view class="plan">
+	<view class="plan  linear_back">
 		<view class="plan-item1" v-for="(item,index) in planData1" :key="index" @tap="changeShow(1,index)"
-			:style="{height:planData1[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh'}">
+			:style="{
+				height:planData1[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh',backgroundColor:Date.parse(item.endTime)>=Date.parse(nowTime)?'':'#d83616'}">
 			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap.stop="deletePlan(1,index)"></image>
 			<text id="date">{{item.title}}</text>
-			<text id="date1">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
+			<text id="date1">{{item.startTime.slice(5,10)}}&nbsp&nbsp&nbsp~&nbsp&nbsp&nbsp{{item.endTime.slice(5,10)}}</text>
 			<view class="planHidden"
 				:style="{height:planData1[index].visibity=='3vh'?4*item.content.length + 1 + 'vh':'0vh'}">
 				<label v-for="(item_1,index_1) in planData1[index].content" :key="index_1+200" class="label"
 					:style="{height:planData1[index].visibity,textDecoration:item.finish[index_1]=='1'?'line-through':'',
-					color:item.finish[index_1]=='1'?'grey':'black'}">
+					color:item.finish[index_1]=='1'?'#c1c1c1':'black'}">
 					<checkbox value="cb" :checked="item.finish[index_1]=='1'?true:false" color="#999bb9"
 						 @tap.stop="changeFinish(1,index,index_1)" />{{item_1}}
 				</label>
 			</view>
 		</view>
 		<view class="plan-item2" v-for="(item,index) in planData2" :key="index+300" @tap="changeShow(2,index)"
-			:style="{height:planData2[index].visibity=='3vh'?4*item.content.length + 13 + 'vh':'12vh'}">
+			:style="{height:planData2[index].visibity=='3vh'?4.5*item.content.length + 13 + 'vh':'12vh'}">
 			<image id="deleteimg" src="../../static/img/memorandum/close-bold.png" @tap.stop="deletePlan(2,index)"></image>
-			<text id="date" style="color: grey;text-decoration: line-through;">{{item.title}}</text>
-			<text id="date1" style="color: grey;text-decoration: line-through;">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
+			<text id="date" style="color: #c1c1c1;text-decoration: line-through;">{{item.title}}</text>
+			<text id="date1" style="color: #c1c1c1;text-decoration: line-through;">{{item.startTime.slice(5,10)}}-{{item.endTime.slice(5,10)}}</text>
 			<view class="planHidden"
-				:style="{height:planData2[index].visibity=='3vh'?4*item.content.length + 1 + 'vh':'0vh'}">
-				<label v-for="(item_1,index_1) in planData2[index].content" :key="index_1+100" class="label"
-					:style="{height:planData2[index].visibity,textDecoration:finishStyle.text,color:finishStyle.color}">
-					<checkbox value="cb" :checked="item.finish[index_1]=='1'?true:false" color="#999bb9"
+				:style="{height:planData2[index].visibity=='3vh'?4.5*item.content.length +  1 + 'vh':'0vh'}">
+				<label v-for="(item_1,index_1) in planData2[index].content" :key="index_1+300" class="label"
+					:style="{height:'3.5vh',textDecoration:finishStyle.text,color:finishStyle.color}">
+					<checkbox value="cb" :checked="item.finish[index_1]=='1'?true:false" color="#c1c1c1"
 						 @tap.stop="changeFinish(2,index,index_1)" />{{item_1}}
 				</label>
 			</view>
@@ -32,8 +33,9 @@
 		</view>
 		<button class="create" @tap="createPlan">
 			<!--  -->
-			<image src="../../static/img/more/add.png"></image>
+			<image src="../../static/img/memorandum/tianjia.png"></image>
 		</button>
+		<!--  -->
 		<view class="finish" :animation="finAnimation">
 			真厉害!又完成一项计划啦~
 		</view>
@@ -44,10 +46,11 @@
 	export default {
 		data() {
 			return {
+				nowTime:new Date().toISOString(),
 				id: '',
 				finishStyle:{
 					text:"line-through",
-					color:"grey"
+					color:"#c1c1c1"
 				},
 				demoData: [1, 2, 3, 4, 5, 6],
 				planData: [],
@@ -66,7 +69,7 @@
 				
 			},
 			changeFinish(status, index, index_1) {
-				if (!this.changeF) {
+				if (this.changeF) {
 					console.log('cao')
 					clearTimeout(this.changeF)
 				}
@@ -110,7 +113,7 @@
 					}
 					//修改选项
 					this.changeF = setTimeout(() => {
-						if (this.changeF == 0) return 
+						// if (this.changeF == 0) return 
 						console.log(dataID)
 						let data = {
 							UserID: this.id,
@@ -132,7 +135,8 @@
 						})
 						uni.request({
 								url: 'http://120.76.138.164:3000/plan/changeFinish',
-								data: data
+								data: data,
+								method:'POST'
 							})
 							.then(data => {
 								let [err, res] = data;
@@ -146,30 +150,32 @@
 						return item == 0
 					})
 					let dataID=this.planData2[index]._id
-					let finishA=this.planData1[index]['finish']
+					let finishA=this.planData2[index]['finish']
 					//若选项全为1则将这项计划改为已完成
-					if (num.length == 0) {
-						this.planData.forEach((item,index1)=>{
-							if(item._id == dataID){
-								i=index1
-								return 
-							}
-						})
-						this.planData2[index]['status'] = '1'
-						this.planData1=this.planData.filter((item)=>{
-							return item.status=='0'
-						})
-						this.planData2=this.planData.filter((item)=>{
-							return item.status=='1'
-						})
-					}
+					this.planData.forEach((item,index1)=>{
+						if(item._id == dataID){
+							i=index1
+							return 
+						}
+					})
 					//修改选项
 					this.changeF = setTimeout(() => {
-						if (this.changeF == 0) return
+						// if (this.changeF == 0) return
+						if(num.length != 0){
+							console.log("changeF222",i,this.planData[i],this.planData)
+							this.planData[i]['status'] = 0
+							this.planData1=this.planData.filter((item)=>{
+								return item.status=='0'
+							})
+							this.planData2=this.planData.filter((item)=>{
+								return item.status=='1'
+							})
+						}
+						console.log("changeF2",i,this.planData[i],this.planData)
 						let data = {
 							UserID: this.id,
 							_id: dataID,
-							finish: this.$data.planData[i]['finish']
+							finish: this.planData[i]["finish"]
 						}
 						data1 = {
 							_id: dataID,
@@ -182,7 +188,8 @@
 						})
 						uni.request({
 								url: 'http://120.76.138.164:3000/plan/changeFinish',
-								data: data
+								data: data,
+								method:'POST'
 							})
 							.then(data => {
 								let [err, res] = data;
@@ -240,14 +247,17 @@
 				} else {
 					this.deleteID = this.planData2[index]._id
 				}
-
 				uni.showModal({
 					title: '提示',
 					content: '您确定要删除该计划吗？',
 					success: (res) => {
 						console.log(this.$data)
 						if (res.confirm) {
-
+							if (status == 1) {
+								this.planData1.splice(index, 1);
+							} else {
+								this.planData2.splice(index, 1);
+							}
 							let that = this
 							uni.request({
 									url: 'http://120.76.138.164:3000/plan/deletePlan?data=' + that.deleteID
@@ -255,13 +265,12 @@
 								.then(data1 => {
 									let [err1, res1] = data1
 									console.log(res1)
-									that.planData.splice(index, 1);
-									this.planData1 = this.planData.filter((item) => {
-										return item.status == '0'
-									})
-									this.planData2 = this.planData.filter((item) => {
-										return item.status == '1'
-									})
+									// this.planData1 = this.planData.filter((item) => {
+									// 	return item.status == '0'
+									// })
+									// this.planData2 = this.planData.filter((item) => {
+									// 	return item.status == '1'
+									// })
 								})
 
 						} else if (res.cancel) {
@@ -332,28 +341,30 @@
 			opacity: 0.5;
 			transform: scale(0);
 		    text-align: center;
-		    background-image: linear-gradient(to right,rgba(230, 230, 230, 0.2), #37f6ff, rgba(230, 230, 230, 0.2));
+		    background-image: linear-gradient(to right, rgb(201,218,245), #00d0ffd9, rgb(167,217,242));
 			transition: all 1s;
 	}
-	checkbox{
+	.checkbox{
 		margin-left: 1vw;
+		height: 3vh;
+		width: 3vh;
 	}
 	.plan {
+		padding: 1vh 0;
 		width: 100vw;
-		height: 100vh;
-
+		height: fit-content;
+		min-height: 100vh;
 		.plan-item1 {
 			width: 90vw;
 			height: fit-content;
 			display: flex;
 			flex-direction: column;
-			background-color: #b8f1cc;
+			background-color: white;
 			border: 1rpx solid transparent;
 			border-radius: 3vw;
 			margin: 2vh auto;
 			position: relative;
 			transition: all 1s;
-
 			#deleteimg {
 				width: 2vh;
 				height: 2vh;
@@ -373,11 +384,11 @@
 				display: inline-block;
 				width: 90%;
 				height: 8vh;
-				font-size: 42rpx;
+				font-size: $fontSize-lg;
 				font-weight: 600;
 				text-align: center;
 				line-height: 8vh;
-				border-bottom: 1rpx double #3d3e41;
+				border-bottom: 1rpx double $backgroundC;
 			}
 
 			#date1 {
@@ -385,11 +396,10 @@
 				display: inline-block;
 				width: 90%;
 				height: 4vh;
-				font-size: $fontSize-md;
-				color: #828282;
+				font-size: $fontSize-sm;
+				color: $fontC;
 				text-align: center;
 				line-height: 4vh;
-				border-bottom: 1rpx double #606266;
 			}
 
 			.label {
@@ -416,7 +426,7 @@
 			height: fit-content;
 			display: flex;
 			flex-direction: column;
-			background-color: #b8f1cc;
+			background-color: #ffffffcc;
 			border: 1rpx solid transparent;
 			border-radius: 3vw;
 			margin: 2vh auto;
@@ -434,6 +444,7 @@
 		
 			.planHidden {
 				transition: all 0.5s ease;
+				overflow: hidden;
 			}
 		
 			#date {
@@ -441,29 +452,28 @@
 				display: inline-block;
 				width: 90%;
 				height: 8vh;
-				font-size: 42rpx;
+				font-size: $fontSize-lg;
 				font-weight: 600;
 				text-align: center;
 				line-height: 8vh;
-				border-bottom: 1rpx double #3d3e41;
+				border-bottom: 1rpx double $backgroundC;
 			}
 		
 			#date1 {
 				margin: 0 auto;
 				display: inline-block;
 				width: 90%;
-				height: 4vh;
-				font-size: $fontSize-md;
-				color: #828282;
+				// height: 4vh;
+				font-size: $fontSize-sm;
+				color: $fontC;
 				text-align: center;
 				line-height: 4vh;
-				border-bottom: 1rpx double #606266;
 			}
 		
 			.label {
 				margin-left: 5vw;
 				width: inherit;
-				height: 4vh;
+				// height: 4vh;
 				display: block;
 				overflow: hidden;
 				transition: all 0.5s ease;

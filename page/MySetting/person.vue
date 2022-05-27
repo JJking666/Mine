@@ -1,28 +1,32 @@
 <template>
 	<view class="person">
 		<view class="content">
-			<image id="img" :src="person.headImg" mode=""></image>
+			<image id="img" :src="person.headImg" mode="" @tap="openImg"></image>
 			<text id="dq">个人信息</text>
 			<view id="id">
 				<text id="id">ID:{{person.ID}}</text>
 			</view>
 			<view id="name">
 				<text v-show="changeArray[1]==0">{{person.name}}</text>
-				<input type="text" v-model="person.name" v-show="changeArray[1]!=0"/>
-				<image src="../../static/uview/example/js.png" mode="" @tap="changeA(1)"></image>
+				<input type="text" placeholder="昵称" v-model="person.name" v-show="changeArray[1]!=0"/>
+				<image :src="changeArray[1]!=0?'../../static/uview/example/js.png':'../../static/img/memorandum/complete.png'" mode="" @tap="changeA(1)"></image>
 			</view>
-			<view id="password">
-				<text>{{person.sex}}</text>
+			<view>
+				<text  v-show="changeArray[2]==0">{{sexArray[sexIndex]}}</text>
+				<picker @change="changeSex" :value="sexIndex"  :range="sexArray" v-show="changeArray[2]!=0" style="display: inline-block;">
+										<view class="uni-input">{{sexArray[sexIndex]}}</view>
+									</picker>
+				<image :src="changeArray[2]!=0?'../../static/uview/example/js.png':'../../static/img/memorandum/complete.png'" mode="" @tap="changeA(2)"> </image>
 			</view>
 			<view >
 				<text v-show="changeArray[3]==0">{{person.motto}}</text>
-				<input type="text"  v-model="person.motto" v-show="changeArray[3]!=0"/>
-				<image src="../../static/uview/example/js.png" mode="" @tap="changeA(3)"> </image>
+				<input type="text"  placeholder="个性签名" v-model="person.motto" v-show="changeArray[3]!=0"/>
+				<image :src="changeArray[3]!=0?'../../static/uview/example/js.png':'../../static/img/memorandum/complete.png'" mode="" @tap="changeA(3)"> </image>
 			</view>
 			<view >
 				<text v-show="changeArray[4]==0">{{person.funMotto}}</text>
-				<input type="text"  v-model="person.funMotto" v-show="changeArray[4]!=0"/>
-				<image src="../../static/uview/example/js.png" mode="" @tap="changeA(4)"></image>
+				<input type="text" placeholder="被关注签名" v-model="person.funMotto" v-show="changeArray[4]!=0"/>
+				<image :src="changeArray[4]!=0?'../../static/uview/example/js.png':'../../static/img/memorandum/complete.png'" mode="" @tap="changeA(4)"></image>
 			</view>
 		</view>
 	</view>
@@ -39,14 +43,52 @@
 					name:'',
 					sex:'',
 					motto:'',
-				}
+				},
+				sexArray:['男','女'],
+				sexIndex:0,
 			}
 		},
 		methods:{
+			changeSex(e){
+				this.sexIndex = e.detail.value
+				// console.log('changeSex',e)
+			},
 			changeA(index){
 				let c=this.changeArray[index]==0?1:0
 				this.$set(this.changeArray,index,c)
 				console.log(this.changeArray[index])
+				if(c == 0){
+					uni.showToast({
+					    title: '修改成功~~',
+					    duration: 2000
+					});
+				}
+		
+			},
+			openImg(){
+				uni.showModal({
+				    title: '提示',
+				    content: '获取头像图片',
+				    success: (res)=>{
+				        if (res.confirm) {
+				            uni.chooseImage({
+				            	count: 1, //默认9
+				            	sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
+				            	sourceType: ['album'], //从相册选择
+				            	success: (res) => {
+				            		this.person.headImg = res.tempFilePaths[0]
+									uni.showToast({
+									    title: '修改成功~~',
+									    duration: 2000
+									});
+				            		//this.$data.person.headImg.splice(this.$data.nowIndex, 1, res.tempFilePaths[0])
+				            	}
+				            });
+				        } else if (res.cancel) {
+				            return
+				        }
+				    }
+				});
 			}
 		},
 		onUnload() {
@@ -55,10 +97,13 @@
 				success:(res)=>{
 					let data1 = {
 						UserID:res.data,
+						HeadImg:this.person.headImg,
 						Name:this.person.name,
+						Sex:this.sexArray[this.sexIndex],
 						motto:this.person.motto,
 						funMotto:this.person.funMotto
 					}
+					console.log("getStorage",data1)
 					uni.request({
 						url:'http://120.76.138.164:3000/user/changeUserInfo',
 						data:data1
@@ -84,11 +129,12 @@
 				console.log(res)
 				that.person.headImg=res.data.data.HeadImg
 				that.person.ID = option.ID.slice(-6)
-				if(res.data.data.Sex == 'man')that.person.sex='男'
+				if(res.data.data.Sex === 'man'|| res.data.data.Sex === '男')that.person.sex='男'
 				else that.person.sex='女'
 				that.person.motto = res.data.data.motto
 				that.person.funMotto = res.data.data.funMotto
 				that.person.name = res.data.data.Name
+				this.sexIndex = that.person.sex === '男' ? 0:1
 			})
 		}
 	}
@@ -165,5 +211,10 @@
 				color: #8F939C;
 			}
 		}
+	}
+	input{
+		font-weight: 800 !important;
+		font-size: 32rpx !important;
+		color: black;
 	}
 </style>

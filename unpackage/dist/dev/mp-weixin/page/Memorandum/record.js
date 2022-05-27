@@ -297,7 +297,7 @@ var _default =
         _this4.recordData = JSON.parse(JSON.stringify(_this4.firstRecord));
         _this4.recordData1.forEach(function (item, index) {
           var str = new RegExp(_this4.inputValue);
-          if (item.content.match(str)) {
+          if (item.content.match(str) || item.time.match(str)) {
             r1.push(index);
             item.content = item.content.replace(_this4.inputValue, "<span style=\"color: red\">".concat(
             _this4.inputValue, "</span>"));
@@ -305,7 +305,7 @@ var _default =
         });
         _this4.recordData2.forEach(function (item, index) {
           var str = new RegExp(_this4.inputValue);
-          if (item.content.match(str)) {
+          if (item.content.match(str) || item.time.match(str)) {
             r2.push(index);
             item.content = item.content.replace(_this4.inputValue, "<span style=\"color: red\">".concat(
             _this4.inputValue, "</span>"));
@@ -329,7 +329,7 @@ var _default =
     },
 
     gotoWriteRecord: function gotoWriteRecord() {
-      uni.redirectTo({
+      uni.navigateTo({
         url: 'createRecord' });
 
     } },

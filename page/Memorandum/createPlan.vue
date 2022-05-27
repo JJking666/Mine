@@ -60,10 +60,12 @@
 					url: 'http://120.76.138.164:3000/plan/addPlan?data=' +
 						'{"UserID":"'+that.id+'","content":"'+that.textData+'","title":"'+that.title+
 						'","startTime":"'+that.datetimerange[0]+'","endTime":"'+that.datetimerange[1]+'","finish":['+finish+']}'
+				}).then(()=>{
+					uni.navigateBack({
+						delta: 1
+					})
 				})
-				uni.navigateBack({
-					delta: 1
-				})
+				
 			},
 			getDate(type) {
 				const date = new Date();
@@ -116,7 +118,7 @@
 			margin-top: 2vh;
 			width: 90vw;
 			height: fit-content;
-			background-color: #DBF1E1;
+			background-color: $shadowC1;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;

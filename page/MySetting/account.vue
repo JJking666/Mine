@@ -49,12 +49,12 @@
 					key:'UserAccount',
 					success: ()=> {
 						console.log('gb1')
-					    uni.redirectTo({
+					    uni.reLaunch({
 					        url: '../Login/login'
 					    });
 					},
 					fail() {
-						uni.redirectTo({
+						uni.reLaunch({
 						    url: '../Login/login'
 						});
 					}
@@ -81,15 +81,17 @@
 </script>
 
 <style lang="scss">
+	$title-color:#696968;
 	.account{
 		width: 100vw;
 		height: 100vh;
 		padding: 2vh 5vw;
 		box-sizing: border-box;
+		background-color:$card-pad-backgroundC;
 		.content{
+			background-color: $card-backgroundC;
 			width: 90vw;
 			height: 96vh;
-			background-color: #BEF5C8;
 			border-radius: 10rpx;
 			display: flex;
 			flex-direction: column;
@@ -110,8 +112,9 @@
 				width: 90vw;
 				    padding: 1vh 5vw;
 				    box-sizing: border-box;
-				border-bottom: 1rpx solid #dedede;
+				border-bottom: 1rpx solid #efefef;
 				text{
+					color: #696968;
 					line-height: 4vh;
 					display: inline-block;
 					font-size: $fontSize-sm;
@@ -126,7 +129,7 @@
 				}
 				p{
 					font-size: $fontSize-sm;
-					color: #B9B9B9;
+					color: #000000;
 					height: 4vh;
 					float: right;
 					line-height: 4vh;

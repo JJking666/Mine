@@ -172,11 +172,12 @@ __webpack_require__.r(__webpack_exports__);
           then(function (data1) {var _data = _slicedToArray(
             data1, 2),err1 = _data[0],res1 = _data[1];
             console.log(res1);
+            uni.navigateBack({
+              delta: 1 });
+
           });
         } });
 
-      uni.navigateBack({
-        delta: 1 });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

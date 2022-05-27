@@ -1,8 +1,7 @@
 //修改页面
 <template>
-	<view class="record">
-		<image id="record-bk" src="../../static/img/bkImg/bk6.jpg" mode=""></image>
-		<input id="record-input" placeholder="搜索记录" placeholder-style="" v-model="inputValue" @input="select" />
+	<view class="record linear_back">
+		<input id="record-input" placeholder="搜索记录(日期|内容)" placeholder-style="" v-model="inputValue" @input="select" />
 		<view 
 			style="width: 45vw;height: fit-content; margin: 1vw 0; box-sizing: border-box;margin-left: 3vw;display: inline-block;">
 			<view class="recordItem" v-for="(item,index) in recordData1"  :key="index" @tap="showRecord(1,index)"  >
@@ -22,9 +21,10 @@
 		</view>
 		<button  class="create" @tap="gotoWriteRecord">
 			<!--  -->
-			<image src="../../static/img/more/add.png"></image>
+			<image src="../../static/img/memorandum/tianjia.png"></image>
 		</button>
 		<view id="BigRecord" :animation="recordAnimation" @tap="hideRecord()">
+			<image src="../../static/img/memorandum/rocket.png" mode="widthFix"></image>
 			{{bigrecord}}
 		</view>
 	</view>
@@ -136,7 +136,7 @@
 					this.recordData=JSON.parse(JSON.stringify(this.firstRecord))
 					this.recordData1.forEach((item,index) => {
 						let str = new RegExp(this.inputValue)
-						if(item.content.match(str)){
+						if(item.content.match(str)||item.time.match(str)){
 							r1.push(index)
 							item.content = item.content.replace(this.inputValue,
 							`<span style="color: red">${this.inputValue}</span>`)
@@ -144,7 +144,7 @@
 					})
 					this.recordData2.forEach((item,index) => {
 						let str = new RegExp(this.inputValue)
-						if(item.content.match(str)){
+						if(item.content.match(str)||item.time.match(str)){
 							r2.push(index)
 							item.content = item.content.replace(this.inputValue,
 							`<span style="color: red">${this.inputValue}</span>`)
@@ -168,7 +168,7 @@
 			},
 			
 			gotoWriteRecord() {
-				uni.redirectTo({
+				uni.navigateTo({
 					url: 'createRecord'
 				})
 			}
@@ -226,28 +226,38 @@
 
 <style lang="scss">
 	#BigRecord{
-		position: fixed;
-		top: 20vh;
-		left: 20vw;
-		height: 50vh;
-		overflow: scroll;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right:0;
+		bottom:0;
+		min-height: 12vh;
+		max-height: 60vh;
+		margin:auto;
+		height: fit-content;
 		width: 60vw;
 		transform: scale(0);
-		background-color: #3CB371;
-		border-radius: 10rpx;
-		box-shadow: 2rpx 2rpx 30rpx #323233;
-		padding: 2vh 5vw;
+		background-color: #c4bff9cf;
+		border-radius: 35rpx;
+		padding: 5vh 8vw;
 		box-sizing: border-box;
 		font-size: $fontSize-sm;
 		font-weight: 500;
-		color:aliceblue;
+		color:white;
+		box-shadow: 0rpx 0rpx 25rpx $mainColor3;
+		image{
+			position: absolute;
+			top: -30rpx;
+			right: 5vw;
+			width: 80rpx;
+			height: 80rpx;
+		}
 	}
 	.record {
 		width: 100vw;
 		height: 100vh;
 		box-sizing: border-box;
 		overflow: auto;
-
 		#record-input {
 			margin: 2vh auto;
 			width: 70vw;
@@ -278,7 +288,7 @@
 			vertical-align: top;
 			border: 1rpx solid transparent;
 			border-radius: 20rpx;
-			background-color: #b8f1cc;
+			background-color: $item-backgroundC;
 			display: block;
 			overflow: hidden;
 			box-sizing: border-box;
@@ -310,7 +320,7 @@
 				width: 80%;
 				height: 2vh;
 				font-size: $fontSize-sm;
-				color: #606266;
+				color: $fontC;
 				line-height: 150%;
 			}
 		}

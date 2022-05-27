@@ -282,8 +282,11 @@ var _default =
 
         then(function (data) {var _data = _slicedToArray(
           data, 2),err = _data[0],res = _data[1];
-          that.homePageData.Name = res.data.data[0].Name;
+          that.$set(that.homePageData, "Name", res.data.data[0].Name);
           that.homePageData.UserID = res.data.data[0]._id;
+          that.homePageData.HeadImg = res.data.data[0].HeadImg,
+          that.$set(that.homePageData, "motto", res.data.data[0].motto);
+          that.$forceUpdate();
           uni.setStorage({
             key: "UserID",
             data: res.data.data[0]._id });
@@ -293,13 +296,14 @@ var _default =
 
           then(function (data) {var _data2 = _slicedToArray(
             data, 2),err = _data2[0],res = _data2[1];
-            that.homePageData.HeadImg = res.data.data[0].HeadImg,
-            that.homePageData.motto = res.data.data[0].motto,
-            that.homePageData.FriendsCount = res.data.data[0].FriendsCount,
-            that.homePageData.FanCount = res.data.data[0].FanCount,
+            // that.homePageData.HeadImg=res.data.data[0].HeadImg,
+            // that.homePageData.motto=res.data.data[0].motto,
+            that.$set(that.homePageData, "FriendsCount", res.data.data[0].FriendsCount);
+            that.$set(that.homePageData, "FanCount", res.data.data[0].FanCount);
             that.homePageData.workCount = res.data.data[0].workCount,
             that.homePageData.medals = res.data.data[0].medals;
             that.homePageData.goods = res.data.data[0].goods;
+            that.$forceUpdate();
           });
           uni.request({
             url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +
@@ -333,25 +337,28 @@ var _default =
           url: 'http://120.76.138.164:3000/user/queryUser?data=' + res.data }).
 
         then(function (data) {var _data4 = _slicedToArray(
-          data, 2),err = _data4[0],res = _data4[1];
-          that.homePageData.Name = res.data.data[0].Name;
-          that.homePageData.UserID = res.data.data[0]._id;
+          data, 2),err1 = _data4[0],res0 = _data4[1];
+          that.homePageData.HeadImg = res0.data.data[0].HeadImg;
+          that.homePageData.motto = res0.data.data[0].motto;
+          that.homePageData.Name = res0.data.data[0].Name;
+          that.homePageData.UserID = res0.data.data[0]._id;
           // uni.setStorage({
           // 	key:"UserID",
           // 	data:res.data.data[0]._id
           // })
           uni.request({
-            url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + res.data.data[0]["_id"] }).
+            url: 'http://120.76.138.164:3000/homePage/queryHomePage?data=' + res0.data.data[0]["_id"] }).
 
           then(function (data1) {var _data5 = _slicedToArray(
             data1, 2),err1 = _data5[0],res1 = _data5[1];
-            that.homePageData.HeadImg = res1.data.data[0].HeadImg,
-            that.homePageData.motto = res1.data.data[0].motto,
-            that.homePageData.FriendsCount = res1.data.data[0].FriendsCount,
-            that.homePageData.FanCount = res1.data.data[0].FanCount,
+            // that.homePageData.HeadImg=res1.data.data[0].HeadImg,
+            // that.homePageData.motto=res1.data.data[0].motto,
+            that.$set(that.homePageData, "FriendsCount", res.data.data[0].FriendsCount);
+            that.$set(that.homePageData, "FanCount", res.data.data[0].FanCount);
             that.homePageData.workCount = res1.data.data[0].workCount,
             that.homePageData.medals = res1.data.data[0].medals;
             that.homePageData.goods = res1.data.data[0].goods;
+            that.$forceUpdate();
           });
           uni.request({
             url: 'http://120.76.138.164:3000/relationship/queryRelationship?data=' +

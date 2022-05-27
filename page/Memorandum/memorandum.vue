@@ -58,7 +58,7 @@
 	button {
 		width: 60vw;
 		height: 10vh;
-		background-color: #b8f1cc;
+		background-color: #b8eaf1;
 		border: 1px solid transparent;
 		border-radius: 5px;
 		margin-top: 4vh;

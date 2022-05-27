@@ -4,7 +4,7 @@
 	}"> 
 		<!-- //修改 -->
 		<editor
-			:style="{zIndex:index}"
+			:style="{zIndex:index,height:jpheight>0?'42vh':'52vh'}"
 			class="ql-container"
 			:placeholder="placeholder"
 			:show-img-size="true"
@@ -12,7 +12,7 @@
 			:show-img-resize="true"
 			@ready="onEditorReady"
 			id="editor"
-			adjust-position="false"
+			adjust-position="true"
 			:fucos="isfocus"
 			@statuschange="statuschange" 
 			@blur="editBlur"
@@ -296,6 +296,7 @@ export default {
 	box-sizing: border-box;
 	padding-bottom: 120rpx;
 	height: fit-content;
+	/* max-height: 70vh; */
 }
 //修改
 .ql-container {
@@ -305,7 +306,7 @@ export default {
 	height: 50vh;
 	margin: 0 auto;
 	padding: 2vh 5vw;
-	background-color: rgba( 240,230,140,0.2);
+	background-color: rgba( 255,255,255,0.2);
 	z-index: 99999;			
 } 
 .tool-view{

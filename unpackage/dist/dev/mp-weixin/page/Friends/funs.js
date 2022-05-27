@@ -168,13 +168,13 @@ var _default =
   methods: {
     gotoLookSomeone: function gotoLookSomeone(id, status) {
       uni.navigateTo({
-        url: './lookSomeone?id=' + id });
+        url: './lookSomeone?id=' + id + '&status=' + status });
 
     },
     select: function select() {var _this = this;
       var that = this;
       if (this.inputValue.length < 1) {
-        this.selectPeople = [];
+        this.selectFun = [];
         return;
       }
       if (this.inputing) {
@@ -185,10 +185,10 @@ var _default =
         console.log(r);
         that.selectFun = [];
         that.funs.forEach(function (item) {
-          if (item.name.match(r)) {
+          if (item.phone.match(r) || item.name.match(r)) {
             console.log('m');
             var fun = JSON.parse(JSON.stringify(item));
-            fun.name = fun.name.replace(that.inputValue, "<span style=\"color: grey\">".concat(
+            fun.name = fun.name.replace(that.inputValue, "<span style=\"color: red\">".concat(
             _this.inputValue, "</span>"));
             that.selectFun.push(fun);
           }
@@ -218,11 +218,12 @@ var _default =
 
         then(function (data) {var _data2 = _slicedToArray(
           data, 2),err1 = _data2[0],res1 = _data2[1];
-          // console.log(2,err1,res1)
+          console.log(2, err1, res1);
           fun.id = res1.data.data._id;
           fun.headImg = res1.data.data.HeadImg;
           fun.name = res1.data.data.Name;
           fun.sex = res1.data.data.Sex;
+          fun.phone = res1.data.data.Phone;
           that.funs.push(fun);
         });
       });

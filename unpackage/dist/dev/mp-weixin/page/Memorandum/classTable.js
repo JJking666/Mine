@@ -158,10 +158,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      academyArr: ["网络空间安全学院", "文学与传媒学院", "网络空间安全学院", "网络空间安全学院", "网络空间安全学院"],
+      majorArr: ["软件工程", "传媒", "软件工程", "软件工程", "软件工程"],
+      classArr: ["19软卓1", "19广编1", "19软卓1", "19软卓1", "19软卓1"],
       nowIndex: 0,
       classTableData: new Object(),
       indicatorDots: true,

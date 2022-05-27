@@ -160,6 +160,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -170,27 +174,68 @@ var _default =
         ID: '',
         name: '',
         sex: '',
-        motto: '' } };
+        motto: '' },
 
+      sexArray: ['男', '女'],
+      sexIndex: 0 };
 
   },
   methods: {
+    changeSex: function changeSex(e) {
+      this.sexIndex = e.detail.value;
+      // console.log('changeSex',e)
+    },
     changeA: function changeA(index) {
       var c = this.changeArray[index] == 0 ? 1 : 0;
       this.$set(this.changeArray, index, c);
       console.log(this.changeArray[index]);
+      if (c == 0) {
+        uni.showToast({
+          title: '修改成功~~',
+          duration: 2000 });
+
+      }
+
+    },
+    openImg: function openImg() {var _this = this;
+      uni.showModal({
+        title: '提示',
+        content: '获取头像图片',
+        success: function success(res) {
+          if (res.confirm) {
+            uni.chooseImage({
+              count: 1, //默认9
+              sizeType: ['original'], //可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album'], //从相册选择
+              success: function success(res) {
+                _this.person.headImg = res.tempFilePaths[0];
+                uni.showToast({
+                  title: '修改成功~~',
+                  duration: 2000 });
+
+                //this.$data.person.headImg.splice(this.$data.nowIndex, 1, res.tempFilePaths[0])
+              } });
+
+          } else if (res.cancel) {
+            return;
+          }
+        } });
+
     } },
 
-  onUnload: function onUnload() {var _this = this;
+  onUnload: function onUnload() {var _this2 = this;
     uni.getStorage({
       key: 'UserID',
       success: function success(res) {
         var data1 = {
           UserID: res.data,
-          Name: _this.person.name,
-          motto: _this.person.motto,
-          funMotto: _this.person.funMotto };
+          HeadImg: _this2.person.headImg,
+          Name: _this2.person.name,
+          Sex: _this2.sexArray[_this2.sexIndex],
+          motto: _this2.person.motto,
+          funMotto: _this2.person.funMotto };
 
+        console.log("getStorage", data1);
         uni.request({
           url: 'http://120.76.138.164:3000/user/changeUserInfo',
           data: data1 }).
@@ -201,7 +246,7 @@ var _default =
       } });
 
   },
-  onLoad: function onLoad(option) {
+  onLoad: function onLoad(option) {var _this3 = this;
     var that = this;
     var data = {
       _id: option.ID };
@@ -216,11 +261,12 @@ var _default =
       console.log(res);
       that.person.headImg = res.data.data.HeadImg;
       that.person.ID = option.ID.slice(-6);
-      if (res.data.data.Sex == 'man') that.person.sex = '男';else
+      if (res.data.data.Sex === 'man' || res.data.data.Sex === '男') that.person.sex = '男';else
       that.person.sex = '女';
       that.person.motto = res.data.data.motto;
       that.person.funMotto = res.data.data.funMotto;
       that.person.name = res.data.data.Name;
+      _this3.sexIndex = that.person.sex === '男' ? 0 : 1;
     });
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

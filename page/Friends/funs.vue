@@ -1,22 +1,22 @@
 <template>
-	<view class="funs">
-		<image id="record-bk" src="../../static/img/bkImg/bk3.jpg" mode=""></image>
+	<view class="funs linear_back">
+		<!-- <image id="record-bk" src="../../static/img/bkImg/bk3.jpg" mode=""></image> -->
 		<input id="record-input" placeholder="输入手机号或昵称" placeholder-style="" v-model="inputValue" @input="select" />
 		<view class="selectPeople">
-			<view class="select-item" v-for="(item,index) in selectFun" :key="index" @tap="gotoLookSomeone(item._id)">
+			<view class="select-item" v-for="(item,index) in selectFun" :key="index" @tap="gotoLookSomeone(item.id)">
 				<image :src="item.headImg">
 					<view v-html="item.name" style="display: inline-block;"></view>
 					<image
-						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
+						:src="item.sex!='man'?'../../static/img/common/nan.png':'../../static/img/common/nv.png'"
 						mode=""></image>
 			</view>
 		</view>
 		<view class="content">
-			<view class="fun-item" v-for="(item,index) in funs" :key="index" @tap="gotoLookSomeone(item._id)">
+			<view class="fun-item" v-for="(item,index) in funs" :key="index" @tap="gotoLookSomeone(item.id)">
 				<image :src="item.headImg">
 					<text>{{item.name}}</text>
 					<image
-						:src="item.sex=='man'?'../../static/img/more/biaoqianA01_shezhi-45.png':'../../static/img/more/dianzan.png'"
+						:src="item.sex!='man'?'../../static/img/common/nan.png':'../../static/img/common/nv.png'"
 						mode=""></image>
 			</view>
 		</view>
@@ -36,13 +36,13 @@
 		methods: {
 			gotoLookSomeone(id,status){
 				uni.navigateTo({
-					url:'./lookSomeone?id='+id,
+					url:'./lookSomeone?id='+id+'&status='+status,
 				})
 			},
 			select() {
 				let that = this
 				if (this.inputValue.length < 1) {
-					this.selectPeople = []
+					this.selectFun = []
 					return
 				}
 				if (this.inputing) {
@@ -51,13 +51,13 @@
 				this.inputing = setTimeout(() => {
 					let r = new RegExp(that.inputValue)
 					console.log(r)
-					that.selectFun = []
+					that.selectFun =[]
 					that.funs.forEach((item) => {
-						if (item.name.match(r)) {
+						if (item.phone.match(r)||item.name.match(r)) {
 							console.log('m')
 							let fun = JSON.parse(JSON.stringify(item))
 							fun.name = fun.name.replace(that.inputValue,
-								`<span style="color: grey">${this.inputValue}</span>`)
+								`<span style="color: red">${this.inputValue}</span>`)
 							that.selectFun.push(fun);
 						}
 					})
@@ -86,11 +86,12 @@
 							})
 							.then(data => {
 								let [err1, res1] = data
-								// console.log(2,err1,res1)
+								console.log(2,err1,res1)
 								fun.id = res1.data.data._id
 								fun.headImg = res1.data.data.HeadImg
 								fun.name = res1.data.data.Name
 								fun.sex = res1.data.data.Sex
+								fun.phone = res1.data.data.Phone
 								that.funs.push(fun)
 							})
 					})
@@ -128,16 +129,15 @@
 			background-color: blue;
 			left: 10vw;
 			z-index: 9;
-			max-height: 50vh;
+			max-height: 49vh;
 			overflow: auto;
-
 			.select-item {
 				width: inherit;
 				height: 7vh;
 				padding: 1vh 3vw;
 				box-sizing: border-box;
-				background-image: linear-gradient(to right, rgba(238, 238, 238, 0.6) 10%, rgba(1, 1, 1, 0.2) 100%);
-				border-bottom: 1rpx solid #999992;
+				background-image: linear-gradient(to right, #ffffff 50%, #fbfbfb 100%);
+				    border-bottom: 1rpx solid #d3d7dc;
 
 				image:nth-of-type(1) {
 					width: 5vh;
@@ -201,8 +201,8 @@
 				height: 9vh;
 				padding: 1.5vh 10vw;
 				box-sizing: border-box;
-				background-image: linear-gradient(to right, rgba(238, 238, 238, 0.6) 10%, rgba(1, 1, 1, 0.2) 100%);
-				border-bottom: 1rpx solid #999992;
+				background-image: linear-gradient(to right, rgb(132,180,253) 50%, rgb(110,148,255) 100%);
+				    border-bottom: 1rpx solid #c6daf5;
 
 				image:nth-of-type(1) {
 					width: 6vh;
@@ -229,6 +229,7 @@
 					display: inline-block;
 					size: 100%;
 					vertical-align: middle;
+					margin-left: 3vw;
 				}
 
 				button {
