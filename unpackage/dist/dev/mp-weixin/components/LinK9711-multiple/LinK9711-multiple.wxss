@@ -1,0 +1,115 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.linear_button {
+  background-image: linear-gradient(to right bottom, #b28ff2, #00ACD7, #b892fb);
+}
+.linear_back {
+  background-image: linear-gradient(to bottom, #51BDE7, #C6AEF1);
+}
+#filterImg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-filter: blur(8rpx);
+          filter: blur(8rpx);
+}
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 4vh;
+}
+.box_shadow {
+  box-shadow: 6rpx 6rpx 2rpx #b1eaf5;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #51BDE7;
+  padding: 2vw 2vw;
+  box-sizing: border-box;
+  border: 1rpx solid transparent;
+  box-shadow: 0 0 55rpx 5rpx #4fafef;
+}
+.create image {
+  width: 11vw;
+  height: 11vw;
+  size: 100%;
+}
+.buttonStyle1 {
+  background-image: linear-gradient(to right bottom, #7867cc, #b7bafb);
+}
+.buttonStyle2 {
+  background-image: linear-gradient(to right bottom, #c29df5, #9655fb);
+}
+.buttonStyle3 {
+  background-image: linear-gradient(to right bottom, #a6f1ff, #4de9f9);
+}
+.buttonStyle4 {
+  background-image: linear-gradient(to right bottom, #80e6a6, #fdf9cb);
+}
+.buttonStyle5 {
+  background-image: linear-gradient(to right bottom, #fbcd74, #ff8e19);
+}
+.buttonStyle6 {
+  background-image: linear-gradient(to right bottom, #75bffb, #0791ff);
+}
+.buttonStyle7 {
+  background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
+}
+.multiple {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+.multiple_input {
+  font-size: 28rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 6rpx;
+  width: 90vw;
+  padding: 6px;
+  background-color: white;
+  border-radius: 6px;
+  font-family: -webkit-body;
+}
+.multiple_bottom {
+  box-sizing: border-box;
+}
+.multiple_cont {
+  width: 50%;
+  position: absolute;
+  background-color: #fff;
+  z-index: 999;
+  padding: 40rpx;
+  top: 80rpx;
+  border: 1rpx solid #eee;
+  border-radius: 5px 5px 5px 5px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+.multiple_cont_flex {
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.multiple_cont_acveti {
+  color: #007AFF;
+}
+

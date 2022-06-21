@@ -69,23 +69,11 @@
 }
 /*每个页面公共css */
 .u-line-1 {
-
-
-
-
-
-
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .u-line-2 {
-
-
-
-
-
-
   display: -webkit-box !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -94,12 +82,6 @@
   -webkit-box-orient: vertical !important;
 }
 .u-line-3 {
-
-
-
-
-
-
   display: -webkit-box !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -108,12 +90,6 @@
   -webkit-box-orient: vertical !important;
 }
 .u-line-4 {
-
-
-
-
-
-
   display: -webkit-box !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -122,12 +98,6 @@
   -webkit-box-orient: vertical !important;
 }
 .u-line-5 {
-
-
-
-
-
-
   display: -webkit-box !important;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -135,42 +105,9 @@
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical !important;
 }
-.u-border {
-  border-width: 0.5px !important;
-  border-color: #dadbde !important;
-  border-style: solid;
-}
-.u-border-top {
-  border-top-width: 0.5px !important;
-  border-color: #dadbde !important;
-  border-top-style: solid;
-}
-.u-border-left {
-  border-left-width: 0.5px !important;
-  border-color: #dadbde !important;
-  border-left-style: solid;
-}
-.u-border-right {
-  border-right-width: 0.5px !important;
-  border-color: #dadbde !important;
-  border-right-style: solid;
-}
-.u-border-bottom {
-  border-bottom-width: 0.5px !important;
-  border-color: #dadbde !important;
-  border-bottom-style: solid;
-}
-.u-border-top-bottom {
-  border-top-width: 0.5px !important;
-  border-bottom-width: 0.5px !important;
-  border-color: #dadbde !important;
-  border-top-style: solid;
-  border-bottom-style: solid;
-}
 .u-reset-button {
   padding: 0;
   background-color: transparent;
-
   font-size: inherit;
   line-height: inherit;
   color: inherit;
@@ -229,7 +166,6 @@
   margin-bottom: 10px;
 }
 .u-block__flex {
-
   display: flex;
 }
 .u-cell-icon {
@@ -245,7 +181,6 @@
   margin-bottom: 23px;
 }
 .u-demo-block__content {
-
   display: flex;
 }
 .u-demo-block__title {

@@ -67,7 +67,7 @@
 .buttonStyle7 {
   background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
 }
-#BigRecord {
+#BigRecord, #work {
   position: absolute;
   top: 0;
   left: 0;
@@ -90,7 +90,7 @@
   color: white;
   box-shadow: 0rpx 0rpx 25rpx #C6AEF1;
 }
-#BigRecord image {
+#BigRecord image, #work image {
   position: absolute;
   top: -30rpx;
   right: 5vw;

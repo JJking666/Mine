@@ -3,14 +3,9 @@
 		<image src="../../static/img/more/shine.jpg"></image>
 
 		<view class="main">
-			<button class="record" @tap="gotoHandAccount">手账</button>
-			<button class="work" @tap="gotoWork">事务</button>
-
-			<button class="table" @tap="gotoClass">课表</button>
-
-			<button class="plan" @tap="gotoPlan">计划</button>
-
-			<button class="record" @tap="gotoRecord">语录</button>
+			<button class="record" @tap="gotoHandAccount">制作手账</button>
+			<button class="work" @tap="gotoWork">事务与随笔</button>
+			<button class="plan" @tap="gotoPlan">计划Go</button>
 		</view>
 	</view>
 </template>
@@ -77,11 +72,15 @@
 		.main{
 			opacity: 0.9;
 			width: 100%;
-			height: fit-content;
+			height: 60vh;
 			position: absolute;
-			top: 15vh;
+			top: 18vh;
 			left: 0;
 			padding: 3vh auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-evenly;
+			align-items: center;
 		}
 
 	}

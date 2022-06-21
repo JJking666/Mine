@@ -1,6 +1,7 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "my-nav": "/components/myNav"
+    "my-nav": "/components/myNav",
+    "tag-list": "/components/robby-tags/robby-tags"
   }
 }

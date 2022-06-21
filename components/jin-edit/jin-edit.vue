@@ -108,6 +108,7 @@ export default {
 	},
 	data() {
 		return {
+			isSave:false,
 			isfocus:true,
 			showMoreTool: false,
 			showBold: false,
@@ -124,6 +125,13 @@ export default {
 		jinIcon
 	},
 	methods: {
+		initText(res){
+			console.log('initText1',res)
+			this.editorCtx.setContents({
+				html: res
+			})
+			console.log('initText3',res)
+		},
 		onEditorReady(e) {
 			uni.createSelectorQuery()
 				.in(this)
@@ -265,19 +273,39 @@ export default {
 			this.isfocus=false
 		},
 		release(isPublic) {
+			console.log('release 0')
 			this.showSettingLayer = false;
 			this.editorCtx.getContents({
 				success: res => {
 					Object.assign(res, {
 						isPublic: isPublic
 					})
-					// console.log(res)
-					uni.$emit('editOk', res);
-				} 
+					console.log('release',this.isSave,res)
+					if(this.isSave){
+						console.log('release111',res)
+						uni.$emit('saveOk',res)
+					}
+					else {
+						console.log('release222',res)
+						uni.$emit('editOk', res);
+					}
+				},
+				fail:res=>{
+					console.log('release fail')
+				}
 			})
 		},
 		getres(res){
 			if(this.editorCtx){
+				this.isSave = false
+				this.release(true);
+			}
+		},
+		getsave(res){
+			// console.log('editorCtx',res)
+			if(this.editorCtx){
+				// console.log('getsave2')
+				this.isSave = true
 				this.release(true);
 			}
 		}
@@ -285,7 +313,10 @@ export default {
 	mounted(){
 		let that = this
 		that.onEditorReady();
+		// console.log('mounted')
+		uni.$on('initText',this.initText)
 		uni.$on('getres',that.getres)
+		uni.$on('getsave',that.getsave)
 	}
 };
 </script>

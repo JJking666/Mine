@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "事务",
   "usingComponents": {
-    "u-subsection": "/uni_modules/uview-ui/components/u-subsection/u-subsection"
+    "u-subsection": "/uni_modules/uview-ui/components/u-subsection/u-subsection",
+    "record": "/page/Memorandum/record",
+    "lin-k9711-multiple": "/components/LinK9711-multiple/LinK9711-multiple"
   }
 }

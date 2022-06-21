@@ -1,0 +1,55 @@
+
+.tagController{
+	padding: 10rpx;
+}
+.tagContainer{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.tagItem{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10rpx 20rpx;
+	margin: 10rpx;
+	border-radius: 40rpx;
+	color: white;
+	font-size: 28rpx;
+}
+.tagBgDefault{
+	background-color: #e8e8e8;
+	color: black;
+}
+.tagBgPrimary{
+	background-color: #007aff;
+}
+.tagBgSuccess{
+	background-color: #4cd964;
+}
+.tagBgWarning{
+	background-color: #f0ad4e;
+}
+.tagBgError{
+	background-color: #dd524d;
+}
+.tagDelIcon{
+	padding-left: 20rpx;
+}
+.tagInput{
+	padding: 10rpx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.tagInput input{
+	display: inline-block;
+	flex-direction: row;
+	align-items: center;
+	width: 75%;
+}
+.tagInput button{
+	margin:0
+}
+

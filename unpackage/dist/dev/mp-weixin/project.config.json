@@ -30,28 +30,43 @@
       "current": 0,
       "list": [
         {
-          "name": "main",
+          "name": "statics",
           "id": 0,
+          "pathName": "page/MySetting/medal"
+        },
+        {
+          "name": "work",
+          "id": 1,
+          "pathName": "page/Memorandum/work"
+        },
+        {
+          "name": "createWork",
+          "id": 2,
+          "pathName": "page/Memorandum/writeWork"
+        },
+        {
+          "name": "main",
+          "id": 3,
           "pathName": "page/HandAccount/handAccount"
         },
         {
           "name": "好友",
-          "id": 1,
+          "id": 4,
           "pathName": "page/MySetting/mySetting"
         },
         {
           "name": "创作",
-          "id": 2,
+          "id": 5,
           "pathName": "page/Creation/creation"
         },
         {
           "name": "looks",
-          "id": 3,
+          "id": 6,
           "pathName": "page/Friends/lookSomeone"
         },
         {
           "name": "lookf",
-          "id": 4,
+          "id": 7,
           "pathName": "page/Friends/lookFriend"
         }
       ]

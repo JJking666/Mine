@@ -102,6 +102,7 @@
 				scr: true,
 				handAccountData: [],
 				addGoodArr:[],
+				delGoodArr:[],
 				stickerArray: [], //贴纸总数据
 				backgroundImgArray: [], //背景总数据
 				feelArray: [], //心情总数据
@@ -171,6 +172,7 @@
 					this.handAccountData[i0][i1].funs = this.handAccountData[i0][i1].funs.filter(item=>{
 						return item != this.id
 					})
+					this.delGoodArr.push(this.handAccountData[i0][i1]._id)
 				}
 			},
 			doubleTap(i0, i1) {
@@ -290,6 +292,17 @@
 				let userGood = 0
 				item1.forEach(async (item2,index2)=>{
 					console.log("item2.isGood",1)
+					//增加作品赞数
+					const data2 = {
+						_id:item2._id,
+						goodNum:item2.good
+					}
+					uni.request({
+						url:'http://120.76.138.164:3000/handAccount/addGood',
+						data:data2
+					}).then(res=>{
+						console.log("addGood",res)
+					})	
 					if(item2.isGood&&this.addGoodArr.includes(item2._id)){
 						userGood++
 						//记录点赞者id
@@ -307,18 +320,20 @@
 						}).then(res=>{
 							console.log("addFun",res)
 						})
-						//增加作品赞数
-						const data2 = {
+					}
+					if(!item2.isGood&&this.delGoodArr.includes(item2._id)){
+						const data1 = {
 							_id:item2._id,
-							goodNum:item2.good
+							funs:item2.funs
 						}
+						console.log("item2.isGood",2,data1)
 						uni.request({
-							url:'http://120.76.138.164:3000/handAccount/addGood',
-							data:data2
+							url:'http://120.76.138.164:3000/handAccount/addFun',
+							data:data1,
+							method:'POST'
 						}).then(res=>{
-							console.log("addGood",res)
+							console.log("addFun",res)
 						})
-						
 					}
 				})
 				const data3 = {
@@ -334,6 +349,19 @@
 					url: "http://120.76.138.164:3000/homePage/updateGood",
 					data: data3
 				})
+				// item2.funs = Array.from(new Set(item2.funs))
+				// const data1 = {
+				// 	_id:item2._id,
+				// 	funs:item2.funs
+				// }
+				// console.log("item2.isGood",2,data1)
+				// uni.request({
+				// 	url:'http://120.76.138.164:3000/handAccount/addFun',
+				// 	data:data1,
+				// 	method:'POST'
+				// }).then(res=>{
+				// 	console.log("addFun",res)
+				// })
 				// .then((data) => {
 				// 	let [err, res] = data
 				// 	that.homePageData.goods =res.data.data[0].goods
@@ -372,9 +400,6 @@
 							return
 						}
 						let handAccount = result
-						handAccount = handAccount.filter((item) => {
-							return item.Public == true
-						})
 						handAccount.forEach((item) => {
 							item.stickerImg = item.stickerImg.toString().split(",")
 							item.stickerImgs = item.stickerImgs.toString().split(",")

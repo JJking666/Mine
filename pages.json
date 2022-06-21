@@ -161,6 +161,18 @@
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式（list 的索引项）
 		"list": [{
+		        "name": "statics", //模式名称
+		        "path": "page/MySetting/medal" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "work", //模式名称
+		        "path": "page/Memorandum/work" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
+		        "name": "createWork", //模式名称
+		        "path": "page/Memorandum/writeWork" //启动页面，必选
+		        //"query": "" //启动参数，在页面的onLoad函数里面得到。
+		    },{
 		        "name": "main", //模式名称
 		        "path": "page/HandAccount/handAccount" //启动页面，必选
 		        //"query": "" //启动参数，在页面的onLoad函数里面得到。

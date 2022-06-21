@@ -67,6 +67,175 @@
 .buttonStyle7 {
   background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
 }
+#BigRecord, #work {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 12vh;
+  max-height: 60vh;
+  margin: auto;
+  height: -webkit-fit-content;
+  height: fit-content;
+  width: 60vw;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  background-color: #c4bff9cf;
+  border-radius: 35rpx;
+  padding: 5vh 8vw;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: white;
+  box-shadow: 0rpx 0rpx 25rpx #C6AEF1;
+}
+#BigRecord image, #work image {
+  position: absolute;
+  top: -30rpx;
+  right: 5vw;
+  width: 80rpx;
+  height: 80rpx;
+}
+.record {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.record #record-input {
+  margin: 2vh auto;
+  width: 70vw;
+  height: 6vh;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+  font-size: 36rpx;
+  background-color: #f6fff9;
+  line-height: 6vh;
+  padding: 0 5vw;
+}
+.record #record-bk {
+  position: fixed;
+  top: 0;
+  left: -30vw;
+  width: 160vw;
+  height: inherit;
+  size: 100%;
+  z-index: -1;
+}
+.record .recordItem {
+  width: 45vw;
+  height: calc(fit-content+2vh);
+  margin: 1vw;
+  padding: 5vw;
+  vertical-align: top;
+  border: 1rpx solid transparent;
+  border-radius: 20rpx;
+  background-color: white;
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}
+.record .recordItem #deleteImg {
+  position: absolute;
+  right: 1vw;
+  top: 1vh;
+  display: inline-block;
+  width: 1.5vh;
+  height: 1.5vh;
+  size: 100%;
+}
+.record .recordItem #text {
+  width: 80%;
+  height: -webkit-fit-content;
+  height: fit-content;
+  display: -webkit-box;
+  font-size: 32rpx;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  line-height: 150%;
+}
+.record .recordItem text:nth-of-type(1) {
+  display: inline-block;
+  margin-top: 2vh;
+  width: 80%;
+  height: 2vh;
+  font-size: 28rpx;
+  color: #a8a8a8;
+  line-height: 150%;
+}
+
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.linear_button {
+  background-image: linear-gradient(to right bottom, #b28ff2, #00ACD7, #b892fb);
+}
+.linear_back {
+  background-image: linear-gradient(to bottom, #51BDE7, #C6AEF1);
+}
+#filterImg {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-filter: blur(8rpx);
+          filter: blur(8rpx);
+}
+.radius-button {
+  border: 1px solid transparent;
+  border-radius: 4vh;
+}
+.box_shadow {
+  box-shadow: 6rpx 6rpx 2rpx #b1eaf5;
+}
+.create {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  position: fixed;
+  right: 4vw;
+  bottom: 20vh;
+  width: 15vw;
+  height: 15vw;
+  background-color: #51BDE7;
+  padding: 2vw 2vw;
+  box-sizing: border-box;
+  border: 1rpx solid transparent;
+  box-shadow: 0 0 55rpx 5rpx #4fafef;
+}
+.create image {
+  width: 11vw;
+  height: 11vw;
+  size: 100%;
+}
+.buttonStyle1 {
+  background-image: linear-gradient(to right bottom, #7867cc, #b7bafb);
+}
+.buttonStyle2 {
+  background-image: linear-gradient(to right bottom, #c29df5, #9655fb);
+}
+.buttonStyle3 {
+  background-image: linear-gradient(to right bottom, #a6f1ff, #4de9f9);
+}
+.buttonStyle4 {
+  background-image: linear-gradient(to right bottom, #80e6a6, #fdf9cb);
+}
+.buttonStyle5 {
+  background-image: linear-gradient(to right bottom, #fbcd74, #ff8e19);
+}
+.buttonStyle6 {
+  background-image: linear-gradient(to right bottom, #75bffb, #0791ff);
+}
+.buttonStyle7 {
+  background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
+}
 #workitem1,
 #workitem2 {
   width: 90vw;
@@ -97,7 +266,7 @@
   height: 65rpx;
   width: 80vw;
   margin: 0 auto;
-  border-bottom: 1rpx solid #b1eaf5;
+  border-bottom: 1rpx solid #d8d8d89c;
 }
 #workitem1 text:nth-of-type(2),
 #workitem2 text:nth-of-type(2) {
@@ -112,7 +281,7 @@
   height: 55rpx;
   line-height: 55rpx;
   color: #797979;
-  border-top: 1rpx solid #b1eaf5;
+  border-top: 1rpx solid #d8d8d89c;
 }
 .work {
   width: 100vw;
@@ -138,7 +307,6 @@
   align-items: center;
   transition: all 0.6s;
   overflow: hidden;
-  background-color: white;
 }
 .work .work-swiper .work-itemA .options button {
   padding: 0px;
@@ -158,6 +326,113 @@
 .work .work-swiper .work-itemB {
   width: 100vw;
   height: 100%;
-  background-color: #DBF1E1;
+  background-color: #eeeeeecc;
+}
+#workitem2 view {
+  background-color: #eeeeeecc;
+}
+#workitem2 text {
+  color: #a8a8a8;
+}
+#BigRecord,
+#work {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 12vh;
+  max-height: 60vh;
+  margin: auto;
+  height: -webkit-fit-content;
+  height: fit-content;
+  width: 60vw;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  background-color: #c4bff9cf;
+  border-radius: 35rpx;
+  padding: 5vh 8vw;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: white;
+  box-shadow: 0rpx 0rpx 25rpx #C6AEF1;
+}
+#BigRecord image,
+#work image {
+  position: absolute;
+  top: -30rpx;
+  right: 5vw;
+  width: 80rpx;
+  height: 80rpx;
+}
+.record {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.record #record-input {
+  margin: 1vh auto;
+  width: 70vw;
+  height: 5vh;
+  border: 1rpx solid transparent;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  background-color: #f6fff9;
+  line-height: 5vh;
+  padding: 0 5vw;
+}
+.record #record-bk {
+  position: fixed;
+  top: 0;
+  left: -30vw;
+  width: 160vw;
+  height: inherit;
+  size: 100%;
+  z-index: -1;
+}
+.record .recordItem {
+  width: 100%;
+  height: calc(fit-content+2vh);
+  margin: 1vw;
+  padding: 5vw;
+  vertical-align: top;
+  border: 1rpx solid transparent;
+  border-radius: 20rpx;
+  background-color: white;
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}
+.record .recordItem #deleteImg {
+  position: absolute;
+  right: 1vw;
+  top: 1vh;
+  display: inline-block;
+  width: 1.5vh;
+  height: 1.5vh;
+  size: 100%;
+}
+.record .recordItem #text {
+  width: 80%;
+  height: -webkit-fit-content;
+  height: fit-content;
+  display: -webkit-box;
+  font-size: 32rpx;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  line-height: 150%;
+}
+.record .recordItem text:nth-of-type(1) {
+  display: inline-block;
+  margin-top: 2vh;
+  width: 80%;
+  height: 2vh;
+  font-size: 28rpx;
+  color: #a8a8a8;
+  line-height: 150%;
 }
 

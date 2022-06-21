@@ -67,10 +67,12 @@
 .buttonStyle7 {
   background-image: linear-gradient(to right bottom, #ffdcfb, #ff8edb);
 }
-#viewImg1, #viewImg2 {
+#viewImg1,
+#viewImg2 {
   width: 5vh;
 }
-.wtImg, .feelImg {
+.wtImg,
+.feelImg {
   position: absolute;
   left: 0;
   top: 0;
@@ -276,7 +278,9 @@ button {
   height: fit-content;
   box-sizing: border-box;
 }
-.creation .footer .moveTz button, .creation .footer .addTz button, .creation .footer .addBk button {
+.creation .footer .moveTz button,
+.creation .footer .addTz button,
+.creation .footer .addBk button {
   min-width: 20vw;
 }
 
